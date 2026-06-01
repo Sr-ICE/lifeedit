@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>4.5room — Editorial</title>
+<style>
+  * { margin:0; padding:0; box-sizing:border-box; }
+  :root { --ink:#1c1a17; --paper:#f4efe6; --terra:#b5683f; --sub:#7c7367; }
+  body { font-family:-apple-system,"Hiragino Sans","Noto Sans JP",sans-serif; background:var(--paper); color:var(--ink); -webkit-font-smoothing:antialiased; }
+  .serif { font-family:"Hiragino Mincho ProN","Yu Mincho",Georgia,"Times New Roman",serif; }
+  header { display:flex; align-items:center; justify-content:space-between; padding:26px 56px; border-bottom:1px solid rgba(28,26,23,.14); }
+  .logo { font-size:22px; font-weight:700; letter-spacing:.02em; }
+  .logo b { color:var(--terra); font-weight:700; }
+  .issue { font-size:12px; letter-spacing:.18em; color:var(--sub); }
+  nav { display:flex; gap:30px; font-size:13px; color:var(--ink); }
+  nav a { color:inherit; text-decoration:none; }
+  .hero { display:grid; grid-template-columns:1.05fr 1fr; gap:64px; align-items:center; padding:84px 56px; max-width:1280px; margin:0 auto; }
+  .photo { position:relative; }
+  .photo img { width:100%; aspect-ratio:4/5; object-fit:cover; }
+  .photo .cap { font-size:12px; color:var(--sub); margin-top:12px; letter-spacing:.04em; }
+  .vol { font-size:12px; letter-spacing:.32em; color:var(--terra); font-weight:700; margin-bottom:22px; }
+  h1 { font-size:clamp(40px,5.2vw,62px); line-height:1.32; font-weight:600; margin-bottom:30px; letter-spacing:.01em; }
+  .rule { width:54px; height:2px; background:var(--terra); margin-bottom:26px; }
+  .lead { font-size:16px; line-height:2.05; color:#423d36; max-width:440px; margin-bottom:38px; }
+  .more { display:inline-flex; align-items:center; gap:12px; font-size:14px; letter-spacing:.06em; color:var(--ink); text-decoration:none; border-bottom:1px solid var(--ink); padding-bottom:5px; }
+</style>
+</head>
+<body>
+  <header>
+    <div class="logo serif">4.5<b>room</b></div>
+    <nav><a href="#">Stories</a><a href="#">Gear</a><a href="#">About</a></nav>
+    <div class="issue serif">A CURATED LIFE — Vol.01</div>
+  </header>
+  <section class="hero">
+    <div class="photo">
+      <img src="https://img.youtube.com/vi/xE6rsLbfJj4/maxresdefault.jpg"
+           onerror="this.src='https://img.youtube.com/vi/xE6rsLbfJj4/hqdefault.jpg'" alt="">
+      <div class="cap serif">No.01 — Rollbahn mini, on the desk.</div>
+    </div>
+    <div class="text">
+      <div class="vol serif">EVERYDAY ESSENTIALS</div>
+      <h1 class="serif">机の上から、<br>暮らしは静かに<br>はじまる。</h1>
+      <div class="rule"></div>
+      <p class="lead">小さな部屋で見つけた、ちょうどいい道具のはなし。iPad mini、文房具、毎日のバッグ。手元の景色を、ひとつずつ編集していくチャンネルです。</p>
+      <a class="more serif" href="#">最新のストーリーを読む &nbsp;→</a>
+    </div>
+  </section>
+</body>
+</html>

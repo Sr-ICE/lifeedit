@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>4.5room — Craft</title>
+<style>
+  * { margin:0; padding:0; box-sizing:border-box; }
+  :root { --ink:#3a332b; --bg:#ede3d3; --card:#fbf6ec; --olive:#7a7e52; --terra:#c2754b; --sub:#857b6c; }
+  body { font-family:-apple-system,"Hiragino Maru Gothic ProN","Hiragino Sans","Noto Sans JP",sans-serif; background:var(--bg); color:var(--ink); -webkit-font-smoothing:antialiased; }
+  header { display:flex; align-items:center; justify-content:space-between; padding:26px 48px; }
+  .logo { font-weight:800; font-size:21px; background:var(--card); padding:7px 16px; border-radius:14px; box-shadow:0 4px 0 rgba(58,51,43,.12); }
+  .logo b { color:var(--terra); }
+  nav { display:flex; gap:26px; font-size:14px; color:var(--ink); }
+  nav a { color:inherit; text-decoration:none; }
+  .nav-cta { background:var(--ink); color:var(--bg); padding:9px 18px; border-radius:999px; font-size:13px; font-weight:700; }
+  .hero { display:grid; grid-template-columns:1fr 1fr; gap:54px; align-items:center; padding:64px 48px 80px; max-width:1200px; margin:0 auto; }
+  .eyebrow { display:inline-block; background:var(--olive); color:#fff; font-size:12px; font-weight:700; letter-spacing:.08em; padding:6px 14px; border-radius:999px; margin-bottom:24px; }
+  h1 { font-size:clamp(38px,5vw,58px); line-height:1.34; font-weight:800; margin-bottom:24px; }
+  h1 .u { background:linear-gradient(transparent 64%, rgba(194,117,75,.34) 64%); }
+  .lead { font-size:16px; line-height:2; color:#5b5346; max-width:430px; margin-bottom:36px; }
+  .btns { display:flex; gap:14px; }
+  .btn { padding:15px 28px; border-radius:14px; font-weight:700; font-size:15px; text-decoration:none; }
+  .btn-fill { background:var(--terra); color:#fff; box-shadow:0 5px 0 rgba(150,80,45,.4); }
+  .btn-line { background:var(--card); color:var(--ink); box-shadow:0 5px 0 rgba(58,51,43,.12); }
+  .art { position:relative; }
+  .art .pic { background:var(--card); padding:16px 16px 54px; border-radius:20px; box-shadow:0 18px 40px -18px rgba(58,51,43,.45); transform:rotate(-2deg); }
+  .art .pic img { width:100%; aspect-ratio:1/1; object-fit:cover; border-radius:10px; }
+  .art .pic .cap { text-align:center; margin-top:14px; font-size:14px; color:var(--sub); }
+  .tag { position:absolute; top:-14px; right:18px; background:var(--olive); color:#fff; font-size:12px; font-weight:700; padding:8px 14px; border-radius:999px; transform:rotate(4deg); }
+</style>
+</head>
+<body>
+  <header>
+    <div class="logo">4.5<b>room</b></div>
+    <nav><a href="#">About</a><a href="#">道具箱</a><a href="#">Contact</a></nav>
+    <a class="nav-cta" href="#">登録する</a>
+  </header>
+  <section class="hero">
+    <div class="text">
+      <span class="eyebrow">4.5room の道具箱</span>
+      <h1>お気に入りだけ、<br><span class="u">そばに置いて。</span></h1>
+      <p class="lead">小さな部屋の、ちょうどいい暮らし。バッグも、文房具も、ガジェットも。長く使いたくなる道具を、てのひらサイズで紹介します。</p>
+      <div class="btns">
+        <a class="btn btn-fill" href="#">チャンネル登録</a>
+        <a class="btn btn-line" href="#">動画を見る</a>
+      </div>
+    </div>
+    <div class="art">
+      <span class="tag">new!</span>
+      <div class="pic">
+        <img src="https://img.youtube.com/vi/1slz-DYE6l4/maxresdefault.jpg"
+             onerror="this.src='https://img.youtube.com/vi/1slz-DYE6l4/hqdefault.jpg'" alt="">
+        <div class="cap">700円のショルダーバッグ、ほぼ完璧でした。</div>
+      </div>
+    </div>
+  </section>
+</body>
+</html>
