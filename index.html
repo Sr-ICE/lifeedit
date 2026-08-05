@@ -1,379 +1,212 @@
 <!DOCTYPE html>
 <html lang="ja">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="robots" content="noindex, nofollow">
-  <title>4.5room | 生活編集 — iPad mini・EDC・文房具</title>
-  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%230abab5'/%3E%3Ctext x='32' y='43' font-family='Arial,sans-serif' font-size='25' font-weight='bold' fill='white' text-anchor='middle'%3E4.5%3C/text%3E%3C/svg%3E">
-  <meta name="description" content="4.5room（よんてんごルーム）は、iPad mini・EDC・ミニマルバッグ・文房具など、毎日持ち歩く&quot;いい道具&quot;で暮らしを整えていく「生活編集」のYouTubeチャンネルです。">
-
-  <meta property="og:title" content="4.5room — 生活を、編集する。">
-  <meta property="og:description" content="iPad mini・EDC・ミニマルバッグ・文房具。持ち物から暮らしを編集する「生活編集」チャンネル。">
-  <meta property="og:type" content="website">
-
-  <style>
-    :root {
-      --bg:          #0b0b0d;
-      --bg-elev:     #131318;
-      --ink:         #ffffff;
-      --text:        rgba(255,255,255,.86);
-      --text-sub:    rgba(255,255,255,.56);
-      --line:        rgba(255,255,255,.12);
-      --line-soft:   rgba(255,255,255,.07);
-      --accent:      #0abab5;   /* ティファニーブルー */
-      --accent-soft: #5fe0db;
-      --maxw:        1180px;
-    }
-
-    * { margin: 0; padding: 0; box-sizing: border-box; }
-    html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
-
-    body {
-      font-family: -apple-system, BlinkMacSystemFont, "Hiragino Sans",
-                   "Hiragino Kaku Gothic ProN", "Noto Sans JP", Meiryo, sans-serif;
-      background: var(--bg);
-      color: var(--text);
-      line-height: 1.85;
-      font-feature-settings: "palt";
-      letter-spacing: .012em;
-      -webkit-font-smoothing: antialiased;
-      text-rendering: optimizeLegibility;
-    }
-    a { color: inherit; text-decoration: none; }
-    img { display: block; max-width: 100%; }
-    .wrap { max-width: var(--maxw); margin: 0 auto; padding: 0 40px; }
-    @media (max-width: 640px) { .wrap { padding: 0 28px; } .hero-meta { gap: 8px 18px; font-size: 13px; } .hero-meta .dot { display: none; } }
-
-    .eyebrow {
-      display: inline-block; font-size: 11.5px; letter-spacing: .34em;
-      text-transform: uppercase; color: var(--accent); font-weight: 700; margin-bottom: 24px;
-    }
-
-    /* ===== ロゴ（ワードマーク） ===== */
-    .logo { display: inline-flex; align-items: baseline; font-size: 21px; letter-spacing: -.01em; color: var(--ink); }
-    .logo .lo-num { font-weight: 800; }
-    .logo .lo-word { color: var(--accent); font-weight: 600; margin-left: 1.5px; }
-
-    /* ===== ヘッダー ===== */
-    header {
-      position: fixed; top: 0; left: 0; right: 0; z-index: 60;
-      transition: background .35s ease, border-color .35s ease, backdrop-filter .35s ease;
-      border-bottom: 1px solid transparent;
-    }
-    header.scrolled {
-      background: rgba(11,11,13,.72); backdrop-filter: saturate(160%) blur(16px);
-      border-bottom-color: var(--line-soft);
-    }
-    .nav { display: flex; align-items: center; justify-content: space-between; height: 78px; }
-    .nav-right { display: flex; align-items: center; gap: 34px; }
-    .nav-links { display: flex; gap: 34px; }
-    .nav-links a { color: var(--text-sub); font-size: 13.5px; font-weight: 500; letter-spacing: .03em; transition: color .2s; }
-    .nav-links a:hover { color: var(--ink); }
-    .nav-cta {
-      font-size: 13px; font-weight: 700; color: var(--bg); background: var(--accent);
-      padding: 10px 20px; border-radius: 999px; transition: transform .15s, box-shadow .2s;
-    }
-    .nav-cta:hover { transform: translateY(-1px); box-shadow: 0 10px 24px -8px rgba(10,186,181,.55); }
-    @media (max-width: 720px) { .nav-links { display: none; } }
-
-    /* ===== ボタン ===== */
-    .btn {
-      display: inline-flex; align-items: center; gap: 10px; cursor: pointer;
-      padding: 15px 30px; border-radius: 9px; font-weight: 700; font-size: 14.5px;
-      transition: transform .2s, box-shadow .2s, border-color .2s, background .2s; border: 1px solid transparent;
-    }
-    .btn-primary { background: var(--accent); color: #04201f; box-shadow: 0 12px 30px -10px rgba(10,186,181,.6); }
-    .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 16px 36px -10px rgba(10,186,181,.75); }
-    .btn-ghost { border-color: rgba(255,255,255,.28); color: #fff; }
-    .btn-ghost:hover { border-color: #fff; transform: translateY(-2px); }
-
-    /* ===== ヒーロー（全面背景） ===== */
-    .hero { position: relative; min-height: 100vh; display: flex; flex-direction: column; overflow: hidden; }
-    .hero-bg { position: absolute; inset: 0; z-index: 0; }
-    .hero-bg img { width: 100%; height: 100%; object-fit: cover; }
-    .hero-bg::after {
-      content: ""; position: absolute; inset: 0;
-      background:
-        linear-gradient(100deg, rgba(8,8,10,.97) 24%, rgba(8,8,10,.74) 52%, rgba(8,8,10,.30) 100%),
-        linear-gradient(0deg, rgba(8,8,10,.95) 2%, transparent 38%);
-    }
-    .hero-body { position: relative; z-index: 3; flex: 1; display: flex; align-items: center; padding: 120px 0 40px; }
-    .hero-body .wrap { width: 100%; }
-    .hero-inner { max-width: 600px; }
-    .hero h1 {
-      font-size: clamp(40px, 5.4vw, 62px); line-height: 1.18; font-weight: 800;
-      letter-spacing: -.02em; color: var(--ink); margin-bottom: 28px;
-    }
-    .hero h1 em { font-style: normal; color: var(--accent); }
-    .hero .lead { color: rgba(255,255,255,.76); font-size: 17px; line-height: 1.95; max-width: 540px; margin-bottom: 42px; }
-    .hero-actions { display: flex; gap: 14px; flex-wrap: wrap; margin-bottom: 46px; }
-    .hero-meta { display: flex; align-items: center; flex-wrap: wrap; gap: 10px 22px; color: var(--text-sub); font-size: 13.5px; }
-    .hero-meta > span:not(.dot) { white-space: nowrap; }
-    .hero-meta b { color: #fff; font-weight: 700; }
-    .hero-meta .dot { width: 4px; height: 4px; border-radius: 50%; background: rgba(255,255,255,.3); }
-
-    /* NOW PLAYING ティッカー */
-    .now { position: relative; z-index: 3; padding-bottom: 38px; }
-    .now .wrap { display: flex; align-items: center; gap: 14px; color: var(--text-sub); font-size: 13px; letter-spacing: .02em; }
-    .now .pulse { width: 8px; height: 8px; border-radius: 50%; background: var(--accent);
-      box-shadow: 0 0 0 0 rgba(10,186,181,.5); animation: pulse 2.2s infinite; flex: none; }
-    @keyframes pulse { 0% { box-shadow: 0 0 0 0 rgba(10,186,181,.5); } 70% { box-shadow: 0 0 0 9px rgba(10,186,181,0); } 100% { box-shadow: 0 0 0 0 rgba(10,186,181,0); } }
-    .now .label { color: var(--accent); font-weight: 700; letter-spacing: .18em; flex: none; }
-    .now .np-title { color: rgba(255,255,255,.82); font-weight: 600; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
-    @media (max-width: 640px) { .now .np-title { display: none; } }
-
-    /* ===== セクション共通 ===== */
-    section.block { padding: 104px 0; }
-    .bg-elev { background: var(--bg-elev); }
-    .section-head { margin-bottom: 64px; max-width: 680px; }
-    .section-head h2 { font-size: clamp(25px, 3.2vw, 36px); font-weight: 800; letter-spacing: -.02em; color: var(--ink); line-height: 1.32; margin-bottom: 18px; }
-    .section-head p { color: var(--text-sub); font-size: 15.5px; }
-    .center { text-align: center; }
-    .center .section-head { margin-left: auto; margin-right: auto; }
-
-    /* ===== About ===== */
-    .about-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; background: var(--line-soft); border: 1px solid var(--line-soft); border-radius: 16px; overflow: hidden; }
-    @media (max-width: 820px) { .about-grid { grid-template-columns: 1fr; } }
-    .feature { background: var(--bg); padding: 40px 34px; }
-    .feature .num { display: block; font-size: 12px; font-weight: 800; letter-spacing: .16em; color: var(--accent); margin-bottom: 18px; }
-    .feature h3 { font-size: 19px; font-weight: 700; color: var(--ink); margin-bottom: 12px; letter-spacing: .01em; }
-    .feature p { color: var(--text-sub); font-size: 14.5px; }
-
-    /* ===== Videos ===== */
-    .feature-video { display: block; margin-bottom: 30px; }
-    .video-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 30px; }
-    @media (max-width: 720px) { .video-grid { grid-template-columns: 1fr; } }
-
-    .ratio { position: relative; aspect-ratio: 16/9; overflow: hidden; border-radius: 14px; background: #1a1a20; }
-    .ratio img { width: 100%; height: 100%; object-fit: cover; transition: transform .7s cubic-bezier(.2,.7,.2,1); }
-    .play {
-      position: absolute; inset: 0; margin: auto; z-index: 2;
-      width: 62px; height: 62px; border-radius: 50%;
-      background: rgba(255,255,255,.94); color: #04201f;
-      display: flex; align-items: center; justify-content: center;
-      font-size: 19px; padding-left: 4px; box-shadow: 0 12px 34px rgba(0,0,0,.45); transition: transform .25s;
-    }
-    .vcard, .feature-video { color: var(--text); }
-    .vcard:hover .ratio img, .feature-video:hover .ratio img { transform: scale(1.05); }
-    .vcard:hover .play, .feature-video:hover .play { transform: scale(1.1); }
-    .feature-video .ratio { border-radius: 18px; }
-    .feature-video .play { width: 74px; height: 74px; font-size: 23px; }
-    .vcard h3, .feature-video h3 {
-      margin-top: 20px; font-size: 16px; font-weight: 700; color: var(--ink); line-height: 1.6;
-      display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;
-      transition: color .2s;
-    }
-    .feature-video h3 { font-size: 19px; max-width: 760px; }
-    .vcard:hover h3, .feature-video:hover h3 { color: var(--accent-soft); }
-    .vcard .tag, .feature-video .tag {
-      display: inline-block; margin-top: 14px; font-size: 11px; font-weight: 700; letter-spacing: .14em;
-      color: var(--accent); border: 1px solid rgba(10,186,181,.4); padding: 4px 11px; border-radius: 999px;
-    }
-    .videos-foot { margin-top: 64px; text-align: center; }
-    .text-link { display: inline-flex; align-items: center; gap: 9px; color: var(--ink); font-weight: 700; font-size: 15px; }
-    .text-link .arrow { transition: transform .2s; color: var(--accent); }
-    .text-link:hover .arrow { transform: translateX(6px); }
-
-    /* ===== Contact ===== */
-    .contact .lead { color: var(--text-sub); max-width: 540px; margin: 0 auto 40px; font-size: 15.5px; }
-    .socials { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; }
-    .social-link {
-      display: inline-flex; align-items: center; gap: 10px; padding: 13px 26px; border-radius: 999px;
-      border: 1px solid var(--line); color: #fff; font-size: 14px; font-weight: 600; background: rgba(255,255,255,.02);
-      transition: border-color .2s, transform .2s, box-shadow .2s, color .2s;
-    }
-    .social-link svg { width: 18px; height: 18px; }
-    .social-link:hover { border-color: var(--accent); color: var(--accent-soft); transform: translateY(-2px); box-shadow: 0 14px 30px -16px rgba(10,186,181,.7); }
-
-    /* ===== フッター ===== */
-    footer { border-top: 1px solid var(--line-soft); padding: 46px 0; }
-    .foot-inner { display: flex; align-items: center; justify-content: space-between; gap: 16px; flex-wrap: wrap; }
-    .foot-inner .logo { font-size: 18px; }
-    .foot-inner small { color: var(--text-sub); font-size: 13px; }
-
-    /* ===== スクロール演出 ===== */
-    .reveal { opacity: 0; transform: translateY(28px); transition: opacity .8s ease, transform .8s cubic-bezier(.2,.7,.2,1); }
-    .reveal.is-visible { opacity: 1; transform: none; }
-    @media (prefers-reduced-motion: reduce) { .reveal { opacity: 1; transform: none; transition: none; } }
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>4.5room｜生活編集 — 使い続けた道具の記録</title>
+<meta name="description" content="4.5room（よんてんごルーム）の公式サイト。iPad mini・バッグ・EDC・文房具。4.5畳の部屋から、毎日持ち歩く道具を使い込みながら暮らしを整えていく「生活編集」の記録。">
+<link rel="canonical" href="https://4-5room.com/">
+<meta property="og:site_name" content="4.5room">
+<meta property="og:title" content="4.5room｜生活編集 — 使い続けた道具の記録">
+<meta property="og:description" content="買った日ではなく、使い続けた日数で語る。iPad mini・バッグ・EDC・文房具の「生活編集」。">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://4-5room.com/">
+<meta property="og:image" content="https://4-5room.com/assets/photos/hero-wide.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' fill='%23fefefd'/%3E%3Ctext x='32' y='42' font-family='Helvetica,Arial,sans-serif' font-size='23' font-weight='700' fill='%2317171a' text-anchor='middle'%3E4.5%3C/text%3E%3C/svg%3E">
+<link rel="stylesheet" href="assets/site.css">
+<script defer src="assets/site.js"></script>
 </head>
 <body>
 
-  <header id="siteHeader">
-    <div class="wrap nav">
-      <a class="logo" href="#"><span class="lo-num">4.5</span><span class="lo-word">room</span></a>
-      <div class="nav-right">
-        <nav class="nav-links">
-          <a href="#about">About</a>
-          <a href="#videos">Videos</a>
-          <a href="#contact">Contact</a>
-        </nav>
-        <a class="nav-cta" href="https://www.youtube.com/@4.5room?sub_confirmation=1" target="_blank" rel="noopener">登録する</a>
-      </div>
-    </div>
-  </header>
+<header>
+  <div class="wrap">
+    <a class="logo" href="index.html">4.5<em>room</em></a>
+    <nav>
+      <a href="carry.html">持ち物</a>
+      <a href="#journal" class="n-hide">読みもの</a>
+      <a href="#movies" class="n-hide">動画</a>
+      <a href="about.html">について</a>
+      <a href="about.html#contact" class="talk">お仕事のご相談</a>
+    </nav>
+  </div>
+</header>
 
-  <!-- ===== ヒーロー ===== -->
-  <section class="hero">
-    <div class="hero-bg">
-      <img src="https://img.youtube.com/vi/lLwJPCPSBvs/maxresdefault.jpg"
-           onerror="this.onerror=null;this.src='https://img.youtube.com/vi/lLwJPCPSBvs/hqdefault.jpg'" alt="">
+<!-- ===== HERO ===== -->
+<section class="hero">
+  <div class="wrap">
+    <h1>買った日ではなく、<br>使い続けた日数で語る。</h1>
+    <p class="lead">iPad mini、ミニマルなバッグ、文房具。4.5畳の部屋から、毎日持ち歩く道具を使い込みながら暮らしを整えていく。その記録を「生活編集」と呼んでいる。</p>
+
+    <div class="meta">
+      <a href="carry.html">いま持ち歩いているもの</a>
+      <a href="#journal">読みものを読む</a>
+      <!-- 点数は carry.html に載せている品数と必ず一致させること（現在16点） -->
+      <span class="used">常用しているもの <b>16</b> 点</span>
     </div>
-    <div class="hero-body">
-      <div class="wrap">
-        <div class="hero-inner">
-        <span class="eyebrow">生活編集 — Everyday Edit</span>
-        <h1>生活を、<br><em>編集する。</em></h1>
-        <p class="lead">iPad mini、ミニマルなバッグ、こだわりの文房具。毎日持ち歩く"いい道具"を使い込み、暮らしを少しずつ整えていく。4.5roomは、そんな「生活編集」のチャンネルです。</p>
-        <div class="hero-actions">
-          <a class="btn btn-primary" href="https://www.youtube.com/@4.5room?sub_confirmation=1" target="_blank" rel="noopener">チャンネル登録</a>
-          <a class="btn btn-ghost" href="#videos">最新の動画を見る ▶</a>
+
+    <figure class="hero-fig">
+      <img src="assets/photos/hero-wide.jpg" alt="ショルダーバッグを肩に掛け、ストラップを持つところ" width="1800" height="824">
+      <figcaption class="hero-cap">
+        <span class="t">読書かばん｜StandardProducts スマホショルダー ＋ 無印良品のストラップ</span>
+        <span class="used" data-since="2026-05"></span>
+      </figcaption>
+    </figure>
+  </div>
+</section>
+
+<!-- ===== いま持ち歩いているもの（抜粋） ===== -->
+<section class="sec">
+  <div class="wrap">
+    <div class="head">
+      <div>
+        <span class="label">EVERYDAY CARRY</span>
+        <h2>いま、持ち歩いているもの。</h2>
+        <p class="note">動画で紹介して、そのまま日常に残った道具だけを並べている。日付は、その道具を動画で紹介した月。</p>
+      </div>
+      <a class="more" href="carry.html">16点すべて見る →</a>
+    </div>
+
+    <div class="kit three">
+      <a class="it" href="carry.html#bag">
+        <div class="ph"><img loading="lazy" src="assets/photos/sq-03_shape.jpg" alt="マットな質感のショルダーバッグ" width="680" height="680"></div>
+        <h3>読書かばん</h3>
+        <div class="sub">StandardProducts／スマホショルダー</div>
+        <span class="used" data-since="2026-05"></span>
+      </a>
+      <a class="it" href="carry.html#bag">
+        <div class="ph"><img loading="lazy" src="assets/photos/sq-06_in_use.jpg" alt="バッグを肩に掛けて立っているところ" width="680" height="680"></div>
+        <h3>ショルダーストラップ</h3>
+        <div class="sub">無印良品／自由に組み合わせられるストラップ</div>
+        <span class="used" data-since="2026-05"></span>
+      </a>
+      <a class="it" href="carry.html#edc">
+        <div class="ph"><img loading="lazy" src="assets/photos/sq-05_contents.jpg" alt="手のひらサイズのイヤホンケース" width="680" height="680"></div>
+        <h3>イヤホンケース</h3>
+        <div class="sub">StandardProducts／カラビナ付</div>
+        <span class="used" data-since="2026-06"></span>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ===== 読みもの（noteへの外部リンク） =====
+     このサイトは記事メディアにしない。読みものは note の記事へ送るだけ。
+     追加するときは note の記事URL・タイトル・公開日をそのまま貼る。 -->
+<section class="sec tint" id="journal">
+  <div class="wrap">
+    <div class="head">
+      <div>
+        <span class="label">JOURNAL</span>
+        <h2>読みもの。</h2>
+        <p class="note">動画では語りきれなかったことを、写真と文章で。記事はすべて note に書いている。</p>
+      </div>
+      <a class="more" href="https://note.com/4_5room/" target="_blank" rel="noopener">noteで全部読む →</a>
+    </div>
+
+    <div class="log">
+      <a href="https://note.com/4_5room/n/n2c4ecc530637" target="_blank" rel="noopener">
+        <span class="d">2026.07.26</span>
+        <div><h3>「一生モノ」は、名詞ではなく動詞だった</h3><div class="tag">考えたこと</div></div>
+        <span class="r">note ↗</span>
+      </a>
+      <a href="https://note.com/4_5room/n/n250420417d4f" target="_blank" rel="noopener">
+        <span class="d">2026.05.24</span>
+        <div><h3>【700円】StandardProductsの新作ショルダーが、本好きの最適解になりそうな話｜読書かばん</h3><div class="tag">読書かばん</div></div>
+        <span class="r">note ↗</span>
+      </a>
+      <a href="https://note.com/4_5room/n/n43d0a1f3a29d" target="_blank" rel="noopener">
+        <span class="d">2026.05.29</span>
+        <div><h3>「会話」をやめ、「発注」を始めよう</h3><div class="tag">考えたこと</div></div>
+        <span class="r">note ↗</span>
+      </a>
+      <a href="https://note.com/4_5room/n/nbe70c0691a90" target="_blank" rel="noopener">
+        <span class="d">2026.03.20</span>
+        <div><h3>3時間かけて、自分で機械式時計を組み立てた話</h3><div class="tag">つくる</div></div>
+        <span class="r">note ↗</span>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ===== 動画 =====
+     サムネイルは並べない（概要欄由来の大きな文字が焼き込まれていて、
+     このサイトのトーンと合わないため）。最新3本は assets/stats.json から生成。 -->
+<section class="sec" id="movies">
+  <div class="wrap">
+    <div class="head">
+      <div>
+        <span class="label">MOVIES</span>
+        <h2>動画。</h2>
+        <p class="note">サイズ感、質感、取り回し。写真では伝わらない部分はこちらで。</p>
+      </div>
+      <a class="more" href="https://www.youtube.com/@4.5room/videos" target="_blank" rel="noopener">チャンネルを見る →</a>
+    </div>
+
+    <div class="log" data-videos="3">
+      <p class="loading mono">読み込み中…</p>
+    </div>
+  </div>
+</section>
+
+<!-- ===== について ===== -->
+<section class="sec tint" id="about">
+  <div class="wrap">
+    <div class="about">
+      <div class="ph"><img loading="lazy" src="assets/photos/p3-portrait.jpg" alt="バッグを掛けて机の前に立つところ" width="880" height="1174"></div>
+      <div>
+        <span class="label">ABOUT</span>
+        <h2>4.5roomについて。</h2>
+        <p>4.5畳の部屋から発信している。広い場所でも、たくさんの物でもない。限られた広さに置くものを選び直していく作業が、そのまま暮らしを整えることになる。それを「生活編集」と呼んでいる。</p>
+        <p>買ってすぐの感想は書かない。しばらく使って、残ったものと手放したものの差が見えてから言葉にする。良かった点だけでなく、物足りなかった点も同じだけ話す。</p>
+        <!-- 数値は assets/stats.json（API実測）から注入。HTMLに数値を書かないこと -->
+        <p class="stats-note">
+          登録者 <span class="is-loading" data-stat="channel.subscribers" data-fmt="comma">—</span>　／　総再生
+          <span class="is-loading" data-stat="channel.views_total" data-fmt="man">—</span>　／
+          <span class="is-loading" data-stat="channel.videos" data-fmt="comma">—</span> 本　／　単独運営
+          <span class="is-loading" data-stat="channel.first_video_published" data-fmt="year_nth">—</span><br>
+          YouTube Data API 実測（<span data-stat="measured_at" data-fmt="date">—</span> 時点）
+        </p>
+
+        <div class="sns">
+          <a href="about.html">くわしく見る ↗</a>
+          <a href="https://www.youtube.com/@4.5room" target="_blank" rel="noopener">YouTube ↗</a>
+          <a href="https://note.com/4_5room/" target="_blank" rel="noopener">note ↗</a>
+          <a href="https://www.instagram.com/srice4.5/" target="_blank" rel="noopener">Instagram ↗</a>
         </div>
-        <div class="hero-meta">
-          <span><b>4,000+</b> 登録者</span><span class="dot"></span>
-          <span><b>4年目</b> の運営</span><span class="dot"></span>
-          <span><b>毎週</b> 更新</span>
-        </div>
-        </div>
       </div>
     </div>
-    <div class="now">
-      <div class="wrap">
-        <span class="pulse"></span><span class="label">NOW PLAYING</span>
-        <span class="np-title" id="npTitle"></span>
-      </div>
+  </div>
+</section>
+
+<!-- ===== お仕事のご相談（企業向けのため敬体） ===== -->
+<section class="sec">
+  <div class="wrap narrow">
+    <div class="mailbox">
+      <span class="label">CONTACT</span>
+      <h3>製品のご紹介・タイアップのご相談</h3>
+      <p>ご相談はメールで承っています。製品名・ご希望の形式・時期をお知らせいただけると、可否のお返事が早くなります。実績とお受けできる形式は「について」のページにまとめています。</p>
+      <a class="cta" href="mailto:4.5roomsrice@gmail.com?subject=%E3%81%8A%E4%BB%95%E4%BA%8B%E3%81%AE%E3%81%94%E7%9B%B8%E8%AB%87%EF%BC%884.5room%EF%BC%89">メールで相談する</a>
+      <div class="addr">4.5roomsrice@gmail.com</div>
     </div>
-  </section>
+  </div>
+</section>
 
-  <!-- ===== About ===== -->
-  <section id="about" class="block">
-    <div class="wrap">
-      <div class="section-head reveal">
-        <span class="eyebrow">About</span>
-        <h2>小さな部屋の、道具と暮らし。</h2>
-        <p>iPad miniやミニマルなバッグ、文房具。毎日の道具を少しずつ見直して、暮らしを整えていく。YouTubeとnoteで、その「生活編集」の記録を発信しています。</p>
-      </div>
-      <div class="about-grid">
-        <div class="feature reveal">
-          <span class="num">01</span>
-          <h3>ガジェット &amp; EDC</h3>
-          <p>iPad miniやミニマルなバッグなど、毎日持ち歩く"いい道具"を実際に使い込み、良かった点も物足りない点も正直にレビューします。</p>
-        </div>
-        <div class="feature reveal">
-          <span class="num">02</span>
-          <h3>文房具 &amp; 作業環境</h3>
-          <p>ロルバーンなどの文房具から、Stream Deckのようなアプリまで。机の上を心地よく整える工夫を紹介します。</p>
-        </div>
-        <div class="feature reveal">
-          <span class="num">03</span>
-          <h3>使い込んでから、語る</h3>
-          <p>速報よりも実体験を大切に。しばらく使ったうえで、繰り返し見たくなる落ち着いた発信を、動画でも記事でも心がけています。</p>
-        </div>
-      </div>
+<footer>
+  <div class="wrap">
+    <div>
+      <span class="big">生活を、編集する。</span><br>
+      <span class="label" style="display:block;margin-top:9px">© <span data-year></span> 4.5room</span>
     </div>
-  </section>
-
-  <!-- ===== Videos ===== -->
-  <section id="videos" class="block bg-elev">
-    <div class="wrap">
-      <div class="section-head reveal">
-        <span class="eyebrow">Videos</span>
-        <h2>最近の動画</h2>
-        <p>気になる1本から、どうぞ。</p>
-      </div>
-      <div id="featuredVideo" class="reveal"><!-- JSで挿入 --></div>
-      <div class="video-grid" id="videoGrid"><!-- JSで挿入 --></div>
-      <div class="videos-foot reveal">
-        <a class="text-link" href="https://www.youtube.com/@4.5room/videos" target="_blank" rel="noopener">
-          チャンネルで全ての動画を見る <span class="arrow">→</span>
-        </a>
-      </div>
-    </div>
-  </section>
-
-  <!-- ===== Contact ===== -->
-  <section id="contact" class="block contact center">
-    <div class="wrap">
-      <div class="section-head reveal">
-        <span class="eyebrow">Contact</span>
-        <h2>フォロー＆お問い合わせ</h2>
-      </div>
-      <p class="lead reveal">動画でのご紹介・PR・コラボのご相談を承っています。各SNSもぜひフォローしてください。</p>
-      <div class="socials reveal">
-        <a class="social-link" href="https://www.youtube.com/@4.5room" target="_blank" rel="noopener">
-          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M23.5 6.2a3 3 0 0 0-2.1-2.1C19.5 3.5 12 3.5 12 3.5s-7.5 0-9.4.6A3 3 0 0 0 .5 6.2 31 31 0 0 0 0 12a31 31 0 0 0 .5 5.8 3 3 0 0 0 2.1 2.1c1.9.6 9.4.6 9.4.6s7.5 0 9.4-.6a3 3 0 0 0 2.1-2.1A31 31 0 0 0 24 12a31 31 0 0 0-.5-5.8zM9.5 15.5v-7l6.5 3.5-6.5 3.5z"/></svg>
-          YouTube
-        </a>
-        <a class="social-link" href="https://www.instagram.com/4.5room_atelier/" target="_blank" rel="noopener">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2.5" y="2.5" width="19" height="19" rx="5.5"/><circle cx="12" cy="12" r="4.2"/><circle cx="17.6" cy="6.4" r="1.1" fill="currentColor" stroke="none"/></svg>
-          Instagram
-        </a>
-        <a class="social-link" href="https://note.com/4_5room/" target="_blank" rel="noopener">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2.5" y="2.5" width="19" height="19" rx="5.5"/><path d="M7.5 16.5v-7l5 7v-7" stroke-linecap="round" stroke-linejoin="round"/></svg>
-          note
-        </a>
-      </div>
-    </div>
-  </section>
-
-  <footer>
-    <div class="wrap foot-inner">
-      <a class="logo" href="#"><span class="lo-num">4.5</span><span class="lo-word">room</span></a>
-      <small>© <span id="year"></span> 4.5room. All rights reserved.</small>
-    </div>
-  </footer>
-
-  <script>
-    document.getElementById('year').textContent = new Date().getFullYear();
-
-    /* 動画データ（タイトルはYouTubeから取得。差し替え・追加はこの配列を編集） */
-    const videos = [
-      { id: '1slz-DYE6l4', title: '【700円】おしゃれ×便利な新作ショルダーバッグがほぼ完璧でした。｜読書かばんその②' },
-      { id: 'Qw5QYKtWxXo', title: '【神アプリ】最高の左手デバイスは手元にあった。｜Elgato STREAM DECKアプリ' },
-      { id: '-lp4D2pRV8w', title: '【2025年最新版】iPad mini活用方法＆ミニマルバッグ' },
-      { id: 'xE6rsLbfJj4', title: '【ロルミニが好きだ】ロルバーンミニがもっと使いやすくなる活用法＆ペン紹介｜シンプルで至高' },
-      { id: 'lLwJPCPSBvs', title: '【EDC拡張】見せて運ぶiPad mini。無印の新モデルで作るEDC' },
-    ];
-
-    const HERO_ID = 'lLwJPCPSBvs';
-    const thumb = (id) =>
-      `<div class="ratio">
-         <img src="https://img.youtube.com/vi/${id}/maxresdefault.jpg"
-              onerror="this.onerror=null;this.src='https://img.youtube.com/vi/${id}/hqdefault.jpg'" alt="">
-         <span class="play">&#9654;</span>
-       </div>`;
-    const watch = (id) => `https://www.youtube.com/watch?v=${id}`;
-
-    // NOW PLAYING（ヒーロー背景の動画タイトル）
-    const np = videos.find(v => v.id === HERO_ID);
-    if (np) document.getElementById('npTitle').textContent = np.title;
-
-    // 注目動画（先頭）
-    const feat = videos[0];
-    document.getElementById('featuredVideo').innerHTML =
-      `<a class="feature-video" href="${watch(feat.id)}" target="_blank" rel="noopener">
-         ${thumb(feat.id)}<h3>${feat.title}</h3><span class="tag">PICK UP</span>
-       </a>`;
-
-    // 動画グリッド（残り）
-    document.getElementById('videoGrid').innerHTML = videos.slice(1).map((v, i) =>
-      `<a class="vcard reveal" style="transition-delay:${i * 80}ms" href="${watch(v.id)}" target="_blank" rel="noopener">
-         ${thumb(v.id)}<h3>${v.title}</h3>
-       </a>`).join('');
-
-    // スクロールで要素をフェードイン
-    const io = new IntersectionObserver((entries) => {
-      entries.forEach((e) => { if (e.isIntersecting) { e.target.classList.add('is-visible'); io.unobserve(e.target); } });
-    }, { threshold: .14 });
-    document.querySelectorAll('.reveal').forEach((el) => io.observe(el));
-
-    // ヘッダーの背景（スクロール時）
-    const header = document.getElementById('siteHeader');
-    const onScroll = () => header.classList.toggle('scrolled', window.scrollY > 8);
-    window.addEventListener('scroll', onScroll, { passive: true });
-    onScroll();
-  </script>
+    <nav>
+      <a href="carry.html">持ち物</a>
+      <a href="#journal">読みもの</a>
+      <a href="#movies">動画</a>
+      <a href="about.html">について</a>
+      <a href="about.html#contact">お仕事のご相談</a>
+    </nav>
+  </div>
+</footer>
 
 </body>
 </html>

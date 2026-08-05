@@ -1,0 +1,124 @@
+{
+  "_comment": "YouTube Data API の実測値。scripts/update_stats.sh で再生成する。手で編集しない。",
+  "measured_at": "2026-08-05",
+  "channel": {
+    "id": "UCdxzGFZI8g1MT3vUCprx_vw",
+    "title": "4.5room",
+    "url": "https://www.youtube.com/@4.5room",
+    "subscribers": 6100,
+    "views_total": 1240828,
+    "videos": 252,
+    "first_video_published": "2022-12-14"
+  },
+  "recent_90d": {
+    "since": "2026-05-07",
+    "video_count": 17,
+    "views_sum": 413615
+  },
+  "latest_videos": [
+    {
+      "id": "szskMWWj2b4",
+      "title": "整理術不要のバックパック｜見た目はオタク。使うと可愛い。",
+      "published": "2026-08-02",
+      "views": 2726
+    },
+    {
+      "id": "BOpgKhPvgfA",
+      "title": "MacBookの入るスリングバッグが快適過ぎた。",
+      "published": "2026-07-31",
+      "views": 2023
+    },
+    {
+      "id": "i3reAfdad5o",
+      "title": "デジタルなデジタルデトックス。矛盾した端末",
+      "published": "2026-07-24",
+      "views": 1803
+    },
+    {
+      "id": "DFnCv_gmQtE",
+      "title": "【2026夏】ユニクロ(他)購入品｜JW ANDERSONデニムとCのシャツ",
+      "published": "2026-07-19",
+      "views": 3482
+    },
+    {
+      "id": "P9c5PDEZKu4",
+      "title": "【Amazonプライムデー】買ったもの、買う予定のもの、実際使っておすすめのものたち。｜2026",
+      "published": "2026-07-12",
+      "views": 1671
+    },
+    {
+      "id": "_DoBwJu4-Bw",
+      "title": "【2026年上半期】買ってよかったもの10選｜生活が変わったアイテムも",
+      "published": "2026-07-11",
+      "views": 2896
+    },
+    {
+      "id": "4DNoMmhoQd4",
+      "title": "スペック表には載らない話。\"暮らしの中\"で使ったMeloBuds N65",
+      "published": "2026-07-10",
+      "views": 240
+    },
+    {
+      "id": "MYgeiZrPb8Y",
+      "title": "【買い逃し注意】プライムデー先行セールの狙い目まとめ｜2026",
+      "published": "2026-07-07",
+      "views": 1026
+    },
+    {
+      "id": "v__G6hivEJg",
+      "title": "【2026】ガジェットに囲まれつつもミニマルに抑えたい｜デスクツアー",
+      "published": "2026-07-05",
+      "views": 2301
+    },
+    {
+      "id": "e82BEstb2Fs",
+      "title": "【スマホのサブカメラ化】充電しながら撮影できるMagSafeグリップ｜MagCam 2",
+      "published": "2026-07-04",
+      "views": 371
+    },
+    {
+      "id": "adWkI_cYDUs",
+      "title": "AIが自動で追いかけてくれるカメラ、Vlogには最高かも｜EMEET PIXY Wireless",
+      "published": "2026-07-01",
+      "views": 116
+    },
+    {
+      "id": "KcV9bkArnGE",
+      "title": "【EDC】365日肌身離さず持ち歩いてるアイテムを新調した話。",
+      "published": "2026-06-21",
+      "views": 8497
+    }
+  ],
+  "top_videos": [
+    {
+      "id": "1slz-DYE6l4",
+      "title": "【700円】おしゃれ×便利な新作ショルダーバッグがほぼ完璧でした。｜読書かばんその２",
+      "published": "2026-05-17",
+      "views": 347642
+    },
+    {
+      "id": "Qw5QYKtWxXo",
+      "title": "【神アプリ】 最高の左手デバイスは手元にあった。| Elgato STREAM DECKアプリ",
+      "published": "2024-08-26",
+      "views": 94193
+    },
+    {
+      "id": "-lp4D2pRV8w",
+      "title": "【2025年最新版】iPad mini活用方法＆ミニマルバッグ",
+      "published": "2025-05-11",
+      "views": 62677
+    },
+    {
+      "id": "NBMhBFwKm_o",
+      "title": "【これが欲しかった】無印良品にて、サコッシュの正解を見つけました。｜最高傑作",
+      "published": "2024-10-17",
+      "views": 35423
+    },
+    {
+      "id": "xE6rsLbfJj4",
+      "title": "【ロルミニが好きだ】ロルバーンミニがもっと使いやすくなる活用法＆ペン紹介｜シンプルで至高",
+      "published": "2025-07-05",
+      "views": 29254
+    }
+  ]
+}
