@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>C｜雑誌エディトリアル・罫線</title>
+<style>
+  *{margin:0;padding:0;box-sizing:border-box}
+  :root{
+    --ink:#14140f; --sub:#6f6d63; --line:#dedbd2; --line2:#2a2820;
+    --bg:#f6f4ee; --paper:#fffefb; --accent:#0abab5; --maxw:1150px;
+  }
+  body{
+    font-family:-apple-system,BlinkMacSystemFont,"Hiragino Sans","Noto Sans JP",sans-serif;
+    background:var(--bg); color:var(--ink); -webkit-font-smoothing:antialiased;
+    font-feature-settings:"palt"; line-height:1.75;
+  }
+  .mincho{font-family:"Hiragino Mincho ProN","Yu Mincho",YuMincho,"Noto Serif JP",serif}
+  .wrap{max-width:var(--maxw);margin:0 auto;padding:0 40px}
+  a{color:inherit;text-decoration:none}
+
+  /* masthead */
+  .masthead{border-bottom:2px solid var(--line2);background:var(--paper)}
+  .masthead .top{display:flex;justify-content:space-between;align-items:center;font-size:10.5px;letter-spacing:.14em;color:var(--sub);padding:9px 0;border-bottom:1px solid var(--line)}
+  .masthead .mid{display:flex;justify-content:space-between;align-items:flex-end;padding:22px 0 18px}
+  .brand{font-size:30px;letter-spacing:.02em;font-weight:700;line-height:1}
+  .brand span{color:var(--accent)}
+  .brand small{display:block;font-size:10.5px;letter-spacing:.3em;color:var(--sub);font-weight:400;margin-top:9px}
+  nav{display:flex;gap:26px;font-size:12.5px;letter-spacing:.06em;padding-bottom:3px}
+
+  /* lead feature */
+  .feature{background:var(--paper);border-bottom:1px solid var(--line);padding:0 0 46px}
+  .feature .wrap{display:grid;grid-template-columns:1.15fr .85fr;gap:46px;padding-top:44px;align-items:start}
+  .kicker{display:flex;align-items:center;gap:12px;font-size:11px;letter-spacing:.16em;color:var(--accent);margin-bottom:18px}
+  .kicker .no{background:var(--ink);color:var(--paper);padding:3px 9px;letter-spacing:.1em}
+  h1{font-size:clamp(30px,4.2vw,46px);line-height:1.45;font-weight:600;letter-spacing:.01em;margin-bottom:22px}
+  .fig{margin-bottom:22px;overflow:hidden;background:#e6e3da;aspect-ratio:16/9}
+  .fig img{width:100%;height:100%;object-fit:cover;display:block}
+  .cap{font-size:11px;color:var(--sub);margin-top:8px;letter-spacing:.02em}
+  .body2{column-count:2;column-gap:30px;font-size:13.5px;line-height:2.05;color:#3d3b34}
+  .body2 p{margin-bottom:14px}
+  .aside{border-left:1px solid var(--line);padding-left:26px}
+  .aside h4{font-size:11px;letter-spacing:.16em;color:var(--sub);padding-bottom:11px;border-bottom:1px solid var(--line);margin-bottom:6px}
+  .aside a{display:block;padding:13px 0;border-bottom:1px solid var(--line)}
+  .aside .d{font-size:10.5px;color:var(--sub);letter-spacing:.07em}
+  .aside h5{font-size:13.5px;font-weight:600;line-height:1.6;margin-top:3px}
+
+  /* index list */
+  .sec{padding:56px 0}
+  .sec-head{display:flex;align-items:center;gap:16px;margin-bottom:26px}
+  .sec-head h2{font-size:12px;letter-spacing:.2em;white-space:nowrap}
+  .sec-head .rule{flex:1;height:1px;background:var(--line2);opacity:.35}
+  .sec-head a{font-size:11.5px;color:var(--sub);white-space:nowrap}
+
+  .idx a{display:grid;grid-template-columns:44px 128px 1fr auto;gap:20px;align-items:center;padding:15px 0;border-bottom:1px solid var(--line)}
+  .idx a:first-child{border-top:1px solid var(--line)}
+  .idx .n{font-size:12px;color:var(--sub);letter-spacing:.06em}
+  .idx .th{aspect-ratio:16/9;overflow:hidden;background:#e6e3da}
+  .idx .th img{width:100%;height:100%;object-fit:cover;display:block}
+  .idx h3{font-size:14.5px;font-weight:600;line-height:1.6}
+  .idx .d{font-size:11px;color:var(--sub);letter-spacing:.06em;white-space:nowrap}
+
+  footer{border-top:2px solid var(--line2);background:var(--paper);padding:38px 0;font-size:11.5px;color:var(--sub)}
+  footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px}
+
+  @media(max-width:880px){
+    .wrap{padding:0 24px}
+    .feature .wrap{grid-template-columns:1fr;gap:34px}
+    .body2{column-count:1}
+    .aside{border-left:0;padding-left:0;border-top:1px solid var(--line);padding-top:22px}
+    nav{display:none}
+    .masthead .mid{padding:18px 0 14px}
+    .idx a{grid-template-columns:104px 1fr;gap:14px}
+    .idx .n,.idx .d{display:none}
+  }
+</style>
+</head>
+<body>
+  <div class="masthead">
+    <div class="wrap top"><span>4.5ROOM ／ 生活編集</span><span>2026 AUG ・ ISSUE 12</span></div>
+    <div class="wrap mid">
+      <div class="brand mincho">4.5<span>room</span><small>SEIKATSU HENSHU</small></div>
+      <nav><a href="#">About</a><a href="#">Videos</a><a href="#">Blog</a><a href="#">Archive</a></nav>
+    </div>
+  </div>
+
+  <section class="feature"><div class="wrap">
+    <div>
+      <div class="kicker"><span class="no">01</span><span>FEATURE ／ 今月の話</span></div>
+      <h1 class="mincho">「一生モノ」は、<br>名詞ではなく動詞だった。</h1>
+      <div class="fig">
+        <img src="https://img.youtube.com/vi/szskMWWj2b4/maxresdefault.jpg" alt="">
+        <div class="cap">──使い込んで初めて、道具は「自分のもの」になる。</div>
+      </div>
+      <div class="body2">
+        <p>一生モノという言葉を、長らく「高くて丈夫なもの」の意味で使っていた。けれど実際に手元に残っているのは、値段でも耐久性でもなく、使い続けた時間のあるものばかりだった。</p>
+        <p>iPad mini、ミニマルなバッグ、文房具。毎日持ち歩く道具を使い込みながら、暮らしを少しずつ整えていく。そうやって編集していく行為そのものが、一生モノなのだと思う。</p>
+        <p>このサイトでは、その記録を動画と文章で残していきます。買ってすぐの感想ではなく、使い込んでからの言葉を。</p>
+      </div>
+    </div>
+    <div class="aside">
+      <h4>LATEST ／ 最新の更新</h4>
+      <a href="#"><span class="d">2026.08.02 ・ VIDEO</span><h5>整理術不要のバックパック｜見た目はオタク。使うと可愛い。</h5></a>
+      <a href="#"><span class="d">2026.07.31 ・ VIDEO</span><h5>MacBookの入るスリングバッグが快適過ぎた。</h5></a>
+      <a href="#"><span class="d">2026.07.26 ・ NOTE</span><h5>「一生モノ」は、名詞ではなく動詞だった</h5></a>
+      <a href="#"><span class="d">2026.07.24 ・ VIDEO</span><h5>デジタルなデジタルデトックス。矛盾した端末</h5></a>
+    </div>
+  </div></section>
+
+  <section class="sec"><div class="wrap">
+    <div class="sec-head"><h2>VIDEOS ／ 動画</h2><span class="rule"></span><a href="#">すべて見る →</a></div>
+    <div class="idx">
+      <a href="#"><span class="n">01</span><div class="th"><img src="https://img.youtube.com/vi/szskMWWj2b4/maxresdefault.jpg" alt=""></div>
+        <h3>整理術不要のバックパック｜見た目はオタク。使うと可愛い。</h3><span class="d">2026.08.02</span></a>
+      <a href="#"><span class="n">02</span><div class="th"><img src="https://img.youtube.com/vi/BOpgKhPvgfA/maxresdefault.jpg" alt=""></div>
+        <h3>MacBookの入るスリングバッグが快適過ぎた。</h3><span class="d">2026.07.31</span></a>
+      <a href="#"><span class="n">03</span><div class="th"><img src="https://img.youtube.com/vi/i3reAfdad5o/maxresdefault.jpg" alt=""></div>
+        <h3>デジタルなデジタルデトックス。矛盾した端末</h3><span class="d">2026.07.24</span></a>
+      <a href="#"><span class="n">04</span><div class="th"><img src="https://img.youtube.com/vi/DFnCv_gmQtE/maxresdefault.jpg" alt=""></div>
+        <h3>【2026夏】ユニクロ(他)購入品｜JW ANDERSONデニムとCのシャツ</h3><span class="d">2026.07.19</span></a>
+    </div>
+  </div></section>
+
+  <footer><div class="wrap"><span>© 4.5room ／ 生活編集</span><span>YouTube ・ note ・ Instagram ・ RSS</span></div></footer>
+</body>
+</html>

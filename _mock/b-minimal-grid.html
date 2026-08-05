@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>B｜白基調ミニマル・グリッド</title>
+<style>
+  *{margin:0;padding:0;box-sizing:border-box}
+  :root{
+    --ink:#1a1a1d; --sub:#77777f; --line:rgba(0,0,0,.09);
+    --bg:#fcfcfb; --accent:#0abab5; --maxw:1240px;
+  }
+  body{
+    font-family:-apple-system,BlinkMacSystemFont,"Hiragino Sans","Noto Sans JP",sans-serif;
+    background:var(--bg); color:var(--ink); -webkit-font-smoothing:antialiased;
+    font-feature-settings:"palt"; line-height:1.7;
+  }
+  .wrap{max-width:var(--maxw);margin:0 auto;padding:0 44px}
+  a{color:inherit;text-decoration:none}
+
+  header{padding:30px 0 0}
+  header .wrap{display:flex;align-items:center;justify-content:space-between}
+  .logo{font-size:16.5px;letter-spacing:.02em}
+  .logo b{font-weight:800}
+  .logo span{color:var(--accent);font-weight:600}
+  nav{display:flex;gap:28px;font-size:12.5px;color:var(--sub);letter-spacing:.05em}
+
+  /* hero : copy on left, staggered image grid on right */
+  .hero{padding:70px 0 86px}
+  .hero .wrap{display:grid;grid-template-columns:.92fr 1.08fr;gap:56px;align-items:center}
+  .eyebrow{font-size:11.5px;letter-spacing:.18em;color:var(--accent);margin-bottom:20px;display:block}
+  h1{font-size:clamp(32px,4vw,46px);line-height:1.4;font-weight:700;letter-spacing:-.005em;margin-bottom:24px}
+  .lead{font-size:14.5px;line-height:2.1;color:var(--sub);max-width:400px;margin-bottom:32px}
+  .acts{display:flex;gap:12px;flex-wrap:wrap}
+  .btn{font-size:13px;padding:12px 22px;border-radius:999px;letter-spacing:.02em}
+  .btn.fill{background:var(--ink);color:#fff}
+  .btn.line{border:1px solid var(--line);color:var(--sub)}
+
+  .mosaic{display:grid;grid-template-columns:1fr 1fr;grid-template-rows:auto auto;gap:14px}
+  .mosaic .cell{overflow:hidden;background:#eceae6}
+  .mosaic .cell img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .6s ease}
+  .mosaic .cell:hover img{transform:scale(1.04)}
+  .mosaic .c1{grid-row:span 2;aspect-ratio:3/4.35}
+  .mosaic .c2,.mosaic .c3{aspect-ratio:16/10}
+
+  .strip{border-top:1px solid var(--line);border-bottom:1px solid var(--line);padding:18px 0}
+  .strip .wrap{display:flex;gap:34px;font-size:12px;color:var(--sub);letter-spacing:.04em;flex-wrap:wrap}
+  .strip b{color:var(--ink);font-weight:700;margin-right:5px}
+
+  .sec{padding:84px 0}
+  .sec-head{display:flex;align-items:baseline;gap:16px;margin-bottom:34px}
+  .sec-head h2{font-size:13px;font-weight:700;letter-spacing:.14em}
+  .sec-head .rule{flex:1;height:1px;background:var(--line)}
+  .sec-head a{font-size:12px;color:var(--sub)}
+
+  .grid4{display:grid;grid-template-columns:repeat(4,1fr);gap:24px}
+  .card .th{aspect-ratio:16/9;overflow:hidden;background:#eceae6;margin-bottom:12px}
+  .card .th img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .5s ease}
+  .card:hover .th img{transform:scale(1.04)}
+  .card .date{font-size:10.5px;color:var(--sub);letter-spacing:.07em;margin-bottom:5px}
+  .card h3{font-size:13.5px;font-weight:600;line-height:1.62}
+
+  .two{display:grid;grid-template-columns:1fr 1fr;gap:44px}
+  .plist a{display:block;padding:16px 0;border-bottom:1px solid var(--line)}
+  .plist .date{font-size:10.5px;color:var(--sub);letter-spacing:.07em;margin-bottom:4px}
+  .plist h3{font-size:14px;font-weight:600;line-height:1.6}
+  .src{display:inline-block;font-size:10px;color:var(--accent);border:1px solid rgba(10,186,181,.35);padding:1px 7px;border-radius:999px;margin-left:8px;vertical-align:1px}
+
+  footer{padding:52px 0;border-top:1px solid var(--line);font-size:11.5px;color:var(--sub)}
+  footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:14px}
+
+  @media(max-width:900px){
+    .wrap{padding:0 24px}
+    .hero .wrap{grid-template-columns:1fr;gap:36px}
+    .hero{padding:44px 0 58px}
+    .grid4{grid-template-columns:1fr 1fr;gap:20px}
+    .two{grid-template-columns:1fr;gap:34px}
+    nav{display:none}
+    .mosaic .c1{grid-row:auto;aspect-ratio:16/10}
+  }
+  @media(max-width:560px){ .grid4{grid-template-columns:1fr} }
+</style>
+</head>
+<body>
+  <header><div class="wrap">
+    <a class="logo" href="#"><b>4.5</b><span>room</span></a>
+    <nav><a href="#">About</a><a href="#">Videos</a><a href="#">Blog</a><a href="#">Contact</a></nav>
+  </div></header>
+
+  <section class="hero"><div class="wrap">
+    <div>
+      <span class="eyebrow">生活編集 — EVERYDAY EDIT</span>
+      <h1>持ち物から、<br>暮らしを整える。</h1>
+      <p class="lead">iPad mini、ミニマルなバッグ、文房具。使い込んでから語ることにこだわって、道具と暮らしの記録を発信しています。</p>
+      <div class="acts"><a class="btn fill" href="#">チャンネル登録</a><a class="btn line" href="#">読みもの一覧</a></div>
+    </div>
+    <div class="mosaic">
+      <div class="cell c1"><img src="https://img.youtube.com/vi/szskMWWj2b4/maxresdefault.jpg" alt=""></div>
+      <div class="cell c2"><img src="https://img.youtube.com/vi/BOpgKhPvgfA/maxresdefault.jpg" alt=""></div>
+      <div class="cell c3"><img src="https://img.youtube.com/vi/i3reAfdad5o/maxresdefault.jpg" alt=""></div>
+    </div>
+  </div></section>
+
+  <div class="strip"><div class="wrap">
+    <span><b>4年目</b>の運営</span><span><b>毎週</b>更新</span><span><b>iPad mini</b>／EDC／文房具</span><span><b>YouTube</b>＋<b>note</b>で発信</span>
+  </div></div>
+
+  <section class="sec"><div class="wrap">
+    <div class="sec-head"><h2>VIDEOS</h2><span class="rule"></span><a href="#">すべて見る →</a></div>
+    <div class="grid4">
+      <a class="card" href="#"><div class="th"><img src="https://img.youtube.com/vi/szskMWWj2b4/maxresdefault.jpg" alt=""></div>
+        <div class="date">2026.08.02</div><h3>整理術不要のバックパック｜見た目はオタク。使うと可愛い。</h3></a>
+      <a class="card" href="#"><div class="th"><img src="https://img.youtube.com/vi/BOpgKhPvgfA/maxresdefault.jpg" alt=""></div>
+        <div class="date">2026.07.31</div><h3>MacBookの入るスリングバッグが快適過ぎた。</h3></a>
+      <a class="card" href="#"><div class="th"><img src="https://img.youtube.com/vi/i3reAfdad5o/maxresdefault.jpg" alt=""></div>
+        <div class="date">2026.07.24</div><h3>デジタルなデジタルデトックス。矛盾した端末</h3></a>
+      <a class="card" href="#"><div class="th"><img src="https://img.youtube.com/vi/DFnCv_gmQtE/maxresdefault.jpg" alt=""></div>
+        <div class="date">2026.07.19</div><h3>【2026夏】ユニクロ(他)購入品｜JW ANDERSONデニムとCのシャツ</h3></a>
+    </div>
+  </div></section>
+
+  <section class="sec" style="padding-top:0"><div class="wrap">
+    <div class="sec-head"><h2>BLOG</h2><span class="rule"></span><a href="#">RSSで購読 →</a></div>
+    <div class="two">
+      <div class="plist">
+        <a href="#"><div class="date">2026.07.26</div><h3>「一生モノ」は、名詞ではなく動詞だった<span class="src">note</span></h3></a>
+        <a href="#"><div class="date">2026.05.29</div><h3>「会話」をやめ、「発注」を始めよう<span class="src">note</span></h3></a>
+      </div>
+      <div class="plist">
+        <a href="#"><div class="date">2026.05.24</div><h3>【700円】StandardProductsの新作ショルダーが、本好きの最適解になりそうな話<span class="src">note</span></h3></a>
+        <a href="#"><div class="date">2026.04.05</div><h3>3時間かけて、自分で機械式時計を組み立てた話<span class="src">note</span></h3></a>
+      </div>
+    </div>
+  </div></section>
+
+  <footer><div class="wrap"><span>© 4.5room — 生活編集</span><span>YouTube ・ note ・ Instagram ・ RSS</span></div></footer>
+</body>
+</html>

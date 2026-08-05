@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>F｜4.5room — 使い込んだ時間が主役</title>
+<style>
+  *{margin:0;padding:0;box-sizing:border-box}
+  :root{
+    --ink:#17171a; --sub:#83838c; --faint:#b6b6bd;
+    --line:rgba(23,23,26,.11); --bg:#fefefd; --bg2:#f5f4f1;
+    --accent:#0abab5; --maxw:1160px;
+  }
+  body{
+    font-family:-apple-system,BlinkMacSystemFont,"Hiragino Sans","Noto Sans JP",sans-serif;
+    background:var(--bg); color:var(--ink); -webkit-font-smoothing:antialiased;
+    font-feature-settings:"palt"; line-height:1.8;
+  }
+  a{color:inherit;text-decoration:none}
+  .wrap{max-width:var(--maxw);margin:0 auto;padding:0 clamp(24px,4vw,44px)}
+
+  /* 使用期間 — このサイトの署名要素 */
+  .used{
+    display:inline-flex;align-items:baseline;gap:6px;
+    font-family:ui-monospace,SFMono-Regular,"SF Mono",Menlo,monospace;
+    font-size:11px;letter-spacing:.06em;color:var(--sub);white-space:nowrap;
+  }
+  .used b{font-size:15px;font-weight:600;color:var(--ink);letter-spacing:0}
+  .used::before{
+    content:"";width:5px;height:5px;border-radius:50%;
+    background:var(--accent);align-self:center;margin-right:2px;flex:none;
+  }
+  .label{font-size:11px;letter-spacing:.14em;color:var(--faint)}
+
+  /* header */
+  header{border-bottom:1px solid var(--line);position:sticky;top:0;z-index:30;
+         background:rgba(254,254,253,.88);backdrop-filter:blur(12px)}
+  header .wrap{display:flex;align-items:center;justify-content:space-between;height:68px}
+  .logo{font-size:17px;letter-spacing:.01em;font-weight:800}
+  .logo em{font-style:normal;font-weight:500;color:var(--sub)}
+  header nav{display:flex;gap:28px;font-size:13px}
+  @media(max-width:760px){header nav{display:none}}
+
+  /* hero — 文字が先、写真が後 */
+  .hero{padding:clamp(64px,9vw,116px) 0 0}
+  .hero h1{font-size:clamp(32px,4.6vw,56px);line-height:1.36;font-weight:800;
+           letter-spacing:-.015em;margin-bottom:26px}
+  .hero .lead{font-size:15px;line-height:2.1;color:var(--sub);max-width:490px;margin-bottom:38px}
+  .hero .meta{display:flex;gap:30px;flex-wrap:wrap;align-items:center;
+              padding-bottom:34px;border-bottom:1px solid var(--line)}
+  .hero .meta a{font-size:13.5px;border-bottom:1px solid var(--ink);padding-bottom:3px}
+  .hero-fig{margin-top:34px;position:relative}
+  .hero-fig img{width:100%;aspect-ratio:21/9;object-fit:cover;display:block;background:var(--bg2)}
+  .hero-cap{display:flex;justify-content:space-between;align-items:baseline;
+            gap:16px;margin-top:12px;flex-wrap:wrap}
+  .hero-cap .t{font-size:12.5px;color:var(--sub)}
+
+  /* section */
+  .sec{padding:clamp(64px,8vw,104px) 0}
+  .sec.tint{background:var(--bg2)}
+  .head{display:flex;align-items:flex-end;justify-content:space-between;
+        gap:22px;margin-bottom:36px;flex-wrap:wrap}
+  .head h2{font-size:clamp(21px,2.5vw,28px);font-weight:800;letter-spacing:-.005em;margin-top:8px}
+  .head .note{font-size:12.5px;color:var(--sub);max-width:420px;line-height:1.95;margin-top:8px}
+  .head .more{font-size:12.5px;color:var(--sub)}
+
+  /* いま持ち歩いているもの — 図鑑的な整列 */
+  .kit{display:grid;grid-template-columns:repeat(4,1fr);gap:26px 22px}
+  .kit .it .ph{aspect-ratio:1/1;overflow:hidden;background:var(--bg2);margin-bottom:13px}
+  .kit .it .ph img{width:100%;height:100%;object-fit:cover;display:block;
+                   transition:transform .6s ease}
+  .kit .it:hover .ph img{transform:scale(1.04)}
+  .kit .it h3{font-size:14px;font-weight:700;line-height:1.55;margin-bottom:7px}
+  .kit .it .sub{font-size:11.5px;color:var(--faint);margin-bottom:9px}
+
+  /* 読みもの — 経過時間つきの記録 */
+  .log{border-top:1px solid var(--line)}
+  .log a{display:grid;grid-template-columns:118px 1fr 150px;gap:26px;align-items:center;
+         padding:20px 0;border-bottom:1px solid var(--line)}
+  .log .d{font-family:ui-monospace,Menlo,monospace;font-size:11.5px;color:var(--faint);letter-spacing:.04em}
+  .log h3{font-size:16px;font-weight:700;line-height:1.55}
+  .log .tag{font-size:11px;color:var(--sub);margin-top:4px}
+  .log .r{text-align:right}
+  @media(max-width:760px){
+    .log a{grid-template-columns:1fr;gap:7px;padding:18px 0}
+    .log .r{text-align:left}
+  }
+
+  /* 動画 */
+  .vids{display:grid;grid-template-columns:repeat(3,1fr);gap:26px}
+  .vids .v .th{aspect-ratio:16/9;overflow:hidden;background:var(--bg2);margin-bottom:12px}
+  .vids .v .th img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .6s}
+  .vids .v:hover .th img{transform:scale(1.04)}
+  .vids .v h3{font-size:14.5px;font-weight:700;line-height:1.55;margin-bottom:5px}
+  .vids .v .d{font-family:ui-monospace,Menlo,monospace;font-size:11px;color:var(--faint)}
+
+  /* about */
+  .about{display:grid;grid-template-columns:1fr 1.15fr;gap:clamp(30px,5vw,64px);align-items:start}
+  .about .ph{aspect-ratio:4/5;overflow:hidden;background:var(--bg2)}
+  .about .ph img{width:100%;height:100%;object-fit:cover;display:block}
+  .about h2{font-size:clamp(21px,2.5vw,28px);font-weight:800;margin:10px 0 18px}
+  .about p{font-size:14px;line-height:2.15;color:var(--sub);margin-bottom:14px}
+  .about .stats{display:flex;gap:34px;flex-wrap:wrap;margin:26px 0;
+                padding:20px 0;border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+  .about .stats div .n{font-size:21px;font-weight:800;letter-spacing:-.01em}
+  .about .stats div .k{font-size:11px;color:var(--faint);letter-spacing:.06em}
+  .about .sns{display:flex;gap:22px;font-size:13px;flex-wrap:wrap}
+  .about .sns a{border-bottom:1px solid var(--line);padding-bottom:3px}
+
+  footer{border-top:1px solid var(--line);padding:46px 0 40px}
+  footer .wrap{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap;align-items:flex-end}
+  footer .big{font-size:16px;font-weight:800}
+  footer nav{display:flex;gap:20px;font-size:12px;color:var(--sub)}
+
+  @media(max-width:900px){
+    .kit{grid-template-columns:repeat(2,1fr)}
+    .vids{grid-template-columns:1fr;gap:22px}
+    .about{grid-template-columns:1fr;gap:28px}
+    .hero-fig img{aspect-ratio:16/10}
+  }
+</style>
+</head>
+<body>
+  <header><div class="wrap">
+    <a class="logo" href="#">4.5<em>room</em></a>
+    <nav><a href="#">持ち物</a><a href="#">読みもの</a><a href="#">動画</a><a href="#">について</a></nav>
+  </div></header>
+
+  <!-- ===== HERO ===== -->
+  <section class="hero"><div class="wrap">
+    <h1>買った日ではなく、<br>使い続けた日数で語る。</h1>
+    <p class="lead">iPad mini、ミニマルなバッグ、文房具。4.5畳の部屋から、毎日持ち歩く道具を使い込みながら暮らしを整えていく。その記録が「生活編集」です。</p>
+    <div class="meta">
+      <a href="#">いま持ち歩いているもの</a>
+      <a href="#">読みものを読む</a>
+      <span class="used">現在の常用品 <b>12</b> 点</span>
+    </div>
+
+    <figure class="hero-fig">
+      <img src="./photos/hero-wide.jpg" alt="">
+      <figcaption class="hero-cap">
+        <span class="t">読書かばん｜StandardProducts ショルダー</span>
+        <span class="used">使用 <b>1年2ヶ月</b> ／ 428日</span>
+      </figcaption>
+    </figure>
+  </div></section>
+
+  <!-- ===== いま持ち歩いているもの ===== -->
+  <section class="sec"><div class="wrap">
+    <div class="head">
+      <div>
+        <span class="label">EVERYDAY CARRY</span>
+        <h2>いま、持ち歩いているもの。</h2>
+        <p class="note">入れ替わりのあった道具だけを載せています。使用期間は実際に持ち歩き始めた日からの日数です。</p>
+      </div>
+      <span class="more">すべて見る →</span>
+    </div>
+
+    <div class="kit">
+      <a class="it" href="#">
+        <div class="ph"><img src="./photos/sq-03_shape.jpg" alt=""></div>
+        <h3>読書かばん</h3>
+        <div class="sub">StandardProducts ショルダー</div>
+        <span class="used">使用 <b>1年2ヶ月</b></span>
+      </a>
+      <a class="it" href="#">
+        <div class="ph"><img src="./photos/sq-05_contents.jpg" alt=""></div>
+        <h3>iPad mini</h3>
+        <div class="sub">第7世代／持ち歩く机</div>
+        <span class="used">使用 <b>2年5ヶ月</b></span>
+      </a>
+      <a class="it" href="#">
+        <div class="ph"><img src="./photos/sq-04_strap.jpg" alt=""></div>
+        <h3>ショルダーストラップ</h3>
+        <div class="sub">付け替えて軽くする</div>
+        <span class="used">使用 <b>7ヶ月</b></span>
+      </a>
+      <a class="it" href="#">
+        <div class="ph"><img src="./photos/sq-06_in_use.jpg" alt=""></div>
+        <h3>ロルバーン ミニ</h3>
+        <div class="sub">手で書く場所を残す</div>
+        <span class="used">使用 <b>3年1ヶ月</b></span>
+      </a>
+    </div>
+  </div></section>
+
+  <!-- ===== 読みもの ===== -->
+  <section class="sec tint"><div class="wrap">
+    <div class="head">
+      <div>
+        <span class="label">JOURNAL</span>
+        <h2>読みもの。</h2>
+        <p class="note">動画では語りきれなかったことを、写真と文章で。使ってから書いた記録です。</p>
+      </div>
+      <span class="more">RSSで購読 →</span>
+    </div>
+
+    <div class="log">
+      <a href="#">
+        <span class="d">2026.07.26</span>
+        <div><h3>「一生モノ」は、名詞ではなく動詞だった</h3><div class="tag">考えたこと ／ note</div></div>
+        <span class="r"><span class="used">執筆時 <b>1年2ヶ月</b></span></span>
+      </a>
+      <a href="#">
+        <span class="d">2026.05.24</span>
+        <div><h3>700円で、本を持ち歩く。</h3><div class="tag">読書かばん ／ レビュー</div></div>
+        <span class="r"><span class="used">使用 <b>3ヶ月</b></span></span>
+      </a>
+      <a href="#">
+        <span class="d">2026.05.29</span>
+        <div><h3>「会話」をやめ、「発注」を始めよう</h3><div class="tag">考えたこと ／ note</div></div>
+        <span class="r"><span class="used">執筆時 <b>—</b></span></span>
+      </a>
+      <a href="#">
+        <span class="d">2026.04.05</span>
+        <div><h3>3時間かけて、自分で機械式時計を組み立てた話</h3><div class="tag">つくる ／ note</div></div>
+        <span class="r"><span class="used">使用 <b>4ヶ月</b></span></span>
+      </a>
+    </div>
+  </div></section>
+
+  <!-- ===== 動画 ===== -->
+  <section class="sec"><div class="wrap">
+    <div class="head">
+      <div>
+        <span class="label">MOVIES</span>
+        <h2>動画。</h2>
+        <p class="note">サイズ感、質感、取り回し。写真では伝わらない部分はこちらで。</p>
+      </div>
+      <span class="more">チャンネルを見る →</span>
+    </div>
+    <div class="vids">
+      <a class="v" href="#">
+        <div class="th"><img src="https://img.youtube.com/vi/szskMWWj2b4/maxresdefault.jpg" alt=""></div>
+        <h3>整理術不要のバックパック｜見た目はオタク。使うと可愛い。</h3>
+        <span class="d">2026.08.02</span>
+      </a>
+      <a class="v" href="#">
+        <div class="th"><img src="https://img.youtube.com/vi/BOpgKhPvgfA/maxresdefault.jpg" alt=""></div>
+        <h3>MacBookの入るスリングバッグが快適過ぎた。</h3>
+        <span class="d">2026.07.31</span>
+      </a>
+      <a class="v" href="#">
+        <div class="th"><img src="https://img.youtube.com/vi/i3reAfdad5o/maxresdefault.jpg" alt=""></div>
+        <h3>デジタルなデジタルデトックス。矛盾した端末</h3>
+        <span class="d">2026.07.24</span>
+      </a>
+    </div>
+  </div></section>
+
+  <!-- ===== about ===== -->
+  <section class="sec tint"><div class="wrap">
+    <div class="about">
+      <div class="ph"><img src="./photos/p-hero-portrait.jpg" alt=""></div>
+      <div>
+        <span class="label">ABOUT</span>
+        <h2>4.5roomについて。</h2>
+        <p>4.5畳の部屋から発信しています。広い場所でも、たくさんの物でもない。限られた広さに置くものを選び直していく作業が、そのまま暮らしを整えることになる。それを「生活編集」と呼んでいます。</p>
+        <p>買ってすぐの感想は書きません。数ヶ月、数年と使い続けて、手放したものと残ったものの差が見えてから言葉にしています。だから記事にも道具にも、使用期間を必ず添えています。</p>
+        <div class="stats">
+          <div><div class="n">4年目</div><div class="k">運営</div></div>
+          <div><div class="n">毎週</div><div class="k">更新</div></div>
+          <div><div class="n">12点</div><div class="k">現在の常用品</div></div>
+        </div>
+        <div class="sns"><a href="#">YouTube ↗</a><a href="#">note ↗</a><a href="#">Instagram ↗</a><a href="#">RSS ↗</a></div>
+      </div>
+    </div>
+  </div></section>
+
+  <footer><div class="wrap">
+    <div><span class="big">生活を、編集する。</span><br><span class="label" style="display:block;margin-top:9px">© 2026 4.5room</span></div>
+    <nav><a href="#">持ち物</a><a href="#">読みもの</a><a href="#">動画</a><a href="#">RSS</a></nav>
+  </div></footer>
+</body>
+</html>

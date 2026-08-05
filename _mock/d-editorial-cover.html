@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>D｜雑誌エディトリアル・特集扉</title>
+<style>
+  *{margin:0;padding:0;box-sizing:border-box}
+  :root{
+    --ink:#191713; --sub:#78746b; --line:rgba(25,23,19,.13);
+    --bg:#fbfaf7; --accent:#0abab5; --maxw:1180px;
+  }
+  body{
+    font-family:-apple-system,BlinkMacSystemFont,"Hiragino Sans","Noto Sans JP",sans-serif;
+    background:var(--bg); color:var(--ink); -webkit-font-smoothing:antialiased;
+    font-feature-settings:"palt"; line-height:1.75;
+  }
+  .mincho{font-family:"Hiragino Mincho ProN","Yu Mincho",YuMincho,"Noto Serif JP",serif}
+  .wrap{max-width:var(--maxw);margin:0 auto;padding:0 44px}
+  a{color:inherit;text-decoration:none}
+
+  header{position:absolute;top:0;left:0;right:0;z-index:10;padding:26px 0}
+  header .wrap{display:flex;align-items:center;justify-content:space-between}
+  .logo{font-size:17px;letter-spacing:.03em;font-weight:700}
+  .logo span{color:var(--accent)}
+  nav{display:flex;gap:26px;font-size:12.5px;letter-spacing:.06em;color:var(--sub)}
+
+  /* cover : text overlapping a tall image */
+  .cover{position:relative;padding:118px 0 76px}
+  .cover .wrap{display:grid;grid-template-columns:1fr 1fr;gap:0;align-items:center}
+  .cover .txt{position:relative;z-index:3;padding-right:14px}
+  .cover .num{font-size:11px;letter-spacing:.24em;color:var(--sub);margin-bottom:20px;display:block}
+  .cover .num i{display:inline-block;width:30px;height:1px;background:var(--accent);vertical-align:middle;margin-right:11px}
+  .cover h1{font-size:clamp(32px,4.6vw,54px);line-height:1.44;font-weight:600;letter-spacing:.015em;margin-bottom:26px}
+  .cover h1 em{font-style:normal;position:relative;white-space:nowrap}
+  .cover h1 em::after{content:"";position:absolute;left:0;right:0;bottom:.1em;height:7px;background:rgba(10,186,181,.22);z-index:-1}
+  .cover .lead{font-size:14px;line-height:2.15;color:var(--sub);max-width:390px;margin-bottom:32px}
+  .cover .acts{display:flex;gap:22px;font-size:13.5px;align-items:center}
+  .cover .acts .p{border-bottom:1px solid var(--ink);padding-bottom:3px}
+  .cover .acts .g{color:var(--sub)}
+  .cover .pic{position:relative;margin-left:-52px;aspect-ratio:3/3.7;overflow:hidden;background:#e9e6df}
+  .cover .pic img{width:100%;height:100%;object-fit:cover;display:block}
+  .cover .pic .tag{position:absolute;left:0;bottom:0;background:var(--bg);color:var(--ink);font-size:11px;letter-spacing:.1em;padding:10px 16px}
+
+  /* running band */
+  .band{border-top:1px solid var(--line);border-bottom:1px solid var(--line);padding:15px 0;font-size:11.5px;letter-spacing:.14em;color:var(--sub)}
+  .band .wrap{display:flex;gap:30px;flex-wrap:wrap;justify-content:space-between}
+
+  .sec{padding:76px 0}
+  .sec-head{display:flex;align-items:baseline;gap:18px;margin-bottom:32px}
+  .sec-head h2{font-size:23px;font-weight:600;letter-spacing:.02em}
+  .sec-head .en{font-size:10.5px;letter-spacing:.2em;color:var(--sub)}
+  .sec-head .rule{flex:1;height:1px;background:var(--line)}
+  .sec-head a{font-size:12px;color:var(--sub)}
+
+  .feat{display:grid;grid-template-columns:1.5fr 1fr;gap:34px;margin-bottom:34px}
+  .feat .big .th{aspect-ratio:16/9;overflow:hidden;background:#e9e6df;margin-bottom:15px}
+  .feat .big .th img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .6s}
+  .feat .big:hover .th img{transform:scale(1.03)}
+  .feat .big .d{font-size:11px;color:var(--sub);letter-spacing:.08em;margin-bottom:7px}
+  .feat .big h3{font-size:19px;font-weight:600;line-height:1.55}
+  .feat .side a{display:flex;gap:15px;padding:14px 0;border-bottom:1px solid var(--line)}
+  .feat .side a:first-child{border-top:1px solid var(--line)}
+  .feat .side .th{width:104px;flex:none;aspect-ratio:16/9;overflow:hidden;background:#e9e6df}
+  .feat .side .th img{width:100%;height:100%;object-fit:cover;display:block}
+  .feat .side .d{font-size:10.5px;color:var(--sub);letter-spacing:.07em}
+  .feat .side h3{font-size:13.5px;font-weight:600;line-height:1.6;margin-top:3px}
+
+  .reads{display:grid;grid-template-columns:repeat(3,1fr);gap:30px}
+  .read{border-top:1px solid var(--ink);padding-top:15px}
+  .read .meta{display:flex;justify-content:space-between;font-size:10.5px;letter-spacing:.09em;color:var(--sub);margin-bottom:11px}
+  .read .meta .src{color:var(--accent)}
+  .read h3{font-size:16px;font-weight:600;line-height:1.62}
+  .read p{font-size:12.5px;line-height:1.95;color:var(--sub);margin-top:10px}
+
+  footer{border-top:1px solid var(--line);padding:44px 0;font-size:11.5px;color:var(--sub)}
+  footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px}
+
+  @media(max-width:900px){
+    .wrap{padding:0 24px}
+    nav{display:none}
+    .cover{padding:92px 0 54px}
+    .cover .wrap{grid-template-columns:1fr;gap:34px}
+    .cover .pic{margin-left:0;aspect-ratio:16/11}
+    .feat{grid-template-columns:1fr;gap:26px}
+    .reads{grid-template-columns:1fr;gap:24px}
+  }
+</style>
+</head>
+<body>
+  <header><div class="wrap">
+    <a class="logo" href="#">4.5<span>room</span></a>
+    <nav><a href="#">About</a><a href="#">Videos</a><a href="#">Blog</a><a href="#">Contact</a></nav>
+  </div></header>
+
+  <section class="cover"><div class="wrap">
+    <div class="txt">
+      <span class="num"><i></i>ISSUE 12 ／ 生活編集</span>
+      <h1 class="mincho">道具を選ぶ時間が、<br><em>暮らしをつくっていく。</em></h1>
+      <p class="lead">iPad mini、ミニマルなバッグ、文房具。買ってすぐの感想ではなく、使い込んでからの言葉を。動画と文章で、その記録を残しています。</p>
+      <div class="acts"><a class="p" href="#">チャンネルを見る</a><a class="g" href="#">読みもの一覧 →</a></div>
+    </div>
+    <div class="pic">
+      <img src="https://img.youtube.com/vi/BOpgKhPvgfA/maxresdefault.jpg" alt="">
+      <span class="tag">MacBookの入るスリングバッグ</span>
+    </div>
+  </div></section>
+
+  <div class="band"><div class="wrap">
+    <span>IPAD MINI ／ EDC</span><span>BAGS ／ STATIONERY</span><span>YOUTUBE ＋ NOTE</span><span>WEEKLY UPDATE</span>
+  </div></div>
+
+  <section class="sec"><div class="wrap">
+    <div class="sec-head"><h2>動画</h2><span class="en">VIDEOS</span><span class="rule"></span><a href="#">すべて見る →</a></div>
+    <div class="feat">
+      <a class="big" href="#">
+        <div class="th"><img src="https://img.youtube.com/vi/szskMWWj2b4/maxresdefault.jpg" alt=""></div>
+        <div class="d">2026.08.02</div>
+        <h3>整理術不要のバックパック｜見た目はオタク。使うと可愛い。</h3>
+      </a>
+      <div class="side">
+        <a href="#"><div class="th"><img src="https://img.youtube.com/vi/BOpgKhPvgfA/maxresdefault.jpg" alt=""></div>
+          <div><span class="d">2026.07.31</span><h3>MacBookの入るスリングバッグが快適過ぎた。</h3></div></a>
+        <a href="#"><div class="th"><img src="https://img.youtube.com/vi/i3reAfdad5o/maxresdefault.jpg" alt=""></div>
+          <div><span class="d">2026.07.24</span><h3>デジタルなデジタルデトックス。矛盾した端末</h3></div></a>
+        <a href="#"><div class="th"><img src="https://img.youtube.com/vi/DFnCv_gmQtE/maxresdefault.jpg" alt=""></div>
+          <div><span class="d">2026.07.19</span><h3>【2026夏】ユニクロ(他)購入品｜JW ANDERSONデニム</h3></div></a>
+      </div>
+    </div>
+  </div></section>
+
+  <section class="sec" style="padding-top:0"><div class="wrap">
+    <div class="sec-head"><h2>読みもの</h2><span class="en">BLOG</span><span class="rule"></span><a href="#">RSSで購読 →</a></div>
+    <div class="reads">
+      <a class="read" href="#">
+        <div class="meta"><span>2026.07.26</span><span class="src">note</span></div>
+        <h3 class="mincho">「一生モノ」は、名詞ではなく動詞だった</h3>
+        <p>長く使えるものを探していたはずが、残っていたのは使い続けた時間のあるものだった。</p>
+      </a>
+      <a class="read" href="#">
+        <div class="meta"><span>2026.05.29</span><span class="src">note</span></div>
+        <h3 class="mincho">「会話」をやめ、「発注」を始めよう</h3>
+        <p>頼み方を変えるだけで、道具も人も驚くほど動いてくれるようになる。</p>
+      </a>
+      <a class="read" href="#">
+        <div class="meta"><span>2026.04.05</span><span class="src">note</span></div>
+        <h3 class="mincho">3時間かけて、自分で機械式時計を組み立てた話</h3>
+        <p>仕組みを知ってから触れると、同じ道具でも手触りがまるで変わる。</p>
+      </a>
+    </div>
+  </div></section>
+
+  <footer><div class="wrap"><span>© 4.5room ／ 生活編集</span><span>YouTube ・ note ・ Instagram ・ RSS</span></div></footer>
+</body>
+</html>
