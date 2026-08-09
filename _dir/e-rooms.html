@@ -13,7 +13,7 @@
    間取りは「発信先そのものが部屋になっている平面図」。
    部屋名は行き先の名前をそのまま書く（詩的な部屋名は使わない）。
    室の中には必ず中身（実データ）を入れる。空の箱は置かない。
-   室の高さは中身で決まる（aspect-ratio による固定高さは使わない）。
+   室の高さは段で揃える（aspect-ratio による固定高さは使わない）。
    色は 白・墨・中間・淡 の4色のみ。border／box-shadow／border-radius／
    gradient は一切使わない。室の区別は塗り（墨6%）と目地だけで作る。
    ========================================================================== */
@@ -148,25 +148,28 @@ img{display:block;max-width:100%;height:auto}
 
 /* ==========================================================================
    間取り（6室）
-   3列グリッド。高さは中身で決まる（align-items:start）。
+   3列グリッド。同じ段の室は必ず同じ高さにする（align-items:stretch）。
+   平面図なので、段の下に端数の余りが出ると穴に見える。中身の量が違っても
+   室の高さは段で揃え、余りは室の中の余白として持たせる。
    01 は2列ぶんの幅を取るが、主役にしているのは面積ではなく字の大きさと余白。
-   04 は一次データが無いので中身を持たせない＝そのぶん小さい室になる。
-   その小さい室の下に 06 を入れて、間取りに穴が空かないようにする。
+   04 は一次データが無いので中身を持たせない。縦に伸ばすと空箱になるので、
+   最下段に横長の帯として置く（短いのは高さではなく奥行きで示す）。
      ┌───────01───────┬─02─┐
-     │  03  │  04  │  05  │
-     │  03  │  06  │  05  │
+     │  03  │  05  │  06  │
+     ├──────── 04 ────────┤
    ========================================================================== */
 .plan{padding-top:var(--s7)}
 .plan-rooms{
   display:grid;
   grid-template-columns:repeat(3,minmax(0,1fr));
   gap:12px;
-  align-items:start;
+  align-items:stretch;
 }
 .rm{min-width:0}
 .rm-box{
   position:relative;
   isolation:isolate;
+  height:100%;
   padding:var(--s3);
 }
 .rm-fill{
@@ -196,13 +199,23 @@ img{display:block;max-width:100%;height:auto}
 .rm-tt{display:block;font-size:13px;line-height:1.7;color:var(--ink)}
 .rm-lk:hover .rm-tt,.rm-lk:focus-visible .rm-tt{text-decoration:underline;text-underline-offset:.28em}
 
-/* 室の配置。04 が小さいぶん、その下に 06 を差し込んで穴を作らない。 */
+/* 室の配置。中身のある5室を上2段に均等に置き、中身を持たない 04 だけを
+   最下段の帯にする。段ごとに高さが揃うので、間取りに端数の余りが出ない。 */
 .rm-1{grid-column:1 / span 2;grid-row:1}
 .rm-2{grid-column:3;grid-row:1}
-.rm-3{grid-column:1;grid-row:2 / span 2}
-.rm-4{grid-column:2;grid-row:2}
-.rm-5{grid-column:3;grid-row:2 / span 2}
-.rm-6{grid-column:2;grid-row:3}
+.rm-3{grid-column:1;grid-row:2}
+.rm-5{grid-column:2;grid-row:2}
+.rm-6{grid-column:3;grid-row:2}
+.rm-4{grid-column:1 / span 3;grid-row:3}
+
+/* 04：横長の帯。中身が無いぶん、行き先の名前だけを横に流す。 */
+.rm-4 .rm-hd{
+  display:grid;
+  grid-template-columns:auto auto minmax(0,1fr);
+  gap:0 var(--s3);
+  align-items:baseline;
+}
+.rm-4 .rm-n,.rm-4 .rm-j,.rm-4 .rm-s{margin-top:0}
 
 /* 01：本編。幅は2列ぶん、字と余白を一段大きくして視覚の主役にする。
    行は 日付｜タイトル の横並びにして、広い幅を字で埋める。 */
@@ -332,6 +345,9 @@ img{display:block;max-width:100%;height:auto}
 
   .plan-rooms{grid-template-columns:minmax(0,1fr)}
   .rm-1,.rm-2,.rm-3,.rm-4,.rm-5,.rm-6{grid-column:auto;grid-row:auto}
+  /* 1列に積むと段が無くなるので、04 の帯も普通の室に戻す */
+  .rm-4 .rm-hd{display:block}
+  .rm-4 .rm-j{margin-top:var(--s1)}
   .rm-box,.rm-1 .rm-box{padding:var(--s2)}
   .rm-1 .rm-j{font-size:20px;line-height:1.45}
   .rm-1 .rm-s{font-size:13px}
@@ -499,20 +515,8 @@ try{document.documentElement.className+=" js-rv";}catch(e){}
         </div>
       </div>
 
-      <!-- 04 Instagram：一次データが取れないので中身は持たせない＝小さい室のまま -->
-      <div class="rm rm-4 rv" style="--i:3" data-room="04">
-        <div class="rm-box">
-          <span class="rm-fill"></span>
-          <a class="rm-hd" href="https://www.instagram.com/srice4.5/" target="_blank" rel="noopener">
-            <span class="rm-n">04</span>
-            <span class="rm-j">Instagram</span>
-            <span class="rm-s">写真</span>
-          </a>
-        </div>
-      </div>
-
       <!-- 05 持ちもの：点数とグループは content/carry.json から数える -->
-      <div class="rm rm-5 rv" style="--i:4" data-room="05">
+      <div class="rm rm-5 rv" style="--i:3" data-room="05">
         <div class="rm-box">
           <span class="rm-fill"></span>
           <a class="rm-hd" href="#mochimono">
@@ -550,7 +554,7 @@ try{document.documentElement.className+=" js-rv";}catch(e){}
       </div>
 
       <!-- 06 お仕事：中身は content/site.json の rooms[06].items -->
-      <div class="rm rm-6 rv" style="--i:5" data-room="06">
+      <div class="rm rm-6 rv" style="--i:4" data-room="06">
         <div class="rm-box">
           <span class="rm-fill"></span>
           <a class="rm-hd" href="e-work.html">
@@ -572,6 +576,18 @@ try{document.documentElement.className+=" js-rv";}catch(e){}
               </span>
             </li>
           </ul>
+        </div>
+      </div>
+
+      <!-- 04 Instagram：一次データが取れないので中身は持たせない。最下段の帯として置く -->
+      <div class="rm rm-4 rv" style="--i:5" data-room="04">
+        <div class="rm-box">
+          <span class="rm-fill"></span>
+          <a class="rm-hd" href="https://www.instagram.com/srice4.5/" target="_blank" rel="noopener">
+            <span class="rm-n">04</span>
+            <span class="rm-j">Instagram</span>
+            <span class="rm-s">写真</span>
+          </a>
         </div>
       </div>
 
