@@ -95,64 +95,94 @@ a:focus-visible{outline:2px solid var(--ink);outline-offset:3px}
 .top .back{font-size:12px;color:var(--mid);transition:color .3s var(--ease)}
 .top .back:hover,.top .back:focus-visible{color:var(--ink)}
 
+/* 扉。かばんの名前だけを大きく置き、説明は左半分に収める。 */
 .bh{padding:var(--s6) 0 0}
 .bh-j{
   font-family:var(--mc);
   font-weight:300;
-  letter-spacing:.08em;
-  font-size:clamp(28px,3.2vw,40px);
-  line-height:1.35;
-  margin-top:var(--s1);
+  letter-spacing:.1em;
+  font-size:clamp(32px,4.4vw,56px);
+  line-height:1.28;
+  margin-top:var(--s2);
 }
-.bh .lead{margin-top:var(--s3);font-size:15px;line-height:1.95;color:var(--mid);max-width:44em}
-.bh .src{margin-top:var(--s3);font-size:13px}
+.bh .lead{margin-top:var(--s4);font-size:14px;line-height:2.1;color:var(--mid);max-width:34em}
+.bh .src{margin-top:var(--s3);font-size:12px;letter-spacing:.08em}
 
 /* ==========================================================================
-   中身のリスト（1点＝1行。カードにはしない）
+   中身のリスト
+   1点＝1行、行ぜんぶがリンク。カードにも枠にもしない。
+   紙面の目録に倣って2段組にする（1段だと品名と ↗ が離れて間延びする）。
+   段は上から下へ流れる（multicol）。読む順が列をまたがない。
    ========================================================================== */
-.blk{margin-top:var(--s6)}
-.g-name{font-size:13px;font-weight:600;letter-spacing:.02em;color:var(--ink);margin-bottom:var(--s3)}
+.blk{
+  margin-top:var(--s6);
+  columns:2;
+  column-gap:var(--s7);
+}
+.blk > .g-name{column-span:all}
+/* 分類名。和文なので大文字化は効かない。字間だけ広げて小さく置く。 */
+.g-name{
+  font-size:11px;
+  font-weight:600;
+  letter-spacing:.2em;
+  color:var(--mid);
+  margin-bottom:var(--s3);
+}
 
 .it{
+  break-inside:avoid;
   display:grid;
-  grid-template-columns:26rem minmax(0,1fr) 1.5rem;
-  gap:0 var(--s4);
+  grid-template-columns:2.4rem minmax(0,1fr);
+  gap:0 var(--s2);
   align-items:baseline;
-  padding:var(--s3) 0;
+  padding:var(--s2) 0 var(--s3);
+  color:var(--ink);
 }
-.i-br{display:block;font-size:11px;line-height:1.7;letter-spacing:.02em;color:var(--mid)}
-.i-nm{display:block;font-size:15px;font-weight:400;line-height:1.7;color:var(--ink)}
-.i-note{font-size:13px;line-height:1.8;color:var(--mid)}
-/* 補足のない品は2列目を空けたまま、リンクだけ右端に置く */
-.i-lk{grid-column:3;font-size:14px;color:var(--mid);justify-self:end;transition:color .3s var(--ease)}
-.i-lk:hover,.i-lk:focus-visible{color:var(--ink)}
+/* hover は中の字に掛ける。行そのものは .rv の opacity を使っているので触らない。 */
+.i-no,.i-tx{transition:opacity .4s var(--ease)}
+.it:hover .i-no,.it:hover .i-tx,
+.it:focus-visible .i-no,.it:focus-visible .i-tx{opacity:.45}
+.i-no{font-size:10px;letter-spacing:.1em;color:var(--mid)}
+.i-tx{display:block;min-width:0}
+.i-br{display:block;font-size:10px;line-height:1.9;letter-spacing:.2em;color:var(--mid)}
+.i-nm{display:block;font-size:15px;line-height:1.75}
+.i-lk{margin-left:.6em;font-size:11px;color:var(--mid)}
+.i-note{display:block;margin-top:var(--s1);font-size:11px;line-height:1.8;color:var(--mid)}
 
 /* ==========================================================================
    もくじ（動画の章立て。時間は動画側の事実なのでそのまま置く）
    ========================================================================== */
-.chap{display:grid;grid-template-columns:5rem minmax(0,1fr);gap:0 var(--s4);padding:var(--s1) 0}
-.chap .t{font-family:var(--disp);font-weight:500;font-size:12px;color:var(--mid);font-variant-numeric:tabular-nums}
+.chap{
+  break-inside:avoid;
+  display:grid;grid-template-columns:4.5rem minmax(0,1fr);
+  gap:0 var(--s2);padding:var(--s1) 0;
+}
+.chap .t,.chap .n{transition:color .4s var(--ease)}
+.chap:hover .n,.chap:focus-visible .n{color:var(--ink)}
+.chap .t{font-family:var(--disp);font-weight:500;font-size:11px;color:var(--mid);font-variant-numeric:tabular-nums}
 .chap .n{font-size:13px;color:var(--mid)}
-.chap a:hover .n,.chap a:focus-visible .n{color:var(--ink)}
-a.chap{transition:color .3s var(--ease)}
 
 .note-s{margin-top:var(--s5);font-size:11px;line-height:1.7;color:var(--mid);max-width:52em}
 
 /* ==========================================================================
-   ほかのかばん
+   ほかのかばん — 横に4本並べる（次に開くものを一望させる）
    ========================================================================== */
-.other{margin-top:var(--s7)}
-.other .row{
+.other{
+  margin-top:var(--s7);
   display:grid;
-  grid-template-columns:5.5rem minmax(0,1fr);
-  gap:0 var(--s4);
-  align-items:baseline;
-  padding:var(--s2) 0;
-  color:var(--mid);
-  transition:color .3s var(--ease);
+  grid-template-columns:repeat(4,minmax(0,1fr));
+  column-gap:var(--s4);
 }
-.other .row:hover,.other .row:focus-visible{color:var(--ink)}
-.other .d{font-family:var(--disp);font-weight:500;font-size:11px;font-variant-numeric:tabular-nums;letter-spacing:-.01em}
+.other > .g-name{grid-column:1 / -1}
+.other .row{
+  display:block;
+  padding:var(--s2) 0;
+  color:var(--ink);
+}
+.other .d,.other .tt{transition:opacity .4s var(--ease)}
+.other .row:hover .d,.other .row:hover .tt,
+.other .row:focus-visible .d,.other .row:focus-visible .tt{opacity:.45}
+.other .d{display:block;font-family:var(--disp);font-weight:500;font-size:10px;letter-spacing:.1em;color:var(--mid);font-variant-numeric:tabular-nums}
 .other .tt{font-size:14px}
 
 /* ==========================================================================
@@ -194,15 +224,15 @@ a.chap{transition:color .3s var(--ease)}
    レスポンシブ（390px）
    ========================================================================== */
 @media (max-width:900px){
-  .it{grid-template-columns:minmax(0,1fr) 1.5rem}
-  .i-lk{grid-column:2;grid-row:1}
-  .i-note{grid-column:1;margin-top:var(--s1)}
+  /* 幅が足りないので目録は1段に戻す */
+  .blk{columns:1}
+  .other{grid-template-columns:repeat(2,minmax(0,1fr))}
 }
 @media (max-width:640px){
   .wrap{padding:0 var(--s3)}
   .bh{padding-top:var(--s5)}
   .blk{margin-top:var(--s5)}
-  .other{margin-top:var(--s6)}
+  .other{margin-top:var(--s6);grid-template-columns:minmax(0,1fr)}
   .colophon{padding:var(--s6) 0 var(--s5)}
-  .chap{grid-template-columns:4rem minmax(0,1fr);gap:0 var(--s2)}
+  .chap{grid-template-columns:4rem minmax(0,1fr)}
 }
