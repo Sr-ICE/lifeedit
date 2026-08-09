@@ -1,0 +1,580 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>B案 ／ 4.5room</title>
+<meta name="robots" content="noindex,nofollow">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' fill='%23f6f5f3'/%3E%3Ctext x='32' y='41' font-family='Helvetica' font-size='21' font-weight='200' fill='%23141414' text-anchor='middle'%3E4.5%3C/text%3E%3C/svg%3E">
+<style>
+/* ==========================================================================
+   B案 ／ ファッションブランド寄り
+   12カラムの非対称レイアウト。文字は最小限、写真はフルブリードで画面を占める。
+   部屋名は縦組み（デスクトップ）。部屋から部屋へ、写真が下から立ち上がって切り替わる。
+   枠線／カード／区切り線は使わない。
+   ========================================================================== */
+*,*::before,*::after{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+html,body{margin:0;padding:0;overflow-x:hidden;width:100%}
+
+:root{
+  --paper:#f6f5f3;
+  --ink:#141414;
+  --sub:#67655f;
+  --faint:#a3a09a;
+  --gut:clamp(18px,4.2vw,56px);
+  --sec:clamp(120px,17vw,240px);
+  --e:cubic-bezier(.16,.72,.24,1);
+}
+
+body{
+  background:var(--paper);
+  color:var(--ink);
+  font-family:"Helvetica Neue",-apple-system,BlinkMacSystemFont,"Hiragino Sans","Hiragino Kaku Gothic ProN","Noto Sans JP",sans-serif;
+  font-weight:300;
+  line-height:2.05;
+  letter-spacing:.09em;
+  font-feature-settings:"palt" 1;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:inherit;text-decoration:none}
+img{display:block;max-width:100%;height:auto}
+h1,h2,h3,p,figure,ul,li{margin:0;padding:0}
+ul{list-style:none}
+
+.grid{display:grid;grid-template-columns:repeat(12,1fr);width:100%}
+.pad{padding-inline:var(--gut)}
+
+/* --- 出現 ---
+   隠すのは .js が付いているときだけ。JSが無効・失敗したら全部そのまま読める。 --- */
+.rv{transition:opacity 1.1s var(--e),transform 1.1s var(--e);transition-delay:calc(var(--i,0)*120ms)}
+.rx{transition:opacity 1.2s var(--e),transform 1.2s var(--e);transition-delay:calc(var(--i,0)*120ms)}
+.rp{overflow:hidden}
+.rp img{transition:clip-path 1.5s var(--e),transform 2s var(--e),opacity .9s var(--e)}
+.js .rv{opacity:0;transform:translateY(26px)}
+.js .rv.in{opacity:1;transform:none}
+.js .rx{opacity:0;transform:translateX(-26px)}
+.js .rx.r{transform:translateX(26px)}
+.js .rx.in{opacity:1;transform:none}
+.js .rp img{clip-path:inset(0 0 100% 0);transform:scale(1.08);opacity:.4}
+.js .rp.in img{clip-path:inset(0 0 0 0);transform:none;opacity:1}
+/* 読み込み時点で画面内にあるものは、animationを挟まずそのまま出す */
+.js .rv.now,.js .rx.now,.js .rp.now img{transition:none}
+@media (prefers-reduced-motion:reduce){
+  .js .rv,.js .rx{opacity:1!important;transform:none!important;transition:none!important}
+  .js .rp img{clip-path:none!important;transform:none!important;opacity:1!important;transition:none!important}
+}
+
+/* --- 縦の案内（部屋の並び） --- */
+/* 部屋の並び。ヒーロー左の余白（写真が始まる手前）に縦組みで置く。
+   固定にすると本文の左端と重なるので、ページと一緒にスクロールさせる。 */
+.side{
+  position:absolute;left:var(--gut);top:clamp(26px,4vw,54px);
+  z-index:6;display:flex;flex-direction:row;gap:clamp(14px,1.8vw,24px);
+}
+.side a{
+  writing-mode:vertical-rl;
+  font-size:10.5px;letter-spacing:.34em;color:var(--faint);transition:color .6s var(--e)
+}
+.side a:hover,.side a.on{color:var(--ink)}
+@media(max-width:900px){
+  .side{position:static;padding:clamp(20px,5vw,30px) var(--gut) 0;gap:16px}
+  .side a{writing-mode:horizontal-tb;letter-spacing:.2em}
+}
+
+/* --- ヒーロー（建物そのもの） --- */
+.hero{min-height:100svh;align-content:end;padding-bottom:clamp(26px,3.4vw,44px);position:relative}
+.hero .ph{grid-column:4/13;grid-row:1;height:100svh;min-height:520px}
+.hero .ph img{width:100%;height:100%;object-fit:cover;object-position:62% 44%}
+.hero .id{
+  grid-column:1/5;grid-row:1;align-self:end;z-index:2;
+  padding-left:var(--gut);padding-bottom:clamp(26px,4vw,64px);
+}
+.hero .mark{font-size:clamp(38px,4.6vw,62px);font-weight:200;letter-spacing:.02em;line-height:1;mix-blend-mode:multiply}
+.hero .sub{margin-top:16px;font-size:10px;letter-spacing:.34em;color:var(--faint)}
+
+.nums{padding-top:clamp(40px,5vw,72px)}
+.nums .set{grid-column:7/13;display:flex;flex-wrap:wrap;gap:clamp(20px,3.2vw,52px)}
+.nums .n{font-size:clamp(15px,1.7vw,22px);font-weight:200;letter-spacing:.04em;display:block;line-height:1.4}
+.nums .k{font-size:9.5px;letter-spacing:.3em;color:var(--faint);display:block;margin-top:8px}
+.nums .m{grid-column:7/13;margin-top:clamp(22px,2.6vw,34px);font-size:10px;letter-spacing:.2em;color:var(--faint)}
+
+/* --- 最新の1本 --- */
+.latest{padding-top:clamp(78px,10vw,150px)}
+.latest .k{grid-column:2/5;font-size:10px;letter-spacing:.32em;color:var(--faint)}
+.latest .t{grid-column:5/12;font-size:clamp(19px,2.5vw,32px);font-weight:200;letter-spacing:.06em;line-height:1.6}
+.latest .d{grid-column:5/12;margin-top:18px;font-size:10.5px;letter-spacing:.24em;color:var(--faint)}
+.latest .go{grid-column:5/12;margin-top:clamp(26px,3vw,38px)}
+
+.go a,a.go{font-size:11px;letter-spacing:.26em;transition:opacity .5s var(--e);display:inline-block}
+.go a:hover,a.go:hover{opacity:.4}
+
+/* --- 部屋 --- */
+.room{padding-top:var(--sec)}
+.room .ph{grid-column:1/9}
+.room.alt .ph{grid-column:5/13}
+.room .ph img{width:100%;height:clamp(340px,52vw,700px);object-fit:cover}
+.room .txt{grid-column:9/13;padding-inline:clamp(18px,2.2vw,34px) var(--gut);align-self:end;padding-bottom:clamp(10px,2vw,30px)}
+.room.alt .txt{grid-column:1/5;padding-inline:var(--gut) clamp(18px,2.2vw,34px);align-self:start;padding-top:clamp(24px,4vw,72px)}
+
+.room .nm{
+  writing-mode:vertical-rl;font-size:clamp(30px,3.6vw,50px);font-weight:200;
+  letter-spacing:.28em;line-height:1;margin-bottom:clamp(20px,2.4vw,34px);
+}
+.room .no{font-size:10px;letter-spacing:.34em;color:var(--faint);writing-mode:vertical-rl;margin-bottom:14px}
+.room .head{display:flex;align-items:flex-start;gap:clamp(10px,1.2vw,18px)}
+.room .dest{font-size:9.5px;letter-spacing:.28em;color:var(--faint);margin-top:clamp(16px,2vw,26px)}
+.room .say{margin-top:16px;font-size:12.5px;color:var(--sub);line-height:2.2;max-width:22em}
+.room .mini{margin-top:clamp(20px,2.4vw,30px);font-size:10px;letter-spacing:.2em;color:var(--faint);line-height:2.4}
+.room .mini b{font-weight:300;color:var(--ink);font-size:13.5px;letter-spacing:.04em}
+.room .go{margin-top:clamp(22px,2.6vw,34px)}
+
+/* --- 玄関の中身 --- */
+.carry{padding-top:clamp(70px,9vw,140px)}
+.carry .lead{grid-column:2/6;font-size:10px;letter-spacing:.34em;color:var(--faint)}
+.carry .set{grid-column:6/13;display:grid;grid-template-columns:1fr 1fr;column-gap:clamp(24px,3vw,54px);row-gap:clamp(34px,4vw,58px)}
+.carry .g{grid-column:1/-1;font-size:9.5px;letter-spacing:.36em;color:var(--faint);margin-top:clamp(16px,2vw,26px)}
+.carry .g:first-child{margin-top:0}
+.it .i{font-size:9.5px;letter-spacing:.24em;color:var(--faint)}
+.it .br{margin-top:8px;font-size:10px;letter-spacing:.22em;color:var(--faint);display:block}
+.it .nm2{margin-top:6px;font-size:14px;font-weight:300;letter-spacing:.08em;line-height:1.65}
+.it .ch{margin-top:10px;font-size:11.5px;color:var(--sub);line-height:1.95}
+.it .ch em{font-style:normal;color:var(--faint);letter-spacing:.16em;font-size:10px;display:block}
+.carry .go{grid-column:6/13;margin-top:clamp(40px,5vw,70px)}
+
+/* --- 読みもの --- */
+.reads{padding-top:clamp(46px,6vw,86px)}
+.reads .set{grid-column:5/13;display:grid;gap:clamp(24px,3vw,40px)}
+.reads .lead{grid-column:2/5;font-size:10px;letter-spacing:.34em;color:var(--faint)}
+.reads a{display:block;transition:opacity .5s var(--e)}
+.reads a:hover{opacity:.4}
+.reads .d{font-size:10px;letter-spacing:.26em;color:var(--faint);display:block}
+.reads .t{margin-top:9px;font-size:14px;font-weight:300;letter-spacing:.07em;line-height:1.8;display:block}
+.reads .go{grid-column:5/13;margin-top:clamp(34px,4vw,54px)}
+
+/* --- 応接室 --- */
+.work{padding-top:clamp(46px,6vw,86px)}
+.work .lead{grid-column:2/5;font-size:10px;letter-spacing:.34em;color:var(--faint)}
+.work .set{grid-column:5/13;display:grid;gap:clamp(24px,3vw,38px)}
+.work .k{font-size:9.5px;letter-spacing:.32em;color:var(--faint)}
+.work .v{margin-top:10px;font-size:13px;color:var(--sub);line-height:2.15;max-width:34em}
+.work .mail{grid-column:5/13;margin-top:clamp(34px,4vw,54px);font-size:clamp(15px,1.7vw,21px);font-weight:200;letter-spacing:.09em;display:inline-block;transition:opacity .5s var(--e)}
+.work .mail:hover{opacity:.4}
+.work .go{grid-column:5/13;margin-top:clamp(20px,2.4vw,30px)}
+
+footer{padding-block:var(--sec) clamp(56px,7vw,96px)}
+footer .fm{grid-column:1/6;font-size:clamp(26px,3.4vw,46px);font-weight:200;letter-spacing:.04em;line-height:1}
+footer .nav{grid-column:8/13;display:flex;flex-direction:column;gap:12px}
+footer .nav a{font-size:10.5px;letter-spacing:.26em;color:var(--faint);transition:color .5s var(--e)}
+footer .nav a:hover{color:var(--ink)}
+footer .c{grid-column:1/13;margin-top:clamp(46px,6vw,84px);font-size:10px;letter-spacing:.26em;color:var(--faint)}
+
+/* --- 390px --- */
+@media(max-width:860px){
+  .hero{min-height:0;align-content:start;padding-bottom:0}
+  .hero .ph{grid-column:1/13;grid-row:1;height:74svh;min-height:420px}
+  .hero .id{grid-column:1/13;grid-row:2;padding:clamp(24px,6vw,40px) var(--gut) 0}
+  .hero .mark{font-size:clamp(34px,10vw,52px)}
+  .nums{padding-top:clamp(30px,7vw,48px)}
+  .nums .set{grid-column:1/13;gap:22px 34px}
+  .nums .m{grid-column:1/13}
+  .latest{padding-top:clamp(60px,14vw,90px)}
+  .latest .k,.latest .t,.latest .d,.latest .go{grid-column:1/13}
+  .latest .t{margin-top:16px}
+  .room .ph,.room.alt .ph{grid-column:1/13}
+  .room .ph img{height:64svh;min-height:340px}
+  .room .txt,.room.alt .txt{grid-column:1/13;padding:clamp(26px,7vw,44px) var(--gut) 0;align-self:start}
+  .room .nm{writing-mode:horizontal-tb;font-size:clamp(30px,9vw,44px);letter-spacing:.18em;margin-bottom:0}
+  .room .no{writing-mode:horizontal-tb;margin-bottom:0}
+  .room .head{flex-direction:column;gap:12px}
+  .room .say{max-width:none}
+  .carry .lead,.carry .set,.carry .go,
+  .reads .lead,.reads .set,.reads .go,
+  .work .lead,.work .set,.work .mail,.work .go{grid-column:1/13}
+  .carry .set{grid-template-columns:1fr;margin-top:26px;row-gap:30px}
+  .reads .set,.work .set{margin-top:26px}
+  footer .fm,footer .nav,footer .c{grid-column:1/13}
+  footer .nav{flex-direction:row;flex-wrap:wrap;gap:16px;margin-top:32px}
+}
+</style>
+<script>document.documentElement.className += ' js';</script>
+</head>
+<body>
+
+<nav class="side" aria-label="部屋">
+  <a href="#genkan">玄関</a>
+  <a href="#lab">Lab</a>
+  <a href="#shiryo">資料室</a>
+  <a href="#atelier">アトリエ</a>
+  <a href="#setsu">応接室</a>
+</nav>
+
+<!-- ===== 建物そのもの ===== -->
+<header class="hero grid">
+  <figure class="ph rp">
+    <img src="../assets/photos/hero-wide.jpg" alt="ショルダーバッグを肩に掛けて机の前に立っているところ" width="1800" height="824">
+  </figure>
+  <div class="id">
+    <h1 class="mark rv">4.5room</h1>
+    <p class="sub rv" style="--i:1">YOUTUBE ／ 2022.12.14 —</p>
+  </div>
+</header>
+
+<section class="nums grid pad">
+  <div class="set">
+    <div class="rv"><span class="n" data-stat="channel.subscribers" data-fmt="comma">6,100</span><span class="k">登録者</span></div>
+    <div class="rv" style="--i:1"><span class="n" data-stat="channel.views_total" data-fmt="comma">1,240,828</span><span class="k">総再生</span></div>
+    <div class="rv" style="--i:2"><span class="n" data-stat="channel.videos" data-fmt="comma">252</span><span class="k">本</span></div>
+    <div class="rv" style="--i:3"><span class="n">2022.12.14</span><span class="k">初投稿</span></div>
+  </div>
+  <p class="m rv" style="--i:4">YouTube Data API 実測（<span data-stat="measured_at" data-fmt="date">2026.08.05</span> 時点）</p>
+</section>
+
+<!-- ===== 最新の1本 ===== -->
+<section class="latest grid pad">
+  <p class="k rx">最新の1本</p>
+  <h2 class="t rx" style="--i:1" data-latest-title>整理術不要のバックパック｜見た目はオタク。使うと可愛い。</h2>
+  <p class="d rx" style="--i:2"><span data-latest-date>2026.08.02</span>　／　<span data-latest-views>2,726</span> 回</p>
+  <p class="go rv" style="--i:3"><a href="https://www.youtube.com/@4.5room/videos" target="_blank" rel="noopener">動画をすべて見る ↗</a></p>
+</section>
+
+<!-- ===== 01 玄関 ===== -->
+<section class="room grid" id="genkan">
+  <figure class="ph rp">
+    <img loading="lazy" src="../assets/photos/w-06_in_use.jpg" alt="バッグを肩に掛けて立っているところ" width="1200" height="549">
+  </figure>
+  <div class="txt">
+    <div class="head">
+      <span class="no rx r">01</span>
+      <h2 class="nm rx r" style="--i:1">玄関</h2>
+    </div>
+    <p class="dest rv" style="--i:2">持ち出すもの ／ 16点</p>
+    <p class="say rv" style="--i:3">毎日持ち歩いている道具が置いてある。動画で紹介して、そのまま日常に残ったものだけ。</p>
+  </div>
+</section>
+
+<section class="carry grid pad">
+  <p class="lead rx">持ち出すもの ／ 16</p>
+  <div class="set">
+    <p class="g rv">かばんまわり</p>
+    <div class="it rv">
+      <span class="i">01</span>
+      <span class="br">StandardProducts</span>
+      <div class="nm2">スマホショルダー（BL）</div>
+      <p class="ch"><em>変わったこと ──</em> 本を持って出るのに、かばんを選ばなくなった。</p>
+    </div>
+    <div class="it rv" style="--i:1">
+      <span class="i">02</span>
+      <span class="br">無印良品</span>
+      <div class="nm2">自由に組み合わせられるストラップ</div>
+      <p class="ch"><em>変わったこと ──</em> 肩掛けと斜め掛けを、その日で変えられるようになった。</p>
+    </div>
+    <div class="it rv">
+      <span class="i">03</span>
+      <span class="br">aso</span>
+      <div class="nm2">クリアブックカバー fog</div>
+      <p class="ch"><em>変わったこと ──</em> 読みかけの本を、そのまま放り込めるようになった。</p>
+    </div>
+    <div class="it rv" style="--i:1">
+      <span class="i">04</span>
+      <span class="br">aso × Rebecca Miyama</span>
+      <div class="nm2">カードケース</div>
+      <p class="ch"><em>変わったこと ──</em> 財布のための場所が、かばんから消えた。</p>
+    </div>
+
+    <p class="g rv">手で書くための道具</p>
+    <div class="it rv">
+      <span class="i">05</span>
+      <span class="br">DELFONICS</span>
+      <div class="nm2">ロルバーン ポケット付メモ ミニ</div>
+      <p class="ch"><em>変わったこと ──</em> 思いついたことを、立ったまま書くようになった。</p>
+    </div>
+    <div class="it rv" style="--i:1">
+      <span class="i">06</span>
+      <span class="br">カンミ堂</span>
+      <div class="nm2">ココフセン COLOR</div>
+      <p class="ch"><em>変わったこと ──</em> 本に折り目をつけなくなった。</p>
+    </div>
+    <div class="it rv">
+      <span class="i">07</span>
+      <span class="br">パイロット</span>
+      <div class="nm2">ジュースアップ4 0.4</div>
+      <p class="ch"><em>変わったこと ──</em> ペンを4本持ち歩くのをやめた。</p>
+    </div>
+    <div class="it rv" style="--i:1">
+      <span class="i">08</span>
+      <span class="br">三菱鉛筆</span>
+      <div class="nm2">ジェットストリーム 4&amp;1 0.5</div>
+      <p class="ch"><em>変わったこと ──</em> 書いて消す日も、1本で足りるようになった。</p>
+    </div>
+
+    <p class="g rv">持ち歩く机</p>
+    <div class="it rv">
+      <span class="i">09</span>
+      <span class="br">Apple</span>
+      <div class="nm2">iPad mini（第6世代）</div>
+      <p class="ch"><em>変わったこと ──</em> 作業のために家へ戻る日が、なくなった。</p>
+    </div>
+    <div class="it rv" style="--i:1">
+      <span class="i">10</span>
+      <span class="br">Nillkin</span>
+      <div class="nm2">折りたたみ式キーボード</div>
+      <p class="ch"><em>変わったこと ──</em> 長い文章を、外でも書けるようになった。</p>
+    </div>
+    <div class="it rv">
+      <span class="i">11</span>
+      <span class="br">QCY</span>
+      <div class="nm2">MeloBuds N70</div>
+      <p class="ch"><em>変わったこと ──</em> 音の装備が、かばんに常駐した。</p>
+    </div>
+    <div class="it rv" style="--i:1">
+      <span class="i">12</span>
+      <span class="br">Loop</span>
+      <div class="nm2">Experience 2（耳栓）</div>
+      <p class="ch"><em>変わったこと ──</em> 音を消さずに、下げられるようになった。</p>
+    </div>
+
+    <p class="g rv">腰まわり</p>
+    <div class="it rv">
+      <span class="i">13</span>
+      <span class="br">TISUR</span>
+      <div class="nm2">チタン キーホルダー ベルトクリップ</div>
+      <p class="ch"><em>変わったこと ──</em> 鍵をポケットから探す時間が、なくなった。</p>
+    </div>
+    <div class="it rv" style="--i:1">
+      <span class="i">14</span>
+      <span class="br">NITEIZE</span>
+      <div class="nm2">エスビナー スライドロック 3</div>
+      <p class="ch"><em>変わったこと ──</em> 付け外しに、両手を使わなくなった。</p>
+    </div>
+    <div class="it rv">
+      <span class="i">15</span>
+      <span class="br">StandardProducts</span>
+      <div class="nm2">カラビナ付イヤホンケース（BK）</div>
+      <p class="ch"><em>変わったこと ──</em> 詰め直す工程が、なくなった。</p>
+    </div>
+    <div class="it rv" style="--i:1">
+      <span class="i">16</span>
+      <span class="br">Apple</span>
+      <div class="nm2">AirPods Pro（整備済み品）</div>
+      <p class="ch"><em>変わったこと ──</em> かばんを持たない日も、イヤホンが手元に残った。</p>
+    </div>
+  </div>
+  <p class="go rv"><a href="../carry.html">16点をすべて見る →</a>　　<a href="../videos/template.html">動画に登場した物 →</a></p>
+</section>
+
+<!-- ===== 02 Lab ===== -->
+<section class="room alt grid" id="lab">
+  <figure class="ph rp">
+    <img loading="lazy" src="../assets/photos/w-04_strap.jpg" alt="バッグの中を開いているところ" width="1200" height="549">
+  </figure>
+  <div class="txt">
+    <div class="head">
+      <span class="no rx">02</span>
+      <h2 class="nm rx" style="--i:1">Lab</h2>
+    </div>
+    <p class="dest rv" style="--i:2">サブチャンネル ／ 4.5Lab</p>
+    <p class="say rv" style="--i:3">本編に入らなかった動画と、思いついたことをそのまま出している。</p>
+    <p class="mini rv" style="--i:4">
+      <b>679</b> 登録者　<b>6,487</b> 総再生<br>
+      <b>19</b> 本　<b>2023.03.02</b> 開設<br>
+      YouTube Data API 実測（2026.08.05 時点）
+    </p>
+    <p class="go rv" style="--i:5"><a href="https://www.youtube.com/channel/UCtpqTOuTy5gK_2UZzgikizQ" target="_blank" rel="noopener">4.5Lab を見る ↗</a></p>
+  </div>
+</section>
+
+<!-- ===== 03 資料室 ===== -->
+<section class="room grid" id="shiryo">
+  <figure class="ph rp">
+    <img loading="lazy" src="../assets/photos/p-hero-portrait.jpg" alt="ショルダーバッグの生地の質感" width="880" height="1174">
+  </figure>
+  <div class="txt">
+    <div class="head">
+      <span class="no rx r">03</span>
+      <h2 class="nm rx r" style="--i:1">資料室</h2>
+    </div>
+    <p class="dest rv" style="--i:2">note ／ 4_5room</p>
+    <p class="say rv" style="--i:3">動画で話しきれなかったことを、文章で置いてある。</p>
+  </div>
+</section>
+
+<section class="reads grid pad">
+  <p class="lead rx">読みもの</p>
+  <div class="set">
+    <a class="rv" href="https://note.com/4_5room/n/n2c4ecc530637" target="_blank" rel="noopener">
+      <span class="d">2026.07.26</span><span class="t">「一生モノ」は、名詞ではなく動詞だった</span>
+    </a>
+    <a class="rv" style="--i:1" href="https://note.com/4_5room/n/n43d0a1f3a29d" target="_blank" rel="noopener">
+      <span class="d">2026.05.29</span><span class="t">「会話」をやめ、「発注」を始めよう</span>
+    </a>
+    <a class="rv" style="--i:2" href="https://note.com/4_5room/n/n250420417d4f" target="_blank" rel="noopener">
+      <span class="d">2026.05.24</span><span class="t">【700円】StandardProductsの新作ショルダーが、本好きの最適解になりそうな話｜読書かばん</span>
+    </a>
+    <a class="rv" style="--i:3" href="https://note.com/4_5room/n/nbe70c0691a90" target="_blank" rel="noopener">
+      <span class="d">2026.03.20</span><span class="t">3時間かけて、自分で機械式時計を組み立てた話</span>
+    </a>
+  </div>
+  <p class="go rv"><a href="https://note.com/4_5room/" target="_blank" rel="noopener">note をすべて読む ↗</a></p>
+</section>
+
+<!-- ===== 04 アトリエ ===== -->
+<section class="room alt grid" id="atelier">
+  <figure class="ph rp">
+    <img loading="lazy" src="../assets/photos/p3-portrait.jpg" alt="バッグを掛けて机の前に立っているところ" width="880" height="1174">
+  </figure>
+  <div class="txt">
+    <div class="head">
+      <span class="no rx">04</span>
+      <h2 class="nm rx" style="--i:1">アトリエ</h2>
+    </div>
+    <p class="dest rv" style="--i:2">Instagram ／ @srice4.5</p>
+    <p class="say rv" style="--i:3">写真を置いている。動画にする前のものも、ここには残していく。</p>
+    <p class="go rv" style="--i:4"><a href="https://www.instagram.com/srice4.5/" target="_blank" rel="noopener">Instagram を見る ↗</a></p>
+  </div>
+</section>
+
+<!-- ===== 05 応接室（企業向けのため敬体） ===== -->
+<section class="room grid" id="setsu">
+  <figure class="ph rp">
+    <img loading="lazy" src="../assets/photos/w-05_contents.jpg" alt="手のひらサイズのイヤホンケースを持っているところ" width="1200" height="549">
+  </figure>
+  <div class="txt">
+    <div class="head">
+      <span class="no rx r">05</span>
+      <h2 class="nm rx r" style="--i:1">応接室</h2>
+    </div>
+    <p class="dest rv" style="--i:2">お仕事のご相談 ／ 実績</p>
+    <p class="say rv" style="--i:3">製品のご紹介・タイアップのご相談は、こちらで承っています。</p>
+  </div>
+</section>
+
+<section class="work grid pad">
+  <p class="lead rx">お仕事のご相談</p>
+  <div class="set">
+    <div class="rv">
+      <p class="k">お受けできること</p>
+      <p class="v">長尺レビュー／複数製品をまとめた企画動画／短尺／note での記事</p>
+    </div>
+    <div class="rv" style="--i:1">
+      <p class="k">得意な領域</p>
+      <p class="v">バッグ・EDC・持ち歩き／文房具／iPad miniまわり／デスク環境／生活を整える実用品</p>
+    </div>
+    <div class="rv" style="--i:2">
+      <p class="k">メディア掲載</p>
+      <p class="v">2026.05　ねとらぼ（ITmedia）に動画が記事として取り上げられました。Yahoo!ニュース・LINEニュースにも配信されています。</p>
+    </div>
+    <div class="rv" style="--i:3">
+      <p class="k">お約束していること</p>
+      <p class="v">提供・PR表記は必ず明示します。そのうえで、気になった点も動画内でお伝えします。</p>
+    </div>
+  </div>
+  <a class="mail rv" href="mailto:4.5roomsrice@gmail.com?subject=%E3%81%8A%E4%BB%95%E4%BA%8B%E3%81%AE%E3%81%94%E7%9B%B8%E8%AB%87%EF%BC%884.5room%EF%BC%89">4.5roomsrice@gmail.com</a>
+  <p class="go rv"><a href="../about.html">実績とお受けできることを見る →</a></p>
+</section>
+
+<footer class="grid pad">
+  <p class="fm rv">4.5room</p>
+  <div class="nav">
+    <a href="#genkan">玄関</a>
+    <a href="#lab">Lab</a>
+    <a href="#shiryo">資料室</a>
+    <a href="#atelier">アトリエ</a>
+    <a href="#setsu">応接室</a>
+  </div>
+  <p class="c">© <span data-year>2026</span> 4.5room</p>
+</footer>
+
+<script>
+(function(){
+  'use strict';
+
+  var root = document.documentElement;
+  var targets = [].slice.call(document.querySelectorAll('.rv,.rx,.rp'));
+  var io = null;
+
+  /* いま画面に入っているものを、スクロールを待たずに出す。
+     instant=true のときは transition を挟まず、その場で最終状態にする。 */
+  function revealInView(instant){
+    var h = window.innerHeight || root.clientHeight;
+    targets.forEach(function(el){
+      if(el.classList.contains('in')) return;
+      var r = el.getBoundingClientRect();
+      if(r.top < h && r.bottom > 0){
+        if(instant) el.classList.add('now');
+        el.classList.add('in');
+        if(io) io.unobserve(el);
+      }
+    });
+  }
+
+  try{
+    if(!('IntersectionObserver' in window)){
+      /* 非対応環境では動かさず、最初から見えている状態にする */
+      targets.forEach(function(el){ el.classList.add('in'); });
+    }else{
+      io = new IntersectionObserver(function(es){
+        es.forEach(function(e){
+          if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); }
+        });
+      },{rootMargin:'0px 0px -10% 0px',threshold:0});
+      targets.forEach(function(el){ io.observe(el); });
+
+      /* 縦の案内：いま見ている部屋を濃くする */
+      var links = {};
+      document.querySelectorAll('.side a').forEach(function(a){ links[a.getAttribute('href').slice(1)] = a; });
+      var ro = new IntersectionObserver(function(es){
+        es.forEach(function(e){
+          var a = links[e.target.id];
+          if(!a) return;
+          if(e.isIntersecting){
+            Object.keys(links).forEach(function(k){ links[k].classList.remove('on'); });
+            a.classList.add('on');
+          }
+        });
+      },{rootMargin:'-45% 0px -45% 0px'});
+      Object.keys(links).forEach(function(k){
+        var s = document.getElementById(k); if(s) ro.observe(s);
+      });
+
+      /* 初期表示ぶんは observer を待たずに確定させる */
+      revealInView(true);
+      window.addEventListener('load', function(){ revealInView(true); });
+      window.addEventListener('resize', function(){ revealInView(false); });
+    }
+  }catch(err){
+    /* 何かあってもページが白紙にならないように、隠す指定ごと外す */
+    root.classList.remove('js');
+  }
+
+  var fmt = {
+    comma:function(v){ return Number(v).toLocaleString('ja-JP'); },
+    date:function(v){ return String(v).replace(/-/g,'.'); }
+  };
+  function pick(o,p){ return p.split('.').reduce(function(a,k){ return a==null?a:a[k]; },o); }
+
+  fetch('../assets/stats.json').then(function(r){ return r.json(); }).then(function(s){
+    document.querySelectorAll('[data-stat]').forEach(function(el){
+      var v = pick(s, el.getAttribute('data-stat'));
+      if(v==null) return;
+      var f = el.getAttribute('data-fmt');
+      el.textContent = (f && fmt[f]) ? fmt[f](v) : v;
+    });
+    var v0 = s.latest_videos && s.latest_videos[0];
+    if(v0){
+      var t = document.querySelector('[data-latest-title]');
+      var d = document.querySelector('[data-latest-date]');
+      var w = document.querySelector('[data-latest-views]');
+      if(t) t.textContent = v0.title;
+      if(d) d.textContent = fmt.date(v0.published);
+      if(w) w.textContent = fmt.comma(v0.views);
+    }
+  }).catch(function(){});
+
+  var y = document.querySelector('[data-year]');
+  if(y) y.textContent = new Date().getFullYear();
+})();
+</script>
+
+</body>
+</html>

@@ -1,0 +1,132 @@
+{
+  "_comment": "手で書き換える文面。管理画面（_dir/admin）から編集する。{ } は自動取得ぶんの差し込み。使えるのは {subscribers} {views} {videos} {first_upload} {measured_at} {opened} {count} だけ。",
+  "hero": {
+    "fact": "youtube ／ {first_upload} —"
+  },
+  "rooms": [
+    {
+      "id": "01",
+      "name": "YouTube（本編）",
+      "summary": "登録者 {subscribers}・動画 {videos}本",
+      "url": "https://www.youtube.com/@4.5room"
+    },
+    {
+      "id": "02",
+      "name": "YouTube（Lab）",
+      "summary": "登録者 {subscribers}・動画 {videos}本",
+      "url": "https://www.youtube.com/channel/UCtpqTOuTy5gK_2UZzgikizQ"
+    },
+    {
+      "id": "03",
+      "name": "note",
+      "summary": "動画にできない長さの話",
+      "url": "https://note.com/4_5room/"
+    },
+    {
+      "id": "04",
+      "name": "Instagram",
+      "summary": "写真",
+      "url": "https://www.instagram.com/srice4.5/"
+    },
+    {
+      "id": "05",
+      "name": "持ちもの",
+      "summary": "{count}点",
+      "url": "#mochimono"
+    },
+    {
+      "id": "06",
+      "name": "お仕事",
+      "summary": "相談・実績",
+      "url": "e-work.html",
+      "items": [
+        {
+          "label": "メディア掲載",
+          "text": "ねとらぼ（ITmedia）に記事化・Yahoo!ニュース配信"
+        },
+        {
+          "label": "お受けできること",
+          "text": "動画／note記事での紹介"
+        }
+      ]
+    }
+  ],
+  "carry": {
+    "heading": "持ちもの",
+    "lead": "動画で紹介して、そのまま日常に残ったものだけ。日付は、その道具を動画で紹介した月。",
+    "notes": [
+      "※ 掲載しているのは、実際に購入して使っている（または製品提供を受けて使い続けている）ものだけです。",
+      "※ 商品リンクにはAmazonアソシエイトを含むアフィリエイト広告が含まれます。価格・在庫はリンク先をご確認ください。"
+    ]
+  },
+  "work": {
+    "heading": "お仕事",
+    "lead": "お仕事のご相談・実績",
+    "bio": "ミニマリストになりたくも永遠になれないIT系テレワーカー。ガジェットと洋服が好き、マヨネーズが世界で一番きらい。",
+    "lab_line": "登録者 {subscribers}・動画 {videos}本（{opened}開設・{measured_at} 実測）",
+    "stats_note": "YouTube Data API 実測（{measured_at} 時点）。登録者数はYouTubeの仕様により概数で表示されます。",
+    "media": [
+      {
+        "date": "2026.05",
+        "text": "ねとらぼ（ITmedia）に動画が記事として取り上げられ、Yahoo!ニュース・LINEニュースにも配信されました。"
+      }
+    ],
+    "accept": [
+      {
+        "label": "動画",
+        "text": "長尺レビュー／複数製品をまとめた企画動画／短尺"
+      },
+      {
+        "label": "記事",
+        "text": "note での紹介記事（動画との連動も可能です）"
+      },
+      {
+        "label": "得意な領域",
+        "text": "バッグ・EDC・持ち歩き／文房具／iPad miniまわり／デスク環境・リモートワーク／生活を整える実用品"
+      }
+    ],
+    "ask": "製品のご紹介・タイアップ・イベントのご案内は、メールでお願いいたします。お受けできない場合も、理由を添えてお返事しています。",
+    "ask_4": "ご一報の際、①製品名・URL ②ご希望の形式（長尺／短尺／記事） ③ご希望の時期 ④提供条件（製品提供のみ／有償の場合はご予算） の4点があるとお返事が早くなります。",
+    "mail": {
+      "label": "メールで相談する",
+      "address": "4.5roomsrice@gmail.com",
+      "subject": "お仕事のご相談（4.5room）",
+      "body": "①製品名・URL：\n②ご希望の形式：\n③ご希望の時期：\n④提供条件：\n"
+    }
+  },
+  "colophon": {
+    "copyright": "© 2026 4.5room",
+    "links": [
+      {
+        "label": "YouTube",
+        "url": "https://www.youtube.com/@4.5room"
+      },
+      {
+        "label": "YouTube Lab",
+        "url": "https://www.youtube.com/channel/UCtpqTOuTy5gK_2UZzgikizQ"
+      },
+      {
+        "label": "note",
+        "url": "https://note.com/4_5room/"
+      },
+      {
+        "label": "Instagram",
+        "url": "https://www.instagram.com/srice4.5/"
+      },
+      {
+        "label": "お仕事",
+        "url": "e-work.html",
+        "only": "rooms"
+      },
+      {
+        "label": "4.5room",
+        "url": "e-rooms.html",
+        "only": "work"
+      },
+      {
+        "label": "mail",
+        "url": "mailto:4.5roomsrice@gmail.com"
+      }
+    ]
+  }
+}

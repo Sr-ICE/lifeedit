@@ -1,2 +1,6 @@
 .DS_Store
 .claude/
+
+# 管理画面が上書き前に退避したもの（手元にだけ残す）
+_dir/content/.backup/
+_dir/admin/__pycache__/

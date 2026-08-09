@@ -1,0 +1,906 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>4.5room</title>
+<meta name="description" content="4.5room。YouTubeチャンネルと、毎日持ち歩いている道具16点、note、Instagram、お仕事のご相談。">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 300 300'%3E%3Crect width='300' height='300' fill='%23F5F2ED'/%3E%3Cg fill='%2326262A' fill-opacity='0.5'%3E%3Crect x='16' y='128' width='44' height='44'/%3E%3Crect x='72' y='128' width='44' height='44'/%3E%3Crect x='128' y='128' width='44' height='44'/%3E%3Crect x='184' y='128' width='44' height='44'/%3E%3Crect x='240' y='128' width='44' height='44'/%3E%3C/g%3E%3C/svg%3E">
+
+<style>
+/* ==========================================================================
+   4.5room — d-final
+   間取りは「4.5roomという同寸の部屋が5室並んでいる集合住宅の平面図」。
+   （1つの4.5帖を5枚の畳に割る風車の図は廃止した。ヒーローにも復活させないこと。）
+   色は 紙・墨・中間・淡 の4色のみ。線・カード・影・角丸は使わない。
+   ========================================================================== */
+
+/* --- 欧文・数字用ディスプレイ書体（自前ホスト） ------------------------- */
+@font-face{
+  font-family:"General Sans";
+  src:url("fonts/GeneralSans-Medium.woff2") format("woff2");
+  font-weight:500;font-style:normal;font-display:swap;
+}
+@font-face{
+  font-family:"General Sans";
+  src:url("fonts/GeneralSans-Semibold.woff2") format("woff2");
+  font-weight:600;font-style:normal;font-display:swap;
+}
+
+:root{
+  --paper:#F5F2ED;
+  --ink:#26262A;
+  --mid:#8B8680;
+  --pale:#C9C4BC;
+
+  --jp:"Hiragino Sans","Hiragino Kaku Gothic ProN","Noto Sans JP",sans-serif;
+  /* 部屋名の見出しと「変わったこと ──」の行だけに使う明朝 */
+  --mc:"Hiragino Mincho ProN","Yu Mincho",serif;
+  --disp:"General Sans","Helvetica Neue",Arial,sans-serif;
+
+  /* 余白スケール 8/16/24/40/64/104/168/240 */
+  --s1:8px; --s2:16px; --s3:24px; --s4:40px;
+  --s5:64px; --s6:104px; --s7:168px; --s8:240px;
+
+  --ease:cubic-bezier(0.16,1,0.3,1);
+}
+
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+
+html{scroll-behavior:smooth}
+
+body{
+  background:var(--paper);
+  color:var(--ink);
+  font-family:var(--jp);
+  font-weight:400;
+  font-size:15px;
+  line-height:1.95;
+  letter-spacing:.02em;
+  font-feature-settings:"palt";
+  -webkit-font-smoothing:antialiased;
+  -moz-osx-font-smoothing:grayscale;
+  overflow-wrap:anywhere;
+}
+
+/* 写真のトーンは ffmpeg で焼き込み済み。CSSフィルタは掛けない。 */
+img{display:block;max-width:100%}
+ul,ol{list-style:none}
+a{color:inherit;text-decoration:none}
+a:focus{outline:none}
+a:focus-visible{outline:none}
+
+/* --- 共通パーツ ---------------------------------------------------------- */
+.wrap{max-width:1240px;margin:0 auto;padding:0 var(--s5)}
+
+/* 数値は全箇所 tabular-nums、ディスプレイ書体 */
+.num{
+  font-family:var(--disp);
+  font-weight:500;
+  font-variant-numeric:tabular-nums;
+  font-feature-settings:"tnum" 1;
+  letter-spacing:-.01em;
+}
+
+/* 英字マイクロラベル（小文字・字間広め） */
+.ml{
+  font-family:var(--disp);
+  font-weight:500;
+  font-size:10px;
+  line-height:1.7;
+  letter-spacing:.22em;
+  text-transform:lowercase;
+  color:var(--mid);
+  font-variant-numeric:tabular-nums;
+}
+
+/* 明朝を使うのは、部屋名の見出しと「変わったこと ── ○○」の行だけ。
+   本文・ワードマーク・数値・凡例説明はゴシック／General Sansのまま。 */
+.rh-j,.rm-j,.i-ch{
+  font-family:var(--mc);
+  font-weight:300;
+  letter-spacing:.08em;
+}
+
+/* テキストリンク：下線が左から伸びる */
+.ln{position:relative;display:inline-block;color:var(--ink)}
+.ln::after{
+  content:"";position:absolute;left:0;bottom:.04em;
+  width:100%;height:1px;background:currentColor;
+  transform:scaleX(0);transform-origin:left;
+  transition:transform .3s var(--ease);
+}
+.ln:hover::after,.ln:focus-visible::after{transform:scaleX(1)}
+
+/* ==========================================================================
+   00 表札
+   ========================================================================== */
+.hero{
+  min-height:100svh;
+  display:flex;align-items:center;
+  padding:var(--s6) 0;
+}
+
+/* <i> はマスク用の器。斜体にはしない（JS無効時もここが効く）。 */
+.mask{display:block;overflow:hidden}
+.mask > i{font-style:normal}
+.wm{
+  font-family:var(--disp);
+  font-weight:500;
+  font-size:clamp(72px,10vw,140px);
+  line-height:1.06;
+  letter-spacing:-.03em;
+  font-variant-numeric:tabular-nums;
+}
+.fact{margin-top:var(--s3)}
+/* 淡色(--pale)だと紙との比が約1.5:1で実機で読めない。中間色まで上げる。 */
+.fact .ml{color:var(--mid)}
+
+/* ==========================================================================
+   間取り（部屋インデックス）
+   同寸の正方形が5室、横一列。室と室のあいだの目地は紙色（12px）。
+   各室の下の1行が凡例を兼ねる（別立ての凡例リストは持たない）。
+   ========================================================================== */
+.plan{padding-top:var(--s7)}
+.plan-rooms{
+  display:grid;
+  grid-template-columns:repeat(5,minmax(0,1fr));
+  gap:0 12px;
+}
+.rm{position:relative;display:block}
+.rm-box{position:relative;display:block;aspect-ratio:1/1}
+.rm-fill{
+  position:absolute;inset:0;
+  background:var(--ink);opacity:.06;
+  transition:opacity .3s var(--ease);
+}
+.rm:hover .rm-fill,.rm:focus-visible .rm-fill{opacity:.12}
+.rm-n{
+  position:absolute;left:var(--s2);top:var(--s2);
+  font-family:var(--disp);font-weight:500;font-size:10px;letter-spacing:.06em;
+  color:var(--mid);font-variant-numeric:tabular-nums;
+}
+.rm-j{
+  position:absolute;left:var(--s2);top:calc(var(--s2) + 22px);
+  font-size:16px;line-height:1.5;color:var(--ink);
+}
+.rm-d{display:block;margin-top:var(--s2);font-size:13px;line-height:1.7;color:var(--mid)}
+
+/* ==========================================================================
+   現在地インジケータ（ミニマップ）
+   間取りと同じ「5室が横一列」。現在の室だけ点灯する。
+   ========================================================================== */
+.minimap{
+  position:fixed;right:var(--s4);bottom:var(--s4);z-index:5;
+  display:flex;gap:4px;
+  /* 全幅バンドの写真の上を通るときも目地が紙色に見えるように、紙を敷く。 */
+  background:var(--paper);
+  opacity:0;visibility:hidden;
+  transition:opacity .5s var(--ease),visibility .5s var(--ease);
+  pointer-events:none;
+}
+.minimap.on{opacity:1;visibility:visible}
+.mm{
+  display:block;width:10px;height:10px;
+  background:var(--ink);opacity:.06;
+  transition:opacity .5s var(--ease);
+}
+.mm.now{opacity:.7}
+
+/* ==========================================================================
+   部屋（共通）
+   ========================================================================== */
+.room{padding-top:var(--s7)}
+#genkan{padding-top:var(--s8)}
+
+.rh{margin-bottom:var(--s5)}
+.rh-n{display:block;font-family:var(--disp);font-weight:600;font-size:12px;letter-spacing:.06em;color:var(--mid);font-variant-numeric:tabular-nums}
+.rh-j{
+  font-size:clamp(30px,3.4vw,42px);
+  line-height:1.3;
+  margin-top:var(--s1);
+}
+.rh-e{display:block;margin-top:var(--s1)}
+
+.lead{font-size:15px;line-height:1.95;color:var(--mid);max-width:44em}
+
+/* --- 玄関のリスト -------------------------------------------------------- */
+.groups{margin-top:var(--s6)}
+.group{margin-top:var(--s6)}
+.group:first-child{margin-top:0}
+.g-name{font-size:13px;font-weight:600;letter-spacing:.02em;color:var(--ink);margin-bottom:var(--s3)}
+
+.it{
+  display:grid;
+  grid-template-columns:19rem minmax(0,1fr) 5.5rem 1.5rem;
+  gap:0 var(--s4);
+  align-items:baseline;
+  padding:var(--s3) 0;
+}
+.i-br{display:block;font-size:11px;line-height:1.7;letter-spacing:.02em;color:var(--mid)}
+.i-nm{display:block;font-size:15px;font-weight:400;line-height:1.7;color:var(--ink)}
+.i-ch{font-size:13px;line-height:1.8;color:var(--mid)}
+.i-ch em{font-style:normal;font-size:11px;letter-spacing:.08em;color:var(--pale)}
+.i-since{font-family:var(--disp);font-weight:500;font-size:11px;color:var(--mid);font-variant-numeric:tabular-nums;letter-spacing:-.01em}
+.i-lk{font-size:14px;color:var(--mid);justify-self:end;transition:color .3s var(--ease)}
+.i-lk:hover,.i-lk:focus-visible{color:var(--ink)}
+
+/* --- 玄関の写真 ---------------------------------------------------------- */
+/* 素材が動画のフレームで、ピントが甘く背景も雑多。全幅に引き伸ばすと粗が主役に
+   なるので、撮り下ろしが入るまでは小さく置く。撮り直したら max-width を外して
+   全幅バンドに戻すこと。 */
+/* 全幅バンドをやめ、本文と同じ左端に揃えて置く。
+   figure が .wrap の外にあるので、.wrap と同じ寄せ幅をここで作る。 */
+.band{max-width:1240px;margin:var(--s6) auto;padding:0 var(--s5)}
+.band img{
+  max-width:560px;width:100%;height:auto;
+  aspect-ratio:4/3;object-fit:cover;object-position:56% 46%;
+}
+.pair{
+  display:grid;grid-template-columns:1fr 1fr;gap:var(--s3);
+  max-width:720px;margin:var(--s6) 0;
+}
+.pair img{width:100%;height:auto;aspect-ratio:1/1;object-fit:cover}
+.pair .p-a img{object-position:50% 50%}
+.pair .p-b img{object-position:46% 50%}
+
+.note-s{margin-top:var(--s5);font-size:11px;line-height:1.7;color:var(--pale);max-width:52em}
+
+/* --- 行リスト（note記事） ------------------------------------------------ */
+.rows{margin-top:var(--s5)}
+.row{
+  display:grid;grid-template-columns:6rem minmax(0,1fr) 2rem;
+  gap:0 var(--s4);align-items:baseline;padding:var(--s3) 0;
+}
+.row-d{font-family:var(--disp);font-weight:500;font-size:11px;color:var(--mid);font-variant-numeric:tabular-nums;letter-spacing:-.01em}
+.row-t{font-size:15px;line-height:1.7}
+.row-a{font-size:14px;color:var(--mid);justify-self:end;transition:color .3s var(--ease)}
+.row:hover .row-a{color:var(--ink)}
+
+.act{margin-top:var(--s4);font-size:14px}
+
+/* --- 奥付 ---------------------------------------------------------------- */
+.colophon{padding:var(--s7) 0 var(--s6)}
+.colophon .c-c{font-family:var(--disp);font-weight:500;font-size:11px;letter-spacing:.06em;color:var(--mid);font-variant-numeric:tabular-nums}
+.colophon .c-n{margin-top:var(--s2);font-size:13px;color:var(--mid);display:flex;flex-wrap:wrap;gap:0 var(--s3)}
+.colophon .c-n .ln{color:var(--mid)}
+.colophon .c-n .ln:hover{color:var(--ink)}
+
+/* ==========================================================================
+   モーション
+   JSが起動したときだけ .js-rv が付く。JS無効／失敗時は全文がそのまま読める。
+   ========================================================================== */
+.js-rv body{opacity:0}
+.js-rv body.ready{opacity:1;transition:opacity .6s var(--ease)}
+
+.js-rv .rv{opacity:0;transform:translateY(8px)}
+.js-rv .rv.in{
+  opacity:1;transform:none;
+  transition:opacity 1.15s var(--ease),transform 1.15s var(--ease);
+  transition-delay:calc(var(--i,0) * 90ms);
+}
+/* 画像は不透明度＋わずかな拡大の解除で登場。
+   図形側は clip-path:inset(0) と overflow:hidden で切り、拡大分をはみ出させない。
+   （clip-path は描画だけを切るのでスクロール幅は overflow:hidden で止める。
+     inset(0) は描画幅を0にしないので IntersectionObserver は正しく効く。
+     inset(0 100% 0 0) のように片側を潰すと永久に開かなくなるので使わない。） */
+.js-rv .rv.w{opacity:1;transform:none;clip-path:inset(0);overflow:hidden}
+.js-rv .rv.w img{opacity:0;transform:scale(1.04)}
+.js-rv .rv.w.in img{
+  opacity:1;transform:none;
+  transition:opacity 1.4s var(--ease),transform 1.4s var(--ease);
+  transition-delay:calc(var(--i,0) * 90ms);
+}
+
+@keyframes mask-rise{from{transform:translateY(106%)}to{transform:translateY(0)}}
+.js-rv .mask > i{display:block;font-style:normal;transform:translateY(106%);animation:mask-rise .95s var(--ease) forwards}
+.js-rv .wm .mask > i{animation-delay:.60s}
+.js-rv .fact .mask > i{animation-delay:.78s}
+
+@media (prefers-reduced-motion: reduce){
+  html{scroll-behavior:auto}
+  *,*::before,*::after{
+    animation-duration:.001ms!important;
+    animation-delay:0ms!important;
+    animation-iteration-count:1!important;
+    transition-duration:.001ms!important;
+    transition-delay:0ms!important;
+  }
+  .js-rv body{opacity:1!important}
+  .js-rv .rv,.js-rv .rv.w{opacity:1!important;transform:none!important}
+  .js-rv .rv.w img{opacity:1!important;transform:none!important}
+  .js-rv .mask > i{transform:none!important;animation:none!important}
+}
+
+/* ==========================================================================
+   レスポンシブ（390px）
+   ========================================================================== */
+@media (max-width:900px){
+  .wrap{padding:0 var(--s3)}
+
+  .hero{padding:var(--s5) 0}
+  .fact{margin-top:var(--s3)}
+
+  .plan{padding-top:var(--s6)}
+
+  /* 建物案内板。全幅×64pxの低い矩形が縦に積む。1行に番号＋部屋名＋説明。 */
+  .plan-rooms{grid-template-columns:minmax(0,1fr);gap:12px 0}
+  .rm-box{aspect-ratio:auto;height:64px}
+  .rm-n{left:14px;top:50%;transform:translateY(-50%)}
+  .rm-j{left:44px;top:50%;transform:translateY(-50%);font-size:15px}
+  .rm-d{
+    position:absolute;left:116px;right:14px;top:50%;transform:translateY(-50%);
+    margin-top:0;font-size:11px;
+    white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
+  }
+
+  .minimap{right:var(--s3);bottom:var(--s3)}
+
+  .room{padding-top:var(--s6)}
+  #genkan{padding-top:var(--s7)}
+  .rh{margin-bottom:var(--s4)}
+
+  .groups{margin-top:var(--s5)}
+  .group{margin-top:var(--s5)}
+
+  .it{
+    grid-template-columns:minmax(0,1fr) 1.5rem;
+    gap:0 var(--s2);
+    padding:var(--s3) 0;
+  }
+  .it .i-name{grid-column:1;grid-row:1}
+  .it .i-lk{grid-column:2;grid-row:1}
+  .it .i-ch{grid-column:1 / span 2;grid-row:2;margin-top:var(--s1)}
+  .it .i-since{grid-column:1 / span 2;grid-row:3;margin-top:var(--s1)}
+
+  .band{margin:var(--s5) 0}
+  .band img{aspect-ratio:3/2}
+  .pair{margin:var(--s5) 0;gap:var(--s2)}
+
+  .rows{margin-top:var(--s4)}
+  .row{grid-template-columns:minmax(0,1fr) 2rem;gap:0 var(--s2);padding:var(--s3) 0}
+  .row .row-d{grid-column:1;grid-row:1}
+  .row .row-t{grid-column:1;grid-row:2}
+  .row .row-a{grid-column:2;grid-row:1 / span 2;align-self:center}
+
+  .colophon{padding:var(--s6) 0 var(--s5)}
+}
+</style>
+
+<script>
+/* JSが動くときだけ隠す。読み込み前に付けてちらつきを防ぐ。 */
+try{document.documentElement.className+=" js-rv";}catch(e){}
+</script>
+</head>
+
+<body>
+
+<main>
+
+<!-- ======================================================================
+     00 表札
+     ====================================================================== -->
+<section class="hero" id="hero">
+  <div class="wrap">
+
+    <!-- ヒーローの小型風車マークは削除した。畳の風車の図そのものを廃止したので、
+         ヒーローにもファビコンにも復活させないこと。 -->
+
+    <h1 class="wm"><span class="mask"><i>4.5room</i></span></h1>
+
+    <p class="fact"><span class="mask"><i class="ml">youtube ／ <span class="num" data-stat="channel.first_video_published" data-fmt="date">2022.12.14</span> —</i></span></p>
+
+  </div>
+</section>
+
+
+<!-- ======================================================================
+     間取り（部屋インデックス）
+     同寸の5室が横一列。この列が凡例を兼ねる。
+     ====================================================================== -->
+<section class="plan" id="plan">
+  <div class="wrap">
+    <div class="plan-rooms">
+
+      <a class="rm rv" style="--i:0" data-room="genkan" href="#genkan" aria-label="01 玄関">
+        <span class="rm-box">
+          <span class="rm-fill"></span>
+          <span class="rm-n">01</span>
+          <span class="rm-j">玄関</span>
+        </span>
+        <span class="rm-d">— 毎日持ち歩いているもの <span class="num">16</span>点</span>
+      </a>
+
+      <a class="rm rv" style="--i:1" data-room="lab" href="#lab" aria-label="02 Lab">
+        <span class="rm-box">
+          <span class="rm-fill"></span>
+          <span class="rm-n">02</span>
+          <span class="rm-j">Lab</span>
+        </span>
+        <span class="rm-d">— サブチャンネル。ボツと思いつき ↗</span>
+      </a>
+
+      <a class="rm rv" style="--i:2" data-room="archive" href="#archive" aria-label="03 資料室">
+        <span class="rm-box">
+          <span class="rm-fill"></span>
+          <span class="rm-n">03</span>
+          <span class="rm-j">資料室</span>
+        </span>
+        <span class="rm-d">— 長い文章。note ↗</span>
+      </a>
+
+      <a class="rm rv" style="--i:3" data-room="atelier" href="#atelier" aria-label="04 アトリエ">
+        <span class="rm-box">
+          <span class="rm-fill"></span>
+          <span class="rm-n">04</span>
+          <span class="rm-j">アトリエ</span>
+        </span>
+        <span class="rm-d">— 写真。Instagram ↗</span>
+      </a>
+
+      <a class="rm rv" style="--i:4" data-room="reception" href="d-reception.html" aria-label="05 応接室">
+        <span class="rm-box">
+          <span class="rm-fill"></span>
+          <span class="rm-n">05</span>
+          <span class="rm-j">応接室</span>
+        </span>
+        <span class="rm-d">— 自己紹介と、お仕事の話 →</span>
+      </a>
+
+    </div>
+  </div>
+</section>
+
+
+<!-- ======================================================================
+     01 玄関
+     ====================================================================== -->
+<section class="room" id="genkan">
+  <div class="wrap">
+    <header class="rh rv">
+      <span class="rh-n">01</span>
+      <h2 class="rh-j">玄関</h2>
+      <span class="rh-e ml">entrance</span>
+    </header>
+    <p class="lead rv" style="--i:1">動画で紹介して、そのまま日常に残ったものだけ。日付は、その道具を動画で紹介した月。</p>
+  </div>
+
+  <div class="wrap">
+    <div class="groups">
+
+      <!-- かばんまわり -->
+      <div class="group">
+        <p class="g-name rv">かばんまわり</p>
+
+        <div class="it rv" style="--i:0">
+          <span class="i-name">
+            <span class="i-br">StandardProducts</span>
+            <span class="i-nm">スマホショルダー（BL）</span>
+          </span>
+          <p class="i-ch"><em>変わったこと ──</em> 本を持って出るのに、かばんを選ばなくなった。</p>
+          <span class="i-since">2026.05〜</span>
+          <a class="i-lk" href="https://jp.daisonet.com/products/4550480558981" target="_blank" rel="noopener" aria-label="StandardProducts スマホショルダー（BL）を公式サイトで見る">↗</a>
+        </div>
+
+        <div class="it rv" style="--i:1">
+          <span class="i-name">
+            <span class="i-br">無印良品</span>
+            <span class="i-nm">自由に組み合わせられるストラップ</span>
+          </span>
+          <p class="i-ch"><em>変わったこと ──</em> 肩掛けと斜め掛けを、その日で変えられるようになった。</p>
+          <span class="i-since">2026.05〜</span>
+          <a class="i-lk" href="https://amzn.to/3Qitegq" target="_blank" rel="noopener" aria-label="無印良品 自由に組み合わせられるストラップをAmazonで見る">↗</a>
+        </div>
+
+        <div class="it rv" style="--i:2">
+          <span class="i-name">
+            <span class="i-br">aso</span>
+            <span class="i-nm">クリアブックカバー fog</span>
+          </span>
+          <p class="i-ch"><em>変わったこと ──</em> 読みかけの本を、そのまま放り込めるようになった。</p>
+          <span class="i-since">2026.05〜</span>
+          <a class="i-lk" href="https://amzn.to/4sE4igL" target="_blank" rel="noopener" aria-label="aso クリアブックカバー fogをAmazonで見る">↗</a>
+        </div>
+
+        <div class="it rv" style="--i:3">
+          <span class="i-name">
+            <span class="i-br">aso × Rebecca Miyama</span>
+            <span class="i-nm">カードケース</span>
+          </span>
+          <p class="i-ch"><em>変わったこと ──</em> 財布のための場所が、かばんから消えた。</p>
+          <span class="i-since">2026.05〜</span>
+          <a class="i-lk" href="https://amzn.to/4a3Touc" target="_blank" rel="noopener" aria-label="aso × Rebecca Miyama カードケースをAmazonで見る">↗</a>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <figure class="band rv w">
+    <img src="img/graded/genkan-band.jpg" alt="ショルダーバッグを肩に掛け、ストラップを持つところ" width="1120" height="824" loading="lazy" decoding="async">
+  </figure>
+
+  <div class="wrap">
+    <div class="groups">
+
+      <!-- 手で書くための道具 -->
+      <div class="group">
+        <p class="g-name rv">手で書くための道具</p>
+
+        <div class="it rv" style="--i:0">
+          <span class="i-name">
+            <span class="i-br">DELFONICS</span>
+            <span class="i-nm">ロルバーン ポケット付メモ ミニ</span>
+          </span>
+          <p class="i-ch"><em>変わったこと ──</em> 思いついたことを、立ったまま書くようになった。</p>
+          <span class="i-since">2026.05〜</span>
+          <a class="i-lk" href="https://amzn.to/4faOrDB" target="_blank" rel="noopener" aria-label="DELFONICS ロルバーン ポケット付メモ ミニをAmazonで見る">↗</a>
+        </div>
+
+        <div class="it rv" style="--i:1">
+          <span class="i-name">
+            <span class="i-br">カンミ堂</span>
+            <span class="i-nm">ココフセン COLOR</span>
+          </span>
+          <p class="i-ch"><em>変わったこと ──</em> 本に折り目をつけなくなった。</p>
+          <span class="i-since">2026.05〜</span>
+          <a class="i-lk" href="https://amzn.to/42memQJ" target="_blank" rel="noopener" aria-label="カンミ堂 ココフセン COLORをAmazonで見る">↗</a>
+        </div>
+
+        <div class="it rv" style="--i:2">
+          <span class="i-name">
+            <span class="i-br">パイロット</span>
+            <span class="i-nm">ジュースアップ4 0.4</span>
+          </span>
+          <p class="i-ch"><em>変わったこと ──</em> ペンを4本持ち歩くのをやめた。</p>
+          <span class="i-since">2026.05〜</span>
+          <a class="i-lk" href="https://amzn.to/4tEPK0Y" target="_blank" rel="noopener" aria-label="パイロット ジュースアップ4 0.4をAmazonで見る">↗</a>
+        </div>
+
+        <div class="it rv" style="--i:3">
+          <span class="i-name">
+            <span class="i-br">三菱鉛筆</span>
+            <span class="i-nm">ジェットストリーム 4&amp;1 0.5</span>
+          </span>
+          <p class="i-ch"><em>変わったこと ──</em> 書いて消す日も、1本で足りるようになった。</p>
+          <span class="i-since">2026.05〜</span>
+          <a class="i-lk" href="https://amzn.to/4cj3j0H" target="_blank" rel="noopener" aria-label="三菱鉛筆 ジェットストリーム 4&amp;1 0.5をAmazonで見る">↗</a>
+        </div>
+      </div>
+
+      <!-- 持ち歩く机 -->
+      <div class="group">
+        <p class="g-name rv">持ち歩く机</p>
+
+        <div class="it rv" style="--i:0">
+          <span class="i-name">
+            <span class="i-br">Apple</span>
+            <span class="i-nm">iPad mini（第6世代）</span>
+          </span>
+          <p class="i-ch"><em>変わったこと ──</em> 作業のために家へ戻る日が、なくなった。</p>
+          <span class="i-since">2026.05〜</span>
+          <a class="i-lk" href="https://amzn.to/4nVNm4H" target="_blank" rel="noopener" aria-label="Apple iPad mini（第6世代）をAmazonで見る">↗</a>
+        </div>
+
+        <div class="it rv" style="--i:1">
+          <span class="i-name">
+            <span class="i-br">Nillkin</span>
+            <span class="i-nm">折りたたみ式キーボード</span>
+          </span>
+          <p class="i-ch"><em>変わったこと ──</em> 長い文章を、外でも書けるようになった。</p>
+          <span class="i-since">2026.05〜</span>
+          <a class="i-lk" href="https://amzn.to/4nJHKKV" target="_blank" rel="noopener" aria-label="Nillkin 折りたたみ式キーボードをAmazonで見る">↗</a>
+        </div>
+
+        <div class="it rv" style="--i:2">
+          <span class="i-name">
+            <span class="i-br">QCY</span>
+            <span class="i-nm">MeloBuds N70</span>
+          </span>
+          <p class="i-ch"><em>変わったこと ──</em> 音の装備が、かばんに常駐した。</p>
+          <span class="i-since">2026.05〜</span>
+          <a class="i-lk" href="https://amzn.to/4eQZdi7" target="_blank" rel="noopener" aria-label="QCY MeloBuds N70をAmazonで見る">↗</a>
+        </div>
+
+        <div class="it rv" style="--i:3">
+          <span class="i-name">
+            <span class="i-br">Loop</span>
+            <span class="i-nm">Experience 2（耳栓）</span>
+          </span>
+          <p class="i-ch"><em>変わったこと ──</em> 音を消さずに、下げられるようになった。</p>
+          <span class="i-since">2026.06〜</span>
+          <a class="i-lk" href="https://amzn.to/4aIvJzU" target="_blank" rel="noopener" aria-label="Loop Experience 2（耳栓）をAmazonで見る">↗</a>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="pair">
+      <figure class="p-a rv w" style="--i:0">
+        <img src="img/graded/genkan-sq-a.jpg" alt="手のひらサイズのイヤホンケース" width="680" height="680" loading="lazy" decoding="async">
+      </figure>
+      <figure class="p-b rv w" style="--i:1">
+        <img src="img/graded/genkan-sq-b.jpg" alt="ノートパソコンの前で、ショルダーバッグを掛けて立っているところ" width="680" height="680" loading="lazy" decoding="async">
+      </figure>
+    </div>
+
+    <div class="groups">
+
+      <!-- 腰まわり -->
+      <div class="group">
+        <p class="g-name rv">腰まわり</p>
+
+        <div class="it rv" style="--i:0">
+          <span class="i-name">
+            <span class="i-br">TISUR</span>
+            <span class="i-nm">チタン キーホルダー ベルトクリップ</span>
+          </span>
+          <p class="i-ch"><em>変わったこと ──</em> 鍵をポケットから探す時間が、なくなった。</p>
+          <span class="i-since">2026.06〜</span>
+          <a class="i-lk" href="https://amzn.to/3Szplon" target="_blank" rel="noopener" aria-label="TISUR チタン キーホルダー ベルトクリップをAmazonで見る">↗</a>
+        </div>
+
+        <div class="it rv" style="--i:1">
+          <span class="i-name">
+            <span class="i-br">NITEIZE</span>
+            <span class="i-nm">エスビナー スライドロック 3</span>
+          </span>
+          <p class="i-ch"><em>変わったこと ──</em> 付け外しに、両手を使わなくなった。</p>
+          <span class="i-since">2026.06〜</span>
+          <a class="i-lk" href="https://amzn.to/4w5PtG4" target="_blank" rel="noopener" aria-label="NITEIZE エスビナー スライドロック 3をAmazonで見る">↗</a>
+        </div>
+
+        <div class="it rv" style="--i:2">
+          <span class="i-name">
+            <span class="i-br">StandardProducts</span>
+            <span class="i-nm">カラビナ付イヤホンケース（BK）</span>
+          </span>
+          <p class="i-ch"><em>変わったこと ──</em> 詰め直す工程が、なくなった。</p>
+          <span class="i-since">2026.06〜</span>
+          <a class="i-lk" href="https://jp.daisonet.com/products/4550480558851" target="_blank" rel="noopener" aria-label="StandardProducts カラビナ付イヤホンケース（BK）を公式サイトで見る">↗</a>
+        </div>
+
+        <div class="it rv" style="--i:3">
+          <span class="i-name">
+            <span class="i-br">Apple</span>
+            <span class="i-nm">AirPods Pro（整備済み品）</span>
+          </span>
+          <p class="i-ch"><em>変わったこと ──</em> かばんを持たない日も、イヤホンが手元に残った。</p>
+          <span class="i-since">2026.06〜</span>
+          <a class="i-lk" href="https://amzn.to/3QCp83h" target="_blank" rel="noopener" aria-label="Apple AirPods Pro（整備済み品）をAmazonで見る">↗</a>
+        </div>
+      </div>
+
+    </div>
+
+    <p class="note-s rv">※ 掲載しているのは、実際に購入して使っている（または製品提供を受けて使い続けている）ものだけです。<br>※ 商品リンクにはAmazonアソシエイトを含むアフィリエイト広告が含まれます。価格・在庫はリンク先をご確認ください。</p>
+  </div>
+</section>
+
+
+<!-- ======================================================================
+     02 Lab
+     ====================================================================== -->
+<section class="room" id="lab">
+  <div class="wrap">
+    <header class="rh rv">
+      <span class="rh-n">02</span>
+      <h2 class="rh-j">Lab</h2>
+      <span class="rh-e ml">laboratory</span>
+    </header>
+
+    <p class="lead rv" style="--i:1">サブチャンネル。本編でボツになった動画と、思いつき。</p>
+
+    <p class="act rv" style="--i:2"><a class="ln" href="https://www.youtube.com/channel/UCtpqTOuTy5gK_2UZzgikizQ" target="_blank" rel="noopener">4.5Lab を見る ↗</a></p>
+  </div>
+</section>
+
+
+<!-- ======================================================================
+     03 資料室
+     ====================================================================== -->
+<section class="room" id="archive">
+  <div class="wrap">
+    <header class="rh rv">
+      <span class="rh-n">03</span>
+      <h2 class="rh-j">資料室</h2>
+      <span class="rh-e ml">archive</span>
+    </header>
+
+    <p class="lead rv" style="--i:1">動画にできない長さの話は、noteに書いています。</p>
+
+    <div class="rows">
+      <a class="row rv" style="--i:0" href="https://note.com/4_5room/n/n2c4ecc530637" target="_blank" rel="noopener">
+        <span class="row-d">2026.07.26</span>
+        <span class="row-t">「一生モノ」は、名詞ではなく動詞だった</span>
+        <span class="row-a">↗</span>
+      </a>
+      <a class="row rv" style="--i:1" href="https://note.com/4_5room/n/n43d0a1f3a29d" target="_blank" rel="noopener">
+        <span class="row-d">2026.05.29</span>
+        <span class="row-t">「会話」をやめ、「発注」を始めよう</span>
+        <span class="row-a">↗</span>
+      </a>
+      <a class="row rv" style="--i:2" href="https://note.com/4_5room/n/n250420417d4f" target="_blank" rel="noopener">
+        <span class="row-d">2026.05.24</span>
+        <span class="row-t">【700円】StandardProductsの新作ショルダーが、本好きの最適解になりそうな話｜読書かばん</span>
+        <span class="row-a">↗</span>
+      </a>
+      <a class="row rv" style="--i:3" href="https://note.com/4_5room/n/nbe70c0691a90" target="_blank" rel="noopener">
+        <span class="row-d">2026.03.20</span>
+        <span class="row-t">3時間かけて、自分で機械式時計を組み立てた話</span>
+        <span class="row-a">↗</span>
+      </a>
+    </div>
+
+    <p class="act rv"><a class="ln" href="https://note.com/4_5room/" target="_blank" rel="noopener">note を見る ↗</a></p>
+  </div>
+</section>
+
+
+<!-- ======================================================================
+     04 アトリエ
+     ====================================================================== -->
+<section class="room" id="atelier">
+  <div class="wrap">
+    <header class="rh rv">
+      <span class="rh-n">04</span>
+      <h2 class="rh-j">アトリエ</h2>
+      <span class="rh-e ml">atelier</span>
+    </header>
+
+    <p class="lead rv" style="--i:1">写真。</p>
+    <p class="act rv" style="--i:2"><a class="ln" href="https://www.instagram.com/srice4.5/" target="_blank" rel="noopener">Instagram ↗</a></p>
+  </div>
+</section>
+
+
+<!-- ======================================================================
+     05 応接室（別ページ）
+     ====================================================================== -->
+<section class="room" id="reception">
+  <div class="wrap">
+    <header class="rh rv">
+      <span class="rh-n">05</span>
+      <h2 class="rh-j">応接室</h2>
+      <span class="rh-e ml">reception</span>
+    </header>
+
+    <p class="act rv" style="--i:1"><a class="ln" href="d-reception.html">応接室 →</a></p>
+  </div>
+</section>
+
+</main>
+
+
+<!-- ======================================================================
+     奥付
+     ====================================================================== -->
+<footer class="colophon">
+  <div class="wrap">
+    <p class="c-c rv">© 2026 4.5room</p>
+    <p class="c-n rv" style="--i:1">
+      <a class="ln" href="https://www.youtube.com/@4.5room" target="_blank" rel="noopener">YouTube</a>
+      <a class="ln" href="https://note.com/4_5room/" target="_blank" rel="noopener">note</a>
+      <a class="ln" href="https://www.instagram.com/srice4.5/" target="_blank" rel="noopener">Instagram</a>
+      <a class="ln" href="mailto:4.5roomsrice@gmail.com">mail</a>
+    </p>
+  </div>
+</footer>
+
+
+<!-- 現在地インジケータ（5室が横一列。05応接室は別ページなのでここでは点灯しない） -->
+<div class="minimap" id="minimap" aria-hidden="true">
+  <span class="mm mm-genkan"></span>
+  <span class="mm mm-lab"></span>
+  <span class="mm mm-archive"></span>
+  <span class="mm mm-atelier"></span>
+  <span class="mm mm-reception"></span>
+</div>
+
+
+<script>
+(function () {
+  var root = document.documentElement;
+
+  /* ページ全体のフェードイン。JS無効時は .js-rv が付かないので即表示される。 */
+  try {
+    document.body.classList.add('ready');
+  } catch (e) {}
+
+  try {
+    if (!('IntersectionObserver' in window)) { throw new Error('IntersectionObserver unsupported'); }
+
+    /* ------------------------------------------------------------------
+       1. スクロール登場（.rv → .in）
+       ------------------------------------------------------------------ */
+    var rvs = document.querySelectorAll('.rv');
+    var rvIO = new IntersectionObserver(function (entries) {
+      for (var i = 0; i < entries.length; i++) {
+        if (entries[i].isIntersecting) {
+          entries[i].target.classList.add('in');
+          rvIO.unobserve(entries[i].target);
+        }
+      }
+    }, { rootMargin: '0px 0px -8% 0px', threshold: 0.01 });
+
+    for (var i = 0; i < rvs.length; i++) { rvIO.observe(rvs[i]); }
+
+    /* 初期表示のビューポート内にあるものは、観測を待たずに開く */
+    function openInView() {
+      for (var j = 0; j < rvs.length; j++) {
+        var r = rvs[j].getBoundingClientRect();
+        if (r.top < window.innerHeight && r.bottom > 0) { rvs[j].classList.add('in'); }
+      }
+    }
+    requestAnimationFrame(openInView);
+    window.addEventListener('load', openInView);
+
+    /* ------------------------------------------------------------------
+       2. 現在地ミニマップ
+          室のホバー（6%→12%）はCSSだけで完結する。凡例行がないので同期はしない。
+       ------------------------------------------------------------------ */
+    var ROOMS = ['genkan', 'lab', 'archive', 'atelier', 'reception'];
+    var minimap = document.getElementById('minimap');
+    var MAP = { hero: null, plan: null, genkan: 'genkan', lab: 'lab', archive: 'archive', atelier: 'atelier', reception: null };
+
+    function setCurrent(id) {
+      var key = MAP[id];
+      if (key === undefined) { return; }
+      if (key === null) { minimap.classList.remove('on'); return; }
+      minimap.classList.add('on');
+      ROOMS.forEach(function (r) {
+        var g = minimap.querySelector('.mm-' + r);
+        if (g) { g.classList.toggle('now', r === key); }
+      });
+    }
+
+    var secIO = new IntersectionObserver(function (entries) {
+      for (var k = 0; k < entries.length; k++) {
+        if (entries[k].isIntersecting) { setCurrent(entries[k].target.id); }
+      }
+    }, { rootMargin: '-45% 0px -45% 0px', threshold: 0 });
+
+    Object.keys(MAP).forEach(function (id) {
+      var el = document.getElementById(id);
+      if (el) { secIO.observe(el); }
+    });
+
+    /* ------------------------------------------------------------------
+       3. 実測値の注入（失敗したら直書きの値がそのまま残る）
+       ------------------------------------------------------------------ */
+    var FMT = {
+      comma: function (v) { return Number(v).toLocaleString('en-US'); },
+      date:  function (v) { return String(v).replace(/-/g, '.'); },
+      plain: function (v) { return String(v); }
+    };
+
+    function dig(obj, path) {
+      return path.split('.').reduce(function (o, k) {
+        return (o === null || o === undefined) ? null : o[k];
+      }, obj);
+    }
+
+    if (window.fetch) {
+      fetch('../assets/stats.json', { cache: 'no-store' })
+        .then(function (res) { return res.ok ? res.json() : Promise.reject(); })
+        .then(function (data) {
+          var nodes = document.querySelectorAll('[data-stat]');
+          for (var n = 0; n < nodes.length; n++) {
+            var v = dig(data, nodes[n].getAttribute('data-stat'));
+            if (v === null || v === undefined || v === '') { continue; }
+            var f = FMT[nodes[n].getAttribute('data-fmt') || 'plain'] || FMT.plain;
+            nodes[n].textContent = f(v);
+          }
+        })
+        .catch(function () { /* 直書きの値を残す */ });
+    }
+
+  } catch (err) {
+    /* 何かに失敗したら、隠すのをやめて全文をそのまま見せる */
+    root.className = root.className.replace(/\bjs-rv\b/g, '');
+  }
+})();
+</script>
+
+</body>
+</html>

@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>お仕事｜4.5room</title>
+<meta name="description" content="4.5room のお仕事のご相談と実績。数字、よく見られている動画、メディア掲載、お受けできること。">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 300 300'%3E%3Crect width='300' height='300' fill='%23FFFFFF'/%3E%3Cg fill='%231F1F23' fill-opacity='0.5'%3E%3Crect x='40' y='80' width='60' height='60'/%3E%3Crect x='120' y='80' width='60' height='60'/%3E%3Crect x='200' y='80' width='60' height='60'/%3E%3Crect x='40' y='160' width='60' height='60'/%3E%3Crect x='120' y='160' width='60' height='60'/%3E%3Crect x='200' y='160' width='60' height='60'/%3E%3C/g%3E%3C/svg%3E">
+
+<style>
+/* ==========================================================================
+   4.5room — 06 お仕事
+   デザインシステムは e-rooms.html と完全に共通（4色・書体・余白スケール・
+   border／box-shadow／border-radius／gradient なし・同じモーション）。
+   ここだけ情報密度が高く、文体は敬体。
+   ========================================================================== */
+
+/* --- 欧文・数字用ディスプレイ書体（自前ホスト） ------------------------- */
+@font-face{
+  font-family:"General Sans";
+  src:url("fonts/GeneralSans-Medium.woff2") format("woff2");
+  font-weight:500;font-style:normal;font-display:swap;
+}
+@font-face{
+  font-family:"General Sans";
+  src:url("fonts/GeneralSans-Semibold.woff2") format("woff2");
+  font-weight:600;font-style:normal;font-display:swap;
+}
+
+:root{
+  --paper:#FFFFFF;
+  --ink:#1F1F23;   /* 白に対して 16.4:1 */
+  --mid:#5E5E66;   /* 白に対して  6.4:1 — 本文・ラベルはここまでで止める */
+  --pale:#8E8E96;  /* 白に対して  3.3:1 — 文字には使わない（4.5:1を割るため） */
+
+  --jp:"Hiragino Sans","Hiragino Kaku Gothic ProN","Noto Sans JP",sans-serif;
+  --mc:"Hiragino Mincho ProN","Yu Mincho",serif;
+  --disp:"General Sans","Helvetica Neue",Arial,sans-serif;
+
+  --s1:8px; --s2:16px; --s3:24px; --s4:40px;
+  --s5:64px; --s6:104px; --s7:168px; --s8:240px;
+
+  --ease:cubic-bezier(0.16,1,0.3,1);
+}
+
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+
+html{scroll-behavior:smooth}
+
+body{
+  background:var(--paper);
+  color:var(--ink);
+  font-family:var(--jp);
+  font-weight:400;
+  font-size:15px;
+  line-height:1.95;
+  letter-spacing:.02em;
+  font-variant-numeric:tabular-nums;
+  font-feature-settings:"palt" 1,"tnum" 1;
+  -webkit-font-smoothing:antialiased;
+  -moz-osx-font-smoothing:grayscale;
+  overflow-wrap:anywhere;
+}
+
+ul,ol{list-style:none}
+a{color:inherit;text-decoration:none}
+a:focus{outline:none}
+a:focus-visible{outline:2px solid var(--ink);outline-offset:3px}
+
+/* --- 共通パーツ ---------------------------------------------------------- */
+.wrap{max-width:1240px;margin:0 auto;padding:0 var(--s5)}
+
+.num{
+  font-family:var(--disp);
+  font-weight:500;
+  font-variant-numeric:tabular-nums;
+  letter-spacing:-.01em;
+}
+
+.ml{
+  font-family:var(--disp);
+  font-weight:500;
+  font-size:10px;
+  line-height:1.7;
+  letter-spacing:.22em;
+  text-transform:lowercase;
+  color:var(--mid);
+  font-variant-numeric:tabular-nums;
+}
+
+/* 明朝は部屋名だけ */
+.rh-j{
+  font-family:var(--mc);
+  font-weight:300;
+  letter-spacing:.08em;
+}
+
+.ln{position:relative;display:inline-block;color:var(--ink)}
+.ln::after{
+  content:"";position:absolute;left:0;bottom:.04em;
+  width:100%;height:1px;background:currentColor;
+  transform:scaleX(0);transform-origin:left;
+  transition:transform .3s var(--ease);
+}
+.ln:hover::after,.ln:focus-visible::after{transform:scaleX(1)}
+
+/* --- 戻り導線 ------------------------------------------------------------ */
+.back{padding-top:var(--s5);font-size:13px}
+.back .ln{color:var(--mid)}
+.back .ln:hover{color:var(--ink)}
+
+/* --- 部屋の見出し -------------------------------------------------------- */
+.room{padding-top:var(--s6)}
+.rh{margin-bottom:var(--s5)}
+.rh-n{display:block;font-family:var(--disp);font-weight:600;font-size:12px;letter-spacing:.06em;color:var(--mid);font-variant-numeric:tabular-nums}
+.rh-j{
+  font-size:clamp(30px,3.4vw,42px);
+  line-height:1.3;
+  margin-top:var(--s1);
+}
+.rh-e{display:block;margin-top:var(--s1)}
+
+.lead{font-size:15px;line-height:1.95;color:var(--mid);max-width:44em}
+
+/* --- お仕事の中身 -------------------------------------------------------- */
+.blk{margin-top:var(--s6)}
+.blk-h{font-size:13px;font-weight:600;letter-spacing:.02em;margin-bottom:var(--s3)}
+.bio{font-size:17px;font-weight:300;line-height:1.95;letter-spacing:.02em;max-width:40em}
+
+.facts{
+  display:grid;grid-template-columns:repeat(4,minmax(0,1fr));
+  gap:var(--s4) var(--s4);margin-top:var(--s3);
+}
+.f-k{display:block;margin-bottom:var(--s1)}
+.f-v{font-family:var(--disp);font-weight:500;font-size:clamp(26px,2.6vw,36px);line-height:1.3;letter-spacing:-.01em;font-variant-numeric:tabular-nums}
+.f-u{font-family:var(--jp);font-weight:400;font-size:13px;letter-spacing:.02em;color:var(--mid)}
+
+.tv{display:grid;grid-template-columns:minmax(0,1fr) 7rem;gap:0 var(--s4);align-items:baseline;padding:var(--s2) 0}
+.tv-t{font-size:14px;line-height:1.7}
+.tv-v{font-family:var(--disp);font-weight:500;font-size:13px;color:var(--mid);justify-self:end;font-variant-numeric:tabular-nums;letter-spacing:-.01em}
+
+.wk{display:grid;grid-template-columns:7rem minmax(0,1fr);gap:0 var(--s4);align-items:baseline;padding:var(--s2) 0}
+.wk-k{font-size:13px;color:var(--mid)}
+.wk-v{font-size:14px;line-height:1.7}
+
+.ask{font-size:15px;line-height:1.95;max-width:44em}
+.ask-4{margin-top:var(--s2);font-size:13px;line-height:1.7;color:var(--mid)}
+
+.note-s{margin-top:var(--s5);font-size:11px;line-height:1.7;color:var(--mid);max-width:52em}
+.act{margin-top:var(--s4);font-size:14px}
+
+/* --- 奥付 ---------------------------------------------------------------- */
+.colophon{padding:var(--s7) 0 var(--s6)}
+.colophon .c-c{font-family:var(--disp);font-weight:500;font-size:11px;letter-spacing:.06em;color:var(--mid);font-variant-numeric:tabular-nums}
+.colophon .c-n{margin-top:var(--s2);font-size:13px;color:var(--mid);display:flex;flex-wrap:wrap;gap:0 var(--s3)}
+.colophon .c-n .ln{color:var(--mid)}
+.colophon .c-n .ln:hover{color:var(--ink)}
+
+/* ==========================================================================
+   モーション（トップと同じ）
+   ========================================================================== */
+.js-rv body{opacity:0}
+.js-rv body.ready{opacity:1;transition:opacity .6s var(--ease)}
+
+.js-rv .rv{opacity:0;transform:translateY(8px)}
+.js-rv .rv.in{
+  opacity:1;transform:none;
+  transition:opacity 1.15s var(--ease),transform 1.15s var(--ease);
+  transition-delay:calc(var(--i,0) * 90ms);
+}
+
+@media (prefers-reduced-motion: reduce){
+  html{scroll-behavior:auto}
+  *,*::before,*::after{
+    animation-duration:.001ms!important;
+    animation-delay:0ms!important;
+    animation-iteration-count:1!important;
+    transition-duration:.001ms!important;
+    transition-delay:0ms!important;
+  }
+  .js-rv body{opacity:1!important}
+  .js-rv .rv{opacity:1!important;transform:none!important}
+}
+
+/* ==========================================================================
+   レスポンシブ（390px）
+   ========================================================================== */
+@media (max-width:900px){
+  .wrap{padding:0 var(--s3)}
+
+  .back{padding-top:var(--s4)}
+  .room{padding-top:var(--s5)}
+  .rh{margin-bottom:var(--s4)}
+
+  .blk{margin-top:var(--s5)}
+  .facts{grid-template-columns:repeat(2,minmax(0,1fr));gap:var(--s4) var(--s3)}
+  .tv{grid-template-columns:minmax(0,1fr);gap:var(--s1) 0}
+  .tv-v{justify-self:start}
+  .wk{grid-template-columns:minmax(0,1fr);gap:var(--s1) 0}
+
+  .colophon{padding:var(--s6) 0 var(--s5)}
+}
+</style>
+
+<script>
+try{document.documentElement.className+=" js-rv";}catch(e){}
+</script>
+</head>
+
+<body>
+
+<div class="wrap back">
+  <p><a class="ln" href="e-rooms.html">← 4.5room</a></p>
+</div>
+
+<main>
+
+<!-- ======================================================================
+     06 お仕事
+     ====================================================================== -->
+<section class="room" id="work">
+  <div class="wrap">
+    <header class="rh rv">
+      <span class="rh-n">06</span>
+      <h2 class="rh-j">お仕事</h2>
+      <span class="rh-e ml">work</span>
+    </header>
+
+    <p class="lead rv" style="--i:1">お仕事のご相談・実績</p>
+
+    <p class="bio rv" style="--i:2">ミニマリストになりたくも永遠になれないIT系テレワーカー。ガジェットと洋服が好き、マヨネーズが世界で一番きらい。</p>
+
+    <!-- 数字（stats.json の実測値を注入。失敗時は直書きが残る） -->
+    <div class="blk">
+      <p class="blk-h rv">数字</p>
+      <div class="facts">
+        <div class="f rv" style="--i:0">
+          <span class="f-k ml">subscribers</span>
+          <span class="f-v"><span data-stat="channel.subscribers" data-fmt="comma">6,100</span><span class="f-u"> 人</span></span>
+        </div>
+        <div class="f rv" style="--i:1">
+          <span class="f-k ml">total views</span>
+          <span class="f-v"><span data-stat="channel.views_total" data-fmt="comma">1,240,828</span><span class="f-u"> 回</span></span>
+        </div>
+        <div class="f rv" style="--i:2">
+          <span class="f-k ml">videos</span>
+          <span class="f-v"><span data-stat="channel.videos" data-fmt="comma">252</span><span class="f-u"> 本</span></span>
+        </div>
+        <div class="f rv" style="--i:3">
+          <span class="f-k ml">first upload</span>
+          <span class="f-v"><span data-stat="channel.first_video_published" data-fmt="date">2022.12.14</span></span>
+        </div>
+      </div>
+
+      <!-- サブチャンネルの数値。stats.json に無いので直書き＋実測日を併記する。 -->
+      <div class="wk rv" style="--i:0">
+        <span class="wk-k">Lab</span>
+        <span class="wk-v">登録者 <span class="num">679</span>・動画 <span class="num">19</span>本（<span class="num">2023.03</span>開設・<span class="num">2026.08.05</span> 実測）</span>
+      </div>
+
+      <p class="note-s rv">YouTube Data API 実測（<span class="num" data-stat="measured_at" data-fmt="date">2026.08.05</span> 時点）。登録者数はYouTubeの仕様により概数で表示されます。</p>
+    </div>
+
+    <!-- よく見られている動画 -->
+    <div class="blk">
+      <p class="blk-h rv">よく見られている動画</p>
+      <div class="rv" style="--i:0">
+        <div class="tv">
+          <span class="tv-t" data-stat="top_videos.0.title">【700円】おしゃれ×便利な新作ショルダーバッグがほぼ完璧でした。｜読書かばんその２</span>
+          <span class="tv-v"><span data-stat="top_videos.0.views" data-fmt="comma">347,642</span> 回</span>
+        </div>
+        <div class="tv">
+          <span class="tv-t" data-stat="top_videos.1.title">【神アプリ】 最高の左手デバイスは手元にあった。| Elgato STREAM DECKアプリ</span>
+          <span class="tv-v"><span data-stat="top_videos.1.views" data-fmt="comma">94,193</span> 回</span>
+        </div>
+        <div class="tv">
+          <span class="tv-t" data-stat="top_videos.2.title">【2025年最新版】iPad mini活用方法＆ミニマルバッグ</span>
+          <span class="tv-v"><span data-stat="top_videos.2.views" data-fmt="comma">62,677</span> 回</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- メディア掲載 -->
+    <div class="blk">
+      <p class="blk-h rv">メディア掲載</p>
+      <div class="wk rv" style="--i:0">
+        <span class="wk-k num">2026.05</span>
+        <span class="wk-v">ねとらぼ（ITmedia）に動画が記事として取り上げられ、Yahoo!ニュース・LINEニュースにも配信されました。</span>
+      </div>
+    </div>
+
+    <!-- お受けできること -->
+    <div class="blk">
+      <p class="blk-h rv">お受けできること</p>
+      <div class="wk rv" style="--i:0">
+        <span class="wk-k">動画</span>
+        <span class="wk-v">長尺レビュー／複数製品をまとめた企画動画／短尺</span>
+      </div>
+      <div class="wk rv" style="--i:1">
+        <span class="wk-k">記事</span>
+        <span class="wk-v">note での紹介記事（動画との連動も可能です）</span>
+      </div>
+      <div class="wk rv" style="--i:2">
+        <span class="wk-k">得意な領域</span>
+        <span class="wk-v">バッグ・EDC・持ち歩き／文房具／iPad miniまわり／デスク環境・リモートワーク／生活を整える実用品</span>
+      </div>
+    </div>
+
+    <!-- ご相談 -->
+    <div class="blk">
+      <p class="blk-h rv">ご相談</p>
+      <p class="ask rv" style="--i:0">製品のご紹介・タイアップ・イベントのご案内は、メールでお願いいたします。お受けできない場合も、理由を添えてお返事しています。</p>
+      <p class="ask-4 rv" style="--i:1">ご一報の際、①製品名・URL ②ご希望の形式（長尺／短尺／記事） ③ご希望の時期 ④提供条件（製品提供のみ／有償の場合はご予算） の4点があるとお返事が早くなります。</p>
+      <p class="act rv" style="--i:2"><a class="ln" href="mailto:4.5roomsrice@gmail.com?subject=%E3%81%8A%E4%BB%95%E4%BA%8B%E3%81%AE%E3%81%94%E7%9B%B8%E8%AB%87%EF%BC%884.5room%EF%BC%89&amp;body=%E2%91%A0%E8%A3%BD%E5%93%81%E5%90%8D%E3%83%BBURL%EF%BC%9A%0A%E2%91%A1%E3%81%94%E5%B8%8C%E6%9C%9B%E3%81%AE%E5%BD%A2%E5%BC%8F%EF%BC%9A%0A%E2%91%A2%E3%81%94%E5%B8%8C%E6%9C%9B%E3%81%AE%E6%99%82%E6%9C%9F%EF%BC%9A%0A%E2%91%A3%E6%8F%90%E4%BE%9B%E6%9D%A1%E4%BB%B6%EF%BC%9A%0A">メールで相談する</a></p>
+    </div>
+
+  </div>
+</section>
+
+</main>
+
+
+<!-- ======================================================================
+     奥付
+     ====================================================================== -->
+<footer class="colophon">
+  <div class="wrap">
+    <p class="c-c rv">© 2026 4.5room</p>
+    <p class="c-n rv" style="--i:1">
+      <a class="ln" href="https://www.youtube.com/@4.5room" target="_blank" rel="noopener">YouTube</a>
+      <a class="ln" href="https://www.youtube.com/channel/UCtpqTOuTy5gK_2UZzgikizQ" target="_blank" rel="noopener">YouTube Lab</a>
+      <a class="ln" href="https://note.com/4_5room/" target="_blank" rel="noopener">note</a>
+      <a class="ln" href="https://www.instagram.com/srice4.5/" target="_blank" rel="noopener">Instagram</a>
+      <a class="ln" href="e-rooms.html">4.5room</a>
+      <a class="ln" href="mailto:4.5roomsrice@gmail.com">mail</a>
+    </p>
+  </div>
+</footer>
+
+
+<script>
+(function () {
+  var root = document.documentElement;
+
+  try {
+    document.body.classList.add('ready');
+  } catch (e) {}
+
+  try {
+    if (!('IntersectionObserver' in window)) { throw new Error('IntersectionObserver unsupported'); }
+
+    /* ------------------------------------------------------------------
+       1. スクロール登場（.rv → .in）
+       ------------------------------------------------------------------ */
+    var rvs = document.querySelectorAll('.rv');
+    var rvIO = new IntersectionObserver(function (entries) {
+      for (var i = 0; i < entries.length; i++) {
+        if (entries[i].isIntersecting) {
+          entries[i].target.classList.add('in');
+          rvIO.unobserve(entries[i].target);
+        }
+      }
+    }, { rootMargin: '0px 0px -8% 0px', threshold: 0.01 });
+
+    for (var i = 0; i < rvs.length; i++) { rvIO.observe(rvs[i]); }
+
+    function openInView() {
+      for (var j = 0; j < rvs.length; j++) {
+        var r = rvs[j].getBoundingClientRect();
+        if (r.top < window.innerHeight && r.bottom > 0) { rvs[j].classList.add('in'); }
+      }
+    }
+    openInView();
+    requestAnimationFrame(openInView);
+    window.addEventListener('load', openInView);
+
+    /* ------------------------------------------------------------------
+       2. 実測値の注入（失敗したら直書きの値がそのまま残る）
+       ------------------------------------------------------------------ */
+    var FMT = {
+      comma: function (v) { return Number(v).toLocaleString('en-US'); },
+      date:  function (v) { return String(v).replace(/-/g, '.'); },
+      plain: function (v) { return String(v); }
+    };
+
+    function dig(obj, path) {
+      return path.split('.').reduce(function (o, k) {
+        return (o === null || o === undefined) ? null : o[k];
+      }, obj);
+    }
+
+    if (window.fetch) {
+      fetch('../assets/stats.json', { cache: 'no-store' })
+        .then(function (res) { return res.ok ? res.json() : Promise.reject(); })
+        .then(function (data) {
+          var nodes = document.querySelectorAll('[data-stat]');
+          for (var n = 0; n < nodes.length; n++) {
+            var v = dig(data, nodes[n].getAttribute('data-stat'));
+            if (v === null || v === undefined || v === '') { continue; }
+            var f = FMT[nodes[n].getAttribute('data-fmt') || 'plain'] || FMT.plain;
+            nodes[n].textContent = f(v);
+          }
+        })
+        .catch(function () { /* 直書きの値を残す */ });
+    }
+
+  } catch (err) {
+    root.className = root.className.replace(/\bjs-rv\b/g, '');
+  }
+})();
+</script>
+
+</body>
+</html>

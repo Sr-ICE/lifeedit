@@ -1,0 +1,650 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>4.5room 管理画面</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 300 300'%3E%3Crect width='300' height='300' fill='%23FFFFFF'/%3E%3Cg fill='%231F1F23' fill-opacity='0.5'%3E%3Crect x='40' y='80' width='60' height='60'/%3E%3Crect x='120' y='80' width='60' height='60'/%3E%3Crect x='200' y='80' width='60' height='60'/%3E%3Crect x='40' y='160' width='60' height='60'/%3E%3Crect x='120' y='160' width='60' height='60'/%3E%3Crect x='200' y='160' width='60' height='60'/%3E%3C/g%3E%3C/svg%3E">
+<style>
+/* サイト本体のデザインルール（枠線禁止など）はここには掛けない。実用ツールなので操作しやすさ優先。 */
+:root{
+  --bg:#F4F4F6; --panel:#FFFFFF; --line:#D6D6DD; --ink:#1B1B20; --sub:#5B5B66;
+  --accent:#1F4FD8; --ok:#0F7A4A; --warn:#9A5B00; --err:#B3261E;
+  --radius:6px;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+body{
+  background:var(--bg);color:var(--ink);
+  font-family:"Hiragino Sans","Noto Sans JP",system-ui,sans-serif;
+  font-size:14px;line-height:1.7;
+}
+button,input,textarea,select{font:inherit;color:inherit}
+a{color:var(--accent)}
+
+/* --- ヘッダー --------------------------------------------------------- */
+.bar{
+  position:sticky;top:0;z-index:10;background:var(--panel);
+  border-bottom:1px solid var(--line);padding:12px 20px;
+}
+.bar-in{max-width:1080px;margin:0 auto;display:flex;flex-wrap:wrap;gap:12px;align-items:center}
+.title{font-size:16px;font-weight:700;margin-right:auto}
+.title small{font-weight:400;color:var(--sub);font-size:12px;margin-left:8px}
+.btn{
+  border:1px solid var(--line);background:#fff;border-radius:var(--radius);
+  padding:7px 16px;cursor:pointer;
+}
+.btn:hover{background:#F0F0F4}
+.btn:disabled{opacity:.5;cursor:default}
+.btn-main{background:var(--accent);border-color:var(--accent);color:#fff;font-weight:700}
+.btn-main:hover{background:#1A44BC}
+.btn-sm{padding:2px 9px;font-size:12px;line-height:1.6}
+
+.state{max-width:1080px;margin:0 auto;padding:8px 0 0;display:flex;flex-wrap:wrap;gap:6px 14px;font-size:12px;color:var(--sub)}
+.tag{padding:1px 8px;border-radius:99px;background:#EDEDF2}
+.tag.on{background:#FFF1D6;color:var(--warn)}
+.tag.git{background:#E7EEFF;color:var(--accent)}
+
+.msg{max-width:1080px;margin:10px auto 0;padding:10px 14px;border-radius:var(--radius);font-size:13px;white-space:pre-wrap;display:none}
+.msg.show{display:block}
+.msg.ok{background:#E6F4EC;color:var(--ok)}
+.msg.ng{background:#FBE9E7;color:var(--err)}
+.msg.info{background:#EDEDF2;color:var(--sub)}
+
+/* --- タブ ------------------------------------------------------------- */
+.tabs{max-width:1080px;margin:18px auto 0;display:flex;gap:6px;padding:0 20px}
+.tab{border:1px solid var(--line);border-bottom:none;background:#EAEAEF;
+     border-radius:var(--radius) var(--radius) 0 0;padding:8px 20px;cursor:pointer}
+.tab[aria-selected="true"]{background:var(--panel);font-weight:700}
+
+main{max-width:1080px;margin:0 auto;padding:0 20px 80px}
+.pane{background:var(--panel);border:1px solid var(--line);border-radius:0 var(--radius) var(--radius) var(--radius);padding:20px}
+.pane[hidden]{display:none}
+
+/* --- セクション ------------------------------------------------------- */
+.sec{margin-top:28px}
+.sec:first-child{margin-top:0}
+.sec-h{font-size:14px;font-weight:700;padding-bottom:6px;border-bottom:2px solid var(--ink);margin-bottom:14px}
+.hint{font-size:12px;color:var(--sub);margin-bottom:10px}
+
+.card{border:1px solid var(--line);border-radius:var(--radius);padding:14px;margin-top:12px;background:#FCFCFD}
+.card-h{display:flex;gap:8px;align-items:center;margin-bottom:10px}
+.card-t{font-weight:700;font-size:13px;margin-right:auto;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.card-n{color:var(--sub);font-size:12px;font-variant-numeric:tabular-nums}
+
+.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px 16px}
+.field{display:block}
+.field.wide{grid-column:1 / -1}
+.flabel{display:block;font-size:12px;color:var(--sub);margin-bottom:3px}
+.field input,.field textarea,.field select{
+  width:100%;border:1px solid var(--line);border-radius:4px;padding:6px 9px;background:#fff;
+}
+.field textarea{resize:vertical;min-height:2.4em}
+.field input:focus,.field textarea:focus,.field select:focus{outline:2px solid var(--accent);outline-offset:-1px}
+
+.row-tools{display:flex;gap:5px}
+.addbtn{margin-top:12px}
+.ro{background:#F2F2F6;border:1px solid var(--line);border-radius:var(--radius);padding:12px;font-size:12px;color:var(--sub)}
+.ro b{color:var(--ink)}
+.ro table{border-collapse:collapse;margin-top:6px}
+.ro td{padding:1px 14px 1px 0;font-variant-numeric:tabular-nums}
+</style>
+</head>
+<body>
+
+<header class="bar">
+  <div class="bar-in">
+    <span class="title">4.5room 管理画面<small>_dir/content/ を編集します（本番の index.html は触りません）</small></span>
+    <button class="btn" id="btn-refresh">最新を取得</button>
+    <button class="btn btn-main" id="btn-save">保存</button>
+    <button class="btn" id="btn-publish">公開</button>
+  </div>
+  <div class="state" id="state"></div>
+  <div class="msg" id="msg"></div>
+</header>
+
+<div class="tabs" role="tablist">
+  <button class="tab" role="tab" id="tab-carry" aria-selected="true" aria-controls="pane-carry">持ちもの</button>
+  <button class="tab" role="tab" id="tab-site" aria-selected="false" aria-controls="pane-site">文面</button>
+  <button class="tab" role="tab" id="tab-auto" aria-selected="false" aria-controls="pane-auto">自動取得ぶん</button>
+</div>
+
+<main>
+  <section class="pane" id="pane-carry" role="tabpanel" aria-labelledby="tab-carry"></section>
+  <section class="pane" id="pane-site" role="tabpanel" aria-labelledby="tab-site" hidden></section>
+  <section class="pane" id="pane-auto" role="tabpanel" aria-labelledby="tab-auto" hidden></section>
+</main>
+
+<script>
+(function () {
+  'use strict';
+
+  var content = null, meta = null, git = null, dirty = false, busy = false;
+
+  /* ---------- 小さい部品 ---------- */
+  function $(id) { return document.getElementById(id); }
+
+  function h(tag, cls, text) {
+    var n = document.createElement(tag);
+    if (cls) { n.className = cls; }
+    if (text !== undefined && text !== null) { n.textContent = text; }
+    return n;
+  }
+
+  function markDirty() { dirty = true; drawState(); }
+
+  /* obj[key] に結びつく入力欄 */
+  function bind(obj, key, opt) {
+    opt = opt || {};
+    var n;
+    if (opt.type === 'textarea') {
+      n = h('textarea');
+      n.rows = opt.rows || 2;
+    } else if (opt.type === 'select') {
+      n = h('select');
+      (opt.options || []).forEach(function (o) {
+        var op = h('option', null, o.label);
+        op.value = o.value;
+        n.appendChild(op);
+      });
+    } else {
+      n = h('input');
+      n.type = opt.type || 'text';
+    }
+    var v = obj[key];
+    n.value = (v === null || v === undefined) ? '' : String(v);
+    if (opt.placeholder) { n.placeholder = opt.placeholder; }
+    n.addEventListener('input', function () {
+      obj[key] = n.value;
+      markDirty();
+      if (opt.onInput) { opt.onInput(n.value); }
+    });
+    n.addEventListener('change', function () {
+      obj[key] = n.value;
+      markDirty();
+      if (opt.onInput) { opt.onInput(n.value); }
+    });
+    return n;
+  }
+
+  function field(label, node, wide) {
+    var wrap = h('label', 'field' + (wide ? ' wide' : ''));
+    wrap.appendChild(h('span', 'flabel', label));
+    wrap.appendChild(node);
+    return wrap;
+  }
+
+  function grid() {
+    var g = h('div', 'grid');
+    for (var i = 0; i < arguments.length; i++) { g.appendChild(arguments[i]); }
+    return g;
+  }
+
+  function toolBtn(label, fn) {
+    var b = h('button', 'btn btn-sm', label);
+    b.type = 'button';
+    b.addEventListener('click', fn);
+    return b;
+  }
+
+  function move(arr, from, to) {
+    if (to < 0 || to >= arr.length) { return false; }
+    var x = arr.splice(from, 1)[0];
+    arr.splice(to, 0, x);
+    return true;
+  }
+
+  /* ---------- 持ちもの ---------- */
+  function drawCarry() {
+    var pane = $('pane-carry');
+    pane.textContent = '';
+    if (!content || !content.carry || !content.carry.groups) {
+      pane.appendChild(h('p', 'hint', 'carry.json が読めませんでした。'));
+      return;
+    }
+    var groups = content.carry.groups;
+    var total = groups.reduce(function (s, g) { return s + ((g.items && g.items.length) || 0); }, 0);
+
+    var head = h('div', 'sec');
+    head.appendChild(h('p', 'sec-h', '持ちもの（全 ' + total + ' 点）'));
+    head.appendChild(h('p', 'hint',
+      '「変わったこと」はサイトで明朝の1行になります。使用開始は YYYY-MM。リンク先が Amazon か公式かで、読み上げ用の説明が変わります。'));
+    pane.appendChild(head);
+
+    groups.forEach(function (g, gi) {
+      var box = h('div', 'sec');
+      var gh = h('div', 'card-h');
+      var nameInput = bind(g, 'name');
+      nameInput.style.fontWeight = '700';
+      var nameField = field('分類名', nameInput);
+      nameField.style.flex = '1';
+      gh.appendChild(nameField);
+      gh.appendChild(h('span', 'card-n', ((g.items && g.items.length) || 0) + ' 点'));
+      box.appendChild(gh);
+
+      (g.items || []).forEach(function (it, ii) {
+        box.appendChild(itemCard(g, it, ii));
+      });
+
+      var add = toolBtn('＋ この分類に持ちものを追加', function () {
+        g.items = g.items || [];
+        g.items.push({ brand: '', name: '', changed: '', since: '', url: '', shop: 'Amazon' });
+        markDirty();
+        drawCarry();
+      });
+      add.className = 'btn addbtn';
+      box.appendChild(add);
+      pane.appendChild(box);
+    });
+  }
+
+  function itemCard(g, it, ii) {
+    var card = h('div', 'card');
+    var head = h('div', 'card-h');
+    var title = h('span', 'card-t', ((it.brand ? it.brand + ' ' : '') + (it.name || '（名前未入力）')));
+    head.appendChild(h('span', 'card-n', (ii + 1) + '.'));
+    head.appendChild(title);
+    var tools = h('div', 'row-tools');
+    tools.appendChild(toolBtn('↑', function () { if (move(g.items, ii, ii - 1)) { markDirty(); drawCarry(); } }));
+    tools.appendChild(toolBtn('↓', function () { if (move(g.items, ii, ii + 1)) { markDirty(); drawCarry(); } }));
+    tools.appendChild(toolBtn('削除', function () {
+      if (!window.confirm('「' + (it.name || '無題') + '」を一覧から外しますか？（保存するまでファイルは変わりません）')) { return; }
+      g.items.splice(ii, 1);
+      markDirty();
+      drawCarry();
+    }));
+    head.appendChild(tools);
+    card.appendChild(head);
+
+    function retitle() {
+      title.textContent = (it.brand ? it.brand + ' ' : '') + (it.name || '（名前未入力）');
+    }
+
+    card.appendChild(grid(
+      field('ブランド', bind(it, 'brand', { onInput: retitle })),
+      field('名前', bind(it, 'name', { onInput: retitle })),
+      field('変わったこと', bind(it, 'changed', { type: 'textarea', rows: 2 }), true),
+      field('使用開始（YYYY-MM）', bind(it, 'since', { placeholder: '2026-05' })),
+      field('リンク先', bind(it, 'shop', {
+        type: 'select',
+        options: [{ value: 'Amazon', label: 'Amazon' }, { value: '公式', label: '公式' }]
+      })),
+      field('リンク', bind(it, 'url', { placeholder: 'https://' }), true)
+    ));
+    return card;
+  }
+
+  /* ---------- 文面（site.json） ---------- */
+
+  /* ラベル付きの繰り返し行。cols は [{key,label,type,options,wide}] */
+  function arrayEditor(arr, cols, empty, titleOf) {
+    var box = h('div');
+    function redraw() {
+      box.textContent = '';
+      arr.forEach(function (rowObj, i) {
+        var card = h('div', 'card');
+        var head = h('div', 'card-h');
+        head.appendChild(h('span', 'card-n', (i + 1) + '.'));
+        head.appendChild(h('span', 'card-t', titleOf ? titleOf(rowObj) : ''));
+        var tools = h('div', 'row-tools');
+        tools.appendChild(toolBtn('↑', function () { if (move(arr, i, i - 1)) { markDirty(); redraw(); } }));
+        tools.appendChild(toolBtn('↓', function () { if (move(arr, i, i + 1)) { markDirty(); redraw(); } }));
+        tools.appendChild(toolBtn('削除', function () {
+          if (!window.confirm('この行を外しますか？（保存するまでファイルは変わりません）')) { return; }
+          arr.splice(i, 1);
+          markDirty();
+          redraw();
+        }));
+        head.appendChild(tools);
+        card.appendChild(head);
+        var g = h('div', 'grid');
+        cols.forEach(function (c) {
+          g.appendChild(field(c.label, bind(rowObj, c.key, c), c.wide));
+        });
+        card.appendChild(g);
+        box.appendChild(card);
+      });
+      var add = toolBtn('＋ 行を追加', function () {
+        arr.push(JSON.parse(JSON.stringify(empty)));
+        markDirty();
+        redraw();
+      });
+      add.className = 'btn addbtn';
+      box.appendChild(add);
+    }
+    redraw();
+    return box;
+  }
+
+  /* 1行1項目のテキストエリア（※注記など） */
+  function linesEditor(obj, key) {
+    var n = h('textarea');
+    n.rows = 3;
+    n.value = (obj[key] || []).join('\n');
+    n.addEventListener('input', function () {
+      obj[key] = n.value.split('\n').map(function (s) { return s.trim(); }).filter(function (s) { return s; });
+      markDirty();
+    });
+    return n;
+  }
+
+  function section(titleText, hintText) {
+    var s = h('div', 'sec');
+    s.appendChild(h('p', 'sec-h', titleText));
+    if (hintText) { s.appendChild(h('p', 'hint', hintText)); }
+    return s;
+  }
+
+  function drawSite() {
+    var pane = $('pane-site');
+    pane.textContent = '';
+    var site = content && content.site;
+    if (!site) {
+      pane.appendChild(h('p', 'hint', 'site.json が読めませんでした。'));
+      return;
+    }
+
+    /* 表札 */
+    var s0 = section('表札', '{first_upload} は channel.json の初投稿日に置き換わります。');
+    site.hero = site.hero || {};
+    s0.appendChild(grid(field('1行目', bind(site.hero, 'fact'), true)));
+    pane.appendChild(s0);
+
+    /* 各室 */
+    var s1 = section('間取り（01〜06）',
+      '要約は1行。{subscribers}{videos} は実測値、{count} は持ちものの点数に置き換わります。');
+    (site.rooms || []).forEach(function (room) {
+      var card = h('div', 'card');
+      var head = h('div', 'card-h');
+      head.appendChild(h('span', 'card-n', room.id));
+      head.appendChild(h('span', 'card-t', room.name || ''));
+      card.appendChild(head);
+      card.appendChild(grid(
+        field('部屋名', bind(room, 'name')),
+        field('行き先', bind(room, 'url')),
+        field('要約（1行）', bind(room, 'summary'), true)
+      ));
+      if (room.items) {
+        var sub = h('div');
+        sub.appendChild(h('p', 'hint', 'この室に並べる行'));
+        sub.appendChild(arrayEditor(room.items,
+          [{ key: 'label', label: '見出し' }, { key: 'text', label: '本文', wide: true }],
+          { label: '', text: '' },
+          function (r) { return r.label || ''; }));
+        card.appendChild(sub);
+      }
+      s1.appendChild(card);
+    });
+    pane.appendChild(s1);
+
+    /* 持ちものの見出しまわり */
+    site.carry = site.carry || {};
+    var s2 = section('持ちものセクション');
+    s2.appendChild(grid(
+      field('見出し', bind(site.carry, 'heading')),
+      field('導入文', bind(site.carry, 'lead', { type: 'textarea', rows: 2 }), true),
+      field('注記（1行1件）', linesEditor(site.carry, 'notes'), true)
+    ));
+    pane.appendChild(s2);
+
+    /* お仕事 */
+    var w = site.work = site.work || {};
+    var s3 = section('お仕事ページ',
+      '{subscribers}{videos}{opened}{measured_at} は実測値に置き換わります。');
+    s3.appendChild(grid(
+      field('見出し', bind(w, 'heading')),
+      field('リード', bind(w, 'lead')),
+      field('自己紹介', bind(w, 'bio', { type: 'textarea', rows: 2 }), true),
+      field('Labの1行', bind(w, 'lab_line'), true),
+      field('数字の注記', bind(w, 'stats_note', { type: 'textarea', rows: 2 }), true)
+    ));
+
+    s3.appendChild(h('p', 'hint', 'メディア掲載'));
+    w.media = w.media || [];
+    s3.appendChild(arrayEditor(w.media,
+      [{ key: 'date', label: '時期' }, { key: 'text', label: '本文', type: 'textarea', rows: 2, wide: true }],
+      { date: '', text: '' },
+      function (r) { return r.date || ''; }));
+
+    s3.appendChild(h('p', 'hint', 'お受けできること'));
+    w.accept = w.accept || [];
+    s3.appendChild(arrayEditor(w.accept,
+      [{ key: 'label', label: '見出し' }, { key: 'text', label: '本文', type: 'textarea', rows: 2, wide: true }],
+      { label: '', text: '' },
+      function (r) { return r.label || ''; }));
+
+    s3.appendChild(h('p', 'hint', 'ご相談'));
+    s3.appendChild(grid(
+      field('本文', bind(w, 'ask', { type: 'textarea', rows: 2 }), true),
+      field('4点のお願い', bind(w, 'ask_4', { type: 'textarea', rows: 3 }), true)
+    ));
+
+    w.mail = w.mail || {};
+    s3.appendChild(h('p', 'hint', 'メールのリンク（宛先・件名・下書き）'));
+    s3.appendChild(grid(
+      field('ボタンの文字', bind(w.mail, 'label')),
+      field('宛先', bind(w.mail, 'address')),
+      field('件名', bind(w.mail, 'subject'), true),
+      field('本文の下書き', bind(w.mail, 'body', { type: 'textarea', rows: 4 }), true)
+    ));
+    pane.appendChild(s3);
+
+    /* 奥付 */
+    var col = site.colophon = site.colophon || {};
+    var s4 = section('奥付', '「出すページ」を空にすると両方に出ます。rooms＝トップだけ、work＝お仕事ページだけ。');
+    s4.appendChild(grid(field('著作表示', bind(col, 'copyright'), true)));
+    col.links = col.links || [];
+    s4.appendChild(arrayEditor(col.links,
+      [{ key: 'label', label: '表示名' },
+       { key: 'only', label: '出すページ', type: 'select',
+         options: [{ value: '', label: '両方' }, { value: 'rooms', label: 'トップだけ' }, { value: 'work', label: 'お仕事だけ' }] },
+       { key: 'url', label: 'リンク', wide: true }],
+      { label: '', url: '', only: '' },
+      function (r) { return r.label || ''; }));
+    pane.appendChild(s4);
+  }
+
+  /* ---------- 自動取得ぶん（読むだけ） ---------- */
+  function drawAuto() {
+    var pane = $('pane-auto');
+    pane.textContent = '';
+    var s = section('自動取得ぶん', 'ここは「最新を取得」でだけ書き換わります。手では編集しません。');
+    pane.appendChild(s);
+
+    [['channel', 'YouTube 本編'], ['lab', 'YouTube Lab'], ['notes', 'note']].forEach(function (pair) {
+      var d = content ? content[pair[0]] : null;
+      var box = h('div', 'ro');
+      box.style.marginTop = '12px';
+      var t = h('p');
+      t.appendChild(h('b', null, pair[1] + '（' + pair[0] + '.json）'));
+      box.appendChild(t);
+      if (!d) {
+        box.appendChild(h('p', null, '読めませんでした'));
+      } else {
+        var tbl = h('table');
+        function tr(k, v) {
+          var r = h('tr');
+          r.appendChild(h('td', null, k));
+          r.appendChild(h('td', null, String(v)));
+          tbl.appendChild(r);
+        }
+        tr('実測日', d.measured_at || '—');
+        if (d.subscribers !== undefined) { tr('登録者', Number(d.subscribers).toLocaleString('en-US')); }
+        if (d.views !== undefined) { tr('総再生', Number(d.views).toLocaleString('en-US')); }
+        if (d.videos !== undefined) { tr('本数', d.videos); }
+        if (d.first_upload) { tr('初投稿', d.first_upload); }
+        if (d.opened) { tr('開設', d.opened); }
+        if (d.latest) { tr('最新', d.latest.length + ' 本 / ' + (d.latest[0] ? d.latest[0].title : '')); }
+        if (d.top) { tr('よく見られている', d.top.length + ' 本 / ' + (d.top[0] ? d.top[0].title : '')); }
+        if (d.items) { tr('記事', d.items.length + ' 本 / ' + (d.items[0] ? d.items[0].title : '')); }
+        box.appendChild(tbl);
+      }
+      pane.appendChild(box);
+    });
+  }
+
+  /* ---------- 状態表示 ---------- */
+  function drawState() {
+    var box = $('state');
+    box.textContent = '';
+
+    var d = h('span', 'tag' + (dirty ? ' on' : ''), dirty ? '未保存の変更あり' : '未保存の変更なし');
+    box.appendChild(d);
+
+    if (git) {
+      box.appendChild(h('span', 'tag git', 'branch ' + (git.branch || '—')));
+      box.appendChild(h('span', 'tag' + (git.dirty ? ' on' : ''),
+        git.dirty ? '未コミットの差分あり' : '未コミットの差分なし'));
+    }
+
+    if (meta) {
+      ['site', 'carry', 'channel', 'lab', 'notes'].forEach(function (n) {
+        var m = meta[n] || {};
+        box.appendChild(h('span', null, n + '.json ' + (m.modified || '—')));
+      });
+    }
+
+    var links = h('span');
+    links.style.marginLeft = 'auto';
+    var a1 = h('a', null, 'トップを開く');
+    a1.href = '/_dir/e-rooms.html';
+    a1.target = '_blank';
+    var a2 = h('a', null, 'お仕事を開く');
+    a2.href = '/_dir/e-work.html';
+    a2.target = '_blank';
+    a2.style.marginLeft = '14px';
+    links.appendChild(a1);
+    links.appendChild(a2);
+    box.appendChild(links);
+  }
+
+  function say(text, kind) {
+    var box = $('msg');
+    box.textContent = text;
+    box.className = 'msg show ' + (kind || 'info');
+  }
+
+  function setBusy(on) {
+    busy = on;
+    ['btn-save', 'btn-refresh', 'btn-publish'].forEach(function (id) { $(id).disabled = on; });
+  }
+
+  /* ---------- 通信 ---------- */
+  function api(path, body) {
+    var opt = body
+      ? { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(body) }
+      : { method: 'GET' };
+    return fetch(path, opt).then(function (res) {
+      return res.json().catch(function () { throw new Error('サーバーの応答が読めませんでした（' + res.status + '）'); });
+    });
+  }
+
+  function absorb(res) {
+    if (res.git) { git = res.git; }
+    if (res.meta) { meta = res.meta; }
+    drawState();
+  }
+
+  function load() {
+    setBusy(true);
+    api('/api/content').then(function (res) {
+      setBusy(false);
+      if (!res.ok) { say('読み込みに失敗しました：' + (res.error || ''), 'ng'); return; }
+      content = res.content;
+      meta = res.meta;
+      git = res.git;
+      dirty = false;
+      drawCarry();
+      drawSite();
+      drawAuto();
+      drawState();
+    }).catch(function (e) {
+      setBusy(false);
+      say('読み込みに失敗しました：' + e.message, 'ng');
+    });
+  }
+
+  $('btn-save').addEventListener('click', function () {
+    if (busy || !content) { return; }
+    setBusy(true);
+    say('保存しています…', 'info');
+    api('/api/save', { carry: content.carry, site: content.site }).then(function (res) {
+      setBusy(false);
+      absorb(res);
+      if (!res.ok) { say('保存できませんでした：' + (res.error || ''), 'ng'); return; }
+      dirty = false;
+      drawState();
+      say('保存しました。サイトを再読み込みすると反映されます。', 'ok');
+    }).catch(function (e) {
+      setBusy(false);
+      say('保存できませんでした：' + e.message, 'ng');
+    });
+  });
+
+  $('btn-refresh').addEventListener('click', function () {
+    if (busy) { return; }
+    setBusy(true);
+    say('YouTube と note から取得しています…（30秒ほどかかります）', 'info');
+    api('/api/refresh', {}).then(function (res) {
+      setBusy(false);
+      absorb(res);
+      var lines = [res.msg || ''];
+      (res.sources || []).forEach(function (s) {
+        lines.push('・' + s.file + ' ← ' + s.from + '（' + s.at + '）');
+      });
+      (res.errors || []).forEach(function (e) { lines.push('× ' + e); });
+      say(lines.join('\n'), res.ok ? 'ok' : 'ng');
+      /* 取得ぶんだけ読み直す。編集中の carry / site は触らない。 */
+      api('/api/content').then(function (r2) {
+        if (!r2.ok) { return; }
+        content.channel = r2.content.channel;
+        content.lab = r2.content.lab;
+        content.notes = r2.content.notes;
+        drawAuto();
+      });
+    }).catch(function (e) {
+      setBusy(false);
+      say('取得できませんでした：' + e.message, 'ng');
+    });
+  });
+
+  $('btn-publish').addEventListener('click', function () {
+    if (busy) { return; }
+    var note = dirty ? '\n\n※ 未保存の変更があります。先に「保存」を押してください。' : '';
+    if (!window.confirm('いまの _dir の中身を GitHub に公開します。よろしいですか？' + note)) { return; }
+    setBusy(true);
+    say('公開しています…', 'info');
+    api('/api/publish', {}).then(function (res) {
+      setBusy(false);
+      absorb(res);
+      if (!res.ok) { say('公開できませんでした：' + (res.error || ''), 'ng'); return; }
+      if (res.changed === false) { say(res.msg || '変更なし', 'info'); return; }
+      say((res.msg || '公開しました') + '\n' + (res.commit || '') + '\n' + ((res.files || []).join('\n')), 'ok');
+    }).catch(function (e) {
+      setBusy(false);
+      say('公開できませんでした：' + e.message, 'ng');
+    });
+  });
+
+  /* タブ */
+  [['tab-carry', 'pane-carry'], ['tab-site', 'pane-site'], ['tab-auto', 'pane-auto']].forEach(function (pair) {
+    $(pair[0]).addEventListener('click', function () {
+      [['tab-carry', 'pane-carry'], ['tab-site', 'pane-site'], ['tab-auto', 'pane-auto']].forEach(function (p) {
+        var on = p[0] === pair[0];
+        $(p[0]).setAttribute('aria-selected', on ? 'true' : 'false');
+        $(p[1]).hidden = !on;
+      });
+    });
+  });
+
+  window.addEventListener('beforeunload', function (e) {
+    if (!dirty) { return; }
+    e.preventDefault();
+    e.returnValue = '';
+  });
+
+  load();
+})();
+</script>
+
+</body>
+</html>

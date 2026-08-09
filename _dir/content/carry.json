@@ -1,0 +1,145 @@
+{
+  "_comment": "持ちもの。管理画面（_dir/admin）から編集する。since は YYYY-MM、shop は Amazon か 公式。",
+  "groups": [
+    {
+      "name": "かばんまわり",
+      "items": [
+        {
+          "brand": "StandardProducts",
+          "name": "スマホショルダー（BL）",
+          "changed": "読書用に持ち出せるかばん",
+          "since": "2026-05",
+          "url": "https://jp.daisonet.com/products/4550480558981",
+          "shop": "公式"
+        },
+        {
+          "brand": "aso",
+          "name": "クリアブックカバー fog",
+          "changed": "読みかけの本を、そのまま放り込めるようになった。",
+          "since": "2026-05",
+          "url": "https://amzn.to/4sE4igL",
+          "shop": "Amazon"
+        },
+        {
+          "brand": "aso × Rebecca Miyama",
+          "name": "カードケース",
+          "changed": "財布のための場所が、かばんから消えた。",
+          "since": "2026-05",
+          "url": "https://amzn.to/4a3Touc",
+          "shop": "Amazon"
+        }
+      ]
+    },
+    {
+      "name": "手で書くための道具",
+      "items": [
+        {
+          "brand": "DELFONICS",
+          "name": "ロルバーン ポケット付メモ ミニ",
+          "changed": "思いついたことを、立ったまま書くようになった。",
+          "since": "2026-05",
+          "url": "https://amzn.to/4faOrDB",
+          "shop": "Amazon"
+        },
+        {
+          "brand": "カンミ堂",
+          "name": "ココフセン COLOR",
+          "changed": "本に折り目をつけなくなった。",
+          "since": "2026-05",
+          "url": "https://amzn.to/42memQJ",
+          "shop": "Amazon"
+        },
+        {
+          "brand": "パイロット",
+          "name": "ジュースアップ4 0.4",
+          "changed": "ペンを4本持ち歩くのをやめた。",
+          "since": "2026-05",
+          "url": "https://amzn.to/4tEPK0Y",
+          "shop": "Amazon"
+        },
+        {
+          "brand": "三菱鉛筆",
+          "name": "ジェットストリーム 4&1 0.5",
+          "changed": "書いて消す日も、1本で足りるようになった。",
+          "since": "2026-05",
+          "url": "https://amzn.to/4cj3j0H",
+          "shop": "Amazon"
+        }
+      ]
+    },
+    {
+      "name": "持ち歩く机",
+      "items": [
+        {
+          "brand": "Apple",
+          "name": "iPad mini（第6世代）",
+          "changed": "作業のために家へ戻る日が、なくなった。",
+          "since": "2026-05",
+          "url": "https://amzn.to/4nVNm4H",
+          "shop": "Amazon"
+        },
+        {
+          "brand": "Nillkin",
+          "name": "折りたたみ式キーボード",
+          "changed": "長い文章を、外でも書けるようになった。",
+          "since": "2026-05",
+          "url": "https://amzn.to/4nJHKKV",
+          "shop": "Amazon"
+        },
+        {
+          "brand": "QCY",
+          "name": "MeloBuds N70",
+          "changed": "音の装備が、かばんに常駐した。",
+          "since": "2026-05",
+          "url": "https://amzn.to/4eQZdi7",
+          "shop": "Amazon"
+        },
+        {
+          "brand": "Loop",
+          "name": "Experience 2（耳栓）",
+          "changed": "音を消さずに、下げられるようになった。",
+          "since": "2026-06",
+          "url": "https://amzn.to/4aIvJzU",
+          "shop": "Amazon"
+        }
+      ]
+    },
+    {
+      "name": "腰まわり",
+      "items": [
+        {
+          "brand": "TISUR",
+          "name": "チタン キーホルダー ベルトクリップ",
+          "changed": "鍵をポケットから探す時間が、なくなった。",
+          "since": "2026-06",
+          "url": "https://amzn.to/3Szplon",
+          "shop": "Amazon"
+        },
+        {
+          "brand": "NITEIZE",
+          "name": "エスビナー スライドロック 3",
+          "changed": "付け外しに、両手を使わなくなった。",
+          "since": "2026-06",
+          "url": "https://amzn.to/4w5PtG4",
+          "shop": "Amazon"
+        },
+        {
+          "brand": "StandardProducts",
+          "name": "カラビナ付イヤホンケース（BK）",
+          "changed": "詰め直す工程が、なくなった。",
+          "since": "2026-06",
+          "url": "https://jp.daisonet.com/products/4550480558851",
+          "shop": "公式"
+        },
+        {
+          "brand": "Apple",
+          "name": "AirPods Pro（整備済み品）",
+          "changed": "かばんを持たない日も、イヤホンが手元に残った。",
+          "since": "2026-06",
+          "url": "https://amzn.to/3QCp83h",
+          "shop": "Amazon"
+        }
+      ]
+    }
+  ]
+}
