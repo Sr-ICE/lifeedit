@@ -1,0 +1,449 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>G案 夜のフィルム日記｜4.5room</title>
+<meta name="robots" content="noindex,nofollow">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 300 300'%3E%3Crect width='300' height='300' fill='%23191512'/%3E%3Cg fill='%23F1EBE1' fill-opacity='0.6'%3E%3Crect x='40' y='80' width='60' height='60'/%3E%3Crect x='120' y='80' width='60' height='60'/%3E%3Crect x='200' y='80' width='60' height='60'/%3E%3Crect x='40' y='160' width='60' height='60'/%3E%3Crect x='120' y='160' width='60' height='60'/%3E%3Crect x='200' y='160' width='60' height='60'/%3E%3C/g%3E%3C/svg%3E">
+
+<style>
+/* ==========================================================================
+   4.5room — G案「夜のフィルム日記」
+   3案外したあとの設計し直し。診断は次の4点。
+     1. inliving.jp の可愛さは装置で出来ている（実測：紙#F5F2ED・カード角丸16px
+        ＋枠・ピル99px「詳細を見る →」・Zen Kaku Gothic New・和文9pxの添えラベル・
+        フィルム写真の額装）。前回は骨組みだけ借りて装置を全部捨てた。
+     2. 「クールでシネマチック」を無彩色の黒（#0E0E10）＋明朝＋黒帯に誤訳した。
+        映画の夜は暖色を含む。ここは消灯後の部屋の色（暖かい煤色）にする。
+     3. 写真は裸で置くと作業フレーム、額装（角丸＋枠＋日付スタンプ＋粒子）に
+        入れるとフィルム日記になる。同じ素材でも額で意味が変わる。
+     4. 声が別人だった。「見た目はオタク。使うと可愛い。」の人のサイトなので、
+        和文主導に戻す（英語は9pxの添えに降格）。明朝はやめる。
+   決めごと：
+     - 文言は既に承認済みの行だけを使う（新しい効能コピーは書かない）
+     - 数値は 2026-08-09 実測（YouTube Data API）。変動値に更新日を添える
+     - 角丸16px・1px枠・ピル99px・日付スタンプ・粒子 が可愛さの装置
+     - アクセントはランプ色（--amber）1色。用途はスタンプとホバーだけ
+     - 外部CDNなし。書体は self-host の General Sans＋Hiragino Sans
+       （展開時は inliving と同系の Zen Kaku Gothic New を self-host 候補に）
+   ========================================================================== */
+
+@font-face{
+  font-family:"General Sans";
+  src:url("fonts/GeneralSans-Medium.woff2") format("woff2");
+  font-weight:500;font-style:normal;font-display:swap;
+}
+@font-face{
+  font-family:"General Sans";
+  src:url("fonts/GeneralSans-Semibold.woff2") format("woff2");
+  font-weight:600;font-style:normal;font-display:swap;
+}
+
+:root{
+  /* 消灯後の部屋。無彩色の黒ではなく、暖かい煤色。 */
+  --paper:#191512;
+  --ink:#F1EBE1;    /* 紙に対して 14.9:1 */
+  --mid:#A89F92;    /* 紙に対して  6.9:1 — 本文・ラベルはここまで */
+  --line:rgba(241,235,225,.16);
+  --fill:rgba(241,235,225,.04);
+  --amber:#E2A659;  /* ランプ色。スタンプとホバーだけ */
+
+  --jp:"Hiragino Sans","Hiragino Kaku Gothic ProN","Noto Sans JP",sans-serif;
+  --disp:"General Sans","Helvetica Neue",Arial,sans-serif;
+
+  --s1:8px; --s2:16px; --s3:24px; --s4:40px; --s5:64px; --s6:104px;
+  --r:16px;
+  --ease:cubic-bezier(0.16,1,0.3,1);
+}
+
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{
+  background:var(--paper);color:var(--ink);
+  font-family:var(--jp);font-weight:400;font-size:14.5px;
+  line-height:1.95;letter-spacing:.02em;
+  font-variant-numeric:tabular-nums;
+  font-feature-settings:"palt" 1,"tnum" 1;
+  -webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;
+  overflow-wrap:anywhere;
+}
+ul,ol{list-style:none}
+a{color:inherit;text-decoration:none}
+a:focus{outline:none}
+a:focus-visible{outline:2px solid var(--ink);outline-offset:3px;border-radius:4px}
+img{display:block;max-width:100%;height:auto}
+
+.wrap{max-width:1180px;margin:0 auto;padding:0 clamp(20px,4vw,56px)}
+.num{font-family:var(--disp);font-weight:500;font-variant-numeric:tabular-nums;letter-spacing:-.01em}
+
+/* 英字は添え物。9px・小文字・広めの字間（inlivingの和文ラベルの逆映し） */
+.en{
+  display:block;
+  font-family:var(--disp);font-weight:500;font-size:9px;
+  letter-spacing:.26em;text-transform:lowercase;
+  color:var(--mid);
+}
+
+/* 塗りと輪郭の混植（inliving.jp のロゴの装置） */
+.o{color:transparent;-webkit-text-stroke:1px var(--ink)}
+@supports not (-webkit-text-stroke:1px black){.o{color:var(--ink)}}
+
+/* ==========================================================================
+   ヘッダー：和文主導。英字は下に9pxで添えるだけ
+   ========================================================================== */
+.hd{display:flex;align-items:center;justify-content:space-between;gap:var(--s4);padding:22px 0 18px}
+.hd-l{font-family:var(--disp);font-weight:600;font-size:19px;letter-spacing:0}
+.hd-n{display:flex;gap:clamp(18px,3vw,36px)}
+.hd-n a{text-align:center;transition:opacity .4s var(--ease)}
+.hd-n a:hover,.hd-n a:focus-visible{opacity:.55}
+.hd-n .j{display:block;font-size:12.5px;letter-spacing:.08em;color:var(--ink)}
+.hd-n .en{margin-top:3px}
+
+/* ==========================================================================
+   写真の額装（全写真共通）：角丸＋1px枠＋粒子＋日付スタンプ
+   ========================================================================== */
+.frame{position:relative;overflow:hidden;border-radius:var(--r);border:1px solid var(--line);background:var(--fill)}
+.frame img{width:100%;height:100%;object-fit:cover}
+/* フィルムの粒子。写真の上に7%だけ */
+.frame::after{
+  content:"";position:absolute;inset:0;pointer-events:none;opacity:.07;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='140' height='140' filter='url(%23n)' opacity='0.55'/%3E%3C/svg%3E");
+}
+/* フィルムの日付焼き込み */
+.stamp{
+  position:absolute;right:14px;bottom:10px;z-index:2;
+  font-family:var(--disp);font-weight:500;font-size:11px;letter-spacing:.14em;
+  color:var(--amber);text-shadow:0 0 7px rgba(226,166,89,.6);
+  font-variant-numeric:tabular-nums;
+}
+
+/* ==========================================================================
+   表札：額装したヒーロー1枚。キャッチコピーは置かない
+   ========================================================================== */
+.hero .frame{aspect-ratio:21/9;min-height:400px;border-radius:20px}
+.hero .veil{position:absolute;inset:0;background:rgba(25,21,18,.32)}
+.hero-t{position:absolute;left:clamp(20px,3.4vw,40px);bottom:clamp(18px,3vw,34px);z-index:2}
+.wm{
+  font-family:var(--disp);font-weight:500;
+  font-size:clamp(52px,7.4vw,104px);line-height:1.04;letter-spacing:-.03em;
+  font-variant-numeric:tabular-nums;
+}
+.hero-t .en{margin-top:14px;font-size:10px}
+
+/* ==========================================================================
+   節の見出し：和文が主、英字は上に添える
+   ========================================================================== */
+.sec{margin-top:clamp(72px,9vw,120px)}
+.sh{margin-bottom:var(--s3)}
+.sh h2{font-size:22px;font-weight:600;letter-spacing:.06em;line-height:1.5}
+.sh .en{margin-bottom:6px}
+.sh .lead{margin-top:10px;font-size:13px;color:var(--mid);max-width:40em}
+.note-s{margin-top:var(--s3);font-size:10.5px;line-height:1.8;color:var(--mid)}
+
+/* ==========================================================================
+   間取り（卍敷きは維持。室を角丸の枠にして、中心の半畳は写真）
+   ========================================================================== */
+.plan{
+  display:grid;
+  grid-template-columns:repeat(3,minmax(0,1fr));
+  grid-template-rows:repeat(3,minmax(148px,auto));
+  gap:10px;
+}
+.pr{
+  position:relative;
+  border:1px solid var(--line);border-radius:var(--r);
+  background:var(--fill);
+  padding:16px 18px;
+  transition:border-color .4s var(--ease),background .4s var(--ease);
+}
+a.pr:hover,a.pr:focus-visible{border-color:rgba(241,235,225,.38);background:rgba(241,235,225,.06)}
+.pr .no{font-family:var(--disp);font-weight:500;font-size:9.5px;letter-spacing:.12em;color:var(--mid)}
+.pr .nm{display:block;margin-top:4px;font-size:15px;font-weight:600;letter-spacing:.05em}
+.pr .ds{display:block;font-size:11.5px;color:var(--mid);margin-top:2px}
+.pr .row{display:block;margin-top:12px;font-size:11.5px;line-height:1.8;color:var(--mid)}
+.pr .row b{display:block;font-weight:400;color:var(--ink);font-size:12.5px}
+.p1{grid-column:1 / span 2;grid-row:1}
+.p2{grid-column:3;grid-row:1 / span 2}
+.p3{grid-column:1;grid-row:2 / span 2}
+.p4{grid-column:2;grid-row:2;padding:0;overflow:hidden}
+.p5{grid-column:2 / span 2;grid-row:3}
+.p6{grid-column:1 / span 3;grid-row:4;display:flex;align-items:baseline;gap:var(--s3);min-height:0}
+.p6 .nm{margin-top:0}
+.p6 .ds{margin-top:0}
+/* 中心の半畳＝写真。ラベルは左上に小さく */
+.p4 .ph{position:absolute;inset:0}
+.p4 .ph img{width:100%;height:100%;object-fit:cover}
+.p4 .lbl{position:absolute;left:14px;top:12px;z-index:2;font-size:10px;letter-spacing:.1em;color:var(--ink);text-shadow:0 0 8px rgba(25,21,18,.9)}
+.p4::after{content:"";position:absolute;inset:0;pointer-events:none;opacity:.07;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='140' height='140' filter='url(%23n)' opacity='0.55'/%3E%3C/svg%3E")}
+
+/* ==========================================================================
+   かばん：額装カード（写真＋枠線で仕切ったキャプション＝inlivingの解剖）
+   ========================================================================== */
+.bags{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}
+.bc{
+  display:block;border:1px solid var(--line);border-radius:var(--r);
+  overflow:hidden;background:var(--fill);
+  transition:border-color .4s var(--ease);
+}
+.bc:hover,.bc:focus-visible{border-color:rgba(241,235,225,.38)}
+.bc .ph{position:relative;aspect-ratio:16/10;overflow:hidden}
+.bc .ph img{width:100%;height:100%;object-fit:cover;transition:transform 1.2s var(--ease)}
+.bc:hover .ph img{transform:scale(1.025)}
+.bc .ph::after{content:"";position:absolute;inset:0;pointer-events:none;opacity:.07;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='140' height='140' filter='url(%23n)' opacity='0.55'/%3E%3C/svg%3E")}
+.bc .cap{
+  display:flex;align-items:baseline;justify-content:space-between;gap:12px;
+  padding:12px 16px;border-top:1px solid var(--line);
+}
+.bc .tt{font-size:13px;letter-spacing:.03em}
+.bc .go{font-size:10.5px;color:var(--mid);white-space:nowrap}
+
+/* ==========================================================================
+   持ちもの（抜粋）：分類はピルのチップ、行は静かなまま
+   ========================================================================== */
+.chips{display:flex;flex-wrap:wrap;gap:10px;margin-bottom:var(--s3)}
+.chip{
+  border:1px solid var(--line);border-radius:99px;
+  padding:7px 16px;font-size:11.5px;color:var(--mid);
+}
+.chip b{font-family:var(--disp);font-weight:500;color:var(--ink);margin-left:.5em}
+.things{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:0 var(--s5)}
+.ti{display:block;padding:12px 0;border-top:1px solid var(--line)}
+.ti .br{display:block;font-size:10px;letter-spacing:.14em;color:var(--mid)}
+.ti .nm{display:block;font-size:14px;line-height:1.75}
+.more{margin-top:var(--s3)}
+
+/* ピル（用途は2つだけ：全部見る／ご相談） */
+.pill{
+  display:inline-block;border:1px solid var(--line);border-radius:99px;
+  padding:9px 22px;font-size:12px;letter-spacing:.06em;
+  transition:border-color .4s var(--ease),color .4s var(--ease);
+}
+.pill:hover,.pill:focus-visible{border-color:var(--amber);color:var(--amber)}
+
+/* ==========================================================================
+   お仕事の帯
+   ========================================================================== */
+.work{
+  display:flex;align-items:center;justify-content:space-between;gap:var(--s3);
+  border:1px solid var(--line);border-radius:var(--r);background:var(--fill);
+  padding:24px clamp(20px,3vw,34px);
+}
+.work .t{font-size:14px;font-weight:600;letter-spacing:.05em}
+.work .d{font-size:11.5px;color:var(--mid);margin-top:2px}
+
+/* ==========================================================================
+   奥付
+   ========================================================================== */
+.ft{margin:clamp(80px,10vw,130px) 0 56px;display:flex;flex-wrap:wrap;justify-content:space-between;gap:var(--s2) var(--s3)}
+.ft .c{font-family:var(--disp);font-weight:500;font-size:11px;color:var(--mid)}
+.ft nav{display:flex;flex-wrap:wrap;gap:0 var(--s3);font-size:12px;color:var(--mid)}
+.ft a{transition:color .4s var(--ease)}
+.ft a:hover,.ft a:focus-visible{color:var(--ink)}
+
+/* ==========================================================================
+   儚い出現（前案から維持。JS無効なら全文表示）
+   ========================================================================== */
+.js-rv .rv{opacity:0;transform:translateY(8px)}
+.js-rv .rv.in{
+  opacity:1;transform:none;
+  transition:opacity 1.15s var(--ease),transform 1.15s var(--ease);
+  transition-delay:calc(var(--i,0) * 90ms);
+}
+@media (prefers-reduced-motion: reduce){
+  html{scroll-behavior:auto}
+  *,*::before,*::after{transition-duration:.001ms!important;transition-delay:0ms!important}
+  .js-rv .rv{opacity:1!important;transform:none!important}
+}
+
+/* ==========================================================================
+   390px
+   ========================================================================== */
+@media (max-width:760px){
+  .hd{flex-wrap:wrap;gap:12px}
+  .hd-n{gap:16px}
+  .hero .frame{aspect-ratio:4/5;min-height:0}
+  .plan{grid-template-columns:minmax(0,1fr);grid-template-rows:none}
+  .p1,.p2,.p3,.p4,.p5,.p6{grid-column:auto;grid-row:auto}
+  .p4{aspect-ratio:16/10}
+  .p6{display:block}
+  .bags{grid-template-columns:minmax(0,1fr)}
+  .things{grid-template-columns:minmax(0,1fr)}
+  .work{flex-direction:column;align-items:flex-start}
+}
+</style>
+
+<script>try{document.documentElement.className+=" js-rv";}catch(e){}</script>
+</head>
+
+<body>
+<div class="wrap">
+
+  <header class="hd">
+    <a class="hd-l" href="#">4.5<span class="o">room</span></a>
+    <nav class="hd-n">
+      <a href="#plan"><span class="j">間取り</span><span class="en">rooms</span></a>
+      <a href="#bags"><span class="j">かばん</span><span class="en">bags</span></a>
+      <a href="#things"><span class="j">持ちもの</span><span class="en">things</span></a>
+      <a href="e-work.html"><span class="j">お仕事</span><span class="en">work</span></a>
+    </nav>
+  </header>
+
+  <!-- 表札。文言は承認済みの事実1行だけ -->
+  <section class="hero rv">
+    <div class="frame">
+      <img src="../assets/photos/room/room-01.jpg" width="1025" height="1534" loading="eager" decoding="async"
+           alt="窓から光の差す部屋。白い寝具のベッドと、枕もとの棚に置かれたカメラ">
+      <span class="veil"></span>
+      <div class="hero-t">
+        <p class="wm">4.5<span class="o">room</span></p>
+        <span class="en">youtube ／ 2022.12.14 —</span>
+      </div>
+      <span class="stamp">26 08 09</span>
+    </div>
+  </section>
+
+  <!-- 間取り。卍敷き（四畳半の敷き方そのまま）。数値は 2026-08-09 実測 -->
+  <section class="sec" id="plan">
+    <header class="sh rv">
+      <span class="en">rooms</span>
+      <h2>間取り</h2>
+    </header>
+    <div class="plan">
+      <a class="pr p1 rv" href="https://www.youtube.com/@4.5room" target="_blank" rel="noopener">
+        <span class="no">01</span>
+        <span class="nm">YouTube（本編）</span>
+        <span class="ds">登録者 <span class="num">6,140</span>・動画 <span class="num">253</span>本</span>
+        <span class="row"><b>整理術不要のバックパック｜見た目はオタク。使うと可愛い。</b><span class="num">2026.08.02</span></span>
+      </a>
+      <a class="pr p2 rv" style="--i:1" href="https://www.youtube.com/channel/UCtpqTOuTy5gK_2UZzgikizQ" target="_blank" rel="noopener">
+        <span class="no">02</span>
+        <span class="nm">YouTube（Lab）</span>
+        <span class="ds">登録者 <span class="num">690</span>・動画 <span class="num">19</span>本</span>
+      </a>
+      <a class="pr p3 rv" style="--i:2" href="https://note.com/4_5room/" target="_blank" rel="noopener">
+        <span class="no">03</span>
+        <span class="nm">note</span>
+        <span class="ds">動画にできない長さの話</span>
+        <span class="row"><b>「一生モノ」は、名詞ではなく動詞だった</b><span class="num">2026.07.26</span></span>
+      </a>
+      <a class="pr p4 rv" style="--i:3" href="https://www.instagram.com/srice4.5/" target="_blank" rel="noopener">
+        <span class="ph"><img src="../assets/photos/bags/dokusho-2-02.jpg" width="1600" height="734" loading="lazy" decoding="async"
+             alt="かばんとイヤホンケースを並べて撮ったところ"></span>
+        <span class="lbl">04 Instagram</span>
+      </a>
+      <a class="pr p5 rv" style="--i:4" href="#things">
+        <span class="no">05</span>
+        <span class="nm">持ちもの</span>
+        <span class="ds"><span class="num">15</span>点・4分類</span>
+      </a>
+      <a class="pr p6 rv" style="--i:5" href="e-work.html">
+        <span class="no">06</span>
+        <span class="nm">お仕事</span>
+        <span class="ds">ねとらぼ（ITmedia）に記事化・Yahoo!ニュース配信</span>
+      </a>
+    </div>
+    <p class="note-s rv">数値は YouTube Data API 実測（<span class="num">2026.08.09</span> 時点）。登録者数はYouTubeの仕様により概数で表示されます。</p>
+  </section>
+
+  <!-- かばん。額装カード＝写真＋枠で仕切ったキャプション -->
+  <section class="sec" id="bags">
+    <header class="sh rv">
+      <span class="en">bags</span>
+      <h2>かばん</h2>
+      <p class="lead">回ごとの中身は、それぞれのページに。日付は動画を公開した日。</p>
+    </header>
+    <div class="bags">
+      <a class="bc rv" href="bags/backpack-t77.html">
+        <span class="ph"><img src="../assets/photos/bags/backpack-t77-01.jpg" width="1600" height="734" loading="lazy" decoding="async" alt="リュックの正面"><span class="stamp">26 08 02</span></span>
+        <span class="cap"><span class="tt">tomtoc アーバンEX T77</span><span class="go">中身 →</span></span>
+      </a>
+      <a class="bc rv" style="--i:1" href="bags/sling-t21.html">
+        <span class="ph"><img src="../assets/photos/bags/sling-t21-01.jpg" width="1600" height="734" loading="lazy" decoding="async" alt="スリングバッグを上から見たところ"><span class="stamp">26 07 31</span></span>
+        <span class="cap"><span class="tt">tomtoc Explorer T21</span><span class="go">中身 →</span></span>
+      </a>
+      <a class="bc rv" style="--i:2" href="bags/ipadmini.html">
+        <span class="ph"><img src="../assets/photos/bags/ipadmini-01.jpg" width="1600" height="734" loading="lazy" decoding="async" alt="iPad miniまわりの装備を机に並べたところ"><span class="stamp">26 05 24</span></span>
+        <span class="cap"><span class="tt">2wayバッグ｜iPad mini編</span><span class="go">中身 →</span></span>
+      </a>
+      <a class="bc rv" href="bags/dokusho-2.html">
+        <span class="ph"><img src="../assets/photos/bags/dokusho-2-01.jpg" width="1600" height="734" loading="lazy" decoding="async" alt="かばんを斜め掛けにしているところ"><span class="stamp">26 05 17</span></span>
+        <span class="cap"><span class="tt">読書かばん その２</span><span class="go">中身 →</span></span>
+      </a>
+      <a class="bc rv" style="--i:1" href="bags/dokusho.html">
+        <span class="ph"><img src="../assets/photos/bags/dokusho-01.jpg" width="1600" height="754" loading="lazy" decoding="async" alt="無印良品の収納ケースとストラップを手に持っているところ"><span class="stamp">26 04 19</span></span>
+        <span class="cap"><span class="tt">読書かばん</span><span class="go">中身 →</span></span>
+      </a>
+    </div>
+  </section>
+
+  <!-- 持ちもの（抜粋）。行は静かなまま、分類だけピルのチップ -->
+  <section class="sec" id="things">
+    <header class="sh rv">
+      <span class="en">things</span>
+      <h2>持ちもの</h2>
+      <p class="lead">動画で紹介して、そのまま日常に残ったものだけ。日付は、その道具を動画で紹介した月。</p>
+    </header>
+    <div class="chips rv">
+      <span class="chip">かばんまわり<b>3</b></span>
+      <span class="chip">手で書くための道具<b>4</b></span>
+      <span class="chip">持ち歩く机<b>4</b></span>
+      <span class="chip">腰まわり<b>4</b></span>
+    </div>
+    <div class="things">
+      <span class="ti rv"><span class="br">StandardProducts</span><span class="nm">スマホショルダー（BL）</span></span>
+      <span class="ti rv"><span class="br">DELFONICS</span><span class="nm">ロルバーン ポケット付メモ ミニ</span></span>
+      <span class="ti rv"><span class="br">Apple</span><span class="nm">iPad mini（第6世代）</span></span>
+      <span class="ti rv"><span class="br">パイロット</span><span class="nm">ジュースアップ4 0.4</span></span>
+      <span class="ti rv"><span class="br">Loop</span><span class="nm">Experience 2（耳栓）</span></span>
+      <span class="ti rv"><span class="br">TISUR</span><span class="nm">チタン キーホルダー ベルトクリップ</span></span>
+    </div>
+    <p class="more rv"><a class="pill" href="e-rooms.html#mochimono">全 15 点をみる →</a></p>
+  </section>
+
+  <!-- お仕事の帯 -->
+  <section class="sec rv">
+    <div class="work">
+      <div>
+        <p class="t">お仕事のご相談</p>
+        <p class="d">動画／note記事での紹介。メディア掲載：ねとらぼ（ITmedia）・Yahoo!ニュース配信</p>
+      </div>
+      <a class="pill" href="e-work.html">ご相談はこちら →</a>
+    </div>
+  </section>
+
+  <footer class="ft">
+    <p class="c">© 2026 4.5room</p>
+    <nav>
+      <a href="https://www.youtube.com/@4.5room" target="_blank" rel="noopener">YouTube</a>
+      <a href="https://www.youtube.com/channel/UCtpqTOuTy5gK_2UZzgikizQ" target="_blank" rel="noopener">Lab</a>
+      <a href="https://note.com/4_5room/" target="_blank" rel="noopener">note</a>
+      <a href="https://www.instagram.com/srice4.5/" target="_blank" rel="noopener">Instagram</a>
+      <a href="mailto:4.5roomsrice@gmail.com">mail</a>
+    </nav>
+  </footer>
+
+</div>
+
+<script>
+(function () {
+  try {
+    if (!('IntersectionObserver' in window)) { throw new Error('unsupported'); }
+    var io = new IntersectionObserver(function (entries) {
+      for (var i = 0; i < entries.length; i++) {
+        if (entries[i].isIntersecting) {
+          entries[i].target.classList.add('in');
+          io.unobserve(entries[i].target);
+        }
+      }
+    }, { rootMargin: '0px 0px -8% 0px', threshold: 0.01 });
+    var rvs = document.querySelectorAll('.rv');
+    for (var i = 0; i < rvs.length; i++) { io.observe(rvs[i]); }
+  } catch (e) {
+    document.documentElement.className = document.documentElement.className.replace(' js-rv', '');
+  }
+}());
+</script>
+
+</body>
+</html>
