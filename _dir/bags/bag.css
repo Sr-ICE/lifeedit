@@ -18,10 +18,12 @@
 }
 
 :root{
-  --paper:#FFFFFF;
-  --ink:#1F1F23;   /* 白に対して 16.4:1 */
-  --mid:#5E5E66;   /* 白に対して  6.4:1 — 本文・ラベルはここまでで止める */
-  --pale:#8E8E96;  /* 白に対して  3.3:1 — 文字には使わない */
+  /* 暗室。e-rooms と同じ値を使う（片方だけ変えないこと）。 */
+  --paper:#0E0E10;
+  --ink:#EFEDE9;   /* 紙に対して 16.8:1 */
+  --mid:#9C9CA4;   /* 紙に対して  7.3:1 — 本文・ラベルはここまでで止める */
+  --pale:#63636B;  /* 紙に対して  2.9:1 — 文字には使わない */
+  --line:rgba(239,237,233,.16);
 
   --jp:"Hiragino Sans","Hiragino Kaku Gothic ProN","Noto Sans JP",sans-serif;
   --mc:"Hiragino Mincho ProN","Yu Mincho",serif;
@@ -101,12 +103,13 @@ img{display:block;max-width:100%;height:auto}
 /* ==========================================================================
    写真
    本編の動画から起こしたもの。撮って出しのトーンをそのまま出す
-   （CSS filter は掛けない）。加工しない代わりに、置く場所と大きさで効かせる。
+   （CSS filter は掛けない）。加工しない代わりに、置く場所と比率で効かせる。
+   シネスコ（2.39:1）で抜く。元の映像がその比なので、ほとんど切らずに収まる。
    ========================================================================== */
+.ph-w,.ph-m{position:relative;overflow:hidden;aspect-ratio:2.39/1}
+.ph-w img,.ph-m img{width:100%;height:100%;object-fit:cover}
 .ph-w{margin-top:var(--s3)}
-.ph-w img{width:100%}
 .ph-m{margin-top:var(--s7)}
-.ph-m img{width:100%}
 
 /* 扉。かばんの名前だけを大きく置き、説明は左半分に収める。 */
 .bh{padding:var(--s5) 0 0}

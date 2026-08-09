@@ -14,8 +14,12 @@
    部屋名は行き先の名前をそのまま書く（詩的な部屋名は使わない）。
    室の中には必ず中身（実データ）を入れる。空の箱は置かない。
    室の高さは段で揃える（aspect-ratio による固定高さは使わない）。
-   色は 白・墨・中間・淡 の4色のみ。border／box-shadow／border-radius／
-   gradient は一切使わない。室の区別は塗り（墨6%）と目地だけで作る。
+
+   トーンは暗室。参考は inliving.jp の組み方（全面の写真・欧文と和文の二段・
+   写真＋一行の見出し）で、色と間だけを映画寄りに振っている。
+   色は 紙・墨・中間・淡 の4色のみ。border-radius／box-shadow／gradient は
+   使わない。面の区別は塗り（白6%）と目地、そして1pxのヘアラインだけで作る。
+   写真はシネスコ（2.39:1）で抜く。元の映像がその比なので、切らずに収まる。
    ========================================================================== */
 
 /* --- 欧文・数字用ディスプレイ書体（自前ホスト） ------------------------- */
@@ -31,10 +35,13 @@
 }
 
 :root{
-  --paper:#FFFFFF;
-  --ink:#1F1F23;   /* 白に対して 16.4:1 */
-  --mid:#5E5E66;   /* 白に対して  6.4:1 — 本文・ラベルはここまでで止める */
-  --pale:#8E8E96;  /* 白に対して  3.3:1 — 文字には使わない（4.5:1を割るため） */
+  /* 暗室。素材（黒いかばん・グレーのコンクリート）が沈まないよう、
+     真っ黒ではなく一段持ち上げた黒を紙にする。 */
+  --paper:#0E0E10;
+  --ink:#EFEDE9;   /* 紙に対して 16.8:1 — わずかに温かい白 */
+  --mid:#9C9CA4;   /* 紙に対して  7.3:1 — 本文・ラベルはここまでで止める */
+  --pale:#63636B;  /* 紙に対して  2.9:1 — 文字には使わない（4.5:1を割るため） */
+  --line:rgba(239,237,233,.16);  /* 構造をつくる1pxのヘアライン */
 
   --jp:"Hiragino Sans","Hiragino Kaku Gothic ProN","Noto Sans JP",sans-serif;
   /* 明朝は「部屋名」と「変わったこと ── ○○」の16行だけ */
@@ -117,21 +124,52 @@ img{display:block;max-width:100%;height:auto}
 .ln:hover::after,.ln:focus-visible::after{transform:scaleX(1)}
 
 /* ==========================================================================
+   ヘッダー
+   写真の上に重ねる。行き先は欧文の下に和文の小ラベルを敷く二段組み。
+   ========================================================================== */
+/* 左右の位置は本文（.wrap）と揃える。ロゴとワードマークの左端を一致させる。 */
+.hd{
+  position:absolute;top:0;left:0;right:0;z-index:4;
+  max-width:1240px;margin:0 auto;
+  display:flex;align-items:flex-start;justify-content:space-between;
+  gap:var(--s4);
+  padding:clamp(20px,3vh,34px) var(--s5) 0;
+}
+.hd-l{
+  font-family:var(--disp);font-weight:600;font-size:18px;
+  letter-spacing:-.01em;color:var(--ink);
+  font-variant-numeric:tabular-nums;
+}
+.hd-n{display:flex;gap:clamp(16px,2.2vw,38px)}
+.hd-n a{display:block;text-align:center;transition:opacity .4s var(--ease)}
+.hd-n a:hover,.hd-n a:focus-visible{opacity:.5}
+.hd-n .e{display:block;font-family:var(--disp);font-weight:500;font-size:12px;letter-spacing:.16em;color:var(--ink)}
+.hd-n .j{display:block;margin-top:5px;font-size:9.5px;letter-spacing:.16em;color:var(--mid)}
+
+/* ==========================================================================
    表札
-   ワードマークと事実1行、そのわきに部屋の写真1枚。キャッチコピーは置かない。
+   全面の写真に、ワードマークと事実1行だけを重ねる。キャッチコピーは置かない。
+   上下に紙色の帯を残してシネスコの画面にする（これが暗室の入口になる）。
    写真は撮って出しのトーンをそのまま出す（CSS filter は掛けない）。
    ========================================================================== */
-.hero{
-  min-height:100svh;
-  display:flex;align-items:center;
-  padding:var(--s5) 0;
+.hero{position:relative;height:100svh;min-height:540px;overflow:hidden}
+.hero-ph{position:absolute;inset:0;z-index:0}
+.hero-ph img{width:100%;height:100%;object-fit:cover;object-position:50% 40%}
+/* 文字を読ませるための減光。グラデーションではなく一様な膜を1枚だけ。 */
+.hero-ph::after{content:"";position:absolute;inset:0;background:var(--paper);opacity:.44}
+
+/* シネスコの黒帯 */
+.hero::before,.hero::after{
+  content:"";position:absolute;left:0;right:0;z-index:2;
+  height:clamp(64px,9vh,104px);background:var(--paper);
 }
-.hero .wrap{width:100%}
+.hero::before{top:0}
+.hero::after{bottom:0}
+
 .hero-in{
-  display:grid;
-  grid-template-columns:minmax(0,1fr) auto;
-  gap:var(--s5);
-  align-items:center;
+  position:relative;z-index:3;height:100%;
+  display:flex;flex-direction:column;justify-content:flex-end;
+  padding-bottom:clamp(80px,11vh,128px);
 }
 .wm{
   font-family:var(--disp);
@@ -142,9 +180,6 @@ img{display:block;max-width:100%;height:auto}
   font-variant-numeric:tabular-nums;
 }
 .fact{margin-top:var(--s3)}
-
-.hero-f{justify-self:end}
-.hero-f img{width:min(460px,38vw)}
 
 /* ==========================================================================
    間取り
@@ -262,21 +297,27 @@ img{display:block;max-width:100%;height:auto}
 .group:first-child{margin-top:0}
 .g-name{font-size:13px;font-weight:600;letter-spacing:.02em;color:var(--ink);margin-bottom:var(--s3)}
 
-/* --- かばん（回ごとの中身ページへの入り口。bags/ の実ファイルと1対1） ---- */
-.bags{margin-top:var(--s5)}
-.bag-row{
+/* --- かばん（回ごとの中身ページへの入り口。bags/ の実ファイルと1対1）
+       写真＋一行の見出し。写真はシネスコ（2.39:1）で抜く。 -------------- */
+.bags{
+  margin-top:var(--s5);
   display:grid;
-  grid-template-columns:5.5rem minmax(0,1fr) 6rem;
-  gap:0 var(--s4);
-  align-items:baseline;
-  padding:var(--s2) 0;
-  color:var(--mid);
-  transition:color .3s var(--ease);
+  grid-template-columns:repeat(3,minmax(0,1fr));
+  gap:var(--s5) var(--s3);
 }
-.bag-row:hover,.bag-row:focus-visible{color:var(--ink)}
-.bag-row .d{font-family:var(--disp);font-weight:500;font-size:11px;font-variant-numeric:tabular-nums;letter-spacing:-.01em}
-.bag-row .tt{font-size:15px;color:var(--ink)}
-.bag-row .s{font-size:11px;justify-self:end;white-space:nowrap}
+.bags > .g-name{grid-column:1 / -1;margin-bottom:0}
+.bag-card{display:block}
+.bc-ph{display:block;position:relative;aspect-ratio:2.39/1;overflow:hidden;background:rgba(239,237,233,.06)}
+.bc-ph img{width:100%;height:100%;object-fit:cover;transition:transform 1.4s var(--ease),opacity .5s var(--ease)}
+.bag-card:hover .bc-ph img,.bag-card:focus-visible .bc-ph img{transform:scale(1.035)}
+.bc-tx{
+  display:grid;grid-template-columns:auto minmax(0,1fr);
+  gap:0 var(--s2);align-items:baseline;
+  margin-top:var(--s2);padding-top:var(--s2);
+  border-top:1px solid var(--line);
+}
+.bc-d{font-family:var(--disp);font-weight:500;font-size:10px;letter-spacing:.1em;color:var(--mid);font-variant-numeric:tabular-nums}
+.bc-t{font-size:14px;line-height:1.7;color:var(--ink)}
 
 .it{
   display:grid;
@@ -371,9 +412,13 @@ img{display:block;max-width:100%;height:auto}
   .rm-1 .rm-d{font-size:11px}
   .rm-1 .rm-tt{font-size:15px}
 
-  .bags{margin-top:var(--s4)}
-  .bag-row{grid-template-columns:minmax(0,1fr);gap:2px}
-  .bag-row .s{justify-self:start}
+  .bags{margin-top:var(--s4);grid-template-columns:minmax(0,1fr);gap:var(--s4)}
+  /* ロゴの左端を本文（.wrap）に揃える */
+  .hd{padding:16px var(--s3) 0}
+  .hd-n{gap:14px}
+  .hd-n .e{font-size:10.5px;letter-spacing:.1em}
+  .hd-n .j{font-size:9px;letter-spacing:.1em}
+  .hero::before,.hero::after{height:56px}
 
   .groups{margin-top:var(--s5)}
   .group{margin-top:var(--s5)}
@@ -404,6 +449,21 @@ try{document.documentElement.className+=" js-rv";}catch(e){}
      表札
      ====================================================================== -->
 <section class="hero">
+  <div class="hero-ph">
+    <img src="../assets/photos/room/room-01.jpg" width="1025" height="1534" loading="eager" decoding="async"
+         alt="窓から光の差す部屋。白い寝具のベッドと、枕もとの棚に置かれたカメラ">
+  </div>
+
+  <header class="hd">
+    <a class="hd-l" href="#">4.5room</a>
+    <nav class="hd-n">
+      <a href="#plan"><span class="e">ROOMS</span><span class="j">間取り</span></a>
+      <a href="#mochimono"><span class="e">THINGS</span><span class="j">持ちもの</span></a>
+      <a href="https://note.com/4_5room/" target="_blank" rel="noopener"><span class="e">NOTE</span><span class="j">読みもの</span></a>
+      <a href="e-work.html"><span class="e">WORK</span><span class="j">お仕事</span></a>
+    </nav>
+  </header>
+
   <div class="wrap hero-in">
     <div class="hero-t">
       <h1 class="wm rv">4.5room</h1>
@@ -411,10 +471,6 @@ try{document.documentElement.className+=" js-rv";}catch(e){}
         <span class="ml" data-tpl="site.hero.fact" data-src="channel" data-num="off">youtube ／ 2022.12.14 —</span>
       </p>
     </div>
-    <figure class="hero-f rv ph" style="--i:2">
-      <img src="../assets/photos/room/room-01.jpg" width="1025" height="1534" loading="eager" decoding="async"
-           alt="窓から光の差す部屋。白い寝具のベッドと、枕もとの棚に置かれたカメラ">
-    </figure>
   </div>
 </section>
 
@@ -633,30 +689,25 @@ try{document.documentElement.className+=" js-rv";}catch(e){}
     -->
     <div class="bags rv" style="--i:2">
       <p class="g-name">かばん</p>
-      <a class="bag-row" href="bags/backpack-t77.html">
-        <span class="d">2026.08</span>
-        <span class="tt">tomtoc アーバンEX T77</span>
-        <span class="s">中身を見る →</span>
+      <a class="bag-card" href="bags/backpack-t77.html">
+        <span class="bc-ph"><img src="../assets/photos/bags/backpack-t77-01.jpg" width="1600" height="734" loading="lazy" decoding="async" alt="リュックの正面"></span>
+        <span class="bc-tx"><span class="bc-d">2026.08</span><span class="bc-t">tomtoc アーバンEX T77</span></span>
       </a>
-      <a class="bag-row" href="bags/sling-t21.html">
-        <span class="d">2026.07</span>
-        <span class="tt">tomtoc Explorer T21</span>
-        <span class="s">中身を見る →</span>
+      <a class="bag-card" href="bags/sling-t21.html">
+        <span class="bc-ph"><img src="../assets/photos/bags/sling-t21-01.jpg" width="1600" height="734" loading="lazy" decoding="async" alt="スリングバッグを上から見たところ"></span>
+        <span class="bc-tx"><span class="bc-d">2026.07</span><span class="bc-t">tomtoc Explorer T21</span></span>
       </a>
-      <a class="bag-row" href="bags/ipadmini.html">
-        <span class="d">2026.05</span>
-        <span class="tt">StandardProducts 2wayバッグ｜iPad mini編</span>
-        <span class="s">中身を見る →</span>
+      <a class="bag-card" href="bags/ipadmini.html">
+        <span class="bc-ph"><img src="../assets/photos/bags/ipadmini-01.jpg" width="1600" height="734" loading="lazy" decoding="async" alt="iPad miniまわりの装備を机に並べたところ"></span>
+        <span class="bc-tx"><span class="bc-d">2026.05</span><span class="bc-t">StandardProducts 2wayバッグ｜iPad mini編</span></span>
       </a>
-      <a class="bag-row" href="bags/dokusho-2.html">
-        <span class="d">2026.05</span>
-        <span class="tt">読書かばん その２</span>
-        <span class="s">中身を見る →</span>
+      <a class="bag-card" href="bags/dokusho-2.html">
+        <span class="bc-ph"><img src="../assets/photos/bags/dokusho-2-02.jpg" width="1600" height="734" loading="lazy" decoding="async" alt="かばんとイヤホンケースを並べたところ"></span>
+        <span class="bc-tx"><span class="bc-d">2026.05</span><span class="bc-t">読書かばん その２</span></span>
       </a>
-      <a class="bag-row" href="bags/dokusho.html">
-        <span class="d">2026.04</span>
-        <span class="tt">読書かばん</span>
-        <span class="s">中身を見る →</span>
+      <a class="bag-card" href="bags/dokusho.html">
+        <span class="bc-ph"><img src="../assets/photos/bags/dokusho-01.jpg" width="1600" height="754" loading="lazy" decoding="async" alt="無印良品の収納ケースとストラップを手に持っているところ"></span>
+        <span class="bc-tx"><span class="bc-d">2026.04</span><span class="bc-t">読書かばん</span></span>
       </a>
     </div>
 
