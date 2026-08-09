@@ -147,23 +147,26 @@ img{display:block;max-width:100%;height:auto}
 .hero-f img{width:min(460px,38vw)}
 
 /* ==========================================================================
-   間取り（6室）
-   3列グリッド。同じ段の室は必ず同じ高さにする（align-items:stretch）。
-   平面図なので、段の下に端数の余りが出ると穴に見える。中身の量が違っても
-   室の高さは段で揃え、余りは室の中の余白として持たせる。
-   01 は2列ぶんの幅を取るが、主役にしているのは面積ではなく字の大きさと余白。
-   04 は一次データが無いので中身を持たせない。縦に伸ばすと空箱になるので、
-   最下段に横長の帯として置く（短いのは高さではなく奥行きで示す）。
-     ┌───────01───────┬─02─┐
-     │  03  │  05  │  06  │
-     ├──────── 04 ────────┤
+   間取り
+   チャンネル名のとおり、四畳半の卍敷きをそのまま平面図にする。
+   半畳を3×3のマス目に見立て、四枚の畳を中心のまわりに風車状に回す。
+   これが「4.5」の形そのものなので、室の配置はこの一点で決まっている。
+     ┌────── 01 ──────┬──┐
+     │                │  │
+     ├────┬─────┬─────┤02│
+     │ 03 │ 04  │     │  │   04＝中心の半畳。ここに写真を1枚置く
+     │    ├─────┴─────┴──┤
+     │    │      05      │
+     └────┴──────────────┘
+     ├──────── 06 ────────┤   お仕事は外向きの窓口なので畳の外へ
+   行は最低340px。中身が増えた室はそのぶん伸びる（畳の形は保たれる）。
    ========================================================================== */
 .plan{padding-top:var(--s7)}
 .plan-rooms{
   display:grid;
   grid-template-columns:repeat(3,minmax(0,1fr));
+  grid-template-rows:repeat(3,minmax(340px,auto));
   gap:12px;
-  align-items:stretch;
 }
 .rm{min-width:0}
 .rm-box{
@@ -199,23 +202,34 @@ img{display:block;max-width:100%;height:auto}
 .rm-tt{display:block;font-size:13px;line-height:1.7;color:var(--ink)}
 .rm-lk:hover .rm-tt,.rm-lk:focus-visible .rm-tt{text-decoration:underline;text-underline-offset:.28em}
 
-/* 室の配置。中身のある5室を上2段に均等に置き、中身を持たない 04 だけを
-   最下段の帯にする。段ごとに高さが揃うので、間取りに端数の余りが出ない。 */
-.rm-1{grid-column:1 / span 2;grid-row:1}
-.rm-2{grid-column:3;grid-row:1}
-.rm-3{grid-column:1;grid-row:2}
-.rm-5{grid-column:2;grid-row:2}
-.rm-6{grid-column:3;grid-row:2}
-.rm-4{grid-column:1 / span 3;grid-row:3}
+/* 卍敷き。四枚の畳が中心の半畳を囲んで風車状に回る。 */
+.rm-1{grid-column:1 / span 2;grid-row:1}          /* 横畳・上 */
+.rm-2{grid-column:3;      grid-row:1 / span 2}    /* 縦畳・右 */
+.rm-3{grid-column:1;      grid-row:2 / span 2}    /* 縦畳・左 */
+.rm-4{grid-column:2;      grid-row:2}             /* 半畳・中心 */
+.rm-5{grid-column:2 / span 2;grid-row:3}          /* 横畳・下 */
+.rm-6{grid-column:1 / span 3;grid-row:4}          /* 畳の外の帯 */
 
-/* 04：横長の帯。中身が無いぶん、行き先の名前だけを横に流す。 */
-.rm-4 .rm-hd{
+/* 04：中心の半畳。一次データが無いので、写真を1枚だけ置く室にしている。
+   ラベルは写真の上に重ねない（帯やグラデーションを敷かずに読ませるため）。 */
+.rm-4 .rm-box{
+  display:grid;
+  grid-template-rows:auto minmax(0,1fr);
+  gap:var(--s2);
+}
+.rm-4 .rm-ph{position:relative;min-height:0;overflow:hidden}
+.rm-4 .rm-ph img{width:100%;height:100%;object-fit:cover}
+
+/* 06：畳の外の帯。行き先の名前を横に流す。 */
+.rm-6 .rm-hd{
   display:grid;
   grid-template-columns:auto auto minmax(0,1fr);
   gap:0 var(--s3);
   align-items:baseline;
 }
-.rm-4 .rm-n,.rm-4 .rm-j,.rm-4 .rm-s{margin-top:0}
+.rm-6 .rm-j,.rm-6 .rm-s{margin-top:0}
+.rm-6 .rm-list{margin-top:var(--s2)}
+.rm-6 .rm-li + .rm-li{margin-top:var(--s1)}
 
 /* 01：本編。幅は2列ぶん、字と余白を一段大きくして視覚の主役にする。
    行は 日付｜タイトル の横並びにして、広い幅を字で埋める。 */
@@ -343,11 +357,11 @@ img{display:block;max-width:100%;height:auto}
   .plan{padding-top:var(--s6)}
   .room{padding-top:var(--s6)}
 
-  .plan-rooms{grid-template-columns:minmax(0,1fr)}
+  /* 1列に積むと畳の形は出せないので、卍敷きも最低高さも解除して素直に積む */
+  .plan-rooms{grid-template-columns:minmax(0,1fr);grid-template-rows:none}
   .rm-1,.rm-2,.rm-3,.rm-4,.rm-5,.rm-6{grid-column:auto;grid-row:auto}
-  /* 1列に積むと段が無くなるので、04 の帯も普通の室に戻す */
-  .rm-4 .rm-hd{display:block}
-  .rm-4 .rm-j{margin-top:var(--s1)}
+  .rm-6 .rm-hd{display:block}
+  .rm-6 .rm-j{margin-top:var(--s1)}
   .rm-box,.rm-1 .rm-box{padding:var(--s2)}
   .rm-1 .rm-j{font-size:20px;line-height:1.45}
   .rm-1 .rm-s{font-size:13px}
@@ -515,8 +529,25 @@ try{document.documentElement.className+=" js-rv";}catch(e){}
         </div>
       </div>
 
+      <!-- 04 Instagram：中心の半畳。一次データが取れないので、写真を1枚だけ置く室にしている。
+           写真は本編の動画から起こしたもの（Instagramの投稿そのものではない） -->
+      <div class="rm rm-4 rv" style="--i:3" data-room="04">
+        <div class="rm-box">
+          <span class="rm-fill"></span>
+          <a class="rm-hd" href="https://www.instagram.com/srice4.5/" target="_blank" rel="noopener">
+            <span class="rm-n">04</span>
+            <span class="rm-j">Instagram</span>
+            <span class="rm-s">写真</span>
+          </a>
+          <span class="rm-ph">
+            <img src="../assets/photos/bags/dokusho-2-02.jpg" width="1600" height="734"
+                 loading="lazy" decoding="async" alt="かばんと小物を並べて撮ったところ">
+          </span>
+        </div>
+      </div>
+
       <!-- 05 持ちもの：点数とグループは content/carry.json から数える -->
-      <div class="rm rm-5 rv" style="--i:3" data-room="05">
+      <div class="rm rm-5 rv" style="--i:4" data-room="05">
         <div class="rm-box">
           <span class="rm-fill"></span>
           <a class="rm-hd" href="#mochimono">
@@ -554,7 +585,7 @@ try{document.documentElement.className+=" js-rv";}catch(e){}
       </div>
 
       <!-- 06 お仕事：中身は content/site.json の rooms[06].items -->
-      <div class="rm rm-6 rv" style="--i:4" data-room="06">
+      <div class="rm rm-6 rv" style="--i:5" data-room="06">
         <div class="rm-box">
           <span class="rm-fill"></span>
           <a class="rm-hd" href="e-work.html">
@@ -576,18 +607,6 @@ try{document.documentElement.className+=" js-rv";}catch(e){}
               </span>
             </li>
           </ul>
-        </div>
-      </div>
-
-      <!-- 04 Instagram：一次データが取れないので中身は持たせない。最下段の帯として置く -->
-      <div class="rm rm-4 rv" style="--i:5" data-room="04">
-        <div class="rm-box">
-          <span class="rm-fill"></span>
-          <a class="rm-hd" href="https://www.instagram.com/srice4.5/" target="_blank" rel="noopener">
-            <span class="rm-n">04</span>
-            <span class="rm-j">Instagram</span>
-            <span class="rm-s">写真</span>
-          </a>
         </div>
       </div>
 
