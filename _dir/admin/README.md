@@ -106,6 +106,23 @@ JSON・HTML・ログ・リポジトリのどこにも書き出さない。
 4. `e-rooms.html` の `.bags` に1行足す
 5. 既存5ページの「ほかのかばん」にも1行ずつ足す
 
+**写真（`assets/photos/bags/`）**
+
+本編の動画から起こしている。サムネイルは煽り文字が焼き込まれているので使わない。
+1本につき2枚（扉と、注記の手前）。狙う場所は概要欄のもくじで決める。
+
+```bash
+yt-dlp -f "bv*[height<=1080][ext=mp4]" --download-sections "*00:04:25-00:04:27" \
+  --force-keyframes-at-cuts -o clip.mp4 "https://www.youtube.com/watch?v=<id>"
+ffmpeg -i clip.mp4 -vf cropdetect=24:2:0 -frames:v 20 -f null -   # 黒帯を測る
+ffmpeg -i clip.mp4 -frames:v 1 -vf "crop=1920:880:0:100,scale=1600:-2" -q:v 3 out.jpg
+```
+
+- レターボックスの黒帯は必ず落とす（`cropdetect` の結果をそのまま使う）
+- 章の頭は切り替わりでテロップが出るので、数秒ずらした地点を狙う
+- 抜いたあと必ず目視する。テロップ・作図の矢印が入っていたら1秒ずらして取り直す
+- 色は触らない（撮って出しのトーンをそのまま出す）
+
 **守ること**
 
 - 購入リンクは概要欄の `amzn.to/…` をそのまま使う（差し替えるときは `href` だけ）
