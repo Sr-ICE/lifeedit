@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>シグネチャー｜4.5room</title>
+<meta name="robots" content="noindex,nofollow">
+<style>
+/* ==========================================================================
+   4.5room シグネチャー（描き起こし）
+
+   前の18案が弱かった理由:
+     全部「既製書体を打っただけ」だった。字を1本も触っていないので、
+     出てくる顔は PT Sans Narrow の顔であって 4.5room の顔ではない。
+
+   ここでやっていること:
+     B3（開口のある四角＝部屋の平面）が良いという判断を受けて、
+     そのマークと同じ骨格で字を描き起こす。
+       ・線は全て同じ太さ（モノライン）
+       ・角の丸みは1種類だけ（マークの角と同じ半径）
+       ・o の中の穴は「角の丸い四角」＝部屋の形。ここが署名になる
+       ・小数点は正方形（畳1枚）
+     つまり「4.5room」の全ての字が、小さな部屋の集まりに見える。
+
+   全てSVGのパス。書体に依存しないので、どの環境でも同じ形が出る。
+   currentColor なので地色に追従する。
+   ========================================================================== */
+@font-face{font-family:"PTN";src:url("../assets/fonts/PTSansNarrow-Bold.woff") format("woff");font-weight:700}
+@font-face{font-family:"PTM";src:url("../assets/fonts/PTMono-Regular.woff") format("woff");font-weight:400}
+:root{
+  --paper:#F3F3F1;--ink:#1A1A1A;--mid:#5C5B59;--faint:#A8A7A3;--line:#E0E0DC;
+  --jp:"Hiragino Sans",sans-serif;--nar:"PTN",sans-serif;--mono:"PTM",monospace;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--paper);color:var(--ink);font-family:var(--jp);font-size:14px;line-height:1.8;letter-spacing:.04em;-webkit-font-smoothing:antialiased}
+.wrap{max-width:1180px;margin:0 auto;padding:40px 24px 96px}
+h1{font-family:var(--nar);font-size:28px;font-weight:700}
+.sub{margin-top:8px;font-size:13px;color:var(--mid);max-width:62em}
+h2{margin:52px 0 12px;padding-top:16px;border-top:1px solid var(--line);font-family:var(--nar);font-size:20px;font-weight:700}
+h2 small{display:block;font-family:var(--mono);font-size:10px;letter-spacing:.14em;color:var(--faint);text-transform:uppercase;font-weight:400;margin-bottom:4px}
+.note{font-size:12.5px;line-height:1.75;color:var(--mid);max-width:64em}
+.box{border:1px solid var(--line);background:#F7F7F5;padding:32px;margin-top:16px}
+.box.d{background:#17150F;border-color:#2A271F;color:#F1EDE6}
+.two{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px;margin-top:16px}
+.tag{font-family:var(--mono);font-size:10px;letter-spacing:.14em;color:var(--faint);text-transform:uppercase;margin-bottom:24px}
+.d .tag{color:#9A968C}
+.why{margin-top:24px;font-size:12.5px;line-height:1.75;color:var(--mid)}
+.d .why{color:#9A968C}
+.sig{display:block;fill:none;stroke:currentColor;stroke-width:12;stroke-linecap:butt;stroke-linejoin:miter}
+.sig .fill{fill:currentColor;stroke:none}
+.row{display:flex;align-items:center;gap:36px;flex-wrap:wrap}
+.row .lbl{font-family:var(--mono);font-size:10px;letter-spacing:.12em;color:var(--faint)}
+.demo{border:1px solid var(--line);background:var(--paper);padding:0 20px;display:flex;align-items:center;justify-content:space-between;min-height:66px;margin-top:12px}
+.demo nav{display:flex;gap:8px}
+.demo nav a{display:inline-flex;align-items:center;min-height:44px;padding:0 12px;font-size:14px;letter-spacing:.08em;color:var(--mid);text-decoration:none}
+.over{position:relative;overflow:hidden;aspect-ratio:21/9;margin-top:16px}
+.over img{width:100%;height:100%;object-fit:cover;display:block}
+.over .sg{position:absolute;left:26px;bottom:22px;color:#F7F7F5;filter:drop-shadow(0 1px 12px rgba(0,0,0,.55))}
+@media(max-width:820px){.two{grid-template-columns:minmax(0,1fr)}}
+</style>
+</head>
+<body>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs>
+
+  <!-- マーク：開口のある四角＝部屋の平面 -->
+  <symbol id="s-mark" viewBox="0 0 120 120">
+    <path d="M60 10 H110 V110 H10 V10 H36"/>
+  </symbol>
+
+  <!-- ワードマーク（マークなし） -->
+  <symbol id="s-word" viewBox="0 0 590 130">
+    <path d="M66 10 V110 M66 10 L10 76 H92"/>
+    <rect class="fill" x="106" y="98" width="12" height="12"/>
+    <path d="M198 16 H138 V56 H172 A26 26 0 0 1 172 108 H140"/>
+    <path d="M232 110 V40 M232 56 A16 16 0 0 1 248 40 H272"/>
+    <rect x="294" y="34" width="70" height="70" rx="16"/>
+    <rect x="382" y="34" width="70" height="70" rx="16"/>
+    <path d="M470 110 V50 A16 16 0 0 1 486 34 H502 A16 16 0 0 1 518 50 V110
+             M518 50 A16 16 0 0 1 534 34 H550 A16 16 0 0 1 566 50 V110"/>
+  </symbol>
+
+  <!-- ロックアップ：マーク＋ワードマーク。マークの高さは数字の高さに合わせる -->
+  <symbol id="s-lock" viewBox="0 0 750 130">
+    <path d="M60 10 H110 V110 H10 V10 H36"/>
+    <path d="M226 10 V110 M226 10 L170 76 H252"/>
+    <rect class="fill" x="266" y="98" width="12" height="12"/>
+    <path d="M358 16 H298 V56 H332 A26 26 0 0 1 332 108 H300"/>
+    <path d="M392 110 V40 M392 56 A16 16 0 0 1 408 40 H432"/>
+    <rect x="454" y="34" width="70" height="70" rx="16"/>
+    <rect x="542" y="34" width="70" height="70" rx="16"/>
+    <path d="M630 110 V50 A16 16 0 0 1 646 34 H662 A16 16 0 0 1 678 50 V110
+             M678 50 A16 16 0 0 1 694 34 H710 A16 16 0 0 1 726 50 V110"/>
+  </symbol>
+
+</defs></svg>
+
+<div class="wrap">
+
+<h1>シグネチャー ── 描き起こし</h1>
+<p class="sub">
+  前の18案は全部、既製書体を打っただけでした。字を触っていないので、どれも書体の顔のままです。
+  B3（開口のある四角＝部屋の平面）を採る判断をいただいたので、<b>そのマークと同じ骨格で字を描き起こしました</b>。
+  線は1種類の太さ、角の丸みも1種類、o の中の穴は角の丸い四角＝部屋。小数点は畳1枚の正方形です。
+</p>
+
+<!-- ══ 骨格 ══ -->
+<h2><small>system</small>骨格</h2>
+<p class="note">
+  全ての字が同じ規則で出来ています。線の太さ12、角の半径16、小文字の高さ76、数字の高さ100。
+  マークの開口部と、字の角の丸みが同じ半径です。
+</p>
+<div class="box">
+  <p class="tag">マーク ／ 部品 ／ 一語</p>
+  <div class="row">
+    <svg viewBox="0 0 120 120" style="width:92px;height:92px" class="sig" aria-hidden="true">
+      <path d="M60 10 H110 V110 H10 V10 H36"/>
+    </svg>
+    <svg viewBox="0 0 120 120" style="width:92px;height:92px" class="sig" aria-hidden="true">
+      <rect x="22" y="40" width="76" height="64" rx="16"/>
+    </svg>
+    <svg viewBox="0 0 120 120" style="width:92px;height:92px" class="sig" aria-hidden="true">
+      <rect class="fill" x="46" y="92" width="14" height="14"/>
+    </svg>
+    <span class="lbl">部屋 ／ o の穴 ／ 小数点</span>
+  </div>
+</div>
+
+<!-- ══ S1 ══ -->
+<h2><small>S1</small>描き起こしのワードマーク</h2>
+<p class="note">4 と 5 も同じモノラインで描いています。既製書体は1文字も使っていません。</p>
+<div class="two">
+  <div class="box">
+    <p class="tag">紙</p>
+    <!-- 4.5room。baseline y=110、小文字上端 y=34、数字上端 y=10、線幅12 -->
+    <svg viewBox="0 0 590 130" style="width:100%;max-width:500px" class="sig" role="img" aria-label="4.5room"><use href="#s-word"/></svg>
+    <p class="why">o の穴が角の丸い四角になっているので、遠目にも「部屋が2つ並んでいる」ように読めます。ここが署名です。</p>
+  </div>
+  <div class="box d">
+    <p class="tag">暗色</p>
+    <svg viewBox="0 0 590 130" style="width:100%;max-width:500px" class="sig" aria-hidden="true"><use href="#s-word"/></svg>
+    <p class="why">ベタ塗りではなく線なので、地の明暗が変わっても太さの印象が変わりません。</p>
+  </div>
+</div>
+
+<!-- ══ S2 ══ -->
+<h2><small>S2</small>マークと組む</h2>
+<p class="note">マークの線幅と字の線幅を合わせてあります。マークの高さは数字の高さ（100）に合わせています。</p>
+<div class="box">
+  <svg viewBox="0 0 750 130" style="width:100%;max-width:620px" class="sig" role="img" aria-label="4.5room"><use href="#s-lock"/></svg>
+</div>
+
+<!-- ══ 実寸 ══ -->
+<h2><small>check</small>小さくしたとき</h2>
+<p class="note">ヘッダー実寸と、ファビコン。線幅は字高比で細るので、ここで潰れないかを見ます。</p>
+<div class="box">
+  <div class="row">
+    <svg viewBox="0 0 750 130" style="width:210px" class="sig" aria-hidden="true"><use href="#s-lock"/></svg>
+    <span class="lbl">210PX</span>
+    <svg viewBox="0 0 750 130" style="width:132px" class="sig" aria-hidden="true"><use href="#s-lock"/></svg>
+    <span class="lbl">132PX</span>
+    <svg viewBox="0 0 120 120" style="width:32px;height:32px" class="sig" aria-hidden="true"><use href="#s-mark"/></svg>
+    <span class="lbl">32PX</span>
+    <svg viewBox="0 0 120 120" style="width:16px;height:16px" class="sig" aria-hidden="true"><use href="#s-mark"/></svg>
+    <span class="lbl">16PX</span>
+  </div>
+</div>
+
+<div class="demo">
+  <svg viewBox="0 0 750 130" style="width:196px" class="sig" role="img" aria-label="4.5room"><use href="#s-lock"/></svg>
+  <nav><a href="#">間取り</a><a href="#">かばん</a><a href="#">持ちもの</a><a href="#">お仕事</a></nav>
+</div>
+
+<h2><small>check</small>写真に重ねたところ</h2>
+<div class="over">
+  <img src="../assets/photos/real/mood-desk.jpg" alt="">
+  <svg viewBox="0 0 750 130" style="width:300px" class="sig sg" aria-hidden="true"><use href="#s-lock"/></svg>
+</div>
+
+</div>
+</body>
+</html>
