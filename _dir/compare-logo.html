@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ロゴ D方面の深掘り｜4.5room</title>
+<meta name="robots" content="noindex,nofollow">
+<style>
+/* ==========================================================================
+   4.5room — ロゴ D方面（4.5 と room を書き分ける）の深掘り
+   決まっていること: 写真=P2（角丸0・断ち落とし・直下にデータ）／書体=コンデンス
+   色は未定なので、同じ案を紙と暗色の両方に並べる。
+   書体は PT Sans Narrow（自前ホスト可）＋ PT Mono（同）。
+   General Sans は ITF ライセンスで自前ホスト不可のため使わない。
+   ========================================================================== */
+:root{
+  --paper:#F5F2ED;
+  --ink:#1A1A1A;
+  --mid:#5C5B59;
+  --faint:#A8A7A3;
+  --line:#DFDAD2;
+  --dark:#17150F;
+  --dink:#F1EDE6;
+  --jp:"Hiragino Sans","Hiragino Kaku Gothic ProN",sans-serif;
+  --mono:"PT Mono",ui-monospace,Menlo,monospace;
+  --nar:"PT Sans Narrow","PT Sans",sans-serif;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--paper);color:var(--ink);font-family:var(--jp);font-size:14px;line-height:1.85;
+     letter-spacing:.04em;-webkit-font-smoothing:antialiased}
+.wrap{max-width:1180px;margin:0 auto;padding:40px 24px 96px}
+h1{font-size:20px;font-weight:700;letter-spacing:.06em}
+.sub{margin-top:8px;font-size:13px;color:var(--mid);max-width:62em}
+h2{margin:56px 0 4px;font-size:15px;font-weight:700;letter-spacing:.06em;padding-top:16px;border-top:1px solid var(--line)}
+h2 span{display:block;font-family:var(--mono);font-size:10px;letter-spacing:.14em;color:var(--faint);margin-bottom:4px}
+.note{font-size:12px;line-height:1.8;color:var(--mid);max-width:64em;margin-top:6px}
+
+.row{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:0;margin-top:20px;border:1px solid var(--line)}
+.pane{padding:36px 28px;display:flex;flex-direction:column;justify-content:center;min-height:150px}
+.pane.d{background:var(--dark);color:var(--dink)}
+.cap{font-family:var(--mono);font-size:10px;letter-spacing:.14em;color:var(--faint);text-transform:uppercase;margin-bottom:20px}
+.pane.d .cap{color:#7E7A70}
+.why{margin-top:20px;font-size:12px;line-height:1.75;color:var(--mid)}
+.pane.d .why{color:#9A968C}
+
+/* ── ワードマークの共通土台 ─────────────────────────────────────────
+   輪郭は字高に比例させる。固定1pxだと大きくしたとき線が消え、
+   小さくしたとき潰れる（前案の失敗）。 */
+.wm{font-family:var(--nar);line-height:1;display:inline-flex;align-items:baseline}
+.o{color:transparent;-webkit-text-stroke:calc(1em / 34) currentColor}
+.pane.d .o{-webkit-text-stroke-color:var(--dink)}
+@supports not (-webkit-text-stroke:1px black){.o{color:inherit}}
+
+/* D1 素の重み違い（比較の基準） */
+.d1{font-size:76px;font-weight:700;letter-spacing:.01em}
+.d1 em{font-style:normal;font-weight:400;color:var(--mid)}
+.pane.d .d1 em{color:#9A968C}
+
+/* D2 塗りと輪郭（添付いただいた形をコンデンスで組み直したもの） */
+.d2{font-size:76px;font-weight:700;letter-spacing:.01em}
+
+/* D3 輪郭を太くして、離れても見えるようにした版 */
+.d3{font-size:76px;font-weight:700;letter-spacing:.01em}
+.d3 .o{-webkit-text-stroke-width:calc(1em / 22)}
+
+/* D4 切れ目をずらす。4.5r まで塗って oom を輪郭に */
+.d4{font-size:76px;font-weight:700;letter-spacing:.01em}
+
+/* D5 room を大文字・字間を開いて添える */
+.d5{font-size:76px;font-weight:700;letter-spacing:.01em}
+.d5 .o{font-size:.52em;letter-spacing:.16em;-webkit-text-stroke-width:calc(1em / 20);margin-left:.14em}
+
+/* D6 二段。4.5 を大きく、room を下に小さく敷く */
+.d6{flex-direction:column;align-items:flex-start;font-size:82px;font-weight:700;letter-spacing:0}
+.d6 .sub2{font-family:var(--mono);font-size:13px;font-weight:400;letter-spacing:.42em;color:var(--mid);margin-top:6px;-webkit-text-stroke:0}
+.pane.d .d6 .sub2{color:#9A968C}
+
+/* D7 絞り値を混ぜる（B案の考え方をDの形に入れる） */
+.d7{font-size:76px;font-weight:700;letter-spacing:.01em}
+.d7 .f{font-family:var(--mono);font-size:.26em;font-weight:400;letter-spacing:.10em;color:var(--mid);margin-right:.22em;-webkit-text-stroke:0}
+.pane.d .d7 .f{color:#9A968C}
+
+/* D8 room を等幅にして、機材の型番のように併記する */
+.d8{font-size:76px;font-weight:700;letter-spacing:.01em}
+.d8 .m{font-family:var(--mono);font-size:.30em;font-weight:400;letter-spacing:.24em;margin-left:.28em;-webkit-text-stroke:0;color:var(--mid)}
+.pane.d .d8 .m{color:#9A968C}
+
+/* D9 小さいときの見え方（ヘッダー実寸 24px） */
+.small{display:flex;align-items:center;gap:28px;flex-wrap:wrap}
+.small .wm{font-size:24px}
+.small .lbl{font-family:var(--mono);font-size:10px;letter-spacing:.14em;color:var(--faint)}
+
+/* 写真に重ねたときの検証 */
+.over{position:relative;overflow:hidden;aspect-ratio:21/9}
+.over img{width:100%;height:100%;object-fit:cover;display:block}
+.over .veil{position:absolute;inset:0;background:rgba(23,21,15,.36)}
+.over .wm{position:absolute;left:28px;bottom:24px;font-size:64px;font-weight:700;color:#F1EDE6}
+.over .wm .o{-webkit-text-stroke-color:#F1EDE6}
+.over .no{position:absolute;inset:0;background:none}
+.ratio{font-family:var(--mono);font-size:10px;letter-spacing:.14em;color:var(--faint);margin-top:8px}
+
+@media (max-width:820px){ .row{grid-template-columns:minmax(0,1fr)} }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <h1>ロゴ ── D方面の深掘り</h1>
+  <p class="sub">
+    4.5 と room を書き分ける方向で8案。書体はコンデンス（PT Sans Narrow）、小さいラベルは等幅（PT Mono）。
+    色が未定なので、同じ案を紙と暗色の両方に並べています。
+    輪郭の太さは字高に比例させました（前は1px固定で、大きくすると線が消えていました）。
+  </p>
+
+  <h2><span>D1</span>重みだけで分ける</h2>
+  <p class="note">いまの形。塗りは変えず太さだけ変える。無難で、小さくしても崩れない。</p>
+  <div class="row">
+    <div class="pane"><p class="cap">紙</p><span class="wm d1">4.5<em>room</em></span></div>
+    <div class="pane d"><p class="cap">暗色</p><span class="wm d1">4.5<em>room</em></span></div>
+  </div>
+
+  <h2><span>D2</span>塗りと輪郭</h2>
+  <p class="note">添付いただいた形を、コンデンスで組み直したもの。輪郭は字高の1/34。</p>
+  <div class="row">
+    <div class="pane"><p class="cap">紙</p><span class="wm d2">4.5<span class="o">room</span></span></div>
+    <div class="pane d"><p class="cap">暗色</p><span class="wm d2">4.5<span class="o">room</span></span></div>
+  </div>
+
+  <h2><span>D3</span>輪郭を太く（1/22）</h2>
+  <p class="note">離れて見たとき、明るい写真の上でも線が残るように。紙の上ではやや強い。</p>
+  <div class="row">
+    <div class="pane"><p class="cap">紙</p><span class="wm d3">4.5<span class="o">room</span></span></div>
+    <div class="pane d"><p class="cap">暗色</p><span class="wm d3">4.5<span class="o">room</span></span></div>
+  </div>
+
+  <h2><span>D4</span>切れ目をずらす</h2>
+  <p class="note">4.5r まで塗って oom を輪郭に。読みの区切りと造形の区切りをずらすと、名前が一語に見える。</p>
+  <div class="row">
+    <div class="pane"><p class="cap">紙</p><span class="wm d4">4.5r<span class="o">oom</span></span></div>
+    <div class="pane d"><p class="cap">暗色</p><span class="wm d4">4.5r<span class="o">oom</span></span></div>
+  </div>
+
+  <h2><span>D5</span>room を小さく開いて添える</h2>
+  <p class="note">数字を主役に。room は輪郭のまま字間を開いて、機材の刻印のように。</p>
+  <div class="row">
+    <div class="pane"><p class="cap">紙</p><span class="wm d5">4.5<span class="o">ROOM</span></span></div>
+    <div class="pane d"><p class="cap">暗色</p><span class="wm d5">4.5<span class="o">ROOM</span></span></div>
+  </div>
+
+  <h2><span>D6</span>二段に割る</h2>
+  <p class="note">4.5 だけを大きく立てて、room は等幅で下に敷く。いちばん静かで、いちばん記録寄り。</p>
+  <div class="row">
+    <div class="pane"><p class="cap">紙</p><span class="wm d6">4.5<span class="sub2">room</span></span></div>
+    <div class="pane d"><p class="cap">暗色</p><span class="wm d6">4.5<span class="sub2">room</span></span></div>
+  </div>
+
+  <h2><span>D7</span>絞り値を混ぜる</h2>
+  <p class="note">B案の考え方をDの形に入れたもの。f/ が付くと 4.5 が絞り値として読める。</p>
+  <div class="row">
+    <div class="pane"><p class="cap">紙</p><span class="wm d7"><span class="f">f/</span>4.5<span class="o">room</span></span></div>
+    <div class="pane d"><p class="cap">暗色</p><span class="wm d7"><span class="f">f/</span>4.5<span class="o">room</span></span></div>
+  </div>
+
+  <h2><span>D8</span>型番のように併記</h2>
+  <p class="note">4.5 を製品名、room を型番のように等幅で。機材のボディ表記に近い。</p>
+  <div class="row">
+    <div class="pane"><p class="cap">紙</p><span class="wm d8">4.5<span class="m">ROOM</span></span></div>
+    <div class="pane d"><p class="cap">暗色</p><span class="wm d8">4.5<span class="m">ROOM</span></span></div>
+  </div>
+
+  <h2><span>check</span>ヘッダー実寸（24px）で並べる</h2>
+  <p class="note">
+    ロゴは大きく見せる場面より、ヘッダーに小さく置く時間のほうが長い。24px でも成立するかがふるいになります。
+    輪郭は字高比なので、24px では線が 0.7px 前後まで細ります。<b>D2・D4 はこの大きさだと輪郭がほぼ消えます。</b>
+  </p>
+  <div class="row">
+    <div class="pane">
+      <p class="cap">紙 ／ 24px</p>
+      <div class="small">
+        <span class="wm d1" style="font-size:24px">4.5<em>room</em></span><span class="lbl">D1</span>
+        <span class="wm d2" style="font-size:24px">4.5<span class="o">room</span></span><span class="lbl">D2</span>
+        <span class="wm d3" style="font-size:24px">4.5<span class="o">room</span></span><span class="lbl">D3</span>
+        <span class="wm d5" style="font-size:24px">4.5<span class="o">ROOM</span></span><span class="lbl">D5</span>
+        <span class="wm d8" style="font-size:24px">4.5<span class="m">ROOM</span></span><span class="lbl">D8</span>
+      </div>
+    </div>
+    <div class="pane d">
+      <p class="cap">暗色 ／ 24px</p>
+      <div class="small">
+        <span class="wm d1" style="font-size:24px">4.5<em>room</em></span><span class="lbl">D1</span>
+        <span class="wm d2" style="font-size:24px">4.5<span class="o">room</span></span><span class="lbl">D2</span>
+        <span class="wm d3" style="font-size:24px">4.5<span class="o">room</span></span><span class="lbl">D3</span>
+        <span class="wm d5" style="font-size:24px">4.5<span class="o">ROOM</span></span><span class="lbl">D5</span>
+        <span class="wm d8" style="font-size:24px">4.5<span class="m">ROOM</span></span><span class="lbl">D8</span>
+      </div>
+    </div>
+  </div>
+
+  <h2><span>check</span>写真に重ねたとき</h2>
+  <p class="note">
+    添付いただいた形（写真の上に大きく置く）で検証。輪郭文字は「文字色」が存在しないので、
+    明るい被写体に重なった部分だけ線が消えます。減光の膜を1枚敷くかどうかで成否が変わります。
+  </p>
+  <div class="row">
+    <div class="pane" style="padding:0">
+      <div class="over">
+        <img src="../assets/photos/real/mood-desk.jpg" alt="">
+        <span class="wm d2">4.5<span class="o">room</span></span>
+      </div>
+      <p class="ratio" style="padding:12px 28px 24px">膜なし ／ 輪郭が窓の白に溶ける</p>
+    </div>
+    <div class="pane" style="padding:0">
+      <div class="over">
+        <img src="../assets/photos/real/mood-desk.jpg" alt="">
+        <span class="veil"></span>
+        <span class="wm d3">4.5<span class="o">room</span></span>
+      </div>
+      <p class="ratio" style="padding:12px 28px 24px">膜あり（36%）＋輪郭1/22 ／ どこに重なっても残る</p>
+    </div>
+  </div>
+
+</div>
+</body>
+</html>
