@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ロゴ 作り直し｜4.5room</title>
+<meta name="robots" content="noindex,nofollow">
+<style>
+/* ==========================================================================
+   ロゴの作り直し。
+   前案が弱かった理由:
+     4.5 と room が、書体もサイズもウェイトも字間も違っていて、
+     ひとつの名前ではなく「数字＋その説明ラベル」に見えていた。
+
+   直し方:
+     1. ワードマークは一語として組む。同じ書体・同じ大きさ・詰めた字間。
+     2. 名前の意味（四畳半）をマークにする。卍敷き＝四畳半の実際の敷き方で、
+        3×3のマス目に四枚の畳が中心の半畳を囲む。「4.5」の 0.5 が中心の半畳。
+        幾何だけで出来ているので16pxでも成立し、そのままファビコンになる。
+   ========================================================================== */
+@font-face{font-family:"PT Sans Narrow";src:url("../assets/fonts/PTSansNarrow-Bold.woff") format("woff");font-weight:700}
+@font-face{font-family:"PT Sans Narrow";src:url("../assets/fonts/PTSansNarrow-Regular.woff") format("woff");font-weight:400}
+@font-face{font-family:"PT Mono";src:url("../assets/fonts/PTMono-Regular.woff") format("woff");font-weight:400}
+:root{
+  --paper:#F3F3F1;--ink:#1A1A1A;--mid:#5C5B59;--faint:#A8A7A3;--line:#E0E0DC;
+  --jp:"Hiragino Sans",sans-serif;
+  --nar:"PT Sans Narrow","Hiragino Sans",sans-serif;
+  --mono:"PT Mono",ui-monospace,monospace;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--paper);color:var(--ink);font-family:var(--jp);font-size:15px;line-height:1.8;letter-spacing:.04em;-webkit-font-smoothing:antialiased}
+.wrap{max-width:1120px;margin:0 auto;padding:40px 24px 96px}
+h1{font-family:var(--nar);font-size:28px;font-weight:700;letter-spacing:.02em}
+.sub{margin-top:8px;font-size:13px;color:var(--mid);max-width:60em}
+h2{margin:56px 0 16px;padding-top:16px;border-top:1px solid var(--line);font-family:var(--nar);font-size:22px;font-weight:700;letter-spacing:.02em}
+h2 small{display:block;font-family:var(--mono);font-size:10px;letter-spacing:.14em;color:var(--faint);text-transform:uppercase;margin-bottom:4px;font-weight:400}
+.note{font-size:12.5px;line-height:1.8;color:var(--mid);max-width:62em}
+.box{border:1px solid var(--line);padding:32px;margin-top:16px;background:#F7F7F5}
+.dark{background:#17150F;border-color:#2A271F;color:#F1EDE6}
+.two{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px;margin-top:16px}
+.tag{font-family:var(--mono);font-size:10px;letter-spacing:.14em;color:var(--faint);text-transform:uppercase;margin-bottom:20px}
+.why{margin-top:20px;font-size:12.5px;line-height:1.75;color:var(--mid)}
+.dark .why,.dark .tag{color:#9A968C}
+
+/* ── マーク ─────────────────────────────────────────────────────────
+   四畳半の卍敷き。3×3のマス目に、四枚の畳が中心の半畳を囲む。 */
+.mk{display:block;fill:currentColor}
+.mk .half{opacity:.34}          /* 中心の半畳 ＝ 4.5 の 0.5 */
+
+/* ── ワードマーク：一語として組む ───────────────────────────────── */
+.wd{font-family:var(--nar);font-weight:700;letter-spacing:-.005em;line-height:1;white-space:nowrap}
+.wd .r{font-weight:400}          /* 太さの差は1段だけ。大きさは変えない */
+.wm-mono{font-family:var(--mono);font-weight:400;letter-spacing:-.02em;line-height:1;white-space:nowrap}
+
+/* ロックアップ */
+.lock{display:inline-flex;align-items:center;gap:.44em}
+.lock .mk{width:1.02em;height:1.02em;flex:0 0 auto}
+
+.big{font-size:64px}
+.mid{font-size:32px}
+.hdr{font-size:22px}
+.tiny{font-size:15px}
+
+.sizes{display:flex;align-items:center;gap:40px;flex-wrap:wrap}
+.sizes .lbl{font-family:var(--mono);font-size:10px;letter-spacing:.14em;color:var(--faint)}
+
+/* ヘッダーに置いたところ */
+.demo{border:1px solid var(--line);background:var(--paper);padding:0 20px;display:flex;align-items:center;justify-content:space-between;min-height:64px;margin-top:16px}
+.demo nav{display:flex;gap:8px}
+.demo nav a{display:inline-flex;align-items:center;min-height:44px;padding:0 12px;font-size:14px;letter-spacing:.08em;color:var(--mid);text-decoration:none}
+
+/* 写真に重ねたところ */
+.over{position:relative;overflow:hidden;aspect-ratio:21/9;margin-top:16px}
+.over img{width:100%;height:100%;object-fit:cover;display:block}
+.over .lock{position:absolute;left:24px;bottom:20px;font-size:44px;color:#F7F7F5;text-shadow:0 1px 14px rgba(0,0,0,.5)}
+.fav{display:flex;gap:16px;align-items:flex-end;margin-top:16px}
+.fav div{text-align:center}
+.fav .mk{color:var(--ink)}
+.fav span{display:block;font-family:var(--mono);font-size:9px;letter-spacing:.1em;color:var(--faint);margin-top:6px}
+@media(max-width:760px){.two{grid-template-columns:minmax(0,1fr)}}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<h1>ロゴ 作り直し</h1>
+<p class="sub">
+  前のロゴは、4.5 と room が別々のものに見えていました。書体・大きさ・ウェイト・字間が全部違って、
+  名前ではなく「数字とその説明」に読めてしまうためです。<br>
+  ここでは（1）ワードマークを<b>一語として</b>組み直し、（2）名前の意味そのものをマークにしました。
+</p>
+
+<h2><small>mark</small>マーク ── 四畳半の卍敷き</h2>
+<p class="note">
+  四畳半の実際の敷き方（卍敷き）です。3×3のマス目に四枚の畳が中心の半畳を囲みます。
+  <b>中心の薄いマスが「4.5」の 0.5</b>。幾何だけで出来ているので、16pxまで落としても形が壊れず、そのままファビコンになります。
+  以前トップの間取りに使った考え方を、レイアウトではなくマークに移しました。
+</p>
+<div class="box">
+  <p class="tag">単体 ／ 大きさ違い</p>
+  <div class="fav">
+    <div>
+      <svg class="mk" style="width:96px;height:96px" viewBox="0 0 90 90" role="img" aria-label="4.5room">
+        <rect x="0" y="0" width="59" height="28"/><rect x="62" y="0" width="28" height="59"/>
+        <rect x="0" y="31" width="28" height="59"/><rect class="half" x="31" y="31" width="28" height="28"/>
+        <rect x="31" y="62" width="59" height="28"/>
+      </svg><span>96PX</span>
+    </div>
+    <div>
+      <svg class="mk" style="width:48px;height:48px" viewBox="0 0 90 90" aria-hidden="true">
+        <rect x="0" y="0" width="59" height="28"/><rect x="62" y="0" width="28" height="59"/>
+        <rect x="0" y="31" width="28" height="59"/><rect class="half" x="31" y="31" width="28" height="28"/>
+        <rect x="31" y="62" width="59" height="28"/>
+      </svg><span>48PX</span>
+    </div>
+    <div>
+      <svg class="mk" style="width:24px;height:24px" viewBox="0 0 90 90" aria-hidden="true">
+        <rect x="0" y="0" width="59" height="28"/><rect x="62" y="0" width="28" height="59"/>
+        <rect x="0" y="31" width="28" height="59"/><rect class="half" x="31" y="31" width="28" height="28"/>
+        <rect x="31" y="62" width="59" height="28"/>
+      </svg><span>24PX</span>
+    </div>
+    <div>
+      <svg class="mk" style="width:16px;height:16px" viewBox="0 0 90 90" aria-hidden="true">
+        <rect x="0" y="0" width="59" height="28"/><rect x="62" y="0" width="28" height="59"/>
+        <rect x="0" y="31" width="28" height="59"/><rect class="half" x="31" y="31" width="28" height="28"/>
+        <rect x="31" y="62" width="59" height="28"/>
+      </svg><span>16PX</span>
+    </div>
+  </div>
+</div>
+
+<h2><small>lockup</small>組み合わせ 4案</h2>
+
+<div class="two">
+  <div class="box">
+    <p class="tag">N1 ／ マーク＋一語（コンデンス）</p>
+    <span class="lock big">
+      <svg class="mk" viewBox="0 0 90 90" aria-hidden="true"><rect x="0" y="0" width="59" height="28"/><rect x="62" y="0" width="28" height="59"/><rect x="0" y="31" width="28" height="59"/><rect class="half" x="31" y="31" width="28" height="28"/><rect x="31" y="62" width="59" height="28"/></svg>
+      <span class="wd">4.5<span class="r">room</span></span>
+    </span>
+    <p class="why">同じ書体・同じ大きさで一語に。太さの差は1段だけ残して、4.5 が名前の頭だと分かるようにしています。前案との差はここです。</p>
+  </div>
+  <div class="box dark">
+    <p class="tag">N1 ／ 暗色</p>
+    <span class="lock big">
+      <svg class="mk" viewBox="0 0 90 90" aria-hidden="true"><rect x="0" y="0" width="59" height="28"/><rect x="62" y="0" width="28" height="59"/><rect x="0" y="31" width="28" height="59"/><rect class="half" x="31" y="31" width="28" height="28"/><rect x="31" y="62" width="59" height="28"/></svg>
+      <span class="wd">4.5<span class="r">room</span></span>
+    </span>
+    <p class="why">マークが幾何なので、地の明暗が変わっても同じ強さで出ます。</p>
+  </div>
+</div>
+
+<div class="two">
+  <div class="box">
+    <p class="tag">N2 ／ 一語のみ（マークなし）</p>
+    <span class="wd big">4.5<span class="r">room</span></span>
+    <p class="why">いちばん軽い。ただしこれだけだと、他のコンデンス書体のサイトと見分けがつきません。</p>
+  </div>
+  <div class="box">
+    <p class="tag">N3 ／ マーク＋等幅</p>
+    <span class="lock big">
+      <svg class="mk" viewBox="0 0 90 90" aria-hidden="true"><rect x="0" y="0" width="59" height="28"/><rect x="62" y="0" width="28" height="59"/><rect x="0" y="31" width="28" height="59"/><rect class="half" x="31" y="31" width="28" height="28"/><rect x="31" y="62" width="59" height="28"/></svg>
+      <span class="wm-mono">4.5room</span>
+    </span>
+    <p class="why">等幅で組むと機材の型番に近づきます。見出しのコンデンスと書体が分かれるので、ロゴが独立して見えるのが利点。</p>
+  </div>
+</div>
+
+<h2><small>check</small>ヘッダーに置いたところ（実寸）</h2>
+<p class="note">ロゴは大きく見せる時間より、ヘッダーに小さく置く時間のほうが長い。ここで成立するかが本番です。</p>
+<div class="demo">
+  <span class="lock hdr">
+    <svg class="mk" viewBox="0 0 90 90" aria-hidden="true"><rect x="0" y="0" width="59" height="28"/><rect x="62" y="0" width="28" height="59"/><rect x="0" y="31" width="28" height="59"/><rect class="half" x="31" y="31" width="28" height="28"/><rect x="31" y="62" width="59" height="28"/></svg>
+    <span class="wd">4.5<span class="r">room</span></span>
+  </span>
+  <nav><a href="#">間取り</a><a href="#">かばん</a><a href="#">持ちもの</a><a href="#">お仕事</a></nav>
+</div>
+<div class="demo">
+  <span class="lock hdr">
+    <svg class="mk" viewBox="0 0 90 90" aria-hidden="true"><rect x="0" y="0" width="59" height="28"/><rect x="62" y="0" width="28" height="59"/><rect x="0" y="31" width="28" height="59"/><rect class="half" x="31" y="31" width="28" height="28"/><rect x="31" y="62" width="59" height="28"/></svg>
+    <span class="wm-mono">4.5room</span>
+  </span>
+  <nav><a href="#">間取り</a><a href="#">かばん</a><a href="#">持ちもの</a><a href="#">お仕事</a></nav>
+</div>
+
+<h2><small>check</small>写真に重ねたところ</h2>
+<p class="note">前のロゴは輪郭文字だったので明るい被写体で線が消えていました。ベタ塗りなので、そこは起きません。</p>
+<div class="over">
+  <img src="../assets/photos/real/mood-desk.jpg" alt="">
+  <span class="lock">
+    <svg class="mk" viewBox="0 0 90 90" aria-hidden="true"><rect x="0" y="0" width="59" height="28"/><rect x="62" y="0" width="28" height="59"/><rect x="0" y="31" width="28" height="59"/><rect class="half" x="31" y="31" width="28" height="28"/><rect x="31" y="62" width="59" height="28"/></svg>
+    <span class="wd">4.5<span class="r">room</span></span>
+  </span>
+</div>
+
+</div>
+</body>
+</html>

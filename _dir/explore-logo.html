@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ロゴ探索｜4.5room</title>
+<meta name="robots" content="noindex,nofollow">
+<style>
+/* ==========================================================================
+   4.5room ロゴ探索。
+   戦略ごとに振ってある（同じ案の微調整ではない）。
+   A系 ワードマークだけ ／ B系 マーク＋ワードマーク ／ C系 バッジ・モノグラム
+   D系 カメラ・図面の表記法を借りる
+   ※ これは絞るための紙。調査（原則・数字を含む名前の扱い・和欧混植）の結果が出たら、
+     その原則で落とす。
+   ========================================================================== */
+@font-face{font-family:"PTN";src:url("../assets/fonts/PTSansNarrow-Bold.woff") format("woff");font-weight:700}
+@font-face{font-family:"PTN";src:url("../assets/fonts/PTSansNarrow-Regular.woff") format("woff");font-weight:400}
+@font-face{font-family:"PTM";src:url("../assets/fonts/PTMono-Regular.woff") format("woff");font-weight:400}
+:root{
+  --paper:#F3F3F1;--ink:#1A1A1A;--mid:#5C5B59;--faint:#A8A7A3;--line:#E0E0DC;
+  --jp:"Hiragino Sans",sans-serif;
+  --nar:"PTN","Hiragino Sans",sans-serif;
+  --mono:"PTM",ui-monospace,monospace;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--paper);color:var(--ink);font-family:var(--jp);font-size:14px;line-height:1.8;letter-spacing:.04em;-webkit-font-smoothing:antialiased}
+.wrap{max-width:1240px;margin:0 auto;padding:40px 24px 96px}
+h1{font-family:var(--nar);font-size:28px;font-weight:700;letter-spacing:.02em}
+.sub{margin-top:8px;font-size:13px;color:var(--mid);max-width:62em}
+h2{margin:48px 0 0;padding-top:16px;border-top:1px solid var(--line);font-family:var(--nar);font-size:20px;font-weight:700}
+h2 small{display:block;font-family:var(--mono);font-size:10px;letter-spacing:.14em;color:var(--faint);text-transform:uppercase;font-weight:400;margin-bottom:4px}
+.note{margin-top:6px;font-size:12.5px;line-height:1.75;color:var(--mid);max-width:64em}
+
+.grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px;margin-top:20px}
+.cell{border:1px solid var(--line);background:#F7F7F5;padding:24px;display:flex;flex-direction:column}
+.cell .id{font-family:var(--mono);font-size:10px;letter-spacing:.14em;color:var(--faint);text-transform:uppercase}
+.cell .art{flex:1;display:flex;align-items:center;min-height:104px;margin:20px 0}
+.cell .sm{display:flex;align-items:center;gap:20px;padding-top:16px;border-top:1px solid var(--line)}
+.cell .cm{margin-top:12px;font-size:12px;line-height:1.7;color:var(--mid)}
+
+/* ── 字の組み ─────────────────────────────────────────────── */
+.w{line-height:1;white-space:nowrap;font-family:var(--nar);font-weight:700}
+.w .lt{font-weight:400}
+.mono{font-family:var(--mono);font-weight:400;line-height:1;white-space:nowrap}
+.big{font-size:52px}.mini{font-size:19px}.nano{font-size:14px}
+
+/* A1 一語・詰め */
+.a1{letter-spacing:-.01em}
+/* A2 一語・等幅 */
+.a2{letter-spacing:-.02em}
+/* A3 全部小文字 */
+.a3{letter-spacing:-.005em;text-transform:lowercase}
+/* A4 全部大文字 */
+.a4{letter-spacing:.02em;text-transform:uppercase}
+/* A5 二行・左揃え */
+.a5{display:inline-block;line-height:.92;letter-spacing:-.01em}
+.a5 .lt{display:block;font-size:.42em;letter-spacing:.02em;color:var(--mid)}
+/* A6 スラッシュ */
+.a6 .sl{font-weight:400;color:var(--faint);margin:0 .06em}
+/* A7 ピリオドを四角に */
+.a7 .sq{display:inline-block;width:.13em;height:.13em;background:currentColor;vertical-align:baseline;margin:0 .05em}
+/* A8 room を数字の高さに合わせる */
+.a8 .lt{font-size:1.38em;font-weight:400;letter-spacing:-.02em}
+
+/* ── マーク ───────────────────────────────────────────────── */
+.mk{display:block;fill:currentColor;flex:0 0 auto}
+.mk .half{opacity:.32}
+.lock{display:inline-flex;align-items:center;gap:.4em}
+.lock .mk{width:1.04em;height:1.04em}
+.st{fill:none;stroke:currentColor;stroke-width:9}
+
+/* ── バッジ ───────────────────────────────────────────────── */
+.badge{display:inline-flex;align-items:center;justify-content:center;background:var(--ink);color:var(--paper);font-family:var(--nar);font-weight:700;line-height:1}
+.b-sq{width:1.7em;height:1.7em;font-size:.62em}
+.ring{display:inline-flex;align-items:center;justify-content:center;border:2px solid currentColor;border-radius:50%;width:2em;height:2em;font-size:.5em;font-family:var(--nar);font-weight:700}
+
+@media(max-width:900px){.grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:620px){.grid{grid-template-columns:minmax(0,1fr)}}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<h1>ロゴ探索 ── 戦略ごとに18案</h1>
+<p class="sub">
+  同じ案の微調整ではなく、考え方ごとに振っています。各セルの下に、ヘッダー実寸（19px）と最小（14px）を並べました。
+  ロゴは小さく置く時間のほうが長いので、そこで崩れる案は落ちます。
+</p>
+
+<!-- ══ A ワードマークだけ ══ -->
+<h2><small>A</small>ワードマークだけ</h2>
+<p class="note">マークを持たない。軽いが、書体の力だけで他と差をつける必要がある。</p>
+<div class="grid">
+
+  <div class="cell">
+    <p class="id">A1 ／ 一語・コンデンス</p>
+    <div class="art"><span class="w a1 big">4.5<span class="lt">room</span></span></div>
+    <div class="sm"><span class="w a1 mini">4.5<span class="lt">room</span></span><span class="w a1 nano">4.5<span class="lt">room</span></span></div>
+    <p class="cm">同じ書体・同じ大きさ、太さの差だけ。前案の「別物に見える」問題への最小の答え。</p>
+  </div>
+
+  <div class="cell">
+    <p class="id">A2 ／ 一語・等幅</p>
+    <div class="art"><span class="mono a2 big">4.5room</span></div>
+    <div class="sm"><span class="mono a2 mini">4.5room</span><span class="mono a2 nano">4.5room</span></div>
+    <p class="cm">機材の型番の顔。見出しのコンデンスと書体が分かれるので、ロゴが独立して立つ。</p>
+  </div>
+
+  <div class="cell">
+    <p class="id">A3 ／ 全部小文字</p>
+    <div class="art"><span class="w a3 big" style="font-weight:400">4.5room</span></div>
+    <div class="sm"><span class="w a3 mini" style="font-weight:400">4.5room</span><span class="w a3 nano" style="font-weight:400">4.5room</span></div>
+    <p class="cm">太さの差もなくす。いちばん静か。数字が文中の数字に見えてしまう危うさがある。</p>
+  </div>
+
+  <div class="cell">
+    <p class="id">A4 ／ 全部大文字</p>
+    <div class="art"><span class="w a4 big">4.5ROOM</span></div>
+    <div class="sm"><span class="w a4 mini">4.5ROOM</span><span class="w a4 nano">4.5ROOM</span></div>
+    <p class="cm">数字と大文字の高さがそろうので、一語としての結びが最も強い。硬い。</p>
+  </div>
+
+  <div class="cell">
+    <p class="id">A5 ／ 二行・左揃え</p>
+    <div class="art"><span class="w a5 big">4.5<span class="lt">room</span></span></div>
+    <div class="sm"><span class="w a5 mini">4.5<span class="lt">room</span></span><span class="w a5 nano">4.5<span class="lt">room</span></span></div>
+    <p class="cm">縦に積む。大きく使うときは効くが、横長のヘッダーでは高さを食う。</p>
+  </div>
+
+  <div class="cell">
+    <p class="id">A6 ／ スラッシュで割る</p>
+    <div class="art"><span class="w a6 big">4.5<span class="sl">/</span><span class="lt">room</span></span></div>
+    <div class="sm"><span class="w a6 mini">4.5<span class="sl">/</span><span class="lt">room</span></span><span class="w a6 nano">4.5<span class="sl">/</span><span class="lt">room</span></span></div>
+    <p class="cm">撮影データの区切り（ZV-1 ／ F1.8）と同じ記号を持ち込む。サイト全体の書式と揃う。</p>
+  </div>
+
+  <div class="cell">
+    <p class="id">A7 ／ 小数点を四角に</p>
+    <div class="art"><span class="w a7 big">4<span class="sq"></span>5<span class="lt">room</span></span></div>
+    <div class="sm"><span class="w a7 mini">4<span class="sq"></span>5<span class="lt">room</span></span><span class="w a7 nano">4<span class="sq"></span>5<span class="lt">room</span></span></div>
+    <p class="cm">点を畳（正方形）に置き換える。由来を1粒だけ忍ばせる。14pxだと点に戻る。</p>
+  </div>
+
+  <div class="cell">
+    <p class="id">A8 ／ room を数字の高さに</p>
+    <div class="art"><span class="w a8 big">4.5<span class="lt">room</span></span></div>
+    <div class="sm"><span class="w a8 mini">4.5<span class="lt">room</span></span><span class="w a8 nano">4.5<span class="lt">room</span></span></div>
+    <p class="cm">小文字のx-heightを数字の高さまで上げて、天地をそろえる。一語感は最も強いが、room が太って見える。</p>
+  </div>
+
+</div>
+
+<!-- ══ B マーク＋ワードマーク ══ -->
+<h2><small>B</small>マーク＋ワードマーク</h2>
+<p class="note">マークを持つ。小さい場面でマークだけを使えるのが利点。名前の由来（四畳半）を出すかどうかが分かれ目。</p>
+<div class="grid">
+
+  <div class="cell">
+    <p class="id">B1 ／ 四畳半の卍敷き</p>
+    <div class="art">
+      <span class="lock big">
+        <svg class="mk" viewBox="0 0 90 90" aria-hidden="true"><rect x="0" y="0" width="59" height="28"/><rect x="62" y="0" width="28" height="59"/><rect x="0" y="31" width="28" height="59"/><rect class="half" x="31" y="31" width="28" height="28"/><rect x="31" y="62" width="59" height="28"/></svg>
+        <span class="w a1">4.5<span class="lt">room</span></span>
+      </span>
+    </div>
+    <div class="sm">
+      <span class="lock mini"><svg class="mk" viewBox="0 0 90 90" aria-hidden="true"><rect x="0" y="0" width="59" height="28"/><rect x="62" y="0" width="28" height="59"/><rect x="0" y="31" width="28" height="59"/><rect class="half" x="31" y="31" width="28" height="28"/><rect x="31" y="62" width="59" height="28"/></svg><span class="w a1">4.5<span class="lt">room</span></span></span>
+      <svg class="mk" style="width:16px;height:16px" viewBox="0 0 90 90" aria-hidden="true"><rect x="0" y="0" width="59" height="28"/><rect x="62" y="0" width="28" height="59"/><rect x="0" y="31" width="28" height="59"/><rect class="half" x="31" y="31" width="28" height="28"/><rect x="31" y="62" width="59" height="28"/></svg>
+    </div>
+    <p class="cm">四畳半の実際の敷き方。中心の薄いマスが 0.5。意味は通るが、由来をそのまま図にしている＝説明的とも言える。</p>
+  </div>
+
+  <div class="cell">
+    <p class="id">B2 ／ 4つと半分</p>
+    <div class="art">
+      <span class="lock big">
+        <svg class="mk" viewBox="0 0 90 90" aria-hidden="true"><rect x="0" y="0" width="41" height="41"/><rect x="49" y="0" width="41" height="41"/><rect x="0" y="49" width="41" height="41"/><rect x="49" y="49" width="41" height="19"/><rect class="half" x="49" y="71" width="41" height="19"/></svg>
+        <span class="w a1">4.5<span class="lt">room</span></span>
+      </span>
+    </div>
+    <div class="sm">
+      <span class="lock mini"><svg class="mk" viewBox="0 0 90 90" aria-hidden="true"><rect x="0" y="0" width="41" height="41"/><rect x="49" y="0" width="41" height="41"/><rect x="0" y="49" width="41" height="41"/><rect x="49" y="49" width="41" height="19"/><rect class="half" x="49" y="71" width="41" height="19"/></svg><span class="w a1">4.5<span class="lt">room</span></span></span>
+      <svg class="mk" style="width:16px;height:16px" viewBox="0 0 90 90" aria-hidden="true"><rect x="0" y="0" width="41" height="41"/><rect x="49" y="0" width="41" height="41"/><rect x="0" y="49" width="41" height="41"/><rect x="49" y="49" width="41" height="19"/><rect class="half" x="49" y="71" width="41" height="19"/></svg>
+    </div>
+    <p class="cm">畳の敷き方ではなく「4枚と半分」という数量そのもの。B1より抽象度が低く、記号として読みやすい。</p>
+  </div>
+
+  <div class="cell">
+    <p class="id">B3 ／ 部屋（開口のある四角）</p>
+    <div class="art">
+      <span class="lock big">
+        <svg class="mk" viewBox="0 0 90 90" aria-hidden="true"><path class="st" d="M45 5 H85 V85 H5 V5 H27"/></svg>
+        <span class="w a1">4.5<span class="lt">room</span></span>
+      </span>
+    </div>
+    <div class="sm">
+      <span class="lock mini"><svg class="mk" viewBox="0 0 90 90" aria-hidden="true"><path class="st" d="M45 5 H85 V85 H5 V5 H27"/></svg><span class="w a1">4.5<span class="lt">room</span></span></span>
+      <svg class="mk" style="width:16px;height:16px" viewBox="0 0 90 90" aria-hidden="true"><path class="st" d="M45 5 H85 V85 H5 V5 H27"/></svg>
+    </div>
+    <p class="cm">間取り図の壁と開口。畳の枚数までは言わず「部屋」だけを示す。抽象度が高く、汎用にも見える。</p>
+  </div>
+
+  <div class="cell">
+    <p class="id">B4 ／ 絞り</p>
+    <div class="art">
+      <span class="lock big">
+        <svg class="mk" viewBox="0 0 90 90" aria-hidden="true"><circle class="st" cx="45" cy="45" r="40"/><path class="st" d="M45 5 L66 42 M79 68 L37 68 M11 68 L32 31 M45 85 L24 48 M11 22 L53 22 M79 22 L58 59" stroke-width="7"/></svg>
+        <span class="w a1">4.5<span class="lt">room</span></span>
+      </span>
+    </div>
+    <div class="sm">
+      <span class="lock mini"><svg class="mk" viewBox="0 0 90 90" aria-hidden="true"><circle class="st" cx="45" cy="45" r="40"/><path class="st" d="M45 5 L66 42 M79 68 L37 68 M11 68 L32 31 M45 85 L24 48 M11 22 L53 22 M79 22 L58 59" stroke-width="7"/></svg><span class="w a1">4.5<span class="lt">room</span></span></span>
+      <svg class="mk" style="width:16px;height:16px" viewBox="0 0 90 90" aria-hidden="true"><circle class="st" cx="45" cy="45" r="40"/><path class="st" d="M45 5 L66 42 M79 68 L37 68 M11 68 L32 31 M45 85 L24 48 M11 22 L53 22 M79 22 L58 59" stroke-width="7"/></svg>
+    </div>
+    <p class="cm">レンズの絞り羽根。4.5 を f値として読ませる方向。ただし線が多く、16pxでは潰れる。</p>
+  </div>
+
+  <div class="cell">
+    <p class="id">B5 ／ 点だけ（半畳）</p>
+    <div class="art">
+      <span class="lock big">
+        <svg class="mk" viewBox="0 0 90 90" aria-hidden="true"><rect class="st" x="5" y="5" width="80" height="80"/><rect x="34" y="34" width="22" height="22"/></svg>
+        <span class="w a1">4.5<span class="lt">room</span></span>
+      </span>
+    </div>
+    <div class="sm">
+      <span class="lock mini"><svg class="mk" viewBox="0 0 90 90" aria-hidden="true"><rect class="st" x="5" y="5" width="80" height="80"/><rect x="34" y="34" width="22" height="22"/></svg><span class="w a1">4.5<span class="lt">room</span></span></span>
+      <svg class="mk" style="width:16px;height:16px" viewBox="0 0 90 90" aria-hidden="true"><rect class="st" x="5" y="5" width="80" height="80"/><rect x="34" y="34" width="22" height="22"/></svg>
+    </div>
+    <p class="cm">部屋の中の半畳ひとつ。要素が2つだけなので16pxでも残る。意味は言いすぎない。</p>
+  </div>
+
+  <div class="cell">
+    <p class="id">B6 ／ 単位（畳1枚）</p>
+    <div class="art">
+      <span class="lock big">
+        <svg class="mk" viewBox="0 0 90 90" aria-hidden="true"><rect x="5" y="24" width="80" height="18"/><rect class="half" x="5" y="50" width="38" height="18"/></svg>
+        <span class="w a1">4.5<span class="lt">room</span></span>
+      </span>
+    </div>
+    <div class="sm">
+      <span class="lock mini"><svg class="mk" viewBox="0 0 90 90" aria-hidden="true"><rect x="5" y="24" width="80" height="18"/><rect class="half" x="5" y="50" width="38" height="18"/></svg><span class="w a1">4.5<span class="lt">room</span></span></span>
+      <svg class="mk" style="width:16px;height:16px" viewBox="0 0 90 90" aria-hidden="true"><rect x="5" y="24" width="80" height="18"/><rect class="half" x="5" y="50" width="38" height="18"/></svg>
+    </div>
+    <p class="cm">畳1枚と半畳。「1と0.5」の対比だけで由来を示す。いちばん要素が少ない。</p>
+  </div>
+
+</div>
+
+<!-- ══ C バッジ・モノグラム ══ -->
+<h2><small>C</small>バッジ・モノグラム</h2>
+<p class="note">小さい場面で単体で使える。SNSのアイコンやファビコンが主戦場。</p>
+<div class="grid">
+
+  <div class="cell">
+    <p class="id">C1 ／ 角のない四角バッジ</p>
+    <div class="art"><span class="badge b-sq big">4.5</span></div>
+    <div class="sm"><span class="badge b-sq mini">4.5</span><span class="badge b-sq nano">4.5</span></div>
+    <p class="cm">数字だけを塗りに置く。サイトの「箱を使わない」方針とは逆を行くが、アイコン用途では強い。</p>
+  </div>
+
+  <div class="cell">
+    <p class="id">C2 ／ 円（フィルター径の表記）</p>
+    <div class="art"><span class="ring big">4.5</span></div>
+    <div class="sm"><span class="ring mini">4.5</span><span class="ring nano">4.5</span></div>
+    <p class="cm">レンズ前面の口径表記（⌀49 など）の見た目。カメラの符牒を借りる。</p>
+  </div>
+
+  <div class="cell">
+    <p class="id">C3 ／ 卍マーク単体</p>
+    <div class="art">
+      <svg class="mk" style="width:88px;height:88px" viewBox="0 0 90 90" aria-hidden="true"><rect x="0" y="0" width="59" height="28"/><rect x="62" y="0" width="28" height="59"/><rect x="0" y="31" width="28" height="59"/><rect class="half" x="31" y="31" width="28" height="28"/><rect x="31" y="62" width="59" height="28"/></svg>
+    </div>
+    <div class="sm">
+      <svg class="mk" style="width:32px;height:32px" viewBox="0 0 90 90" aria-hidden="true"><rect x="0" y="0" width="59" height="28"/><rect x="62" y="0" width="28" height="59"/><rect x="0" y="31" width="28" height="59"/><rect class="half" x="31" y="31" width="28" height="28"/><rect x="31" y="62" width="59" height="28"/></svg>
+      <svg class="mk" style="width:16px;height:16px" viewBox="0 0 90 90" aria-hidden="true"><rect x="0" y="0" width="59" height="28"/><rect x="62" y="0" width="28" height="59"/><rect x="0" y="31" width="28" height="59"/><rect class="half" x="31" y="31" width="28" height="28"/><rect x="31" y="62" width="59" height="28"/></svg>
+    </div>
+    <p class="cm">名前を出さずに形だけで立たせる案。認知が育つまで時間がかかるが、育てば強い。</p>
+  </div>
+
+</div>
+
+<!-- ══ D 表記法を借りる ══ -->
+<h2><small>D</small>カメラ・図面の表記法を借りる</h2>
+<p class="note">ロゴを「作る」のではなく、既存の記法をそのまま名前に当てる。サイトの撮影データ表記と地続きになる。</p>
+<div class="grid">
+
+  <div class="cell">
+    <p class="id">D1 ／ 絞り値の書式</p>
+    <div class="art"><span class="w big" style="letter-spacing:-.01em"><span class="mono" style="font-size:.42em;color:var(--mid)">f/</span>4.5<span class="lt">room</span></span></div>
+    <div class="sm"><span class="w mini"><span class="mono" style="font-size:.42em;color:var(--mid)">f/</span>4.5<span class="lt">room</span></span><span class="w nano"><span class="mono" style="font-size:.42em;color:var(--mid)">f/</span>4.5<span class="lt">room</span></span></div>
+    <p class="cm">f/ が付くと 4.5 が絞り値として読める。名前がそのまま撮影データの一部になる。</p>
+  </div>
+
+  <div class="cell">
+    <p class="id">D2 ／ 帖の表記を混植</p>
+    <div class="art"><span class="w big">4.5<span style="font-family:var(--jp);font-weight:400;font-size:.44em;letter-spacing:.1em;color:var(--mid);margin-left:.1em">帖</span><span class="lt" style="margin-left:.14em">room</span></span></div>
+    <div class="sm"><span class="w mini">4.5<span style="font-family:var(--jp);font-weight:400;font-size:.44em;color:var(--mid)">帖</span><span class="lt">room</span></span><span class="w nano">4.5<span style="font-family:var(--jp);font-weight:400;font-size:.44em;color:var(--mid)">帖</span><span class="lt">room</span></span></div>
+    <p class="cm">和文を1文字だけ混ぜる。由来が言葉で伝わるが、名前が長くなり読みも増える。</p>
+  </div>
+
+  <div class="cell">
+    <p class="id">D3 ／ 寸法線</p>
+    <div class="art">
+      <span style="display:inline-flex;flex-direction:column;align-items:flex-start;gap:6px">
+        <svg viewBox="0 0 200 12" style="width:184px;height:11px;fill:none;stroke:currentColor;stroke-width:2" aria-hidden="true"><path d="M1 6 H199 M1 1 V11 M199 1 V11"/></svg>
+        <span class="w big" style="letter-spacing:-.01em">4.5<span class="lt">room</span></span>
+      </span>
+    </div>
+    <div class="sm"><span class="w mini">4.5<span class="lt">room</span></span><span class="w nano">4.5<span class="lt">room</span></span></div>
+    <p class="cm">図面の寸法線を上に渡す。大きく使うときだけの飾りで、小さいときは外れる＝ロゴとしては不安定。</p>
+  </div>
+
+</div>
+
+</div>
+</body>
+</html>
