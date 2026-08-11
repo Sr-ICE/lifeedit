@@ -1,0 +1,550 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>4.5room ／ 暗色版</title>
+<meta name="description" content="4.5room。YouTube本編とLab、note、Instagram、毎日持ち歩いている道具15点、お仕事のご相談。">
+<meta name="robots" content="noindex,nofollow">
+<link rel="icon" href="../assets/logo/favicon.ico" sizes="32x32">
+<link rel="icon" href="../assets/logo/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="../assets/logo/apple-touch-icon.png">
+
+<style>
+/* ==========================================================================
+   4.5room — 明色。決めごとと、その根拠。
+
+   本人の指定:
+     明るい色 / 写真は角丸0・断ち落とし・直下に撮影データ（P2）/ 書体はコンデンス
+     ロゴはD方面（4.5 と room を書き分ける）/ inliving に寄せない
+
+   inliving から借りていて、今回やめたもの:
+     角丸16pxのカード、2pxの枠で全部を囲う組み方、ピル型のボタン、
+     英字の下に和文9pxを敷く二段ナビ、クリーム地。
+     構造は「ヘアラインと余白と写真」だけで作る。箱で囲わない。
+
+   実測に基づく決めごと:
+     - 純黒・純白を使わない。機材系サイト8つ全てが避けていた
+     - 欧文の字間は 0.05em、ロゴだけ 0.10em（GR official が全階層で厳守）
+     - ウェイトは400と700の2段だけ。見出しを太らせず、本文の行送りを1.75と広く取る
+     - 見出しは本文の1.3〜2.2倍まで（記録系サイトの実測値）
+     - 写真は角丸0・filterなし。参考8サイトが例外なくそう
+     - 撮影データは 13px / 行送り1.5 / #5C5B59、写真の直下に置く（写真の上には置かない）
+     - クリックできるものは全て 44px 以上、隣り合う的の間は8px以上
+     - 余白は8px格子だけ
+
+   書体:
+     PT Sans Narrow（見出し・数字）と PT Mono（ラベル・撮影データ）を自前ホスト。
+     ParaType Free Font License で「placing on Web servers for free downloading」を明示許可。
+     和文はヒラギノ。欧文を先頭に置いた1本のスタックで組み、和文はフォールバックで受ける。
+     ※ General Sans は ITF Free Font License（§02 が公開サーバへの設置を禁止）のため使わない。
+   ========================================================================== */
+
+@font-face{
+  font-family:"PT Sans Narrow";
+  src:url("../assets/fonts/PTSansNarrow-Regular.woff") format("woff");
+  font-weight:400;font-style:normal;font-display:swap;
+}
+@font-face{
+  font-family:"PT Sans Narrow";
+  src:url("../assets/fonts/PTSansNarrow-Bold.woff") format("woff");
+  font-weight:700;font-style:normal;font-display:swap;
+}
+@font-face{
+  font-family:"PT Mono";
+  src:url("../assets/fonts/PTMono-Regular.woff") format("woff");
+  font-weight:400;font-style:normal;font-display:swap;
+}
+
+:root{
+  /* 暗色。無彩色の黒だと画廊になるので、g-film で効いていた暖かい煤色の系統にする。
+     コントラストは明色版と同じ水準を保つ（実測値は括弧内）。 */
+  --paper:#191512;   /* 消灯後の部屋の色 */
+  --ink:#F1EDE6;     /* 紙に対して 14.7:1 */
+  --mid:#A79E92;     /* 6.6:1 — 二次テキストの下限。明色版の #5C5B59 と同水準 */
+  --faint:#6E675D;   /* 2.6:1 — 文字には使わない。罫と番号だけ */
+  --line:#2C2721;
+  --line-s:#403930;
+
+  /* 欧文を先頭に置く1本のスタック。数字と英字だけが自動で別の顔になる */
+  --sans:"PT Sans Narrow","Hiragino Sans","Hiragino Kaku Gothic ProN",sans-serif;
+  --jp:"Hiragino Sans","Hiragino Kaku Gothic ProN","Noto Sans JP",sans-serif;
+  --mono:"PT Mono",ui-monospace,Menlo,monospace;
+
+  --s1:8px; --s2:16px; --s3:24px; --s4:40px;
+  --s5:64px; --s6:104px; --s7:168px;
+
+  --tap:44px;
+  --rail:1120px;
+  --e:cubic-bezier(.16,1,.3,1);
+}
+
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{
+  background:var(--paper);color:var(--ink);
+  font-family:var(--jp);font-weight:400;font-size:16px;
+  line-height:1.75;letter-spacing:.04em;
+  font-feature-settings:"palt" 1;
+  -webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;
+  overflow-wrap:anywhere;
+}
+ul{list-style:none}
+a{color:inherit;text-decoration:none}
+a:focus{outline:none}
+a:focus-visible{outline:2px solid var(--ink);outline-offset:2px}
+img{display:block;max-width:100%;height:auto}
+
+.wrap{max-width:var(--rail);margin:0 auto;padding:0 var(--s3)}
+
+/* 等幅の数字・データ。PT Mono は本物の等幅なので桁がそろう
+   （前に使っていた General Sans は tnum が無く、tabular-nums が効いていなかった） */
+.m{font-family:var(--mono);font-variant-numeric:tabular-nums}
+/* 極小ラベル */
+.lb{font-family:var(--mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--mid)}
+
+/* ==========================================================================
+   ロゴ
+   ワードマーク: 4.5 は塗り、room は中抜き。線幅は図形の座標系で30。
+     表示幅に比例して細るので、実寸はこうなる:
+       420px→4.35px  320px→3.31px  260px→2.69px  220px→2.28px
+       160px→1.66px  120px→1.24px   84px→0.87px（潰れる）
+     よって中抜きは幅220px以上の面だけで使い、
+     ヘッダーのような小さい面は塗りに差し替える。同じパスなので形は一致する。
+   アイコン: 開口のある四角。96グリッド・線幅12・開口24なので、
+     16px表示で線2.0px／開口4.0pxを確保できる。
+   色は指定しない。currentColor で地色に追従させる。
+   ========================================================================== */
+.logo{display:inline-flex;align-items:center;gap:12px;color:var(--ink)}
+.logo .ico{width:22px;height:22px;flex:0 0 auto}
+.logo .word{width:84px;height:auto}
+.mark{display:block;width:100%;height:auto}
+.wm-hero{display:block;width:min(420px,64vw);height:auto;color:var(--ink)}
+/* .wm の gap は em 基準（字の大きさに追従させるため）。8px格子の対象外。 */
+
+/* ==========================================================================
+   ヘッダー
+   ========================================================================== */
+.hd{display:flex;align-items:center;justify-content:space-between;gap:var(--s3);padding:var(--s2) 0}
+.hd a{display:inline-flex;align-items:center;min-height:var(--tap)}
+.hd nav{display:flex;gap:var(--s1)}
+/* 幅も44px以上にする。padding 12px だと「間取り」が42pxで足りない */
+.hd nav a{padding:0 var(--s2);min-width:var(--tap);justify-content:center;
+  font-size:14px;letter-spacing:.08em;color:var(--mid);transition:color .3s var(--e)}
+.hd nav a:hover,.hd nav a:focus-visible{color:var(--ink)}
+
+/* ==========================================================================
+   表札
+   写真は断ち落とし・角丸0・無加工。文字は写真の上に置かず、下の紙に降ろす。
+   ========================================================================== */
+.hero img{width:100%;aspect-ratio:16/9;object-fit:cover}
+.hero .cap{
+  position:relative;z-index:3;
+  display:flex;flex-wrap:wrap;gap:var(--s1) var(--s3);
+  margin-top:var(--s1);font-size:13px;line-height:1.5;color:var(--mid);
+}
+.hero .id{
+  display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:space-between;gap:var(--s3);
+  margin-top:var(--s5);padding-bottom:var(--s4);border-bottom:1px solid var(--line-s);
+}
+.hero .id .fact{font-size:13px;line-height:1.6;color:var(--mid);text-align:right}
+
+
+/* ==========================================================================
+   粒子
+   写真には filter を掛けない。上に粒子を1枚だけ重ねる。
+   feColorMatrix で彩度を0にしないと、フィルムの粒ではなく高感度ノイズに見える。
+   soft-light は黒を持ち上げないので、暗部を濁らせずに粒だけ乗る。
+   2倍の画面ではタイルを半分に敷き直す（そうしないと粒が2物理px単位で肥大する）。
+   ========================================================================== */
+.grain{position:relative;isolation:isolate}
+.grain::after{
+  content:"";position:absolute;inset:0;z-index:2;pointer-events:none;
+  opacity:.5;mix-blend-mode:soft-light;background-size:160px 160px;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23g)'/%3E%3C/svg%3E");
+}
+@media (min-resolution:2dppx){.grain::after{background-size:80px 80px}}
+@media (prefers-reduced-motion:reduce){.grain::after{opacity:.35}}
+
+/* ==========================================================================
+   節
+   ========================================================================== */
+.sec{margin-top:var(--s6)}
+.sh{display:flex;align-items:baseline;gap:var(--s2);padding-bottom:var(--s2);border-bottom:1px solid var(--line-s)}
+.sh h2{font-family:var(--sans);font-size:26px;font-weight:700;letter-spacing:.02em;line-height:1.2}
+.sh .lb{margin-left:auto}
+.lead{margin-top:var(--s2);font-size:14px;line-height:1.8;color:var(--mid);max-width:46em}
+.foot-note{margin-top:var(--s3);font-size:13px;line-height:1.7;color:var(--mid)}
+
+/* ==========================================================================
+   目録の行
+   間取り（発信先）も、かばんも、持ちものも、同じ1本の行組みで通す。
+   箱で囲わず、ヘアラインと余白だけで区切る。行まるごとがリンク。
+   ========================================================================== */
+.rows{border-top:1px solid var(--line)}
+.row{
+  display:grid;grid-template-columns:3.5rem minmax(0,1fr) auto;
+  gap:0 var(--s3);align-items:baseline;
+  min-height:var(--tap);padding:var(--s3) 0;
+  border-bottom:1px solid var(--line);
+  transition:background .3s var(--e),padding-left .3s var(--e);
+}
+a.row:hover,a.row:focus-visible{background:#221D18;padding-left:var(--s2)}
+.row .no{font-family:var(--mono);font-size:12px;letter-spacing:.1em;color:var(--faint)}
+.row .nm{font-size:17px;line-height:1.5}
+.row .nm b{font-family:var(--sans);font-weight:700;font-size:20px;letter-spacing:.02em}
+.row .ds{margin-top:var(--s1);font-size:13px;line-height:1.7;color:var(--mid)}
+.row .go{font-family:var(--mono);font-size:11px;letter-spacing:.14em;color:var(--mid);white-space:nowrap}
+/* 室の中身。日付と題を1行ずつ */
+.row .in{margin-top:var(--s2);display:grid;gap:var(--s1)}
+.row .in span{display:grid;grid-template-columns:6.5rem minmax(0,1fr);gap:0 var(--s2);font-size:13px;line-height:1.6;color:var(--mid)}
+.row .in em{font-style:normal;color:var(--ink)}
+
+/* かばんの行は題を大きく。写真が無いぶん字で持たせる */
+.bag .nm b{font-size:clamp(24px,2.6vw,32px);line-height:1.15;display:block}
+.bag .ds{margin-top:var(--s1)}
+
+/* ==========================================================================
+   写真
+   ========================================================================== */
+.fig{margin-top:var(--s4)}
+.fig img{width:100%;object-fit:cover}
+.fig figcaption{position:relative;z-index:3;margin-top:var(--s1);font-size:13px;line-height:1.5;color:var(--mid)}
+.fig .data{margin-top:var(--s1);font-family:var(--mono);font-size:11px;letter-spacing:.12em;color:var(--faint)}
+.fig-w img{aspect-ratio:16/9}
+.duo{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:var(--s3);margin-top:var(--s4)}
+.duo img{aspect-ratio:4/5}
+
+/* ==========================================================================
+   持ちもの
+   ========================================================================== */
+.chips{display:flex;flex-wrap:wrap;gap:var(--s1);margin-top:var(--s3)}
+.chip{
+  display:inline-flex;align-items:center;gap:var(--s1);
+  min-height:36px;padding:0 var(--s2);
+  border:1px solid var(--line);
+  font-size:13px;letter-spacing:.04em;color:var(--mid);
+}
+.chip em{font-family:var(--mono);font-style:normal;color:var(--ink)}
+.two{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:0 var(--s5);margin-top:var(--s3);border-top:1px solid var(--line)}
+.th{
+  display:flex;align-items:baseline;gap:var(--s2);
+  min-height:var(--tap);padding:var(--s2) 0;border-bottom:1px solid var(--line);
+  transition:color .3s var(--e);
+}
+.th:hover,.th:focus-visible{color:var(--ink)}
+.th .br{flex:0 0 9rem;font-size:12px;letter-spacing:.06em;color:var(--mid)}
+.th .nm{font-size:16px;line-height:1.5}
+
+/* 文字のリンク。ピルは使わない。padding で 44px を確保する */
+.link{
+  display:inline-flex;align-items:center;min-height:var(--tap);
+  font-family:var(--mono);font-size:12px;letter-spacing:.14em;
+  border-bottom:1px solid var(--ink);
+  transition:opacity .3s var(--e);
+}
+.link:hover,.link:focus-visible{opacity:.55}
+.more{margin-top:var(--s3)}
+
+/* ==========================================================================
+   お仕事・奥付
+   ========================================================================== */
+.work{margin-top:var(--s6);padding-top:var(--s3);border-top:1px solid var(--line-s);
+      display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:space-between;gap:var(--s3)}
+.work h2{font-family:var(--sans);font-size:26px;font-weight:700;letter-spacing:.02em}
+.work p{margin-top:var(--s1);font-size:13px;line-height:1.7;color:var(--mid);max-width:40em}
+.ft{margin:var(--s6) 0 var(--s4);padding-top:var(--s3);border-top:1px solid var(--line);
+    display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:var(--s1) var(--s3)}
+.ft .c{font-family:var(--mono);font-size:11px;letter-spacing:.1em;color:var(--faint)}
+.ft nav{display:flex;flex-wrap:wrap;gap:var(--s1)}
+.ft nav a{display:inline-flex;align-items:center;min-height:var(--tap);padding:0 12px;
+          font-size:13px;letter-spacing:.06em;color:var(--mid);transition:color .3s var(--e)}
+.ft nav a:hover,.ft nav a:focus-visible{color:var(--ink)}
+
+/* ==========================================================================
+   出現
+   ========================================================================== */
+.js-rv .rv{opacity:0;transform:translateY(6px)}
+.js-rv .rv.in{opacity:1;transform:none;
+  transition:opacity 1s var(--e),transform 1s var(--e);transition-delay:calc(var(--i,0) * 70ms)}
+@media (prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  *,*::before,*::after{transition-duration:.001ms!important;transition-delay:0ms!important}
+  .js-rv .rv{opacity:1!important;transform:none!important}
+}
+
+/* ==========================================================================
+   760px 以下
+   ========================================================================== */
+@media (max-width:760px){
+  .row{grid-template-columns:2.5rem minmax(0,1fr);gap:0 var(--s2)}
+  .row .go{grid-column:2;margin-top:var(--s2)}
+  .row .in span{grid-template-columns:minmax(0,1fr)}
+  .row .in em{display:block}
+  .two{grid-template-columns:minmax(0,1fr);gap:0}
+  .duo{grid-template-columns:minmax(0,1fr)}
+  .th .br{flex:0 0 7rem}
+  .sec{margin-top:var(--s5)}
+  .hero .id{margin-top:var(--s4)}
+  .hero .id .fact{text-align:left}
+}
+</style>
+
+<script>try{document.documentElement.className+=" js-rv";}catch(e){}</script>
+</head>
+
+<body>
+<div class="wrap">
+
+  <header class="hd">
+    <a href="#" class="logo" aria-label="4.5room">
+      <svg class="ico mark" viewBox="0 0 96 96" aria-hidden="true"><path d="M60 6 H90 V90 H6 V6 H36"
+        fill="none" stroke="currentColor" stroke-width="12" stroke-linecap="butt"/></svg>
+      <svg class="word mark" viewBox="17 -705 2898 719" aria-hidden="true"><path fill="currentColor" d="M465.0 -195.0H377.0V0.0H264.0V-195.0H17.0V-269.0L273.0 -705.0H377.0V-297.0H465.0ZM264.0 -452.0 275.0 -542.0H271.0L241.0 -461.0L162.0 -327.0L122.0 -289.0L173.0 -297.0H264.0Z M523.0 -65.0Q523.0 -102.0 542.5 -121.0Q562.0 -140.0 594.0 -140.0Q629.0 -140.0 648.0 -121.0Q667.0 -102.0 667.0 -65.0Q667.0 -29.0 647.5 -9.0Q628.0 11.0 594.0 11.0Q561.0 11.0 542.0 -9.0Q523.0 -29.0 523.0 -65.0Z M851.0 -95.0Q905.0 -95.0 933.0 -130.0Q961.0 -165.0 961.0 -220.0Q961.0 -283.0 928.0 -311.0Q895.0 -339.0 833.0 -339.0L768.0 -335.0V-700.0H1059.0V-584.0H870.0V-441.0L903.0 -445.0Q984.0 -442.0 1032.0 -385.0Q1080.0 -328.0 1080.0 -225.0Q1080.0 -166.0 1063.0 -121.0Q1046.0 -76.0 1016.5 -46.0Q987.0 -16.0 946.0 -1.0Q905.0 14.0 857.0 14.0Q821.0 14.0 784.5 6.5Q748.0 -1.0 725.0 -13.0L756.0 -114.0Q793.0 -95.0 851.0 -95.0Z M1387.0 -382.0Q1363.0 -391.0 1343.0 -391.0Q1316.0 -391.0 1296.5 -376.0Q1277.0 -361.0 1270.0 -334.0V0.0H1151.0V-500.0H1242.0L1256.0 -440.0H1260.0Q1273.0 -473.0 1297.5 -491.5Q1322.0 -510.0 1354.0 -510.0Q1378.0 -510.0 1401.0 -500.0Z M1426.0 -250.0Q1426.0 -383.0 1478.0 -448.0Q1530.0 -513.0 1623.0 -513.0Q1723.0 -513.0 1772.0 -447.0Q1821.0 -381.0 1821.0 -250.0Q1821.0 -116.0 1769.0 -51.5Q1717.0 13.0 1623.0 13.0Q1426.0 13.0 1426.0 -250.0ZM1549.0 -250.0Q1549.0 -175.0 1566.0 -134.0Q1583.0 -93.0 1623.0 -93.0Q1661.0 -93.0 1679.5 -128.5Q1698.0 -164.0 1698.0 -250.0Q1698.0 -327.0 1681.0 -367.0Q1664.0 -407.0 1623.0 -407.0Q1588.0 -407.0 1568.5 -371.5Q1549.0 -336.0 1549.0 -250.0Z M1871.0 -250.0Q1871.0 -383.0 1923.0 -448.0Q1975.0 -513.0 2068.0 -513.0Q2168.0 -513.0 2217.0 -447.0Q2266.0 -381.0 2266.0 -250.0Q2266.0 -116.0 2214.0 -51.5Q2162.0 13.0 2068.0 13.0Q1871.0 13.0 1871.0 -250.0ZM1994.0 -250.0Q1994.0 -175.0 2011.0 -134.0Q2028.0 -93.0 2068.0 -93.0Q2106.0 -93.0 2124.5 -128.5Q2143.0 -164.0 2143.0 -250.0Q2143.0 -327.0 2126.0 -367.0Q2109.0 -407.0 2068.0 -407.0Q2033.0 -407.0 2013.5 -371.5Q1994.0 -336.0 1994.0 -250.0Z M2565.0 0.0V-291.0Q2565.0 -354.0 2555.0 -378.5Q2545.0 -403.0 2516.0 -403.0Q2492.0 -403.0 2476.5 -387.5Q2461.0 -372.0 2453.0 -350.0V0.0H2334.0V-500.0H2426.0L2441.0 -440.0H2444.0Q2463.0 -471.0 2491.5 -491.5Q2520.0 -512.0 2567.0 -512.0Q2606.0 -512.0 2630.5 -495.0Q2655.0 -478.0 2669.0 -435.0Q2688.0 -471.0 2719.0 -491.5Q2750.0 -512.0 2792.0 -512.0Q2825.0 -512.0 2848.5 -503.5Q2872.0 -495.0 2886.5 -474.0Q2901.0 -453.0 2908.0 -416.5Q2915.0 -380.0 2915.0 -324.0V0.0H2796.0V-304.0Q2796.0 -355.0 2787.0 -379.0Q2778.0 -403.0 2747.0 -403.0Q2722.0 -403.0 2706.5 -388.5Q2691.0 -374.0 2684.0 -349.0V0.0Z"/></svg>
+    </a>
+    <nav>
+      <a href="#index">間取り</a>
+      <a href="#bags">かばん</a>
+      <a href="#things">持ちもの</a>
+      <a href="e-work.html">お仕事</a>
+    </nav>
+  </header>
+
+  <!-- 表札 -->
+  <section class="hero">
+    <figure class="rv grain">
+      <img src="../assets/photos/real/hero.jpg" width="1600" height="900" loading="eager" decoding="async"
+           alt="トレイに並べた持ちもの一式。バッテリー、イヤホン、鍵、カードケースなど">
+      <figcaption class="cap">
+        <span>持ち出すものを、机の上でいちど全部ならべたところ</span>
+        <span class="m" style="color:var(--faint)">2026.03 ／ ZV-1</span>
+      </figcaption>
+    </figure>
+    <div class="id rv" style="--i:1">
+      <svg class="wm-hero" viewBox="2 -720 2928 749" role="img" aria-label="4.5room"><path fill="currentColor" d="M465.0 -195.0H377.0V0.0H264.0V-195.0H17.0V-269.0L273.0 -705.0H377.0V-297.0H465.0ZM264.0 -452.0 275.0 -542.0H271.0L241.0 -461.0L162.0 -327.0L122.0 -289.0L173.0 -297.0H264.0Z M523.0 -65.0Q523.0 -102.0 542.5 -121.0Q562.0 -140.0 594.0 -140.0Q629.0 -140.0 648.0 -121.0Q667.0 -102.0 667.0 -65.0Q667.0 -29.0 647.5 -9.0Q628.0 11.0 594.0 11.0Q561.0 11.0 542.0 -9.0Q523.0 -29.0 523.0 -65.0Z M851.0 -95.0Q905.0 -95.0 933.0 -130.0Q961.0 -165.0 961.0 -220.0Q961.0 -283.0 928.0 -311.0Q895.0 -339.0 833.0 -339.0L768.0 -335.0V-700.0H1059.0V-584.0H870.0V-441.0L903.0 -445.0Q984.0 -442.0 1032.0 -385.0Q1080.0 -328.0 1080.0 -225.0Q1080.0 -166.0 1063.0 -121.0Q1046.0 -76.0 1016.5 -46.0Q987.0 -16.0 946.0 -1.0Q905.0 14.0 857.0 14.0Q821.0 14.0 784.5 6.5Q748.0 -1.0 725.0 -13.0L756.0 -114.0Q793.0 -95.0 851.0 -95.0Z"/><path fill="none" stroke="currentColor" stroke-width="30" stroke-linejoin="round" d="M1387.0 -382.0Q1363.0 -391.0 1343.0 -391.0Q1316.0 -391.0 1296.5 -376.0Q1277.0 -361.0 1270.0 -334.0V0.0H1151.0V-500.0H1242.0L1256.0 -440.0H1260.0Q1273.0 -473.0 1297.5 -491.5Q1322.0 -510.0 1354.0 -510.0Q1378.0 -510.0 1401.0 -500.0Z M1426.0 -250.0Q1426.0 -383.0 1478.0 -448.0Q1530.0 -513.0 1623.0 -513.0Q1723.0 -513.0 1772.0 -447.0Q1821.0 -381.0 1821.0 -250.0Q1821.0 -116.0 1769.0 -51.5Q1717.0 13.0 1623.0 13.0Q1426.0 13.0 1426.0 -250.0ZM1549.0 -250.0Q1549.0 -175.0 1566.0 -134.0Q1583.0 -93.0 1623.0 -93.0Q1661.0 -93.0 1679.5 -128.5Q1698.0 -164.0 1698.0 -250.0Q1698.0 -327.0 1681.0 -367.0Q1664.0 -407.0 1623.0 -407.0Q1588.0 -407.0 1568.5 -371.5Q1549.0 -336.0 1549.0 -250.0Z M1871.0 -250.0Q1871.0 -383.0 1923.0 -448.0Q1975.0 -513.0 2068.0 -513.0Q2168.0 -513.0 2217.0 -447.0Q2266.0 -381.0 2266.0 -250.0Q2266.0 -116.0 2214.0 -51.5Q2162.0 13.0 2068.0 13.0Q1871.0 13.0 1871.0 -250.0ZM1994.0 -250.0Q1994.0 -175.0 2011.0 -134.0Q2028.0 -93.0 2068.0 -93.0Q2106.0 -93.0 2124.5 -128.5Q2143.0 -164.0 2143.0 -250.0Q2143.0 -327.0 2126.0 -367.0Q2109.0 -407.0 2068.0 -407.0Q2033.0 -407.0 2013.5 -371.5Q1994.0 -336.0 1994.0 -250.0Z M2565.0 0.0V-291.0Q2565.0 -354.0 2555.0 -378.5Q2545.0 -403.0 2516.0 -403.0Q2492.0 -403.0 2476.5 -387.5Q2461.0 -372.0 2453.0 -350.0V0.0H2334.0V-500.0H2426.0L2441.0 -440.0H2444.0Q2463.0 -471.0 2491.5 -491.5Q2520.0 -512.0 2567.0 -512.0Q2606.0 -512.0 2630.5 -495.0Q2655.0 -478.0 2669.0 -435.0Q2688.0 -471.0 2719.0 -491.5Q2750.0 -512.0 2792.0 -512.0Q2825.0 -512.0 2848.5 -503.5Q2872.0 -495.0 2886.5 -474.0Q2901.0 -453.0 2908.0 -416.5Q2915.0 -380.0 2915.0 -324.0V0.0H2796.0V-304.0Q2796.0 -355.0 2787.0 -379.0Q2778.0 -403.0 2747.0 -403.0Q2722.0 -403.0 2706.5 -388.5Q2691.0 -374.0 2684.0 -349.0V0.0Z"/></svg>
+      <p class="fact m">youtube ／ 2022.12.14 —<br>登録者 6,140 ／ 動画 253本</p>
+    </div>
+  </section>
+
+  <!-- 間取り。箱のグリッドをやめ、目録の行にした（箱だと中身の量に対して器が大きすぎた） -->
+  <section class="sec" id="index">
+    <header class="sh rv">
+      <h2>間取り</h2>
+      <span class="lb">rooms</span>
+    </header>
+    <p class="lead rv">発信している場所と、いまそこにあるもの。</p>
+
+    <div class="rows" style="margin-top:var(--s4)">
+      <a class="row rv" href="https://www.youtube.com/@4.5room" target="_blank" rel="noopener">
+        <span class="no">01</span>
+        <span>
+          <span class="nm"><b>YouTube</b>（本編）</span>
+          <span class="ds m">登録者 6,140 ／ 動画 253本</span>
+          <span class="in">
+            <span><span class="m">2026.08.08</span><em>【悪魔のマットレス】ベッドから出られなくなりました。</em></span>
+            <span><span class="m">2026.08.02</span><em>整理術不要のバックパック｜見た目はオタク。使うと可愛い。</em></span>
+            <span><span class="m">2026.07.31</span><em>MacBookの入るスリングバッグが快適過ぎた。</em></span>
+          </span>
+        </span>
+        <span class="go">open ↗</span>
+      </a>
+
+      <a class="row rv" href="https://www.youtube.com/channel/UCtpqTOuTy5gK_2UZzgikizQ" target="_blank" rel="noopener">
+        <span class="no">02</span>
+        <span>
+          <span class="nm"><b>YouTube</b>（Lab）</span>
+          <span class="ds m">登録者 690 ／ 動画 19本</span>
+          <span class="in">
+            <span><span class="m">2026.07.08</span><em>【い】日本で23番目くらいに雑なデスクツアー｜2026/07/09</em></span>
+            <span><span class="m">2026.05.01</span><em>【ゆる回】最近買った"ちょっと変なもの"5つ紹介します</em></span>
+          </span>
+        </span>
+        <span class="go">open ↗</span>
+      </a>
+
+      <a class="row rv" href="https://note.com/4_5room/" target="_blank" rel="noopener">
+        <span class="no">03</span>
+        <span>
+          <span class="nm"><b>note</b></span>
+          <span class="ds">動画にできない長さの話</span>
+          <span class="in">
+            <span><span class="m">2026.07.26</span><em>「一生モノ」は、名詞ではなく動詞だった</em></span>
+            <span><span class="m">2026.05.29</span><em>「会話」をやめ、「発注」を始めよう</em></span>
+          </span>
+        </span>
+        <span class="go">open ↗</span>
+      </a>
+
+      <a class="row rv" href="https://www.instagram.com/4.5room_atelier/" target="_blank" rel="noopener">
+        <span class="no">04</span>
+        <span>
+          <span class="nm"><b>Instagram</b></span>
+          <span class="ds">写真</span>
+        </span>
+        <span class="go">open ↗</span>
+      </a>
+
+      <a class="row rv" href="#things">
+        <span class="no">05</span>
+        <span>
+          <span class="nm">持ちもの</span>
+          <span class="ds m">15点 ／ 4分類</span>
+        </span>
+        <span class="go">below ↓</span>
+      </a>
+
+      <a class="row rv" href="e-work.html">
+        <span class="no">06</span>
+        <span>
+          <span class="nm">お仕事</span>
+          <span class="ds">ねとらぼ（ITmedia）に記事化・Yahoo!ニュース配信</span>
+        </span>
+        <span class="go">open →</span>
+      </a>
+    </div>
+    <p class="foot-note rv">数値は YouTube Data API 実測（<span class="m">2026.08.09</span> 時点）。登録者数はYouTubeの仕様により概数で表示されます。</p>
+  </section>
+
+  <!-- かばん。5種のかばん本体を写した実写が1枚も無いので、写真は置かず字で持たせる -->
+  <section class="sec" id="bags">
+    <header class="sh rv">
+      <h2>かばん</h2>
+      <span class="lb">bags</span>
+    </header>
+    <p class="lead rv">回ごとの中身は、それぞれのページに。日付は動画を公開した日。</p>
+
+    <div class="rows" style="margin-top:var(--s4)">
+      <a class="row bag rv" href="bags/backpack-t77.html">
+        <span class="no">01</span>
+        <span>
+          <span class="nm"><b>tomtoc アーバンEX T77</b></span>
+          <span class="ds m">2026.08.02</span>
+        </span>
+        <span class="go">中身 →</span>
+      </a>
+      <a class="row bag rv" href="bags/sling-t21.html">
+        <span class="no">02</span>
+        <span>
+          <span class="nm"><b>tomtoc Explorer T21</b></span>
+          <span class="ds m">2026.07.31</span>
+        </span>
+        <span class="go">中身 →</span>
+      </a>
+      <a class="row bag rv" href="bags/ipadmini.html">
+        <span class="no">03</span>
+        <span>
+          <span class="nm"><b>2wayバッグ｜iPad mini編</b></span>
+          <span class="ds m">2026.05.24</span>
+        </span>
+        <span class="go">中身 →</span>
+      </a>
+      <a class="row bag rv" href="bags/dokusho-2.html">
+        <span class="no">04</span>
+        <span>
+          <span class="nm"><b>読書かばん その２</b></span>
+          <span class="ds m">2026.05.17</span>
+        </span>
+        <span class="go">中身 →</span>
+      </a>
+      <a class="row bag rv" href="bags/dokusho.html">
+        <span class="no">05</span>
+        <span>
+          <span class="nm"><b>読書かばん</b></span>
+          <span class="ds m">2026.04.19</span>
+        </span>
+        <span class="go">中身 →</span>
+      </a>
+    </div>
+
+    <div class="duo rv">
+      <figure class="fig grain" style="margin-top:0">
+        <img src="../assets/photos/real/mood-books.jpg" width="1600" height="900" loading="lazy" decoding="async"
+             alt="書店の入口の発光サイン">
+        <figcaption>読書かばんを持って出た日</figcaption>
+        <p class="data">2026.05.16 ／ ZV-1</p>
+      </figure>
+      <figure class="fig grain" style="margin-top:0">
+        <img src="../assets/photos/real/room-shelf.jpg" width="1000" height="1000" loading="lazy" decoding="async"
+             alt="壁付けの棚に香水と本とディフューザーが並んでいるところ">
+        <figcaption>棚の上</figcaption>
+        <p class="data">2023.01 ／ ZV-1</p>
+      </figure>
+    </div>
+  </section>
+
+  <!-- 持ちもの -->
+  <section class="sec" id="things">
+    <header class="sh rv">
+      <h2>持ちもの</h2>
+      <span class="lb">things</span>
+    </header>
+    <p class="lead rv">動画で紹介して、そのまま日常に残ったものだけ。日付は、その道具を動画で紹介した月。</p>
+
+    <div class="chips rv">
+      <span class="chip">かばんまわり<em>3</em></span>
+      <span class="chip">手で書くための道具<em>4</em></span>
+      <span class="chip">持ち歩く机<em>4</em></span>
+      <span class="chip">腰まわり<em>4</em></span>
+    </div>
+
+    <figure class="fig fig-w rv grain">
+      <img src="../assets/photos/real/item-tray.jpg" width="800" height="800" loading="lazy" decoding="async"
+           alt="机の上のトレイに収めた小物一式">
+      <figcaption>机の上のトレイ。持ち出すものはここから選んでいる。</figcaption>
+      <p class="data">2026.03 ／ ZV-1</p>
+    </figure>
+
+    <div class="two">
+      <a class="th rv" href="https://jp.daisonet.com/products/4550480558981" target="_blank" rel="noopener"><span class="br">StandardProducts</span><span class="nm">スマホショルダー（BL）</span></a>
+      <a class="th rv" href="https://amzn.to/4faOrDB" target="_blank" rel="noopener"><span class="br">DELFONICS</span><span class="nm">ロルバーン ポケット付メモ ミニ</span></a>
+      <a class="th rv" href="https://amzn.to/4nVNm4H" target="_blank" rel="noopener"><span class="br">Apple</span><span class="nm">iPad mini（第6世代）</span></a>
+      <a class="th rv" href="https://amzn.to/4tEPK0Y" target="_blank" rel="noopener"><span class="br">パイロット</span><span class="nm">ジュースアップ4 0.4</span></a>
+      <a class="th rv" href="https://amzn.to/4aIvJzU" target="_blank" rel="noopener"><span class="br">Loop</span><span class="nm">Experience 2（耳栓）</span></a>
+      <a class="th rv" href="https://amzn.to/3Szplon" target="_blank" rel="noopener"><span class="br">TISUR</span><span class="nm">チタン キーホルダー ベルトクリップ</span></a>
+    </div>
+
+    <p class="more rv"><a class="link" href="e-rooms.html#mochimono">全 15 点をみる →</a></p>
+    <p class="foot-note rv">※ 商品リンクにはAmazonアソシエイトを含むアフィリエイト広告が含まれます。価格・在庫はリンク先をご確認ください。</p>
+  </section>
+
+  <!-- お仕事 -->
+  <section class="work rv">
+    <div>
+      <h2>お仕事のご相談</h2>
+      <p>動画／note記事での紹介。メディア掲載：ねとらぼ（ITmedia）・Yahoo!ニュース配信</p>
+    </div>
+    <a class="link" href="e-work.html">contact →</a>
+  </section>
+
+  <footer class="ft">
+    <p class="c">© 2026 4.5room</p>
+    <nav>
+      <a href="https://www.youtube.com/@4.5room" target="_blank" rel="noopener">YouTube</a>
+      <a href="https://www.youtube.com/channel/UCtpqTOuTy5gK_2UZzgikizQ" target="_blank" rel="noopener">Lab</a>
+      <a href="https://note.com/4_5room/" target="_blank" rel="noopener">note</a>
+      <a href="https://www.instagram.com/4.5room_atelier/" target="_blank" rel="noopener">Instagram</a>
+      <a href="mailto:4.5roomsrice@gmail.com">mail</a>
+    </nav>
+  </footer>
+
+</div>
+
+<script>
+(function () {
+  try {
+    if (!('IntersectionObserver' in window)) { throw new Error('unsupported'); }
+    var io = new IntersectionObserver(function (es) {
+      for (var i = 0; i < es.length; i++) {
+        if (es[i].isIntersecting) { es[i].target.classList.add('in'); io.unobserve(es[i].target); }
+      }
+    }, { rootMargin: '0px 0px -6% 0px', threshold: .01 });
+    var rvs = document.querySelectorAll('.rv');
+    for (var i = 0; i < rvs.length; i++) { io.observe(rvs[i]); }
+  } catch (e) {
+    document.documentElement.className = document.documentElement.className.replace(' js-rv', '');
+  }
+}());
+</script>
+
+</body>
+</html>
