@@ -1,0 +1,27 @@
+{
+  "_comment": "YouTube Data API の実測値（Lab）。管理画面の「最新を取得」で再生成する。手で編集しない。",
+  "measured_at": "2026-08-11",
+  "id": "UCtpqTOuTy5gK_2UZzgikizQ",
+  "title": "4.5Lab",
+  "url": "https://www.youtube.com/channel/UCtpqTOuTy5gK_2UZzgikizQ",
+  "subscribers": 699,
+  "videos": 19,
+  "opened": "2023-03",
+  "latest": [
+    {
+      "id": "f6kiRRRXdw8",
+      "title": "【い】日本で23番目くらいに雑なデスクツアー｜2026/07/09",
+      "published": "2026-07-08"
+    },
+    {
+      "id": "6QFbBJ_5lCY",
+      "title": "【ゆる回】最近買った\"ちょっと変なもの\"5つ紹介します",
+      "published": "2026-05-01"
+    },
+    {
+      "id": "Ga_OY9ACorA",
+      "title": "情報皆無 Vlog｜TGS 2025",
+      "published": "2026-02-07"
+    }
+  ]
+}
