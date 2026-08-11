@@ -1,254 +1,220 @@
 /* ==========================================================================
    4.5room — かばんの中身ページ 共通スタイル
-   e-rooms.html の設計をそのまま持ってきている。
-   色は 白・墨・中間・淡 の4色のみ。border／box-shadow／border-radius／
-   gradient は使わない。階層は余白と文字サイズだけで作る。
-   明朝を使うのは、かばんの名前の行だけ。
+
+   トップ（i-light.html）と同じ系に揃えたもの。変えたのは3点。
+     1. 暗色（#0E0E10）から明色（#F3F3F1）へ。トップに合わせる
+     2. General Sans をやめて PT Sans Narrow / PT Mono を自前ホスト
+        （General Sans の ITF ライセンス §02 が公開サーバへの設置を禁じている）
+     3. 写真の参照を全部外した。載っていた10枚は全部YouTube動画から抜いた
+        フレームで、本人から却下されている。差し替えが用意できるまで置かない
+        （README決めごと2「写真はその品を写したものがある場合だけ」）
+
+   決めごとはトップと同じ。
+     - 純黒・純白を使わない。二次テキストは #5C5B59（紙上6.7:1）が下限
+     - 角丸0・影なし・グラデーションなし。構造はヘアラインと余白だけ
+     - クリックできるものは44px以上、隣り合う的の間は8px以上
+     - 余白は8px格子だけ
+     - 写真の上に文字を置かない
    ========================================================================== */
 
 @font-face{
-  font-family:"General Sans";
-  src:url("../fonts/GeneralSans-Medium.woff2") format("woff2");
-  font-weight:500;font-style:normal;font-display:swap;
+  font-family:"PT Sans Narrow";
+  src:url("../../assets/fonts/PTSansNarrow-Regular.woff") format("woff");
+  font-weight:400;font-style:normal;font-display:swap;
 }
 @font-face{
-  font-family:"General Sans";
-  src:url("../fonts/GeneralSans-Semibold.woff2") format("woff2");
-  font-weight:600;font-style:normal;font-display:swap;
+  font-family:"PT Sans Narrow";
+  src:url("../../assets/fonts/PTSansNarrow-Bold.woff") format("woff");
+  font-weight:700;font-style:normal;font-display:swap;
+}
+@font-face{
+  font-family:"PT Mono";
+  src:url("../../assets/fonts/PTMono-Regular.woff") format("woff");
+  font-weight:400;font-style:normal;font-display:swap;
 }
 
 :root{
-  /* 暗室。e-rooms と同じ値を使う（片方だけ変えないこと）。 */
-  --paper:#0E0E10;
-  --ink:#EFEDE9;   /* 紙に対して 16.8:1 */
-  --mid:#9C9CA4;   /* 紙に対して  7.3:1 — 本文・ラベルはここまでで止める */
-  --pale:#63636B;  /* 紙に対して  2.9:1 — 文字には使わない */
-  --line:rgba(239,237,233,.16);
+  --paper:#F3F3F1;
+  --ink:#1A1A1A;     /* 紙に対して 15.3:1 */
+  --mid:#5C5B59;     /* 6.7:1 — 二次テキストの下限 */
+  --faint:#A8A7A3;   /* 2.4:1 — 文字には使わない。罫と番号だけ */
+  --line:#E0E0DC;
+  --line-s:#C9C9C4;
 
+  --sans:"PT Sans Narrow","Hiragino Sans","Hiragino Kaku Gothic ProN",sans-serif;
   --jp:"Hiragino Sans","Hiragino Kaku Gothic ProN","Noto Sans JP",sans-serif;
-  --mc:"Hiragino Mincho ProN","Yu Mincho",serif;
-  --disp:"General Sans","Helvetica Neue",Arial,sans-serif;
+  --mono:"PT Mono",ui-monospace,Menlo,monospace;
 
   --s1:8px; --s2:16px; --s3:24px; --s4:40px;
-  --s5:64px; --s6:104px; --s7:168px; --s8:240px;
+  --s5:64px; --s6:104px; --s7:168px;
 
-  --ease:cubic-bezier(0.16,1,0.3,1);
+  --tap:44px;
+  --rail:1120px;
+  --ease:cubic-bezier(.16,1,.3,1);
 }
 
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-
 html{scroll-behavior:smooth}
-
 body{
-  background:var(--paper);
-  color:var(--ink);
-  font-family:var(--jp);
-  font-weight:400;
-  font-size:15px;
-  line-height:1.95;
-  letter-spacing:.02em;
-  font-variant-numeric:tabular-nums;
-  font-feature-settings:"palt" 1,"tnum" 1;
-  -webkit-font-smoothing:antialiased;
-  -moz-osx-font-smoothing:grayscale;
+  background:var(--paper);color:var(--ink);
+  font-family:var(--jp);font-weight:400;font-size:16px;
+  line-height:1.75;letter-spacing:.04em;
+  font-feature-settings:"palt" 1;
+  -webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;
   overflow-wrap:anywhere;
 }
-
-ul,ol{list-style:none}
+ul{list-style:none}
 a{color:inherit;text-decoration:none}
 a:focus{outline:none}
-a:focus-visible{outline:2px solid var(--ink);outline-offset:3px}
-
-/* width/height 属性は読み込み中の場所取りのため。実寸は幅に合わせる。 */
+a:focus-visible{outline:2px solid var(--ink);outline-offset:2px}
+/* width/height 属性は読み込み中の場所取り。実寸は幅に合わせる */
 img{display:block;max-width:100%;height:auto}
 
-.wrap{max-width:1240px;margin:0 auto;padding:0 var(--s5)}
-
-.num{
-  font-family:var(--disp);
-  font-weight:500;
-  font-variant-numeric:tabular-nums;
-  letter-spacing:-.01em;
-}
-
-/* 英字マイクロラベル（小文字・10px・字間0.22em） */
-.ml{
-  font-family:var(--disp);
-  font-weight:500;
-  font-size:10px;
-  line-height:1.7;
-  letter-spacing:.22em;
-  text-transform:lowercase;
-  color:var(--mid);
-  font-variant-numeric:tabular-nums;
-}
-
-/* テキストリンク：下線が左から伸びる */
-.ln{position:relative;display:inline-block;color:var(--ink)}
-.ln::after{
-  content:"";position:absolute;left:0;bottom:.04em;
-  width:100%;height:1px;background:currentColor;
-  transform:scaleX(0);transform-origin:left;
-  transition:transform .3s var(--ease);
-}
-.ln:hover::after,.ln:focus-visible::after{transform:scaleX(1)}
+.wrap{max-width:var(--rail);margin:0 auto;padding:0 var(--s3)}
+.m{font-family:var(--mono);font-variant-numeric:tabular-nums}
 
 /* ==========================================================================
-   ページ頭（帰り道と、かばんの名前）
+   ヘッダー
+   ロゴは小さく置くので、中抜きではなく塗り（84pxでは線が0.87pxまで細るため）
    ========================================================================== */
-.top{padding:var(--s4) 0 0}
-.top .back{font-size:12px;color:var(--mid);transition:color .3s var(--ease)}
-.top .back:hover,.top .back:focus-visible{color:var(--ink)}
+.hd{display:flex;align-items:center;justify-content:space-between;gap:var(--s3);padding:var(--s2) 0}
+.logo{display:inline-flex;align-items:center;gap:12px;min-height:var(--tap);color:var(--ink)}
+.logo .ico{width:22px;height:22px;flex:0 0 auto}
+.logo .word{width:84px;height:auto}
+.mark{display:block;width:100%;height:auto}
+.back{
+  display:inline-flex;align-items:center;min-height:var(--tap);padding:0 12px;
+  font-size:14px;letter-spacing:.08em;color:var(--mid);
+  transition:color .3s var(--ease);
+}
+.back:hover,.back:focus-visible{color:var(--ink)}
 
 /* ==========================================================================
-   写真
-   本編の動画から起こしたもの。撮って出しのトーンをそのまま出す
-   （CSS filter は掛けない）。加工しない代わりに、置く場所と比率で効かせる。
-   シネスコ（2.39:1）で抜く。元の映像がその比なので、ほとんど切らずに収まる。
+   扉
    ========================================================================== */
-.ph-w,.ph-m{position:relative;overflow:hidden;aspect-ratio:2.39/1}
-.ph-w img,.ph-m img{width:100%;height:100%;object-fit:cover}
-.ph-w{margin-top:var(--s3)}
-.ph-m{margin-top:var(--s7)}
-
-/* 扉。かばんの名前だけを大きく置き、説明は左半分に収める。 */
-.bh{padding:var(--s5) 0 0}
+.bh{padding:var(--s5) 0 0;border-top:1px solid var(--line-s);margin-top:var(--s1)}
+.bh .lb{font-family:var(--mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--mid)}
 .bh-j{
-  font-family:var(--mc);
-  font-weight:300;
-  letter-spacing:.1em;
-  font-size:clamp(32px,4.4vw,56px);
-  line-height:1.28;
+  font-family:var(--sans);font-weight:700;
+  font-size:clamp(28px,4vw,44px);line-height:1.2;letter-spacing:.02em;
   margin-top:var(--s2);
 }
-.bh .lead{margin-top:var(--s4);font-size:14px;line-height:2.1;color:var(--mid);max-width:34em}
-.bh .src{margin-top:var(--s3);font-size:12px;letter-spacing:.08em}
+.bh .lead{margin-top:var(--s3);font-size:14px;line-height:1.9;color:var(--mid);max-width:44em}
+.bh .src{margin-top:var(--s3)}
+.link{
+  display:inline-flex;align-items:center;min-height:var(--tap);
+  font-family:var(--mono);font-size:12px;letter-spacing:.14em;
+  border-bottom:1px solid var(--ink);
+  transition:opacity .3s var(--ease);
+}
+.link:hover,.link:focus-visible{opacity:.55}
 
 /* ==========================================================================
-   中身のリスト
-   1点＝1行、行ぜんぶがリンク。カードにも枠にもしない。
-   紙面の目録に倣って2段組にする（1段だと品名と ↗ が離れて間延びする）。
-   段は上から下へ流れる（multicol）。読む順が列をまたがない。
+   中身の目録
+   1点＝1行、行ぜんぶがリンク。箱で囲わず、ヘアラインと余白で区切る。
+   紙面の目録に倣って2段組（1段だと品名の右が大きく空く）。
+   段は上から下へ流れる（multicol）ので、読む順が列をまたがない。
    ========================================================================== */
-.blk{
-  margin-top:var(--s6);
-  columns:2;
-  column-gap:var(--s7);
-}
-.blk > .g-name{column-span:all}
-/* 分類名。和文なので大文字化は効かない。字間だけ広げて小さく置く。 */
+.blk{margin-top:var(--s6)}
 .g-name{
-  font-size:11px;
-  font-weight:600;
-  letter-spacing:.2em;
-  color:var(--mid);
-  margin-bottom:var(--s3);
+  font-size:11px;font-weight:700;letter-spacing:.2em;color:var(--mid);
+  padding-bottom:var(--s2);border-bottom:1px solid var(--line-s);
 }
+.items{columns:2;column-gap:var(--s5);margin-top:var(--s1)}
 
 .it{
   break-inside:avoid;
-  display:grid;
-  grid-template-columns:2.4rem minmax(0,1fr);
-  gap:0 var(--s2);
-  align-items:baseline;
-  padding:var(--s2) 0 var(--s3);
+  display:grid;grid-template-columns:2.4rem minmax(0,1fr);
+  gap:0 var(--s2);align-items:baseline;
+  min-height:var(--tap);padding:var(--s2) 0;
+  border-bottom:1px solid var(--line);
   color:var(--ink);
 }
-/* hover は中の字に掛ける。行そのものは .rv の opacity を使っているので触らない。 */
-.i-no,.i-tx{transition:opacity .4s var(--ease)}
+.i-no,.i-tx{transition:opacity .3s var(--ease)}
 .it:hover .i-no,.it:hover .i-tx,
-.it:focus-visible .i-no,.it:focus-visible .i-tx{opacity:.45}
-.i-no{font-size:10px;letter-spacing:.1em;color:var(--mid)}
+.it:focus-visible .i-no,.it:focus-visible .i-tx{opacity:.5}
+.i-no{font-family:var(--mono);font-size:11px;letter-spacing:.1em;color:var(--faint)}
 .i-tx{display:block;min-width:0}
-.i-br{display:block;font-size:10px;line-height:1.9;letter-spacing:.2em;color:var(--mid)}
-.i-nm{display:block;font-size:15px;line-height:1.75}
-.i-lk{margin-left:.6em;font-size:11px;color:var(--mid)}
-.i-note{display:block;margin-top:var(--s1);font-size:11px;line-height:1.8;color:var(--mid)}
+.i-br{display:block;font-size:12px;line-height:1.7;letter-spacing:.06em;color:var(--mid)}
+.i-nm{display:block;font-size:16px;line-height:1.6}
+.i-lk{margin-left:.5em;font-family:var(--mono);font-size:11px;color:var(--mid)}
+.i-note{display:block;margin-top:var(--s1);font-size:13px;line-height:1.8;color:var(--mid)}
 
 /* ==========================================================================
-   もくじ（動画の章立て。時間は動画側の事実なのでそのまま置く）
+   もくじ（動画の章立て）
    ========================================================================== */
 .chap{
   break-inside:avoid;
   display:grid;grid-template-columns:4.5rem minmax(0,1fr);
-  gap:0 var(--s2);padding:var(--s1) 0;
+  gap:0 var(--s2);
+  min-height:var(--tap);padding:var(--s2) 0;
+  border-bottom:1px solid var(--line);
+  align-items:baseline;
 }
-.chap .t,.chap .n{transition:color .4s var(--ease)}
-.chap:hover .n,.chap:focus-visible .n{color:var(--ink)}
-.chap .t{font-family:var(--disp);font-weight:500;font-size:11px;color:var(--mid);font-variant-numeric:tabular-nums}
-.chap .n{font-size:13px;color:var(--mid)}
+.chap .t,.chap .n{transition:opacity .3s var(--ease)}
+.chap:hover .t,.chap:hover .n,.chap:focus-visible .t,.chap:focus-visible .n{opacity:.5}
+.chap .t{font-family:var(--mono);font-size:12px;color:var(--mid);font-variant-numeric:tabular-nums}
+.chap .n{font-size:14px;line-height:1.6}
 
-.note-s{margin-top:var(--s5);font-size:11px;line-height:1.7;color:var(--mid);max-width:52em}
+.note-s{margin-top:var(--s3);font-size:13px;line-height:1.8;color:var(--mid);max-width:56em}
 
 /* ==========================================================================
-   ほかのかばん — 横に4本並べる（次に開くものを一望させる）
+   ほかのかばん
    ========================================================================== */
-.other{
-  margin-top:var(--s7);
-  display:grid;
-  grid-template-columns:repeat(4,minmax(0,1fr));
-  column-gap:var(--s4);
-}
-.other > .g-name{grid-column:1 / -1}
+.other{margin-top:var(--s6)}
+.other .rows{margin-top:var(--s1)}
 .other .row{
-  display:block;
-  padding:var(--s2) 0;
-  color:var(--ink);
+  display:grid;grid-template-columns:6rem minmax(0,1fr);
+  gap:0 var(--s3);align-items:baseline;
+  min-height:var(--tap);padding:var(--s2) 0;
+  border-bottom:1px solid var(--line);
+  transition:background .3s var(--ease),padding-left .3s var(--ease);
 }
-.other .d,.other .tt{transition:opacity .4s var(--ease)}
-.other .row:hover .d,.other .row:hover .tt,
-.other .row:focus-visible .d,.other .row:focus-visible .tt{opacity:.45}
-.other .d{display:block;font-family:var(--disp);font-weight:500;font-size:10px;letter-spacing:.1em;color:var(--mid);font-variant-numeric:tabular-nums}
-.other .tt{font-size:14px}
+.other .row:hover,.other .row:focus-visible{background:#EAEAE7;padding-left:var(--s1)}
+.other .d{font-family:var(--mono);font-size:12px;letter-spacing:.06em;color:var(--mid);font-variant-numeric:tabular-nums}
+.other .tt{font-size:16px;line-height:1.6}
 
 /* ==========================================================================
    奥付
    ========================================================================== */
-.colophon{padding:var(--s7) 0 var(--s6)}
-.colophon .c-c{font-family:var(--disp);font-weight:500;font-size:11px;letter-spacing:.06em;color:var(--mid);font-variant-numeric:tabular-nums}
-.colophon .c-n{margin-top:var(--s2);font-size:13px;color:var(--mid);display:flex;flex-wrap:wrap;gap:0 var(--s3)}
-.colophon .c-n .ln{color:var(--mid)}
-.colophon .c-n .ln:hover{color:var(--ink)}
+.colophon{
+  margin:var(--s6) 0 var(--s4);padding-top:var(--s3);
+  border-top:1px solid var(--line);
+  display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:var(--s1) var(--s3);
+}
+.colophon .c-c{font-family:var(--mono);font-size:11px;letter-spacing:.1em;color:var(--faint)}
+.colophon .c-n{display:flex;flex-wrap:wrap;gap:var(--s1)}
+.colophon .c-n .ln{
+  display:inline-flex;align-items:center;min-height:var(--tap);padding:0 12px;
+  font-size:13px;letter-spacing:.06em;color:var(--mid);
+  transition:color .3s var(--ease);
+}
+.colophon .c-n .ln:hover,.colophon .c-n .ln:focus-visible{color:var(--ink)}
 
 /* ==========================================================================
-   モーション（.rv を隠すのは js-rv が付いたときだけ。JS無効なら全文が出る）
+   出現
    ========================================================================== */
-.js-rv body{opacity:0}
-.js-rv body.ready{opacity:1;transition:opacity .6s var(--ease)}
-
-.js-rv .rv{opacity:0;transform:translateY(8px)}
+.js-rv .rv{opacity:0;transform:translateY(6px)}
 .js-rv .rv.in{
   opacity:1;transform:none;
-  transition:opacity 1.15s var(--ease),transform 1.15s var(--ease);
-  transition-delay:calc(var(--i,0) * 90ms);
+  transition:opacity 1s var(--ease),transform 1s var(--ease);
+  transition-delay:calc(var(--i,0) * 70ms);
 }
-
 @media (prefers-reduced-motion: reduce){
   html{scroll-behavior:auto}
-  *,*::before,*::after{
-    animation-duration:.001ms!important;
-    animation-delay:0ms!important;
-    animation-iteration-count:1!important;
-    transition-duration:.001ms!important;
-    transition-delay:0ms!important;
-  }
-  .js-rv body{opacity:1!important}
+  *,*::before,*::after{transition-duration:.001ms!important;transition-delay:0ms!important}
   .js-rv .rv{opacity:1!important;transform:none!important}
 }
 
 /* ==========================================================================
-   レスポンシブ（390px）
+   760px 以下
    ========================================================================== */
-@media (max-width:900px){
+@media (max-width:760px){
   /* 幅が足りないので目録は1段に戻す */
-  .blk{columns:1}
-  .other{grid-template-columns:repeat(2,minmax(0,1fr))}
-}
-@media (max-width:640px){
-  .wrap{padding:0 var(--s3)}
-  .bh{padding-top:var(--s5)}
+  .items{columns:1}
   .blk{margin-top:var(--s5)}
-  .other{margin-top:var(--s6);grid-template-columns:minmax(0,1fr)}
-  .colophon{padding:var(--s6) 0 var(--s5)}
+  .other{margin-top:var(--s5)}
+  .other .row{grid-template-columns:minmax(0,1fr);gap:2px}
   .chap{grid-template-columns:4rem minmax(0,1fr)}
+  .bh{padding-top:var(--s4)}
 }
