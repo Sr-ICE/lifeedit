@@ -1,10 +1,10 @@
 {
   "_comment": "YouTube Data API の実測値（Lab）。管理画面の「最新を取得」で再生成する。手で編集しない。",
-  "measured_at": "2026-08-09",
+  "measured_at": "2026-08-11",
   "id": "UCtpqTOuTy5gK_2UZzgikizQ",
   "title": "4.5Lab",
   "url": "https://www.youtube.com/channel/UCtpqTOuTy5gK_2UZzgikizQ",
-  "subscribers": 690,
+  "subscribers": 699,
   "videos": 19,
   "opened": "2023-03",
   "latest": [

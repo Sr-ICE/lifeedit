@@ -1,17 +1,22 @@
 /* ==========================================================================
    4.5room — かばんの中身ページ 共通スタイル
 
-   トップ（i-light.html）と同じ系に揃えたもの。変えたのは3点。
-     1. 暗色（#0E0E10）から明色（#F3F3F1）へ。トップに合わせる
-     2. General Sans をやめて PT Sans Narrow / PT Mono を自前ホスト
-        （General Sans の ITF ライセンス §02 が公開サーバへの設置を禁じている）
-     3. 写真の参照を全部外した。載っていた10枚は全部YouTube動画から抜いた
-        フレームで、本人から却下されている。差し替えが用意できるまで置かない
-        （README決めごと2「写真はその品を写したものがある場合だけ」）
+   トップ（j-light.html）と同じ系に揃えたもの。前回（i-light 準拠）から
+   変えたのは4点。
+     1. 地を #F3F3F1 から純白 #FFFFFF へ。灰は純灰にせず、琥珀（色相30°付近）
+        の方へわずかに寄せてある ── 純白＋純灰は「選んでいない色」に見えるので
+     2. 塗りの面（--fill）と角丸（--r:16px）を導入。トップの「かばん」節と
+        同じカードを、このページの「ほかのかばん」でもそのまま使う
+     3. 琥珀 #8B5918 を1色だけの差し色に。番号・日付・ホバーで使う。
+        ただし塗りの面か紙の上でのみ（写真の上に置くと沈む）
+     4. 行のホバーは、地の面をレールの外へ8pxはみ出させる。
+        文字の左端は動かさない（padding を動かすと行が揺れる）
+
+   写真は1枚も置いていない。5種のかばん本体を写した実写が無いため
+   （README決めごと2「写真はその品を写したものがある場合だけ」）。
 
    決めごとはトップと同じ。
-     - 純黒・純白を使わない。二次テキストは #5C5B59（紙上6.7:1）が下限
-     - 角丸0・影なし・グラデーションなし。構造はヘアラインと余白だけ
+     - 二次テキストは #5E5A54（紙上6.8:1）が下限。--faint は罫と番号だけ
      - クリックできるものは44px以上、隣り合う的の間は8px以上
      - 余白は8px格子だけ
      - 写真の上に文字を置かない
@@ -34,12 +39,16 @@
 }
 
 :root{
-  --paper:#F3F3F1;
-  --ink:#1A1A1A;     /* 紙に対して 15.3:1 */
-  --mid:#5C5B59;     /* 6.7:1 — 二次テキストの下限 */
-  --faint:#A8A7A3;   /* 2.4:1 — 文字には使わない。罫と番号だけ */
-  --line:#E0E0DC;
-  --line-s:#C9C9C4;
+  /* 実測コントラスト（紙上 ／ 塗りの面上） */
+  --paper:#FFFFFF;
+  --fill:#F5F3F0;    /* 塗りの面。紙との差 1.11:1 */
+  --fill-2:#EDEAE5;
+  --ink:#14120F;     /* 18.7:1 ／ 16.9:1 */
+  --mid:#5E5A54;     /*  6.8:1 ／  6.2:1 — 二次テキストの下限 */
+  --faint:#B2ADA5;   /*  2.2:1 ／  2.0:1 — 文字には使わない。罫と番号だけ */
+  --line:#E9E6E1;
+  --line-s:#D3CFC8;
+  --amber:#8B5918;   /*  5.9:1 ／  5.4:1 — 唯一の色 */
 
   --sans:"PT Sans Narrow","Hiragino Sans","Hiragino Kaku Gothic ProN",sans-serif;
   --jp:"Hiragino Sans","Hiragino Kaku Gothic ProN","Noto Sans JP",sans-serif;
@@ -48,6 +57,7 @@
   --s1:8px; --s2:16px; --s3:24px; --s4:40px;
   --s5:64px; --s6:104px; --s7:168px;
 
+  --r:16px;
   --tap:44px;
   --rail:1120px;
   --ease:cubic-bezier(.16,1,.3,1);
@@ -66,7 +76,7 @@ body{
 ul{list-style:none}
 a{color:inherit;text-decoration:none}
 a:focus{outline:none}
-a:focus-visible{outline:2px solid var(--ink);outline-offset:2px}
+a:focus-visible{outline:2px solid var(--ink);outline-offset:3px;border-radius:4px}
 /* width/height 属性は読み込み中の場所取り。実寸は幅に合わせる */
 img{display:block;max-width:100%;height:auto}
 
@@ -78,22 +88,24 @@ img{display:block;max-width:100%;height:auto}
    ロゴは小さく置くので、中抜きではなく塗り（84pxでは線が0.87pxまで細るため）
    ========================================================================== */
 .hd{display:flex;align-items:center;justify-content:space-between;gap:var(--s3);padding:var(--s2) 0}
-.logo{display:inline-flex;align-items:center;gap:12px;min-height:var(--tap);color:var(--ink)}
+.logo{display:inline-flex;align-items:center;gap:var(--s1);min-height:var(--tap);color:var(--ink)}
 .logo .ico{width:22px;height:22px;flex:0 0 auto}
 .logo .word{width:84px;height:auto}
 .mark{display:block;width:100%;height:auto}
 .back{
-  display:inline-flex;align-items:center;min-height:var(--tap);padding:0 12px;
-  font-size:14px;letter-spacing:.08em;color:var(--mid);
-  transition:color .3s var(--ease);
+  display:inline-flex;align-items:center;justify-content:center;
+  min-height:var(--tap);min-width:var(--tap);padding:0 var(--s2);
+  border-radius:99px;font-size:14px;letter-spacing:.08em;color:var(--mid);
+  transition:background .3s var(--ease),color .3s var(--ease);
 }
-.back:hover,.back:focus-visible{color:var(--ink)}
+.back:hover,.back:focus-visible{background:var(--fill);color:var(--ink)}
 
 /* ==========================================================================
    扉
    ========================================================================== */
 .bh{padding:var(--s5) 0 0;border-top:1px solid var(--line-s);margin-top:var(--s1)}
 .bh .lb{font-family:var(--mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--mid)}
+.bh .lb .m{color:var(--amber)}
 .bh-j{
   font-family:var(--sans);font-weight:700;
   font-size:clamp(28px,4vw,44px);line-height:1.2;letter-spacing:.02em;
@@ -101,13 +113,15 @@ img{display:block;max-width:100%;height:auto}
 }
 .bh .lead{margin-top:var(--s3);font-size:14px;line-height:1.9;color:var(--mid);max-width:44em}
 .bh .src{margin-top:var(--s3)}
+/* 動画への導線。トップの .pill と同じ形 */
 .link{
-  display:inline-flex;align-items:center;min-height:var(--tap);
+  display:inline-flex;align-items:center;justify-content:center;
+  min-height:var(--tap);padding:0 var(--s3);
+  border:1px solid var(--line-s);border-radius:99px;
   font-family:var(--mono);font-size:12px;letter-spacing:.14em;
-  border-bottom:1px solid var(--ink);
-  transition:opacity .3s var(--ease);
+  transition:border-color .3s var(--ease),color .3s var(--ease);
 }
-.link:hover,.link:focus-visible{opacity:.55}
+.link:hover,.link:focus-visible{border-color:var(--amber);color:var(--amber)}
 
 /* ==========================================================================
    中身の目録
@@ -117,23 +131,32 @@ img{display:block;max-width:100%;height:auto}
    ========================================================================== */
 .blk{margin-top:var(--s6)}
 .g-name{
-  font-size:11px;font-weight:700;letter-spacing:.2em;color:var(--mid);
+  font-family:var(--mono);font-size:11px;letter-spacing:.14em;color:var(--mid);
   padding-bottom:var(--s2);border-bottom:1px solid var(--line-s);
 }
 .items{columns:2;column-gap:var(--s5);margin-top:var(--s1)}
+/* 1点しかない回（スリングなど）は2段にすると罫が紙の半分で切れる。
+   その場合だけ1段に戻す */
+.items:has(> .it:only-child){columns:1}
 
 .it{
-  break-inside:avoid;
+  break-inside:avoid;position:relative;
   display:grid;grid-template-columns:2.4rem minmax(0,1fr);
   gap:0 var(--s2);align-items:baseline;
   min-height:var(--tap);padding:var(--s2) 0;
   border-bottom:1px solid var(--line);
   color:var(--ink);
 }
-.i-no,.i-tx{transition:opacity .3s var(--ease)}
-.it:hover .i-no,.it:hover .i-tx,
-.it:focus-visible .i-no,.it:focus-visible .i-tx{opacity:.5}
-.i-no{font-family:var(--mono);font-size:11px;letter-spacing:.1em;color:var(--faint)}
+.it > *{position:relative;z-index:1}
+/* 地の面はレールの外へ8pxはみ出させる。文字の左端は動かさない */
+.it::before,.chap::before{
+  content:"";position:absolute;inset:0 calc(var(--s1) * -1);z-index:0;
+  border-radius:10px;background:transparent;transition:background .3s var(--ease);
+}
+.it:hover::before,.it:focus-visible::before{background:var(--fill)}
+.it:hover .i-no,.it:focus-visible .i-no{color:var(--amber)}
+.i-no{font-family:var(--mono);font-size:11px;letter-spacing:.1em;color:var(--faint);
+  transition:color .3s var(--ease)}
 .i-tx{display:block;min-width:0}
 .i-br{display:block;font-size:12px;line-height:1.7;letter-spacing:.06em;color:var(--mid)}
 .i-nm{display:block;font-size:16px;line-height:1.6}
@@ -144,52 +167,63 @@ img{display:block;max-width:100%;height:auto}
    もくじ（動画の章立て）
    ========================================================================== */
 .chap{
-  break-inside:avoid;
+  break-inside:avoid;position:relative;
   display:grid;grid-template-columns:4.5rem minmax(0,1fr);
   gap:0 var(--s2);
   min-height:var(--tap);padding:var(--s2) 0;
   border-bottom:1px solid var(--line);
   align-items:baseline;
 }
-.chap .t,.chap .n{transition:opacity .3s var(--ease)}
-.chap:hover .t,.chap:hover .n,.chap:focus-visible .t,.chap:focus-visible .n{opacity:.5}
-.chap .t{font-family:var(--mono);font-size:12px;color:var(--mid);font-variant-numeric:tabular-nums}
+.chap > *{position:relative;z-index:1}
+.chap:hover::before,.chap:focus-visible::before{background:var(--fill)}
+.chap .t{font-family:var(--mono);font-size:12px;color:var(--mid);font-variant-numeric:tabular-nums;
+  transition:color .3s var(--ease)}
+.chap:hover .t,.chap:focus-visible .t{color:var(--amber)}
 .chap .n{font-size:14px;line-height:1.6}
 
 .note-s{margin-top:var(--s3);font-size:13px;line-height:1.8;color:var(--mid);max-width:56em}
+/* 文中のリンクは44pxにできない（行が壊れる）。WCAG 2.5.8 も文中は例外。
+   代わりに下線を出して、触れると琥珀に変える */
+.note-s .ln{border-bottom:1px solid var(--line-s);transition:color .3s var(--ease),border-color .3s var(--ease)}
+.note-s .ln:hover,.note-s .ln:focus-visible{color:var(--amber);border-color:var(--amber)}
 
 /* ==========================================================================
    ほかのかばん
+   トップの「かばん」節とまったく同じカード。同じものは同じ形で出す。
    ========================================================================== */
 .other{margin-top:var(--s6)}
-.other .rows{margin-top:var(--s1)}
-.other .row{
-  display:grid;grid-template-columns:6rem minmax(0,1fr);
-  gap:0 var(--s3);align-items:baseline;
-  min-height:var(--tap);padding:var(--s2) 0;
-  border-bottom:1px solid var(--line);
-  transition:background .3s var(--ease),padding-left .3s var(--ease);
+.cards{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:var(--s2);margin-top:var(--s3)}
+.card{
+  display:flex;flex-direction:column;gap:var(--s2);
+  min-height:var(--tap);padding:var(--s3);
+  background:var(--fill);border:1px solid var(--line-s);border-radius:var(--r);
+  transition:background .3s var(--ease),border-color .3s var(--ease);
 }
-.other .row:hover,.other .row:focus-visible{background:#EAEAE7;padding-left:var(--s1)}
-.other .d{font-family:var(--mono);font-size:12px;letter-spacing:.06em;color:var(--mid);font-variant-numeric:tabular-nums}
-.other .tt{font-size:16px;line-height:1.6}
+.card:hover,.card:focus-visible{background:var(--fill-2);border-color:var(--amber)}
+.card .no{font-family:var(--mono);font-weight:400;font-size:clamp(34px,3.6vw,44px);
+  line-height:1;letter-spacing:.02em;color:var(--faint);transition:color .3s var(--ease)}
+.card:hover .no,.card:focus-visible .no{color:var(--amber)}
+.card .tt{font-family:var(--sans);font-weight:700;font-size:19px;line-height:1.35;letter-spacing:.02em}
+.card .foot{margin-top:auto;display:flex;align-items:center;justify-content:space-between;gap:var(--s2)}
+.card .go{font-family:var(--mono);font-size:11px;letter-spacing:.14em;color:var(--mid)}
+.stamp{font-family:var(--mono);font-size:11px;letter-spacing:.14em;color:var(--amber)}
 
 /* ==========================================================================
    奥付
    ========================================================================== */
-.colophon{
-  margin:var(--s6) 0 var(--s4);padding-top:var(--s3);
+.colophon .wrap{
+  margin:var(--s6) auto var(--s4);padding-top:var(--s3);
   border-top:1px solid var(--line);
   display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:var(--s1) var(--s3);
 }
 .colophon .c-c{font-family:var(--mono);font-size:11px;letter-spacing:.1em;color:var(--faint)}
 .colophon .c-n{display:flex;flex-wrap:wrap;gap:var(--s1)}
 .colophon .c-n .ln{
-  display:inline-flex;align-items:center;min-height:var(--tap);padding:0 12px;
-  font-size:13px;letter-spacing:.06em;color:var(--mid);
-  transition:color .3s var(--ease);
+  display:inline-flex;align-items:center;min-height:var(--tap);padding:0 var(--s2);
+  border-radius:99px;font-size:13px;letter-spacing:.06em;color:var(--mid);
+  transition:background .3s var(--ease),color .3s var(--ease);
 }
-.colophon .c-n .ln:hover,.colophon .c-n .ln:focus-visible{color:var(--ink)}
+.colophon .c-n .ln:hover,.colophon .c-n .ln:focus-visible{background:var(--fill);color:var(--ink)}
 
 /* ==========================================================================
    出現
@@ -214,7 +248,7 @@ img{display:block;max-width:100%;height:auto}
   .items{columns:1}
   .blk{margin-top:var(--s5)}
   .other{margin-top:var(--s5)}
-  .other .row{grid-template-columns:minmax(0,1fr);gap:2px}
+  .cards{grid-template-columns:minmax(0,1fr)}
   .chap{grid-template-columns:4rem minmax(0,1fr)}
   .bh{padding-top:var(--s4)}
 }
