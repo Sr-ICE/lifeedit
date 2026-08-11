@@ -4,263 +4,638 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>について・お仕事のご相談｜4.5room</title>
-<meta name="description" content="4.5roomのチャンネル紹介と実績（登録者数・再生数はYouTube Data APIの実測値）。製品のご紹介・タイアップのご相談はメールで承っています。">
+<meta name="description" content="4.5room（よんてんごルーム）について。チャンネルの数字、メディア掲載、お受けできるお仕事の種類とご相談の窓口。">
 <link rel="canonical" href="https://4-5room.com/about.html">
 <meta property="og:site_name" content="4.5room">
 <meta property="og:title" content="について・お仕事のご相談｜4.5room">
-<meta property="og:description" content="4.5roomのチャンネル紹介と実績、お受けできる形式、ご相談先。">
-<meta property="og:type" content="profile">
+<meta property="og:description" content="チャンネルの数字、メディア掲載、お受けできるお仕事の種類とご相談の窓口。">
+<meta property="og:type" content="website">
 <meta property="og:url" content="https://4-5room.com/about.html">
-<meta property="og:image" content="https://4-5room.com/assets/photos/hero-wide.jpg">
+<meta property="og:image" content="https://4-5room.com/assets/photos/og.jpg">
 <meta name="twitter:card" content="summary_large_image">
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' fill='%23fefefd'/%3E%3Ctext x='32' y='42' font-family='Helvetica,Arial,sans-serif' font-size='23' font-weight='700' fill='%2317171a' text-anchor='middle'%3E4.5%3C/text%3E%3C/svg%3E">
-<link rel="stylesheet" href="assets/site.css">
-<script defer src="assets/site.js"></script>
+<link rel="icon" href="assets/logo/favicon.ico" sizes="32x32">
+<link rel="icon" href="assets/logo/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="assets/logo/apple-touch-icon.png">
+
+<style>
+/* ==========================================================================
+   4.5room — 06 お仕事
+   デザインシステムはトップ（j-light.html）と共通。色・書体・余白スケール・
+   角丸・塗りの面・モーションまで同じものを使う。
+   ここだけ情報密度が高く、文体は敬体。
+   ========================================================================== */
+
+/* --- 欧文・数字用ディスプレイ書体（自前ホスト） ------------------------- */
+@font-face{
+  font-family:"PT Sans Narrow";
+  src:url("assets/fonts/PTSansNarrow-Regular.woff") format("woff");
+  font-weight:400;font-style:normal;font-display:swap;
+}
+@font-face{
+  font-family:"PT Sans Narrow";
+  src:url("assets/fonts/PTSansNarrow-Bold.woff") format("woff");
+  font-weight:700;font-style:normal;font-display:swap;
+}
+@font-face{
+  font-family:"PT Mono";
+  src:url("assets/fonts/PTMono-Regular.woff") format("woff");
+  font-weight:400;font-style:normal;font-display:swap;
+}
+
+:root{
+  /* トップ（j-light.html）と同じ値。片方だけ動かさないこと。
+     地は純白。灰は純灰にせず、琥珀（色相30°付近）の方へわずかに寄せてある。
+     実測コントラストは（紙上 ／ 塗りの面上）。 */
+  --paper:#FFFFFF;
+  --fill:#F5F3F0;  /* 塗りの面。紙との差 1.11:1 */
+  --fill-2:#EDEAE5;
+  --ink:#14120F;   /* 18.7:1 ／ 16.9:1 */
+  --mid:#5E5A54;   /*  6.8:1 ／  6.2:1 — 二次テキストの下限 */
+  --pale:#B2ADA5;  /*  2.2:1 ／  2.0:1 — 文字には使わない。罫と番号だけ */
+  --line:#E9E6E1;
+  --line-s:#D3CFC8;
+  --amber:#8B5918; /*  5.9:1 ／  5.4:1 — 唯一の色 */
+
+  --jp:"Hiragino Sans","Hiragino Kaku Gothic ProN","Noto Sans JP",sans-serif;
+  /* 明朝はやめた。見出しはコンデンス、ラベルと数値は等幅 */
+  --mc:"PT Sans Narrow","Hiragino Sans",sans-serif;
+  --disp:"PT Sans Narrow","Hiragino Sans",sans-serif;
+  --mono:"PT Mono",ui-monospace,Menlo,monospace;
+
+  --s1:8px; --s2:16px; --s3:24px; --s4:40px;
+  --s5:64px; --s6:104px; --s7:168px; --s8:240px;
+
+  --r:16px;
+  --tap:44px;
+  --rail:1120px;
+  --ease:cubic-bezier(0.16,1,0.3,1);
+}
+
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+
+html{scroll-behavior:smooth}
+
+body{
+  background:var(--paper);
+  color:var(--ink);
+  font-family:var(--jp);
+  font-weight:400;
+  font-size:16px;
+  line-height:1.75;
+  letter-spacing:.04em;
+  font-variant-numeric:tabular-nums;
+  font-feature-settings:"palt" 1,"tnum" 1;
+  -webkit-font-smoothing:antialiased;
+  -moz-osx-font-smoothing:grayscale;
+  overflow-wrap:anywhere;
+}
+
+ul,ol{list-style:none}
+a{color:inherit;text-decoration:none}
+a:focus{outline:none}
+a:focus-visible{outline:2px solid var(--ink);outline-offset:3px}
+
+/* --- 共通パーツ ---------------------------------------------------------- */
+.wrap{max-width:var(--rail);margin:0 auto;padding:0 var(--s3)}
+
+.num{
+  font-family:var(--disp);
+  font-weight:500;
+  font-variant-numeric:tabular-nums;
+  letter-spacing:-.01em;
+}
+
+.ml{
+  font-family:var(--mono);
+  font-weight:500;
+  font-size:10px;
+  line-height:1.7;
+  letter-spacing:.22em;
+  text-transform:lowercase;
+  color:var(--mid);
+  font-variant-numeric:tabular-nums;
+}
+
+/* 明朝は部屋名だけ */
+.rh-j{
+  font-family:var(--mc);
+  font-weight:700;
+  letter-spacing:.08em;
+}
+
+.ln{position:relative;display:inline-block;color:var(--ink)}
+.ln::after{
+  content:"";position:absolute;left:0;bottom:.04em;
+  width:100%;height:1px;background:currentColor;
+  transform:scaleX(0);transform-origin:left;
+  transition:transform .3s var(--ease);
+}
+.ln:hover::after,.ln:focus-visible::after{transform:scaleX(1)}
+
+/* ヘッダー。トップ・かばんページと同じ組み。
+   ロゴは小さく置くので中抜きではなく塗り（84pxでは線が0.87pxまで細るため）。 */
+.hd{display:flex;align-items:center;justify-content:space-between;gap:var(--s3);padding:var(--s2) 0}
+.logo{display:inline-flex;align-items:center;gap:var(--s1);min-height:var(--tap);color:var(--ink)}
+.logo .ico{width:22px;height:22px;flex:0 0 auto}
+.logo .word{width:84px;height:auto}
+.mark{display:block;width:100%;height:auto}
+
+/* 触れるものは全て44px以上。文中に混ざる .ln は行を壊すので、
+   単独で置かれているもの（戻り導線・奥付・相談ボタン）だけを箱にする。
+   形はトップと同じ ── 導線は丸い面、相談だけ枠のある錠剤。 */
+.back-l,.colophon .c-n .ln{
+  display:inline-flex;align-items:center;justify-content:center;
+  min-height:var(--tap);min-width:var(--tap);padding:0 var(--s2);
+  border-radius:99px;
+  transition:background .3s var(--ease),color .3s var(--ease);
+}
+.back-l::after,.colophon .c-n .ln::after,.act .ln::after{content:none}
+.back-l{font-size:14px;letter-spacing:.08em;color:var(--mid)}
+.back-l:hover,.back-l:focus-visible{background:var(--fill);color:var(--ink)}
+/* 相談への導線。トップの .pill と同じ形 */
+.act .ln{
+  display:inline-flex;align-items:center;justify-content:center;
+  min-height:var(--tap);padding:0 var(--s3);
+  border:1px solid var(--line-s);border-radius:99px;
+  font-family:var(--mono);font-size:12px;letter-spacing:.14em;
+  transition:border-color .3s var(--ease),color .3s var(--ease);
+}
+.act .ln:hover,.act .ln:focus-visible{border-color:var(--amber);color:var(--amber)}
+
+/* --- 戻り導線 ------------------------------------------------------------ */
+.back{padding-top:var(--s5);font-size:13px}
+.back .ln{color:var(--mid)}
+.back .ln:hover{color:var(--ink)}
+
+/* --- 部屋の見出し -------------------------------------------------------- */
+.room{padding-top:var(--s6)}
+.rh{margin-bottom:var(--s5)}
+.rh-n{display:block;font-family:var(--mono);font-weight:600;font-size:12px;letter-spacing:.06em;color:var(--mid);font-variant-numeric:tabular-nums}
+.rh-j{
+  font-size:clamp(30px,3.4vw,42px);
+  line-height:1.3;
+  margin-top:var(--s1);
+}
+.rh-e{display:block;margin-top:var(--s1)}
+
+.lead{font-size:15px;line-height:1.95;color:var(--mid);max-width:44em}
+
+/* --- お仕事の中身 -------------------------------------------------------- */
+.blk{margin-top:var(--s6)}
+.blk-h{
+  font-family:var(--mono);font-size:11px;letter-spacing:.14em;color:var(--mid);
+  padding-bottom:var(--s2);border-bottom:1px solid var(--line-s);margin-bottom:var(--s3);
+}
+.bio{font-size:17px;font-weight:300;line-height:1.95;letter-spacing:.02em;max-width:40em}
+
+/* 数字は宙に置かず塗りの面に載せる。トップの持ちものと同じ扱い */
+.facts{
+  display:grid;grid-template-columns:repeat(4,minmax(0,1fr));
+  gap:var(--s1);margin-top:var(--s3);
+}
+.f{background:var(--fill);border-radius:var(--r);padding:var(--s3)}
+.f-k{display:block;margin-bottom:var(--s1)}
+.f-v{font-family:var(--disp);font-weight:500;font-size:clamp(26px,2.6vw,36px);line-height:1.3;letter-spacing:-.01em;font-variant-numeric:tabular-nums}
+.f-u{font-family:var(--jp);font-weight:400;font-size:13px;letter-spacing:.02em;color:var(--mid)}
+
+.tv{display:grid;grid-template-columns:minmax(0,1fr) 7rem;gap:0 var(--s4);align-items:baseline;
+  min-height:var(--tap);padding:var(--s2) 0;border-bottom:1px solid var(--line)}
+.tv-t{font-size:14px;line-height:1.7}
+.tv-v{font-family:var(--disp);font-weight:500;font-size:13px;color:var(--mid);justify-self:end;font-variant-numeric:tabular-nums;letter-spacing:-.01em}
+
+.wk{display:grid;grid-template-columns:7rem minmax(0,1fr);gap:0 var(--s4);align-items:baseline;
+  min-height:var(--tap);padding:var(--s2) 0;border-bottom:1px solid var(--line)}
+.wk-k{font-size:13px;color:var(--mid)}
+.wk-v{font-size:14px;line-height:1.7}
+
+.ask{font-size:15px;line-height:1.95;max-width:44em}
+.ask-4{margin-top:var(--s2);font-size:13px;line-height:1.7;color:var(--mid)}
+
+.note-s{margin-top:var(--s5);font-size:11px;line-height:1.7;color:var(--mid);max-width:52em}
+.act{margin-top:var(--s4);font-size:14px}
+
+/* --- 奥付 ---------------------------------------------------------------- */
+.colophon .wrap{
+  margin:var(--s6) auto var(--s4);padding-top:var(--s3);
+  border-top:1px solid var(--line);
+  display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:var(--s1) var(--s3);
+}
+.colophon .c-c{font-family:var(--mono);font-size:11px;letter-spacing:.1em;color:var(--pale);font-variant-numeric:tabular-nums}
+/* 折り返したとき縦に密着させないため row-gap は 0 にしない */
+.colophon .c-n{font-size:13px;color:var(--mid);display:flex;flex-wrap:wrap;gap:var(--s1)}
+.colophon .c-n .ln{color:var(--mid)}
+.colophon .c-n .ln:hover,.colophon .c-n .ln:focus-visible{background:var(--fill);color:var(--ink)}
+
+/* ==========================================================================
+   モーション（トップと同じ）
+   ========================================================================== */
+.js-rv body{opacity:0}
+.js-rv body.ready{opacity:1;transition:opacity .6s var(--ease)}
+
+.js-rv .rv{opacity:0;transform:translateY(8px)}
+.js-rv .rv.in{
+  opacity:1;transform:none;
+  transition:opacity 1.15s var(--ease),transform 1.15s var(--ease);
+  transition-delay:calc(var(--i,0) * 90ms);
+}
+
+@media (prefers-reduced-motion: reduce){
+  html{scroll-behavior:auto}
+  *,*::before,*::after{
+    animation-duration:.001ms!important;
+    animation-delay:0ms!important;
+    animation-iteration-count:1!important;
+    transition-duration:.001ms!important;
+    transition-delay:0ms!important;
+  }
+  .js-rv body{opacity:1!important}
+  .js-rv .rv{opacity:1!important;transform:none!important}
+}
+
+/* ==========================================================================
+   レスポンシブ（390px）
+   ========================================================================== */
+@media (max-width:900px){
+  .wrap{padding:0 var(--s3)}
+
+  .back{padding-top:var(--s4)}
+  .room{padding-top:var(--s5)}
+  .rh{margin-bottom:var(--s4)}
+
+  .blk{margin-top:var(--s5)}
+  .facts{grid-template-columns:repeat(2,minmax(0,1fr));gap:var(--s4) var(--s3)}
+  .tv{grid-template-columns:minmax(0,1fr);gap:var(--s1) 0}
+  .tv-v{justify-self:start}
+  .wk{grid-template-columns:minmax(0,1fr);gap:var(--s1) 0}
+
+  .colophon .wrap{margin-top:var(--s5)}
+}
+</style>
+
+<script>
+try{document.documentElement.className+=" js-rv";}catch(e){}
+</script>
 </head>
+
 <body>
 
-<header>
-  <div class="wrap">
-    <a class="logo" href="index.html">4.5<em>room</em></a>
-    <nav>
-      <a href="carry.html">持ち物</a>
-      <a href="index.html#journal" class="n-hide">読みもの</a>
-      <a href="index.html#movies" class="n-hide">動画</a>
-      <a href="about.html" aria-current="page">について</a>
-      <a href="#contact" class="talk">お仕事のご相談</a>
-    </nav>
-  </div>
-</header>
+<div class="wrap">
+  <header class="hd">
+    <a href="index.html" class="logo" aria-label="4.5room">
+      <svg class="ico mark" viewBox="0 0 96 96" aria-hidden="true"><path d="M60 6 H90 V90 H6 V6 H36"
+        fill="none" stroke="currentColor" stroke-width="12" stroke-linecap="butt"/></svg>
+      <svg class="word mark" viewBox="17 -705 2898 719" aria-hidden="true"><path fill="currentColor" d="M465.0 -195.0H377.0V0.0H264.0V-195.0H17.0V-269.0L273.0 -705.0H377.0V-297.0H465.0ZM264.0 -452.0 275.0 -542.0H271.0L241.0 -461.0L162.0 -327.0L122.0 -289.0L173.0 -297.0H264.0Z M523.0 -65.0Q523.0 -102.0 542.5 -121.0Q562.0 -140.0 594.0 -140.0Q629.0 -140.0 648.0 -121.0Q667.0 -102.0 667.0 -65.0Q667.0 -29.0 647.5 -9.0Q628.0 11.0 594.0 11.0Q561.0 11.0 542.0 -9.0Q523.0 -29.0 523.0 -65.0Z M851.0 -95.0Q905.0 -95.0 933.0 -130.0Q961.0 -165.0 961.0 -220.0Q961.0 -283.0 928.0 -311.0Q895.0 -339.0 833.0 -339.0L768.0 -335.0V-700.0H1059.0V-584.0H870.0V-441.0L903.0 -445.0Q984.0 -442.0 1032.0 -385.0Q1080.0 -328.0 1080.0 -225.0Q1080.0 -166.0 1063.0 -121.0Q1046.0 -76.0 1016.5 -46.0Q987.0 -16.0 946.0 -1.0Q905.0 14.0 857.0 14.0Q821.0 14.0 784.5 6.5Q748.0 -1.0 725.0 -13.0L756.0 -114.0Q793.0 -95.0 851.0 -95.0Z M1387.0 -382.0Q1363.0 -391.0 1343.0 -391.0Q1316.0 -391.0 1296.5 -376.0Q1277.0 -361.0 1270.0 -334.0V0.0H1151.0V-500.0H1242.0L1256.0 -440.0H1260.0Q1273.0 -473.0 1297.5 -491.5Q1322.0 -510.0 1354.0 -510.0Q1378.0 -510.0 1401.0 -500.0Z M1426.0 -250.0Q1426.0 -383.0 1478.0 -448.0Q1530.0 -513.0 1623.0 -513.0Q1723.0 -513.0 1772.0 -447.0Q1821.0 -381.0 1821.0 -250.0Q1821.0 -116.0 1769.0 -51.5Q1717.0 13.0 1623.0 13.0Q1426.0 13.0 1426.0 -250.0ZM1549.0 -250.0Q1549.0 -175.0 1566.0 -134.0Q1583.0 -93.0 1623.0 -93.0Q1661.0 -93.0 1679.5 -128.5Q1698.0 -164.0 1698.0 -250.0Q1698.0 -327.0 1681.0 -367.0Q1664.0 -407.0 1623.0 -407.0Q1588.0 -407.0 1568.5 -371.5Q1549.0 -336.0 1549.0 -250.0Z M1871.0 -250.0Q1871.0 -383.0 1923.0 -448.0Q1975.0 -513.0 2068.0 -513.0Q2168.0 -513.0 2217.0 -447.0Q2266.0 -381.0 2266.0 -250.0Q2266.0 -116.0 2214.0 -51.5Q2162.0 13.0 2068.0 13.0Q1871.0 13.0 1871.0 -250.0ZM1994.0 -250.0Q1994.0 -175.0 2011.0 -134.0Q2028.0 -93.0 2068.0 -93.0Q2106.0 -93.0 2124.5 -128.5Q2143.0 -164.0 2143.0 -250.0Q2143.0 -327.0 2126.0 -367.0Q2109.0 -407.0 2068.0 -407.0Q2033.0 -407.0 2013.5 -371.5Q1994.0 -336.0 1994.0 -250.0Z M2565.0 0.0V-291.0Q2565.0 -354.0 2555.0 -378.5Q2545.0 -403.0 2516.0 -403.0Q2492.0 -403.0 2476.5 -387.5Q2461.0 -372.0 2453.0 -350.0V0.0H2334.0V-500.0H2426.0L2441.0 -440.0H2444.0Q2463.0 -471.0 2491.5 -491.5Q2520.0 -512.0 2567.0 -512.0Q2606.0 -512.0 2630.5 -495.0Q2655.0 -478.0 2669.0 -435.0Q2688.0 -471.0 2719.0 -491.5Q2750.0 -512.0 2792.0 -512.0Q2825.0 -512.0 2848.5 -503.5Q2872.0 -495.0 2886.5 -474.0Q2901.0 -453.0 2908.0 -416.5Q2915.0 -380.0 2915.0 -324.0V0.0H2796.0V-304.0Q2796.0 -355.0 2787.0 -379.0Q2778.0 -403.0 2747.0 -403.0Q2722.0 -403.0 2706.5 -388.5Q2691.0 -374.0 2684.0 -349.0V0.0Z"/></svg>
+    </a>
+    <a class="back-l" href="index.html">← トップ</a>
+  </header>
+</div>
 
-<section class="page-head">
-  <div class="wrap">
-    <span class="label">ABOUT</span>
-    <h1>4.5roomについて。</h1>
-    <p class="lead">4.5畳の部屋から、毎日持ち歩く道具を使い込みながら暮らしを整えていく。その記録を「生活編集」と呼んで、YouTubeとnoteで発信している。</p>
-    <div class="rule"></div>
-  </div>
-</section>
+<main>
 
-<!-- ===== チャンネルについて ===== -->
-<section class="sec tight">
+<!-- ======================================================================
+     06 お仕事
+     ====================================================================== -->
+<section class="room" id="work">
   <div class="wrap">
-    <div class="about">
-      <!-- p-alt-portrait.jpg は動画タイトルの焼き込み文字が残っているため使わない -->
-      <div class="ph"><img src="assets/photos/p-hero-portrait.jpg" alt="ショルダーバッグの生地の質感" width="880" height="1174"></div>
-      <div>
-        <span class="label">CHANNEL</span>
-        <h2>使ってから、語る。</h2>
-        <p>ガジェットに囲まれながら、それでもミニマルに整えたい。その矛盾を「配置の意味を説明できる状態」まで持っていく作業が、このチャンネルの中身になっている。iPad mini、バッグ、EDC、文房具。テーマはいつも「毎日持ち歩くもの」に戻ってくる。</p>
-        <p>買ってすぐの速報は出さない。しばらく使って、残ったものと手放したものの差が見えてから話す。だから良かった点だけでなく、物足りなかった点も同じだけ伝える。万人向けではないものは、そう言う。</p>
-        <p>企画・撮影・編集・執筆まで、すべて単独で行っている。</p>
-        <div class="sns">
-          <a href="https://www.youtube.com/@4.5room" target="_blank" rel="noopener">YouTube ↗</a>
-          <a href="https://note.com/4_5room/" target="_blank" rel="noopener">note ↗</a>
-          <a href="https://www.instagram.com/4.5room_atelier/" target="_blank" rel="noopener">Instagram ↗</a>
-          <a href="carry.html">持ち物一覧 ↗</a>
+    <header class="rh rv">
+      <span class="rh-n">06</span>
+      <h2 class="rh-j" data-text="site.work.heading">お仕事</h2>
+      <span class="rh-e ml">work</span>
+    </header>
+
+    <p class="lead rv" style="--i:1" data-text="site.work.lead">お仕事のご相談・実績</p>
+
+    <p class="bio rv" style="--i:2" data-text="site.work.bio">ミニマリストになりたくも永遠になれないIT系テレワーカー。ガジェットと洋服が好き、マヨネーズが世界で一番きらい。</p>
+
+    <!-- 数字（content/channel.json・content/lab.json の実測値。失敗時は直書きが残る） -->
+    <div class="blk">
+      <p class="blk-h rv">数字</p>
+      <div class="facts">
+        <div class="f rv" style="--i:0">
+          <span class="f-k ml">subscribers</span>
+          <span class="f-v"><span data-val="channel.subscribers" data-fmt="comma">6,160</span><span class="f-u"> 人</span></span>
+        </div>
+        <div class="f rv" style="--i:1">
+          <span class="f-k ml">total views</span>
+          <span class="f-v"><span data-val="channel.views" data-fmt="comma">1,258,066</span><span class="f-u"> 回</span></span>
+        </div>
+        <div class="f rv" style="--i:2">
+          <span class="f-k ml">videos</span>
+          <span class="f-v"><span data-val="channel.videos" data-fmt="comma">253</span><span class="f-u"> 本</span></span>
+        </div>
+        <div class="f rv" style="--i:3">
+          <span class="f-k ml">first upload</span>
+          <span class="f-v"><span data-val="channel.first_upload" data-fmt="date">2022.12.14</span></span>
+        </div>
+      </div>
+
+      <!-- サブチャンネルの数値。実測日を併記する。 -->
+      <div class="wk rv" style="--i:0">
+        <span class="wk-k">Lab</span>
+        <span class="wk-v" data-tpl="site.work.lab_line" data-src="lab">登録者 <span class="num">699</span>・動画 <span class="num">19</span>本（<span class="num">2023.03</span>開設・<span class="num">2026.08.11</span> 実測）</span>
+      </div>
+
+      <p class="note-s rv" data-tpl="site.work.stats_note" data-src="channel">YouTube Data API 実測（<span class="num">2026.08.11</span> 時点）。登録者数はYouTubeの仕様により概数で表示されます。</p>
+    </div>
+
+    <!-- よく見られている動画（content/channel.json の top） -->
+    <div class="blk">
+      <p class="blk-h rv">よく見られている動画</p>
+      <div class="rv" style="--i:0" data-top>
+        <div class="tv">
+          <span class="tv-t">【700円】おしゃれ×便利な新作ショルダーバッグがほぼ完璧でした。｜読書かばんその２</span>
+          <span class="tv-v"><span>347,642</span> 回</span>
+        </div>
+        <div class="tv">
+          <span class="tv-t">【神アプリ】 最高の左手デバイスは手元にあった。| Elgato STREAM DECKアプリ</span>
+          <span class="tv-v"><span>94,193</span> 回</span>
+        </div>
+        <div class="tv">
+          <span class="tv-t">【2025年最新版】iPad mini活用方法＆ミニマルバッグ</span>
+          <span class="tv-v"><span>62,677</span> 回</span>
         </div>
       </div>
     </div>
-  </div>
-</section>
 
-<!-- ===== 数字 =====
-     すべて assets/stats.json（YouTube Data API 実測）から注入。
-     HTMLに数値を直書きしないこと。更新は scripts/update_stats.sh -->
-<section class="sec tint" id="numbers">
-  <div class="wrap">
-    <div class="head">
-      <div>
-        <span class="label">NUMBERS</span>
-        <h2>数字。</h2>
-        <p class="note">YouTube Data API で取得した実測値。取得日も併記している。</p>
-      </div>
-    </div>
-
-    <div class="facts">
-      <div class="f">
-        <div class="k">チャンネル登録者</div>
-        <div class="v"><span class="is-loading" data-stat="channel.subscribers" data-fmt="comma">—</span> 人
-          <small>YouTubeの仕様により概数で表示されます</small>
-        </div>
-      </div>
-      <div class="f">
-        <div class="k">総再生数</div>
-        <div class="v"><span class="is-loading" data-stat="channel.views_total" data-fmt="comma">—</span> 回</div>
-      </div>
-      <div class="f">
-        <div class="k">公開本数</div>
-        <div class="v"><span class="is-loading" data-stat="channel.videos" data-fmt="comma">—</span> 本</div>
-      </div>
-      <div class="f">
-        <div class="k">運営（単独運営）</div>
-        <div class="v"><span class="is-loading" data-stat="channel.first_video_published" data-fmt="year_nth">—</span>
-          <small>初投稿 <span data-stat="channel.first_video_published" data-fmt="date">—</span></small>
-        </div>
-      </div>
-      <div class="f">
-        <div class="k">直近90日に公開した動画の再生数</div>
-        <div class="v"><span class="is-loading" data-stat="recent_90d.views_sum" data-fmt="comma">—</span> 回
-          <small><span data-stat="recent_90d.video_count">—</span> 本の合計。チャンネル全体の90日間の再生数ではありません</small>
-        </div>
-      </div>
-      <div class="f">
-        <div class="k">更新頻度</div>
-        <div class="v">週1〜2本</div>
-      </div>
-    </div>
-    <p class="stats-note">YouTube Data API 実測（<span data-stat="measured_at" data-fmt="date">—</span> 時点）</p>
-  </div>
-</section>
-
-<!-- ===== よく見られている動画 =====
-     サムネイルは並べない（概要欄由来の大きな文字が焼き込まれているため）。 -->
-<section class="sec">
-  <div class="wrap">
-    <div class="head">
-      <div>
-        <span class="label">MOST WATCHED</span>
-        <h2>よく見られている動画。</h2>
-        <p class="note">再生数の多い順に3本。数値はAPI実測。伸びているのは「低価格 × 毎日持ち歩く」の企画に集中している。</p>
-      </div>
-      <a class="more" href="https://www.youtube.com/@4.5room/videos" target="_blank" rel="noopener">チャンネルを見る →</a>
-    </div>
-    <div class="log" data-top="3">
-      <p class="loading mono">読み込み中…</p>
-    </div>
-  </div>
-</section>
-
-<!-- ===== メディア掲載 ===== -->
-<section class="sec tint">
-  <div class="wrap">
-    <div class="head">
-      <div>
-        <span class="label">MEDIA</span>
-        <h2>メディア掲載。</h2>
-      </div>
-    </div>
-    <div class="rows">
-      <div class="row">
-        <div class="k">2026.05</div>
-        <div class="v">
-          ねとらぼ（ITmedia）に動画が記事として取り上げられました
-          <small>「読書用バッグ」の動画。Yahoo!ニュース・LINEニュースにも配信されています。</small>
+    <!-- メディア掲載 -->
+    <div class="blk">
+      <p class="blk-h rv">メディア掲載</p>
+      <div data-wk="site.work.media">
+        <div class="wk rv" style="--i:0">
+          <span class="wk-k num">2026.05</span>
+          <span class="wk-v">ねとらぼ（ITmedia）に動画が記事として取り上げられ、Yahoo!ニュース・LINEニュースにも配信されました。</span>
         </div>
       </div>
     </div>
+
+    <!-- お受けできること -->
+    <div class="blk">
+      <p class="blk-h rv">お受けできること</p>
+      <div data-wk="site.work.accept">
+        <div class="wk rv" style="--i:0">
+          <span class="wk-k">動画</span>
+          <span class="wk-v">長尺レビュー／複数製品をまとめた企画動画／短尺</span>
+        </div>
+        <div class="wk rv" style="--i:1">
+          <span class="wk-k">記事</span>
+          <span class="wk-v">note での紹介記事（動画との連動も可能です）</span>
+        </div>
+        <div class="wk rv" style="--i:2">
+          <span class="wk-k">得意な領域</span>
+          <span class="wk-v">バッグ・EDC・持ち歩き／文房具／iPad miniまわり／デスク環境・リモートワーク／生活を整える実用品</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- ご相談 -->
+    <div class="blk">
+      <p class="blk-h rv">ご相談</p>
+      <p class="ask rv" style="--i:0" data-text="site.work.ask">製品のご紹介・タイアップ・イベントのご案内は、メールでお願いいたします。お受けできない場合も、理由を添えてお返事しています。</p>
+      <p class="ask-4 rv" style="--i:1" data-text="site.work.ask_4">ご一報の際、①製品名・URL ②ご希望の形式（長尺／短尺／記事） ③ご希望の時期 ④提供条件（製品提供のみ／有償の場合はご予算） の4点があるとお返事が早くなります。</p>
+      <p class="act rv" style="--i:2"><a class="ln" data-mail href="mailto:4.5roomsrice@gmail.com?subject=%E3%81%8A%E4%BB%95%E4%BA%8B%E3%81%AE%E3%81%94%E7%9B%B8%E8%AB%87%EF%BC%884.5room%EF%BC%89&amp;body=%E2%91%A0%E8%A3%BD%E5%93%81%E5%90%8D%E3%83%BBURL%EF%BC%9A%0A%E2%91%A1%E3%81%94%E5%B8%8C%E6%9C%9B%E3%81%AE%E5%BD%A2%E5%BC%8F%EF%BC%9A%0A%E2%91%A2%E3%81%94%E5%B8%8C%E6%9C%9B%E3%81%AE%E6%99%82%E6%9C%9F%EF%BC%9A%0A%E2%91%A3%E6%8F%90%E4%BE%9B%E6%9D%A1%E4%BB%B6%EF%BC%9A%0A">メールで相談する</a></p>
+    </div>
+
   </div>
 </section>
 
-<!-- ===== 見てくれている人 ===== -->
-<section class="sec">
-  <div class="wrap">
-    <div class="head">
-      <div>
-        <span class="label">AUDIENCE</span>
-        <h2>見てくれている人。</h2>
-        <p class="note">コメント欄の傾向から見た、実際の視聴者像です。</p>
-      </div>
-    </div>
-    <div class="rows">
-      <div class="row">
-        <div class="k">中心の層</div>
-        <div class="v">ガジェット好きよりも「暮らしを整えたい生活者」
-          <small>年齢層は広く、女性の視聴者も多くいます。「家族に買った」「通院用に」といった生活の文脈のコメントが中心です。</small>
-        </div>
-      </div>
-      <div class="row">
-        <div class="k">よく届く話</div>
-        <div class="v">持ち歩き・バッグ・EDC・iPad mini運用／文房具／低価格で見つけた正解
-          <small>スペックの話より、生活のどこがどう変わったかの話がよく読まれます。</small>
-        </div>
-      </div>
-      <div class="row">
-        <div class="k">扱う価格帯</div>
-        <div class="v">700円のものから13万円台のものまで
-          <small>選定基準は価格ではなく、毎日使って実感があるかどうかです。</small>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
+</main>
 
-<!-- ===== お受けできること ===== -->
-<section class="sec tint">
-  <div class="wrap">
-    <div class="head">
-      <div>
-        <span class="label">WORK WITH</span>
-        <h2>お受けできること。</h2>
-        <p class="note">形式は製品と企画に合わせて選んでいます。ご相談の段階で決まっていなくて構いません。</p>
-      </div>
-    </div>
-    <div class="rows">
-      <div class="row">
-        <div class="k">動画</div>
-        <div class="v">長尺レビュー／複数製品をまとめた企画動画／短尺
-          <small>企画に落とし込める製品は長尺で、そうでないものは短尺で、と使い分けています。</small>
-        </div>
-      </div>
-      <div class="row">
-        <div class="k">記事</div>
-        <div class="v">note での紹介記事（動画との連動も可能です）</div>
-      </div>
-      <div class="row">
-        <div class="k">得意な領域</div>
-        <div class="v">バッグ・EDC・持ち歩き／文房具／iPad miniまわり／デスク環境・リモートワーク／生活を整える実用品</div>
-      </div>
-      <div class="row">
-        <div class="k">お約束していること</div>
-        <div class="v">提供・PR表記は必ず明示します
-          <small>そのうえで、気になった点も動画内でお伝えします。視聴者への誠実さを最優先にしているためです。</small>
-        </div>
-      </div>
-      <div class="row">
-        <div class="k">お断りする場合</div>
-        <div class="v">視聴者の生活改善につながらないと判断した製品、チャンネルの世界観に合わない企画
-          <small>熱量の乗らない動画は視聴者にも伝わるため、正直にお返事しています。</small>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
 
-<!-- ===== 問い合わせ ===== -->
-<section class="sec" id="contact">
-  <div class="wrap narrow">
-    <div class="mailbox">
-      <span class="label">CONTACT</span>
-      <h3>お仕事のご相談</h3>
-      <p>
-        製品のご紹介・タイアップ・イベントのご案内は、下記までメールでお願いいたします。<br>
-        いただいたご相談には、お受けできない場合も理由を添えてお返事しています。
-      </p>
-      <p>
-        ご一報の際、次の4点があるとお返事が早くなります。<br>
-        ①製品名・URL　②ご希望の形式（長尺／短尺／記事）　③ご希望の時期　④提供条件（製品提供のみ／有償の場合はご予算）
-      </p>
-      <a class="cta" href="mailto:4.5roomsrice@gmail.com?subject=%E3%81%8A%E4%BB%95%E4%BA%8B%E3%81%AE%E3%81%94%E7%9B%B8%E8%AB%87%EF%BC%884.5room%EF%BC%89&amp;body=%E2%91%A0%E8%A3%BD%E5%93%81%E5%90%8D%E3%83%BBURL%EF%BC%9A%0A%E2%91%A1%E3%81%94%E5%B8%8C%E6%9C%9B%E3%81%AE%E5%BD%A2%E5%BC%8F%EF%BC%9A%0A%E2%91%A2%E3%81%94%E5%B8%8C%E6%9C%9B%E3%81%AE%E6%99%82%E6%9C%9F%EF%BC%9A%0A%E2%91%A3%E6%8F%90%E4%BE%9B%E6%9D%A1%E4%BB%B6%EF%BC%9A%0A">メールで相談する</a>
-      <div class="addr">4.5roomsrice@gmail.com</div>
-    </div>
-  </div>
-</section>
-
-<footer>
+<!-- ======================================================================
+     奥付
+     ====================================================================== -->
+<footer class="colophon">
   <div class="wrap">
-    <div>
-      <span class="big">生活を、編集する。</span><br>
-      <span class="label" style="display:block;margin-top:9px">© <span data-year></span> 4.5room</span>
-    </div>
-    <nav>
-      <a href="index.html">トップ</a>
-      <a href="carry.html">持ち物</a>
-      <a href="index.html#journal">読みもの</a>
-      <a href="index.html#movies">動画</a>
-      <a href="#contact">お仕事のご相談</a>
-    </nav>
+    <p class="c-c rv" data-text="site.colophon.copyright">© 2026 4.5room</p>
+    <p class="c-n rv" style="--i:1" data-links="work">
+      <a class="ln" href="https://www.youtube.com/@4.5room" target="_blank" rel="noopener">YouTube</a>
+      <a class="ln" href="https://www.youtube.com/channel/UCtpqTOuTy5gK_2UZzgikizQ" target="_blank" rel="noopener">YouTube Lab</a>
+      <a class="ln" href="https://note.com/4_5room/" target="_blank" rel="noopener">note</a>
+      <a class="ln" href="https://www.instagram.com/4.5room_atelier/" target="_blank" rel="noopener">Instagram</a>
+      <a class="ln" href="index.html">4.5room</a>
+      <a class="ln" href="mailto:4.5roomsrice@gmail.com">mail</a>
+    </p>
   </div>
 </footer>
+
+
+<script>
+/* ==========================================================================
+   中身は content/*.json から描き直す。
+   HTML に残っている直書きは「JSONが取れなかったときに読めるもの」。
+   ========================================================================== */
+(function () {
+  var root = document.documentElement;
+
+  try {
+    document.body.classList.add('ready');
+  } catch (e) {}
+
+  try {
+    if (!('IntersectionObserver' in window)) { throw new Error('IntersectionObserver unsupported'); }
+
+    /* ------------------------------------------------------------------
+       1. スクロール登場（.rv → .in）
+       ------------------------------------------------------------------ */
+    var rvIO = new IntersectionObserver(function (entries) {
+      for (var i = 0; i < entries.length; i++) {
+        if (entries[i].isIntersecting) {
+          entries[i].target.classList.add('in');
+          rvIO.unobserve(entries[i].target);
+        }
+      }
+    }, { rootMargin: '0px 0px -8% 0px', threshold: 0.01 });
+
+    function observeAll() {
+      var rvs = document.querySelectorAll('.rv');
+      for (var i = 0; i < rvs.length; i++) { rvIO.observe(rvs[i]); }
+    }
+
+    function openInView() {
+      var rvs = document.querySelectorAll('.rv');
+      for (var j = 0; j < rvs.length; j++) {
+        var r = rvs[j].getBoundingClientRect();
+        if (r.top < window.innerHeight && r.bottom > 0) { rvs[j].classList.add('in'); }
+      }
+    }
+    observeAll();
+    openInView();
+    requestAnimationFrame(openInView);
+    window.addEventListener('load', openInView);
+
+    /* ------------------------------------------------------------------
+       2. content/*.json の流し込み
+       ------------------------------------------------------------------ */
+    var FMT = {
+      comma: function (v) { return Number(v).toLocaleString('en-US'); },
+      date:  function (v) { return String(v).replace(/-/g, '.'); },
+      plain: function (v) { return String(v); }
+    };
+    var VFMT = {
+      subscribers: 'comma', views: 'comma', videos: 'comma', count: 'comma',
+      first_upload: 'date', measured_at: 'date', opened: 'date'
+    };
+
+    function dig(obj, path) {
+      if (!path) { return null; }
+      return path.split('.').reduce(function (o, k) {
+        return (o === null || o === undefined) ? null : o[k];
+      }, obj);
+    }
+
+    function el(tag, cls, text) {
+      var n = document.createElement(tag);
+      if (cls) { n.className = cls; }
+      if (text !== null && text !== undefined) { n.textContent = text; }
+      return n;
+    }
+
+    function setText(node, value) {
+      if (node && typeof value === 'string' && value) { node.textContent = value; }
+    }
+
+    /* 「登録者 {subscribers}・動画 {videos}本…」を組み立てる。
+       値が1つでも欠けていたら何もしない＝直書きが残る。 */
+    function tpl(node, template, vars, wrapNum) {
+      if (!node || typeof template !== 'string' || !template) { return; }
+      var re = /\{([a-z_]+)\}/g;
+      var frag = document.createDocumentFragment();
+      var last = 0, m;
+      while ((m = re.exec(template)) !== null) {
+        if (m.index > last) { frag.appendChild(document.createTextNode(template.slice(last, m.index))); }
+        var raw = vars ? vars[m[1]] : null;
+        if (raw === null || raw === undefined || raw === '') { return; }
+        var txt = (FMT[VFMT[m[1]] || 'plain'] || FMT.plain)(raw);
+        frag.appendChild(wrapNum ? el('span', 'num', txt) : document.createTextNode(txt));
+        last = m.index + m[0].length;
+      }
+      if (last < template.length) { frag.appendChild(document.createTextNode(template.slice(last))); }
+      node.textContent = '';
+      node.appendChild(frag);
+    }
+
+    /* ラベル＋本文の2列（メディア掲載・お受けできること） */
+    function drawWk(host, rows) {
+      if (!host || !rows || !rows.length) { return; }
+      var frag = document.createDocumentFragment();
+      for (var i = 0; i < rows.length; i++) {
+        var r = rows[i];
+        if (!r || !r.text || !(r.label || r.date)) { return; }
+        var line = el('div', 'wk rv');
+        line.style.setProperty('--i', String(i));
+        line.appendChild(el('span', r.date ? 'wk-k num' : 'wk-k', r.date || r.label));
+        line.appendChild(el('span', 'wk-v', r.text));
+        frag.appendChild(line);
+      }
+      host.textContent = '';
+      host.appendChild(frag);
+    }
+
+    /* よく見られている動画（上位3本） */
+    function drawTop(host, top) {
+      if (!host || !top || !top.length) { return; }
+      var frag = document.createDocumentFragment();
+      var max = Math.min(3, top.length);
+      for (var i = 0; i < max; i++) {
+        var v = top[i];
+        if (!v || !v.title || v.views === null || v.views === undefined) { return; }
+        var line = el('div', 'tv');
+        line.appendChild(el('span', 'tv-t', v.title));
+        var val = el('span', 'tv-v');
+        val.appendChild(el('span', null, FMT.comma(v.views)));
+        val.appendChild(document.createTextNode(' 回'));
+        line.appendChild(val);
+        frag.appendChild(line);
+      }
+      host.textContent = '';
+      host.appendChild(frag);
+    }
+
+    function drawLinks(node, page, links) {
+      if (!node || !links || !links.length) { return; }
+      var frag = document.createDocumentFragment();
+      var n = 0;
+      for (var i = 0; i < links.length; i++) {
+        var lk = links[i];
+        if (!lk || !lk.label || !lk.url) { continue; }
+        if (lk.only && lk.only !== page) { continue; }
+        var a = el('a', 'ln', lk.label);
+        a.href = lk.url;
+        if (/^https?:/.test(lk.url)) { a.target = '_blank'; a.rel = 'noopener'; }
+        frag.appendChild(a);
+        n++;
+      }
+      if (!n) { return; }
+      node.textContent = '';
+      node.appendChild(frag);
+    }
+
+    function render(data) {
+      var site = data.site;
+
+      /* 数字（1つの値だけを差し替える） */
+      var vals = document.querySelectorAll('[data-val]');
+      for (var i = 0; i < vals.length; i++) {
+        var v = dig(data, vals[i].getAttribute('data-val'));
+        if (v === null || v === undefined || v === '') { continue; }
+        vals[i].textContent = (FMT[vals[i].getAttribute('data-fmt') || 'plain'] || FMT.plain)(v);
+      }
+
+      /* 差し込みのある1行（Lab・実測日の注記） */
+      var tplNodes = document.querySelectorAll('[data-tpl]');
+      for (var t = 0; t < tplNodes.length; t++) {
+        tpl(tplNodes[t],
+            dig(data, tplNodes[t].getAttribute('data-tpl')),
+            dig(data, tplNodes[t].getAttribute('data-src')) || {},
+            tplNodes[t].getAttribute('data-num') !== 'off');
+      }
+
+      /* 見出し・本文 */
+      var texts = document.querySelectorAll('[data-text]');
+      for (var x = 0; x < texts.length; x++) { setText(texts[x], dig(data, texts[x].getAttribute('data-text'))); }
+
+      /* 2列のブロック */
+      var wks = document.querySelectorAll('[data-wk]');
+      for (var w = 0; w < wks.length; w++) { drawWk(wks[w], dig(data, wks[w].getAttribute('data-wk'))); }
+
+      /* よく見られている動画 */
+      drawTop(document.querySelector('[data-top]'), dig(data, 'channel.top'));
+
+      /* メールの宛先・件名・本文 */
+      var mail = dig(data, 'site.work.mail');
+      var mailLink = document.querySelector('[data-mail]');
+      if (mailLink && mail && mail.address) {
+        var q = [];
+        if (mail.subject) { q.push('subject=' + encodeURIComponent(mail.subject)); }
+        if (mail.body) { q.push('body=' + encodeURIComponent(mail.body)); }
+        mailLink.setAttribute('href', 'mailto:' + mail.address + (q.length ? '?' + q.join('&') : ''));
+        setText(mailLink, mail.label);
+      }
+
+      /* 奥付 */
+      if (site && site.colophon) { drawLinks(document.querySelector('[data-links]'), 'work', site.colophon.links); }
+    }
+
+    if (window.fetch) {
+      var names = ['site', 'carry', 'channel', 'lab', 'notes'];
+      Promise.all(names.map(function (name) {
+        return fetch('_dir/content/' + name + '.json', { cache: 'no-store' })
+          .then(function (res) { return res.ok ? res.json() : null; })
+          .catch(function () { return null; });
+      })).then(function (got) {
+        var data = {};
+        for (var i = 0; i < names.length; i++) { data[names[i]] = got[i]; }
+        try { render(data); } catch (e) { /* 途中で失敗しても直書きが残る */ }
+        observeAll();
+        openInView();
+      });
+    }
+
+  } catch (err) {
+    root.className = root.className.replace(/\bjs-rv\b/g, '');
+  }
+})();
+</script>
 
 </body>
 </html>

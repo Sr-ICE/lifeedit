@@ -38,7 +38,7 @@
       "id": "06",
       "name": "お仕事",
       "summary": "相談・実績",
-      "url": "e-work.html",
+      "url": "/about.html",
       "items": [
         {
           "label": "メディア掲載",
@@ -115,12 +115,12 @@
       },
       {
         "label": "お仕事",
-        "url": "e-work.html",
+        "url": "/about.html",
         "only": "rooms"
       },
       {
         "label": "4.5room",
-        "url": "e-rooms.html",
+        "url": "/",
         "only": "work"
       },
       {
