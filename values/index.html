@@ -1,0 +1,483 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>何を買っているのか｜4.5room 価値観診断</title>
+<meta name="description" content="15の二択で、あなたがモノや時間を選ぶときに本当は何を買っているのかを10の価値で出します。所要1分・登録不要。">
+<link rel="canonical" href="https://4-5room.com/values/">
+<meta property="og:site_name" content="4.5room">
+<meta property="og:title" content="何を買っているのか｜4.5room 価値観診断">
+<meta property="og:description" content="15の二択で、選ぶときに本当は何を買っているのかを10の価値で出す。所要1分・登録不要。">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://4-5room.com/values/">
+<meta property="og:image" content="https://4-5room.com/assets/photos/og.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="../assets/logo/favicon.ico" sizes="32x32">
+<link rel="icon" href="../assets/logo/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="../assets/logo/apple-touch-icon.png">
+
+<style>
+/* ==========================================================================
+   4.5room — 価値観診断
+
+   トップ（/index.html）のトークンをそのまま継承する。ここで色や余白を作らない。
+   ・余白は --s1〜--s7 だけ
+   ・的は44px以上、隣り合う的の間は8px以上
+   ・色は琥珀1色のみ。図をカラフルにしない（色で説明しない）
+   ・写真は使わないので粒子は敷かない
+   ========================================================================== */
+
+@font-face{font-family:"PT Sans Narrow";src:url("../assets/fonts/PTSansNarrow-Regular.woff") format("woff");font-weight:400;font-display:swap}
+@font-face{font-family:"PT Sans Narrow";src:url("../assets/fonts/PTSansNarrow-Bold.woff") format("woff");font-weight:700;font-display:swap}
+@font-face{font-family:"PT Mono";src:url("../assets/fonts/PTMono-Regular.woff") format("woff");font-weight:400;font-display:swap}
+
+:root{
+  --paper:#FFFFFF;
+  --fill:#F5F3F0;
+  --fill-2:#EDEAE5;
+  --ink:#14120F;
+  --mid:#5E5A54;
+  --faint:#B2ADA5;
+  --line:#E9E6E1;
+  --line-s:#D3CFC8;
+  --amber:#8B5918;
+
+  --sans:"PT Sans Narrow","Hiragino Sans","Hiragino Kaku Gothic ProN",sans-serif;
+  --jp:"Hiragino Sans","Hiragino Kaku Gothic ProN","Noto Sans JP",sans-serif;
+  --mono:"PT Mono",ui-monospace,Menlo,monospace;
+
+  --s1:8px; --s2:16px; --s3:24px; --s4:40px; --s5:64px; --s6:104px; --s7:168px;
+  --r:16px;
+  --tap:44px;
+  --rail:1120px;
+  --e:cubic-bezier(.16,1,.3,1);
+}
+
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{
+  background:var(--paper);color:var(--ink);
+  font-family:var(--jp);font-weight:400;font-size:16px;
+  line-height:1.75;letter-spacing:.04em;
+  font-feature-settings:"palt" 1;
+  -webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;
+  overflow-wrap:anywhere;
+}
+ul{list-style:none}
+a{color:inherit;text-decoration:none}
+a:focus{outline:none}
+a:focus-visible{outline:2px solid var(--ink);outline-offset:3px;border-radius:4px}
+img{display:block;max-width:100%;height:auto}
+button{font:inherit;color:inherit;background:none;border:none;cursor:pointer}
+
+.wrap{max-width:720px;margin:0 auto;padding:0 var(--s3)}
+.m{font-family:var(--mono);font-variant-numeric:tabular-nums}
+.lb{font-family:var(--mono);font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--faint)}
+.stamp{font-family:var(--mono);font-size:11px;letter-spacing:.14em;color:var(--amber)}
+
+/* ---- ヘッダー ---- */
+.hd{display:flex;align-items:center;justify-content:space-between;gap:var(--s3);padding:var(--s2) 0}
+.logo{display:inline-flex;align-items:center;gap:var(--s1);min-height:var(--tap);color:var(--ink)}
+.logo .word{width:84px;height:auto}
+.hd nav a{display:inline-flex;align-items:center;min-height:var(--tap);padding:0 var(--s1);font-size:13px;color:var(--mid)}
+.hd nav a:hover{color:var(--ink)}
+
+/* ---- 画面の切り替え ---- */
+.screen{display:none}
+.screen.on{display:block;animation:in .5s var(--e) both}
+@keyframes in{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+
+/* ---- 表紙 ---- */
+.intro{padding:var(--s6) 0 var(--s5)}
+.intro h1{
+  font-family:var(--jp);font-weight:700;
+  font-size:clamp(28px,6vw,44px);line-height:1.35;letter-spacing:.02em;
+  margin-bottom:var(--s3);
+}
+.intro .lead{color:var(--mid);font-size:15px;margin-bottom:var(--s4);max-width:34em}
+.meta{display:flex;flex-wrap:wrap;gap:var(--s1);margin-bottom:var(--s4)}
+.chip{
+  display:inline-flex;align-items:center;min-height:32px;padding:0 var(--s2);
+  background:var(--fill);border-radius:999px;
+  font-family:var(--mono);font-size:11px;letter-spacing:.14em;color:var(--mid);
+}
+.start{
+  display:inline-flex;align-items:center;justify-content:center;
+  min-height:var(--tap);padding:0 var(--s4);
+  background:var(--ink);color:var(--paper);border-radius:999px;
+  font-size:15px;letter-spacing:.08em;
+  transition:transform .3s var(--e),opacity .3s var(--e);
+}
+.start:hover{transform:translateY(-1px);opacity:.88}
+.note{margin-top:var(--s3);font-size:13px;color:var(--faint);line-height:1.9}
+
+/* ---- 設問 ---- */
+.q{padding:var(--s5) 0 var(--s6)}
+.qhead{display:flex;align-items:baseline;justify-content:space-between;gap:var(--s2);margin-bottom:var(--s3)}
+.bar{height:2px;background:var(--line);margin-bottom:var(--s4);position:relative;overflow:hidden;border-radius:2px}
+.bar i{position:absolute;inset:0 auto 0 0;background:var(--amber);width:0;transition:width .45s var(--e)}
+.qtext{
+  font-family:var(--jp);font-weight:700;
+  font-size:clamp(20px,4.2vw,28px);line-height:1.5;letter-spacing:.02em;
+  margin-bottom:var(--s4);
+}
+.opts{display:grid;gap:var(--s1)}
+.opt{
+  display:block;width:100%;text-align:left;
+  min-height:var(--tap);padding:var(--s3);
+  background:var(--fill);border:1px solid transparent;border-radius:var(--r);
+  font-size:16px;line-height:1.65;
+  transition:background .25s var(--e),border-color .25s var(--e),transform .25s var(--e);
+}
+.opt:hover{background:var(--fill-2);border-color:var(--line-s);transform:translateY(-1px)}
+.opt:focus-visible{outline:2px solid var(--ink);outline-offset:2px}
+.back{
+  margin-top:var(--s4);min-height:var(--tap);
+  font-size:13px;color:var(--faint);
+}
+.back:hover{color:var(--mid)}
+
+/* ---- 結果 ---- */
+.res{padding:var(--s5) 0 var(--s6)}
+.res h2{
+  font-family:var(--jp);font-weight:700;
+  font-size:clamp(24px,5vw,36px);line-height:1.4;letter-spacing:.02em;
+  margin:var(--s2) 0 var(--s3);
+}
+.res .lead{color:var(--mid);font-size:15px;margin-bottom:var(--s5)}
+
+.ring{margin:0 auto var(--s5);max-width:420px}
+.ring svg{width:100%;height:auto;display:block;overflow:visible}
+
+.top3{display:grid;gap:var(--s1);margin-bottom:var(--s5)}
+.card{
+  padding:var(--s3);background:var(--fill);border-radius:var(--r);
+}
+.card .rank{font-family:var(--mono);font-size:11px;letter-spacing:.18em;color:var(--amber);display:block;margin-bottom:var(--s1)}
+.card h3{font-weight:700;font-size:19px;letter-spacing:.02em;margin-bottom:var(--s1)}
+.card p{font-size:14px;color:var(--mid);line-height:1.85}
+
+.rows{margin-bottom:var(--s5)}
+.row{
+  display:grid;grid-template-columns:5.5em 1fr 2.5em;align-items:center;gap:var(--s2);
+  padding:var(--s1) 0;border-bottom:1px solid var(--line);
+}
+.row:last-child{border-bottom:none}
+.row .nm{font-size:14px;letter-spacing:.02em}
+.row .tk{height:6px;background:var(--fill-2);border-radius:999px;overflow:hidden}
+.row .tk i{display:block;height:100%;background:var(--ink);width:0;border-radius:999px;transition:width .8s var(--e)}
+.row.hi .tk i{background:var(--amber)}
+.row.hi .nm{font-weight:700}
+.row .vl{font-family:var(--mono);font-size:12px;color:var(--faint);text-align:right}
+
+.pair{padding:var(--s3);background:var(--fill);border-radius:var(--r);margin-bottom:var(--s5)}
+.pair .lb{margin-bottom:var(--s1)}
+.pair p{font-size:14px;color:var(--mid);line-height:1.9}
+.pair strong{color:var(--ink);font-weight:700}
+
+.acts{display:flex;flex-wrap:wrap;gap:var(--s1);margin-bottom:var(--s4)}
+.act{
+  display:inline-flex;align-items:center;justify-content:center;
+  min-height:var(--tap);padding:0 var(--s3);
+  border:1px solid var(--line-s);border-radius:999px;
+  font-size:14px;letter-spacing:.04em;
+  transition:background .25s var(--e),border-color .25s var(--e);
+}
+.act:hover{background:var(--fill);border-color:var(--ink)}
+.act.solid{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+.act.solid:hover{opacity:.88}
+
+.src{margin-top:var(--s5);padding-top:var(--s3);border-top:1px solid var(--line);font-size:13px;color:var(--faint);line-height:1.9}
+.src a{color:var(--mid);text-decoration:underline;text-underline-offset:3px}
+
+/* ---- フッター ---- */
+.ft{padding:var(--s5) 0 var(--s4);border-top:1px solid var(--line);margin-top:var(--s6)}
+.ft p{font-size:12px;color:var(--faint);letter-spacing:.06em}
+
+@media (max-width:600px){
+  .intro{padding:var(--s5) 0 var(--s4)}
+  .row{grid-template-columns:4.8em 1fr 2.2em;gap:var(--s1)}
+}
+@media (prefers-reduced-motion:reduce){
+  *{animation-duration:.01ms !important;transition-duration:.01ms !important}
+}
+</style>
+</head>
+<body>
+
+<div class="wrap">
+  <header class="hd">
+    <a class="logo" href="../">
+      <img class="word" src="../assets/logo/wordmark-solid.svg" alt="4.5room">
+    </a>
+    <nav><a href="../">サイトへ</a></nav>
+  </header>
+</div>
+
+<main>
+
+<!-- ===== 表紙 ===== -->
+<section class="screen on" id="s-intro">
+  <div class="wrap intro">
+    <p class="stamp">VALUES / 10</p>
+    <h1>あなたがモノを選ぶとき、<br>本当は何を買っているのか。</h1>
+    <p class="lead">同じ財布を買っても、買っている理由は人によって違います。安心を買っている人、自分で決めた感触を買っている人、誰かに見せる自分を買っている人。15の二択で、その内訳を10の価値として出します。</p>
+    <div class="meta">
+      <span class="chip">15問</span>
+      <span class="chip">約1分</span>
+      <span class="chip">登録不要</span>
+      <span class="chip">送信しません</span>
+    </div>
+    <button class="start" id="go">はじめる</button>
+    <p class="note">回答はこの端末の中だけで計算されます。どこにも送信されず、保存もされません。<br>心理学者シャローム・シュワルツの「基本的価値理論」（世界共通の10の基本価値）をもとに、4.5roomが生活の場面へ翻訳したものです。</p>
+  </div>
+</section>
+
+<!-- ===== 設問 ===== -->
+<section class="screen" id="s-q">
+  <div class="wrap q">
+    <div class="qhead">
+      <span class="lb" id="qno">Q1 / 15</span>
+      <span class="lb" id="qcat">もの</span>
+    </div>
+    <div class="bar"><i id="prog"></i></div>
+    <p class="qtext" id="qtext"></p>
+    <div class="opts">
+      <button class="opt" id="optA"></button>
+      <button class="opt" id="optB"></button>
+    </div>
+    <button class="back" id="back">← ひとつ戻る</button>
+  </div>
+</section>
+
+<!-- ===== 結果 ===== -->
+<section class="screen" id="s-res">
+  <div class="wrap res">
+    <p class="stamp">RESULT</p>
+    <h2 id="rhead"></h2>
+    <p class="lead" id="rlead"></p>
+
+    <div class="ring" id="ring"></div>
+
+    <div class="top3" id="top3"></div>
+
+    <div class="rows" id="rows"></div>
+
+    <div class="pair" id="pair"></div>
+
+    <div class="acts">
+      <button class="act solid" id="copy">結果をコピー</button>
+      <button class="act" id="again">もう一度</button>
+    </div>
+
+    <p class="src">
+      出典：Schwartz, S. H. (1992) Universals in the Content and Structure of Values.／
+      設問と日本語表現は4.5roomによるもので、原典の質問紙（PVQ）とは別物です。診断結果は性格や能力を測るものではありません。
+    </p>
+  </div>
+</section>
+
+</main>
+
+<div class="wrap">
+  <footer class="ft"><p>© 4.5room</p></footer>
+</div>
+
+<script>
+(function(){
+  "use strict";
+
+  /* 10の価値。順番はシュワルツの円環そのまま（隣は両立し、向かいは衝突する）。
+     この並び順が結果の図の並びになるので、崩さない。 */
+  var V = [
+    {k:"self",  name:"自律", desc:"自分で決めたい。人に決められた形のまま使うことに、どこか落ち着かなさがある。"},
+    {k:"stim",  name:"探索", desc:"まだ知らないものに触れていたい。同じものを使い続けると、少しずつ退屈になる。"},
+    {k:"hedo",  name:"快楽", desc:"触っていて気持ちがいいこと。効率や正しさより、感触が先に来る。"},
+    {k:"achi",  name:"達成", desc:"うまくなりたい、進めたい。道具は目的地までの距離を縮めるもの。"},
+    {k:"powe",  name:"影響", desc:"見られ方まで含めて選ぶ。持ち物が自分の輪郭になることを知っている。"},
+    {k:"secu",  name:"安心", desc:"失敗したくない。壊れないこと、間違いがないことに、いちばんお金を払える。"},
+    {k:"conf",  name:"規律", desc:"決めたやり方を守りたい。乱れないこと自体が心地よさになる。"},
+    {k:"trad",  name:"継承", desc:"長く使えるものを選ぶ。買い替えないことが、いちばんの贅沢だと思っている。"},
+    {k:"bene",  name:"関係", desc:"身近な人のために選ぶ。自分だけが良くても、あまり嬉しくない。"},
+    {k:"univ",  name:"公正", desc:"作り手や世の中まで見て選ぶ。買うことが誰かへの投票だと思っている。"}
+  ];
+
+  /* 15問。各価値がちょうど3回ずつ出る（偏らせない）。
+     a/b は対立する側どうしを当てている。 */
+  var Q = [
+    {c:"もの", t:"買うなら、どちらに惹かれますか。", a:{k:"stim", l:"出たばかりで、まだ誰も使っていないもの"},                b:{k:"secu", l:"何年も定番として残り続けているもの"}},
+    {c:"もの", t:"揃えるなら。",                     a:{k:"self", l:"自分で選んだ、ばらばらの組み合わせ"},                  b:{k:"conf", l:"はじめから完成している一式"}},
+    {c:"もの", t:"毎日使う道具に求めるのは。",       a:{k:"hedo", l:"触っていて気持ちがいいこと"},                        b:{k:"achi", l:"作業が速く、正確になること"}},
+    {c:"もの", t:"買ってよかったと感じる瞬間は。",   a:{k:"powe", l:"人から「それいいですね」と言われたとき"},            b:{k:"bene", l:"家族や友人にも勧めて、喜ばれたとき"}},
+    {c:"もの", t:"5年後の自分に近いのは。",           a:{k:"trad", l:"同じものを、まだ使っている"},                        b:{k:"stim", l:"何度か買い替えて、今のものを使っている"}},
+    {c:"もの", t:"同じ値段なら。",                   a:{k:"univ", l:"作り手と素材が、はっきりしているもの"},              b:{k:"powe", l:"名前を言えば伝わる、強いブランドのもの"}},
+    {c:"もの", t:"どちらが惜しくない出費ですか。",   a:{k:"secu", l:"壊れにくさと、長い保証のため"},                      b:{k:"hedo", l:"毎日触れたくなる、その感触のため"}},
+    {c:"もの", t:"道具に望むのは。",                 a:{k:"achi", l:"使うほど自分の性能が上がること"},                    b:{k:"trad", l:"何年経っても、変わらないままでいること"}},
+    {c:"時間", t:"予定のない休日。",                 a:{k:"stim", l:"決めずに出て、行き当たりばったりで動く"},            b:{k:"conf", l:"決めた順番どおりに、静かに進める"}},
+    {c:"時間", t:"いい一日だったと思うのは。",       a:{k:"bene", l:"誰かと過ごして、その人が楽しそうだった日"},          b:{k:"powe", l:"自分の仕事が、ちゃんと人に届いた日"}},
+    {c:"時間", t:"新しい環境で、まず欲しいのは。",   a:{k:"self", l:"自分でやり方を変えられる余地"},                      b:{k:"secu", l:"やり方が決まっている安心感"}},
+    {c:"人",   t:"やりたいことができたとき。",       a:{k:"bene", l:"誰かと一緒にやりたい"},                              b:{k:"self", l:"まずは一人で、最後までやりたい"}},
+    {c:"人",   t:"いいものを見つけたとき、嬉しいのは。", a:{k:"univ", l:"知られていない良さを、広められること"},           b:{k:"achi", l:"人より先に見つけた、という手応え"}},
+    {c:"人",   t:"気が乗らない日の約束。",           a:{k:"conf", l:"決めたことなので、行く"},                            b:{k:"hedo", l:"正直に言って、その日の気分を優先する"}},
+    {c:"人",   t:"お金の使い道として納得できるのは。", a:{k:"trad", l:"手入れをして、長く持たせるために払う"},             b:{k:"univ", l:"応援したい相手に払う"}}
+  ];
+
+  var TOTAL = Q.length;
+
+  var el = function(id){ return document.getElementById(id); };
+  var sIntro = el("s-intro"), sQ = el("s-q"), sRes = el("s-res");
+  var idx = 0;
+  var answers = [];          /* 各問で選んだ価値のキー */
+  var score = {};
+
+  function show(sec){
+    [sIntro, sQ, sRes].forEach(function(s){ s.classList.remove("on"); });
+    sec.classList.add("on");
+    window.scrollTo({top:0, behavior:"instant" in window ? "instant" : "auto"});
+  }
+
+  function render(){
+    var q = Q[idx];
+    el("qno").textContent = "Q" + (idx+1) + " / " + TOTAL;
+    el("qcat").textContent = q.c;
+    el("prog").style.width = (idx / TOTAL * 100) + "%";
+    el("qtext").textContent = q.t;
+    el("optA").textContent = q.a.l;
+    el("optB").textContent = q.b.l;
+    el("back").style.visibility = idx === 0 ? "hidden" : "visible";
+  }
+
+  function pick(side){
+    var q = Q[idx];
+    answers[idx] = (side === "a") ? q.a.k : q.b.k;
+    idx++;
+    if (idx >= TOTAL) { finish(); } else { render(); }
+  }
+
+  function finish(){
+    score = {};
+    V.forEach(function(v){ score[v.k] = 0; });
+    answers.forEach(function(k){ score[k] += 2; });
+
+    var max = 6;  /* 各価値は3問に登場＝満点6 */
+    var list = V.map(function(v){ return {k:v.k, name:v.name, desc:v.desc, s:score[v.k]}; });
+    var sorted = list.slice().sort(function(x,y){ return y.s - x.s; });
+    var top = sorted.slice(0,3);
+
+    el("rhead").textContent = "あなたが買っているのは、" + top[0].name + "。";
+    el("rlead").textContent = "15の選択のうち、" + top[0].name + "に" + top[0].s + "点。次いで" + top[1].name + "が" + top[1].s + "点、" + top[2].name + "が" + top[2].s + "点でした。";
+
+    drawRing(list, max, top.map(function(t){ return t.k; }));
+
+    el("top3").innerHTML = top.map(function(t,i){
+      return '<div class="card"><span class="rank">' + ["1ST","2ND","3RD"][i] + '</span>'
+           + '<h3>' + t.name + '</h3><p>' + t.desc + '</p></div>';
+    }).join("");
+
+    el("rows").innerHTML = sorted.map(function(t){
+      var hi = top.some(function(x){ return x.k === t.k; });
+      return '<div class="row' + (hi ? " hi" : "") + '">'
+           + '<span class="nm">' + t.name + '</span>'
+           + '<span class="tk"><i data-w="' + (t.s / max * 100) + '"></i></span>'
+           + '<span class="vl">' + t.s + '</span></div>';
+    }).join("");
+    requestAnimationFrame(function(){
+      Array.prototype.forEach.call(document.querySelectorAll(".tk i"), function(b){
+        b.style.width = b.getAttribute("data-w") + "%";
+      });
+    });
+
+    /* 円環の向かい側＝いちばん衝突する価値。0点の項目があるならそこを見せる */
+    var oppIdx = (V.findIndex(function(v){ return v.k === top[0].k; }) + 5) % 10;
+    var opp = list[oppIdx];
+    el("pair").innerHTML = '<p class="lb">TRADE-OFF</p><p>'
+      + '<strong>' + top[0].name + '</strong>の向かいにあるのは<strong>' + opp.name + '</strong>（' + opp.s + '点）です。'
+      + 'この2つは同時に満たしにくい関係にあります。'
+      + (opp.s <= 2
+          ? '選ぶときに' + opp.name + 'を諦めている自覚があるなら、それは迷いではなく、あなたの順番が決まっているということです。'
+          : 'どちらも高いので、買い物のたびに迷いが出やすいはずです。迷う時間そのものが、あなたの選び方の特徴になっています。')
+      + '</p>';
+
+    show(sRes);
+  }
+
+  /* 10価値を円周に置き、中心からの距離でスコアを表す。
+     色は使わず、上位3つだけ濃い点にする。 */
+  function drawRing(list, max, topKeys){
+    var size = 420, c = size/2, R = 150;
+    var pts = [], labels = [], grid = "";
+
+    [0.25,0.5,0.75,1].forEach(function(r){
+      grid += '<circle cx="'+c+'" cy="'+c+'" r="'+(R*r).toFixed(1)+'" fill="none" stroke="#E9E6E1" stroke-width="1"/>';
+    });
+
+    list.forEach(function(v, i){
+      var ang = (-90 + i * 36) * Math.PI / 180;
+      var rr  = R * (0.16 + 0.84 * (v.s / max));
+      var x = c + Math.cos(ang) * rr, y = c + Math.sin(ang) * rr;
+      pts.push([x, y]);
+
+      var lx = c + Math.cos(ang) * (R + 26), ly = c + Math.sin(ang) * (R + 26);
+      var anchor = Math.abs(Math.cos(ang)) < 0.25 ? "middle" : (Math.cos(ang) > 0 ? "start" : "end");
+      var hi = topKeys.indexOf(v.k) >= 0;
+      labels.push('<text x="'+lx.toFixed(1)+'" y="'+(ly+4).toFixed(1)+'" text-anchor="'+anchor+'" '
+        + 'font-family="Hiragino Sans, sans-serif" font-size="13" letter-spacing="1" '
+        + 'fill="'+(hi ? "#14120F" : "#B2ADA5")+'" font-weight="'+(hi ? 700 : 400)+'">'+v.name+'</text>');
+
+      grid += '<line x1="'+c+'" y1="'+c+'" x2="'+(c+Math.cos(ang)*R).toFixed(1)+'" y2="'+(c+Math.sin(ang)*R).toFixed(1)+'" stroke="#F0EDE8" stroke-width="1"/>';
+    });
+
+    var poly = pts.map(function(p){ return p[0].toFixed(1)+","+p[1].toFixed(1); }).join(" ");
+    var dots = list.map(function(v,i){
+      var hi = topKeys.indexOf(v.k) >= 0;
+      return '<circle cx="'+pts[i][0].toFixed(1)+'" cy="'+pts[i][1].toFixed(1)+'" r="'+(hi?4.5:3)+'" fill="'+(hi?"#8B5918":"#B2ADA5")+'"/>';
+    }).join("");
+
+    el("ring").innerHTML =
+      '<svg viewBox="0 0 '+size+' '+size+'" role="img" aria-label="10の価値の重み付け">'
+      + grid
+      + '<polygon points="'+poly+'" fill="#14120F" fill-opacity="0.06" stroke="#14120F" stroke-width="1.5" stroke-linejoin="round"/>'
+      + dots + labels.join("")
+      + '</svg>';
+  }
+
+  function resultText(){
+    var list = V.map(function(v){ return {name:v.name, s:score[v.k]}; })
+                .sort(function(x,y){ return y.s - x.s; });
+    return "【4.5room 価値観診断】\n私が買っているのは「" + list[0].name + "」でした。\n"
+         + list.map(function(t){ return t.name + " " + t.s; }).join(" / ")
+         + "\nhttps://4-5room.com/values/";
+  }
+
+  el("go").addEventListener("click", function(){ idx = 0; answers = []; render(); show(sQ); });
+  el("optA").addEventListener("click", function(){ pick("a"); });
+  el("optB").addEventListener("click", function(){ pick("b"); });
+  el("back").addEventListener("click", function(){ if (idx > 0){ idx--; render(); } });
+  el("again").addEventListener("click", function(){ idx = 0; answers = []; show(sIntro); });
+
+  el("copy").addEventListener("click", function(){
+    var t = resultText(), btn = el("copy");
+    var done = function(){ btn.textContent = "コピーしました"; setTimeout(function(){ btn.textContent = "結果をコピー"; }, 1800); };
+    if (navigator.clipboard && navigator.clipboard.writeText){
+      navigator.clipboard.writeText(t).then(done, fallback);
+    } else { fallback(); }
+    function fallback(){
+      var ta = document.createElement("textarea");
+      ta.value = t; ta.style.position = "fixed"; ta.style.opacity = "0";
+      document.body.appendChild(ta); ta.select();
+      try { document.execCommand("copy"); done(); } catch(e){ btn.textContent = "コピーできませんでした"; }
+      document.body.removeChild(ta);
+    }
+  });
+
+  document.addEventListener("keydown", function(e){
+    if (!sQ.classList.contains("on")) return;
+    if (e.key === "1" || e.key === "ArrowLeft")  { pick("a"); }
+    if (e.key === "2" || e.key === "ArrowRight") { pick("b"); }
+    if (e.key === "Backspace" && idx > 0) { e.preventDefault(); idx--; render(); }
+  });
+})();
+</script>
+</body>
+</html>
