@@ -1,28 +1,28 @@
 {
   "_comment": "YouTube Data API の実測値。管理画面の「最新を取得」で再生成する。手で編集しない。",
-  "measured_at": "2026-08-11",
+  "measured_at": "2026-09-06",
   "id": "UCdxzGFZI8g1MT3vUCprx_vw",
   "title": "4.5room",
   "url": "https://www.youtube.com/@4.5room",
-  "subscribers": 6160,
-  "views": 1258066,
-  "videos": 253,
+  "subscribers": 6690,
+  "views": 1395931,
+  "videos": 256,
   "first_upload": "2022-12-14",
   "latest": [
     {
-      "id": "3dmZqQf5VTw",
-      "title": "【悪魔のマットレス】ベッドから出られなくなりました。",
-      "published": "2026-08-08"
+      "id": "ImzIabCMlM4",
+      "title": "外出のハードルを下げたい人向けのバッグたち｜tomtoc T30 vs T21",
+      "published": "2026-09-04"
     },
     {
-      "id": "szskMWWj2b4",
-      "title": "整理術不要のバックパック｜見た目はオタク。使うと可愛い。",
-      "published": "2026-08-02"
+      "id": "urho0qVezXI",
+      "title": "チャットをやめてボタンをつけたら、生活が変わりました。｜Claude Code",
+      "published": "2026-08-30"
     },
     {
-      "id": "BOpgKhPvgfA",
-      "title": "MacBookの入るスリングバッグが快適過ぎた。",
-      "published": "2026-07-31"
+      "id": "96yrhThCe3Y",
+      "title": "【不可逆】生活の質が跳ね上がるもの｜7選",
+      "published": "2026-08-15"
     }
   ],
   "top": [
@@ -30,19 +30,19 @@
       "id": "1slz-DYE6l4",
       "title": "【700円】おしゃれ×便利な新作ショルダーバッグがほぼ完璧でした。｜読書かばんその２",
       "published": "2026-05-17",
-      "views": 359563
+      "views": 415249
     },
     {
       "id": "Qw5QYKtWxXo",
       "title": "【神アプリ】 最高の左手デバイスは手元にあった。| Elgato STREAM DECKアプリ",
       "published": "2024-08-26",
-      "views": 94243
+      "views": 94590
     },
     {
       "id": "-lp4D2pRV8w",
       "title": "【2025年最新版】iPad mini活用方法＆ミニマルバッグ",
       "published": "2025-05-11",
-      "views": 62882
+      "views": 64085
     }
   ]
 }
