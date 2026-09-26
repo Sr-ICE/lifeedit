@@ -1,0 +1,284 @@
+/* ==========================================================================
+   4.5room — v3（全ページ共通）
+   白い紙の上に、黒を残した暗い写真を大きく貼る。
+   明るさは紙で出し、雰囲気は写真で出す。文は本人の1文だけ、あとは事実。
+
+   区切りは「余白」「暗い面（写真・黒い帯）」「文字の大小」だけで作る。
+   罫・枠・塗りの箱・角丸カード・写真の白い膜・字間を広げた小さな英ラベルは使わない。
+   差し色はミント1色。主ボタン（1画面1つ）とフォーカスの輪郭だけに使う。
+   ========================================================================== */
+
+/* --- 書体（自前ホスト。ParaType Free Font License） ----------------------- */
+@font-face{font-family:"PT Sans Narrow";src:url("../../assets/fonts/PTSansNarrow-Regular.woff") format("woff");font-weight:400;font-display:swap}
+@font-face{font-family:"PT Sans Narrow";src:url("../../assets/fonts/PTSansNarrow-Bold.woff") format("woff");font-weight:700;font-display:swap}
+@font-face{font-family:"PT Mono";src:url("../../assets/fonts/PTMono-Regular.woff") format("woff");font-weight:400;font-display:swap}
+
+:root{
+  /* 地。灰はすべて R=G=B（生成り・琥珀寄りにしない） */
+  --paper:#FFFFFF;
+  --dark:#151515;        /* 黒い帯。写真の黒より半段明るく、写真を沈ませない */
+
+  /* 文字（紙の上） */
+  --ink:#111111;         /* 18.9:1 */
+  --ink-2:#555555;       /*  7.5:1 */
+  --ink-3:#767676;       /*  4.5:1 注記だけ */
+
+  /* 文字（黒い帯・写真の上） */
+  --on-dark:#F2F2F2;
+  --on-dark-2:#A6A6A6;
+
+  /* 差し色。チャンネルの見出しカードと同じミント */
+  --mint:#5EC8A8;
+  --mint-hover:#4FB897;
+
+  /* 写真の上の日付の刻印だけ */
+  --burn:#F2B36A;
+
+  --jp:"Hiragino Sans","Hiragino Kaku Gothic ProN","Noto Sans JP",sans-serif;
+  --narrow:"PT Sans Narrow","Hiragino Sans",sans-serif;
+  --mono:"PT Mono",ui-monospace,Menlo,monospace;
+
+  --rail:1120px;
+  --gutter:24px;
+  /* 余白の尺度。これ以外の値は書かない */
+  --s1:8px; --s2:16px; --s3:24px; --s4:40px; --s5:64px; --s6:104px; --s7:168px;
+
+  --ease:cubic-bezier(.2,.7,.2,1);
+}
+@media (max-width:599px){:root{--gutter:16px}}
+
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{
+  background:var(--paper);color:var(--ink);
+  font-family:var(--jp);font-size:16px;line-height:1.8;font-weight:400;
+  letter-spacing:.02em;
+  font-feature-settings:"palt" 1;
+  -webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;
+  overflow-wrap:anywhere;
+  word-break:auto-phrase;   /* 和文を文節で折り返す（対応ブラウザのみ） */
+  overflow-x:clip;          /* 写真の断ち落とし（100vw 基準）でスクロールバー幅ぶん横に出ないように */
+}
+ul,ol{list-style:none}
+a{color:inherit;text-decoration:none}
+a:hover{text-decoration:underline;text-decoration-thickness:1px;text-underline-offset:.35em}
+a:focus{outline:none}
+a:focus-visible,button:focus-visible{outline:2px solid var(--mint);outline-offset:3px}
+img{display:block;max-width:100%;height:auto}
+button{font:inherit;color:inherit}
+
+.rail{max-width:var(--rail);margin:0 auto;padding:0 var(--gutter)}
+/* rail の左端（写真の上の文字やストリップの始まりを揃えるため） */
+:root{--rail-left:max(var(--gutter),calc((100vw - var(--rail)) / 2 + var(--gutter)))}
+
+.num{font-variant-numeric:tabular-nums}
+.mono{font-family:var(--mono);font-size:14px;line-height:1.6;letter-spacing:.04em;color:var(--ink-2);font-variant-numeric:tabular-nums}
+.vh{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+
+/* --- ロゴ（SVG をマスクにして color で塗る） ------------------------------ */
+.logo-icon,.logo-solid,.logo-open{display:block;background:currentColor;
+  -webkit-mask-repeat:no-repeat;mask-repeat:no-repeat;-webkit-mask-size:contain;mask-size:contain;
+  -webkit-mask-position:left center;mask-position:left center}
+.logo-icon{width:22px;height:22px;
+  -webkit-mask-image:url("../../assets/logo/icon.svg");mask-image:url("../../assets/logo/icon.svg")}
+/* 塗り版（小さいとき）。viewBox 2898×719 */
+.logo-solid{aspect-ratio:2898/719;
+  -webkit-mask-image:url("../../assets/logo/wordmark-solid.svg");mask-image:url("../../assets/logo/wordmark-solid.svg")}
+/* 中抜き版（幅280px以上・暗い面の上だけ）。viewBox 2928×749 */
+.logo-open{aspect-ratio:2928/749;
+  -webkit-mask-image:url("../../assets/logo/wordmark-mixed.svg");mask-image:url("../../assets/logo/wordmark-mixed.svg")}
+
+/* ==========================================================================
+   ヘッダー
+   暗いヒーローの上では白文字・地なし。ヒーローを過ぎたら白い地に切り替える。
+   ========================================================================== */
+.hd{
+  position:fixed;inset:0 0 auto 0;z-index:10;height:72px;
+  display:flex;align-items:center;justify-content:space-between;
+  padding:0 var(--rail-left);
+  color:#fff;
+  transition:background-color .3s var(--ease),color .3s var(--ease);
+}
+.hd.on{background:rgba(255,255,255,.92);-webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px);color:var(--ink)}
+.hd-home{display:flex;align-items:center;gap:10px;min-height:44px}
+.hd-home:hover{text-decoration:none}
+.hd-home .logo-solid{width:84px}
+.hd nav{display:flex;gap:var(--s1);margin-right:-12px}
+.hd nav a{display:inline-flex;align-items:center;min-height:44px;min-width:44px;padding:0 12px;font-size:15px;line-height:1;letter-spacing:.06em}
+.hd nav a[aria-current="page"]{text-decoration:underline;text-decoration-thickness:1px;text-underline-offset:.35em}
+
+/* ==========================================================================
+   ヒーロー（暗い写真・全幅）
+   白い膜はかけない。ナビを読ませるための黒い減光を上端だけに敷く。
+   ========================================================================== */
+.hero{position:relative;height:min(100svh,960px);min-height:520px;overflow:hidden;isolation:isolate;background:#0d0d0d}
+.hero img{width:100%;height:100%;object-fit:cover}
+.hero::before{content:"";position:absolute;inset:0 0 auto 0;height:160px;z-index:2;pointer-events:none;
+  background:linear-gradient(rgba(0,0,0,.45),rgba(0,0,0,0))}
+/* 下端の減光。中抜きロゴを白い寝具の上でも立たせる（黒の減光。白い膜ではない） */
+.hero-shade{position:absolute;inset:auto 0 0 0;height:320px;z-index:2;pointer-events:none;
+  background:linear-gradient(to top,rgba(0,0,0,.42),rgba(0,0,0,0))}
+/* 粒子（フィルムの手ざわり）。濃さは控えめ */
+.grain::after{
+  content:"";position:absolute;inset:0;z-index:1;pointer-events:none;
+  opacity:.35;mix-blend-mode:soft-light;background-size:160px 160px;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23g)'/%3E%3C/svg%3E");
+}
+@media (min-resolution:2dppx){.grain::after{background-size:80px 80px}}
+
+.hero-t{position:absolute;left:var(--rail-left);bottom:64px;z-index:3;color:#fff}
+.hero-t h1 .logo-open{width:min(620px,44vw)}
+.hero-t .fact{margin-top:var(--s3);font-family:var(--mono);font-size:14px;line-height:1;letter-spacing:.04em;color:rgba(255,255,255,.9)}
+
+/* かばんページのヒーローの刻印（動画の公開日） */
+.burn{position:absolute;right:var(--s3);bottom:var(--s3);z-index:3;font:12px/1 var(--mono);letter-spacing:.14em;color:var(--burn);opacity:.9}
+
+/* ==========================================================================
+   節
+   ========================================================================== */
+.sec{padding-top:var(--s6)}
+.sec.big{padding-top:var(--s7)}
+.sh{display:flex;align-items:baseline;justify-content:space-between;gap:var(--s3);margin-bottom:var(--s4)}
+h2{font-size:24px;line-height:1.3;font-weight:600;letter-spacing:.01em}
+h2 .n,h1 .n{font-family:var(--narrow);font-weight:400;color:var(--ink-2);margin-left:.3em;letter-spacing:0;font-variant-numeric:tabular-nums}
+h2 .n{font-size:36px;line-height:1;vertical-align:-.04em}
+.more{display:inline-flex;align-items:center;min-height:44px;font-size:16px}
+
+/* --- 本人の1文 ＋ 手の写真 --------------------------------------------- */
+.intro{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));gap:var(--s3);align-items:end}
+.intro .say{grid-column:1 / 8;font-size:30px;line-height:1.6;letter-spacing:.03em;font-weight:400;max-width:720px}
+.intro .ph{grid-column:9 / 13;margin-right:calc(var(--rail-left) * -1)}
+.ph img{width:100%;object-fit:cover}
+.r32 img,img.r32{aspect-ratio:3/2;object-fit:cover}
+.r45 img,img.r45{aspect-ratio:4/5;object-fit:cover}
+
+/* --- ストリップ（同じ画角の連作。rail の左端から右へ断ち落とす） -------- */
+.strip{display:flex;gap:var(--s2);overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none;
+  padding-left:var(--rail-left);padding-right:var(--gutter);scroll-padding-left:var(--rail-left)}
+.strip::-webkit-scrollbar{display:none}
+.strip > a{flex:0 0 min(520px,78vw);scroll-snap-align:start;scroll-margin-left:var(--rail-left);display:block}
+.strip > a:hover{text-decoration:none}
+.strip img{width:100%;aspect-ratio:3/2;object-fit:cover}
+.strip .cap{display:block;padding-top:var(--s2);font-size:18px;font-weight:600;line-height:1.5}
+.strip > a:hover .cap{text-decoration:underline;text-decoration-thickness:1px;text-underline-offset:.35em}
+.strip .d{display:block}
+.strip-nav{display:flex;gap:var(--s1)}
+.strip-nav button{width:44px;height:44px;background:none;border:0;font-size:20px;line-height:1;cursor:pointer;color:var(--ink)}
+.strip-nav button:disabled{color:var(--ink-3);cursor:default}
+@media (hover:none){.strip-nav{display:none}}
+
+/* --- 二段組（写真 5/12・文字 7/12） ----------------------------------- */
+.two{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));gap:var(--s3)}
+.two > .ph{grid-column:1 / 6}
+.two > .tx{grid-column:7 / 13}
+.two .sticky{position:sticky;top:96px}
+
+/* トップの持ちもの：グループの写真4枚（2×2）。品名はページ側に置く */
+.things{align-items:end}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:var(--s4) var(--s3)}
+.grid2 a{display:block}
+.grid2 a:hover{text-decoration:none}
+.grid2 img{width:100%;aspect-ratio:3/2;object-fit:cover}
+.grid2 .cap{display:block;padding-top:var(--s1);font-size:16px;font-weight:600;line-height:1.5}
+.grid2 a:hover .cap{text-decoration:underline;text-decoration-thickness:1px;text-underline-offset:.35em}
+.grid2 .n{font-family:var(--narrow);font-weight:400;font-size:20px;color:var(--ink-2);margin-left:.35em}
+.things .more{margin-top:var(--s4)}
+
+/* --- 外の光の1枚（映画の比率・全幅） -------------------------------- */
+.wide{margin-top:var(--s6)}
+.wide img{width:100%;aspect-ratio:2.39 / 1;object-fit:cover}
+.wide figcaption{padding-top:var(--s2)}
+.wide figcaption a{display:inline-flex;flex-wrap:wrap;align-items:baseline;gap:0 var(--s2);min-height:44px;font-size:15px;color:var(--ink-2)}
+
+/* --- 最新（本編・Lab・note の1本ずつ。罫は引かない） ---------------- */
+.news li + li{margin-top:var(--s2)}
+.news a{display:grid;grid-template-columns:128px minmax(0,1fr) auto;gap:0 var(--s3);align-items:baseline;min-height:56px;padding:var(--s1) 0}
+.news a:hover{text-decoration:none}
+.news .tt{display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;font-size:18px;font-weight:600;line-height:1.55}
+.news a:hover .tt{text-decoration:underline;text-decoration-thickness:1px;text-underline-offset:.35em}
+.news .src{font-size:15px;color:var(--ink-2);white-space:nowrap}
+
+/* ==========================================================================
+   黒い帯（事実だけ。数字は1回だけ大きく置く）
+   ========================================================================== */
+.band{margin-top:var(--s6);background:var(--dark);color:var(--on-dark);padding:var(--s6) 0}
+.band .since{font-family:var(--mono);font-size:16px;letter-spacing:.04em;color:var(--on-dark-2)}
+.nums{display:grid;grid-template-columns:repeat(4,auto);justify-content:space-between;gap:var(--s4);margin-top:var(--s4)}
+.nums > div{display:flex;flex-direction:column-reverse}
+.nums .big{display:block;font-family:var(--narrow);font-weight:400;font-size:clamp(40px,4.6vw,64px);line-height:1;letter-spacing:-.01em;font-variant-numeric:tabular-nums;white-space:nowrap}
+.nums .u{font-family:var(--jp);font-size:.36em;letter-spacing:.02em;margin:0 .15em 0 .1em}
+.nums .lab{display:block;margin-top:var(--s1);font-size:16px;line-height:1.5;color:var(--on-dark-2)}
+.band .note{margin-top:var(--s4);font-size:14px;line-height:1.7;color:var(--on-dark-2)}
+.band .act{display:flex;flex-wrap:wrap;align-items:center;gap:var(--s2) var(--s4);margin-top:var(--s5)}
+.band .act a:not(.pill){display:inline-flex;align-items:center;min-height:44px}
+
+/* --- 主ボタン（1画面1つ） --------------------------------------------- */
+.pill{display:inline-flex;align-items:center;height:48px;padding:0 28px;border-radius:999px;
+  background:var(--mint);color:var(--ink);font-size:16px;font-weight:600;letter-spacing:.04em;
+  transition:background-color .2s var(--ease)}
+.pill:hover{background:var(--mint-hover);text-decoration:none}
+
+/* ==========================================================================
+   フッター（全ページ共通・白）
+   ========================================================================== */
+.ft{padding:var(--s5) 0 var(--s4)}
+.ft-home{display:inline-flex;align-items:center;gap:12px;min-height:44px}
+.ft-home:hover{text-decoration:none}
+.ft-home .logo-icon{width:24px;height:24px}
+.ft-home .logo-solid{width:96px}
+.ft-links{display:flex;flex-wrap:wrap;gap:0 var(--s3);margin-top:var(--s3)}
+.ft-links a{display:inline-flex;align-items:center;min-height:44px;padding:0 4px;margin:0 -4px;font-size:15px}
+.ft-meta{display:flex;flex-wrap:wrap;gap:var(--s1) var(--s3);margin-top:var(--s3);font-size:14px;line-height:1.7;color:var(--ink-3)}
+
+/* ==========================================================================
+   出現（1種類だけ。ヒーローは動かさない）
+   ========================================================================== */
+.js .rv{opacity:0;transform:translateY(12px);
+  transition:opacity .6s var(--ease),transform .6s var(--ease);
+  transition-delay:calc(var(--i,0) * 60ms)}
+.js .rv.in{opacity:1;transform:none}
+@media (prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  .js .rv{opacity:1;transform:none}
+  *,*::before,*::after{transition:none!important}
+}
+
+/* ==========================================================================
+   レスポンシブ
+   ========================================================================== */
+@media (max-width:899px){
+  .two > .ph,.two > .tx{grid-column:1 / -1}
+  .two .sticky{position:static}
+  .intro .say,.intro .ph{grid-column:1 / -1}
+  .intro .ph{margin-right:0}
+  .wide img{aspect-ratio:3 / 2}
+  .things{align-items:start}
+  .nums{grid-template-columns:repeat(2,auto);justify-content:start;gap:var(--s4) var(--s5)}
+}
+@media (max-width:599px){
+  .hd{height:64px}
+  .hd-home{gap:8px}
+  .hd-home .logo-solid{width:72px}
+  .hd nav{gap:var(--s1);margin-right:-8px}
+  .hd nav a{font-size:14px;padding:0 8px;letter-spacing:.04em}
+
+  .hero{height:min(100svh,640px);min-height:480px}
+  .hero-t{bottom:48px}
+  .hero-t h1 .logo-open{width:max(280px,74vw)}
+
+  .sec{padding-top:var(--s5)}
+  .sec.big{padding-top:var(--s6)}
+  .sh{margin-bottom:var(--s3)}
+  h2{font-size:22px}
+  h2 .n{font-size:30px}
+  .grid2{gap:var(--s3) var(--s2)}
+  .grid2 .cap{font-size:15px}
+  .news a{grid-template-columns:1fr auto;gap:4px var(--s2)}
+  .news .tt{grid-column:1 / -1;grid-row:2;font-size:17px}
+  .intro .say{font-size:21px}
+
+  .intro .ph{margin:0 calc(var(--gutter) * -1)}
+
+  .nums{grid-template-columns:1fr 1fr;gap:var(--s4) var(--s3)}
+  .nums .big{font-size:40px}
+}

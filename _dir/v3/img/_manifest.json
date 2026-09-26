@@ -1,0 +1,218 @@
+[
+ {
+  "file": "img/bags/backpack-t77-a.jpg",
+  "src": "cand/t77-a3.png",
+  "ratio": "3:2",
+  "size": [
+   1761,
+   1174
+  ],
+  "p5_before": 15.0,
+  "p5": 18,
+  "p95": 220
+ },
+ {
+  "file": "img/bags/backpack-t77-b.jpg",
+  "src": "cand/t77-b3.png",
+  "ratio": "4:5",
+  "size": [
+   939,
+   1174
+  ],
+  "p5_before": 4.3,
+  "p5": 4,
+  "p95": 157
+ },
+ {
+  "file": "img/bags/sling-t21-a.jpg",
+  "src": "cand/t21-a5.png",
+  "ratio": "3:2",
+  "size": [
+   1761,
+   1174
+  ],
+  "p5_before": 15.3,
+  "p5": 17,
+  "p95": 219
+ },
+ {
+  "file": "img/bags/sling-t21-b.jpg",
+  "src": "cand/t21-b3.png",
+  "ratio": "4:5",
+  "size": [
+   939,
+   1174
+  ],
+  "p5_before": 18.3,
+  "p5": 18,
+  "p95": 207
+ },
+ {
+  "file": "img/bags/ipadmini-a.jpg",
+  "src": "cand/ipm-a11.png",
+  "ratio": "3:2",
+  "size": [
+   1758,
+   1172
+  ],
+  "p5_before": 14.3,
+  "p5": 16,
+  "p95": 219
+ },
+ {
+  "file": "img/bags/ipadmini-b.jpg",
+  "src": "cand/ipm-b3.png",
+  "ratio": "4:5",
+  "size": [
+   938,
+   1172
+  ],
+  "p5_before": 0.0,
+  "p5": 0,
+  "p95": 222
+ },
+ {
+  "file": "img/bags/dokusho-2-a.jpg",
+  "src": "cand/d2-a4.png",
+  "ratio": "3:2",
+  "size": [
+   1758,
+   1172
+  ],
+  "p5_before": 42.0,
+  "p5": 16,
+  "p95": 217
+ },
+ {
+  "file": "img/bags/dokusho-2-b.jpg",
+  "src": "cand/d2-b2.png",
+  "ratio": "4:5",
+  "size": [
+   863,
+   1079
+  ],
+  "p5_before": 30.7,
+  "p5": 23,
+  "p95": 101
+ },
+ {
+  "file": "img/bags/dokusho-a.jpg",
+  "src": "cand/d1-a3.png",
+  "ratio": "3:2",
+  "size": [
+   1806,
+   1204
+  ],
+  "p5_before": 50.0,
+  "p5": 16,
+  "p95": 219
+ },
+ {
+  "file": "img/bags/dokusho-b.jpg",
+  "src": "cand/d1-b1.png",
+  "ratio": "4:5",
+  "size": [
+   963,
+   1204
+  ],
+  "p5_before": 41.7,
+  "p5": 25,
+  "p95": 214
+ },
+ {
+  "file": "img/carry/g-bag.jpg",
+  "src": "cand/gb-2.png",
+  "ratio": "3:2",
+  "size": [
+   1806,
+   1204
+  ],
+  "p5_before": 57.0,
+  "p5": 26,
+  "p95": 227
+ },
+ {
+  "file": "img/carry/g-write.jpg",
+  "src": "cand/gw-1.png",
+  "ratio": "3:2",
+  "size": [
+   1758,
+   1172
+  ],
+  "p5_before": 42.0,
+  "p5": 24,
+  "p95": 224
+ },
+ {
+  "file": "img/carry/g-desk.jpg",
+  "src": "cand/gd-1.png",
+  "ratio": "3:2",
+  "size": [
+   1758,
+   1172
+  ],
+  "p5_before": 50.0,
+  "p5": 25,
+  "p95": 233
+ },
+ {
+  "file": "img/carry/g-waist.jpg",
+  "src": "cand/edc-1.png",
+  "ratio": "3:2",
+  "size": [
+   1806,
+   1204
+  ],
+  "p5_before": 54.3,
+  "p5": 24,
+  "p95": 204
+ },
+ {
+  "file": "img/hands/sign-32.jpg",
+  "src": "cand/h-1.png",
+  "ratio": "3:2",
+  "size": [
+   1806,
+   1204
+  ],
+  "p5_before": 48.0,
+  "p5": 25,
+  "p95": 228
+ },
+ {
+  "file": "img/hands/sign-45.jpg",
+  "src": "cand/h-4.png",
+  "ratio": "4:5",
+  "size": [
+   963,
+   1204
+  ],
+  "p5_before": 49.0,
+  "p5": 25,
+  "p95": 208
+ },
+ {
+  "file": "img/carry/all-32.jpg",
+  "src": "/Users/rs/AIタスク/個人用/4.5room-hp/assets/photos/real/hero.jpg",
+  "ratio": "3:2",
+  "size": [
+   1350,
+   900
+  ],
+  "p5_before": 34.7,
+  "p5": 24,
+  "p95": 222
+ },
+ {
+  "file": "img/carry/all-45.jpg",
+  "src": "/Users/rs/AIタスク/個人用/4.5room-hp/assets/photos/real/hero.jpg",
+  "ratio": "4:5",
+  "size": [
+   720,
+   900
+  ],
+  "p5_before": 38.0,
+  "p5": 25,
+  "p95": 210
+ }
+]

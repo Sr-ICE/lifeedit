@@ -1,13 +1,18 @@
 {
   "_comment": "YouTube Data API の実測値（Lab）。管理画面の「最新を取得」で再生成する。手で編集しない。",
-  "measured_at": "2026-09-06",
+  "measured_at": "2026-09-26",
   "id": "UCtpqTOuTy5gK_2UZzgikizQ",
   "title": "4.5Lab",
   "url": "https://www.youtube.com/channel/UCtpqTOuTy5gK_2UZzgikizQ",
-  "subscribers": 945,
-  "videos": 20,
+  "subscribers": 956,
+  "videos": 21,
   "opened": "2023-03",
   "latest": [
+    {
+      "id": "G9SOTlgRcrY",
+      "title": "本が読めない｜Podcast",
+      "published": "2026-09-15"
+    },
     {
       "id": "kCMHr5OEpow",
       "title": "最近読んで面白かった本のお話",
@@ -17,11 +22,6 @@
       "id": "f6kiRRRXdw8",
       "title": "【い】日本で23番目くらいに雑なデスクツアー｜2026/07/09",
       "published": "2026-07-08"
-    },
-    {
-      "id": "6QFbBJ_5lCY",
-      "title": "【ゆる回】最近買った\"ちょっと変なもの\"5つ紹介します",
-      "published": "2026-05-01"
     }
   ]
 }
