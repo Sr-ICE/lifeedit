@@ -712,7 +712,10 @@ ul{list-style:none}
         scenes[i].style.setProperty("--cover", p.toFixed(3));
       }
     }
-    if (hudSc) hudSc.textContent = pad(cur + 1);
+    // 場面番号は間のカット（.s-cut）を数えない
+    var sc = 0;
+    for (var j = 0; j <= cur; j++) if (!scenes[j].classList.contains("s-cut")) sc++;
+    if (hudSc) hudSc.textContent = pad(Math.max(1, sc));
     if (hudTc && (reduce || !t0)) hudTc.textContent = tc(Math.round(window.scrollY / 2.5));
     if (hdr) hdr.classList.toggle("at-open", cur === 0);
   }
