@@ -2,6 +2,8 @@
 <html lang="ja">
 <head>
 <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>あなたが大事にしていること｜4.5room 価値観診断</title>
 <base target="_top">
 <meta name="referrer" content="no-referrer">
 <style>
@@ -45,6 +47,8 @@ body{
   line-height:2.05;letter-spacing:.06em;
   font-feature-settings:"palt" 1;
   -webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;
+  /* 日本語の折り返し。禁則を守り、行末に助詞1文字が落ちるのを抑える */
+  line-break:strict;word-break:normal;overflow-wrap:normal;
 }
 button,input,textarea{font:inherit;color:inherit;letter-spacing:inherit}
 button{background:none;border:none;cursor:pointer;-webkit-tap-highlight-color:transparent}
@@ -55,8 +59,8 @@ button{background:none;border:none;cursor:pointer;-webkit-tap-highlight-color:tr
 .p{white-space:pre-line}
 
 /* 見出しは細く、大きく、字間を開ける */
-.h1{font-weight:300;font-size:clamp(30px,5.4vw,54px);line-height:1.52;letter-spacing:.08em;text-wrap:balance}
-.h2{font-weight:300;font-size:clamp(23px,3.6vw,34px);line-height:1.62;letter-spacing:.09em;text-wrap:balance}
+.h1{font-weight:300;font-size:clamp(29px,5.2vw,54px);line-height:1.55;letter-spacing:.06em;text-wrap:pretty;line-break:strict;word-break:normal;overflow-wrap:normal}
+.h2{font-weight:300;font-size:clamp(22px,3.4vw,34px);line-height:1.62;letter-spacing:.06em;text-wrap:pretty;line-break:strict;word-break:normal;overflow-wrap:normal}
 .h3{font-weight:400;font-size:19px;line-height:1.75;letter-spacing:.08em}
 
 /* 欧文の小見出し。数字と組みで使う */
@@ -79,6 +83,7 @@ button{background:none;border:none;cursor:pointer;-webkit-tap-highlight-color:tr
 .cover .h1 .ln > span{display:block;transform:translateY(105%);transition:transform 1.15s var(--e)}
 .cover.go .h1 .ln:nth-child(1) > span{transform:none}
 .cover.go .h1 .ln:nth-child(2) > span{transform:none;transition-delay:.08s}
+.cover.go .h1 .ln:nth-child(3) > span{transform:none;transition-delay:.16s}
 .cover .lead{color:var(--mid);max-width:30em;margin-bottom:var(--s5);font-size:14.5px;line-height:2.3}
 
 .spec{display:flex;gap:var(--s4);flex-wrap:wrap;margin-bottom:var(--s5)}
@@ -364,6 +369,7 @@ textarea:focus{outline:none;border-bottom-color:var(--ink)}
 .tally .labels span{font-size:11px;letter-spacing:.08em;color:var(--faint);text-align:center;transition:color .6s var(--e)}
 .tally .labels span.hi{color:var(--ink)}
 .tally .msg{margin-top:var(--s5);font-family:var(--en);font-size:12px;letter-spacing:.3em;color:var(--mid)}
+.tally .msg-sub{margin-top:var(--s2);font-size:11.5px;letter-spacing:.1em;color:var(--faint)}
 
 /* 名乗りは1文字ずつ */
 .name .type .ch{display:inline-block;opacity:0;transform:translateY(40px) rotate(6deg);transition:opacity .6s var(--e),transform .9s var(--spring)}
@@ -470,11 +476,11 @@ textarea{border-radius:var(--r-md)}
 /* ==========================================================================
    結果：まずシェアできる1枚
    ========================================================================== */
-.share-wrap{padding:var(--s4) 0 var(--s5);background:#EFEDEA}
+.share-wrap{padding:var(--s4) var(--s3) var(--s5);background:transparent}
 .share{
   position:relative;overflow:hidden;
-  max-width:400px;margin:0 auto;
-  aspect-ratio:9/16;
+  max-width:var(--col);margin:0 auto;
+  aspect-ratio:4/5;
   border-radius:28px;
   background:var(--share-bg,#141312);
   color:#fff;
@@ -505,6 +511,7 @@ textarea{border-radius:var(--r-md)}
 .share .btm .k{font-family:var(--en);font-size:9px;letter-spacing:.28em;color:rgba(255,255,255,.5);display:block;margin-bottom:2px}
 .share .btm .v{font-size:12px;letter-spacing:.08em}
 .share .btm .v .num{font-size:20px;font-weight:200}
+.share .btm .v .num.is-word{font-size:15px;font-weight:400}
 .share .mini{width:104px;height:104px;opacity:.9}
 .share .mini svg{width:100%;height:auto;display:block}
 
@@ -515,7 +522,18 @@ textarea{border-radius:var(--r-md)}
 .sheet{padding:var(--s5) 0;background:transparent}
 .sheet.alt{background:transparent}
 .sheet > .col{background:var(--paper);border-radius:var(--r-lg);box-shadow:var(--shadow);padding:var(--s5) var(--s4)}
-@media (max-width:560px){ .sheet > .col{padding:var(--s4) var(--s3);border-radius:20px;margin:0 var(--s1)} .sheet{padding:var(--s2) 0} }
+@media (max-width:560px){
+  /* 狭い画面では器の余白を削って、本文に幅を渡す */
+  .sheet > .col{padding:var(--s4) var(--s3);border-radius:18px;margin:0}
+  .sheet{padding:var(--s1)}
+  .share-wrap{padding:var(--s3) var(--s1) var(--s4)}
+  .share{padding:var(--s4) var(--s3);border-radius:22px}
+  body{font-size:15.5px}
+  .sheet .body{font-size:15.5px;line-height:2.1}
+  .rank-item .tx,.axis .say,.todo span{font-size:14.5px}
+  .cover .lead{font-size:15px}
+  .block .note,.fine{font-size:13px}
+}
 .name{border-radius:0}
 
 /* 名乗りの黒面は、シェアカードに役目を渡したので短く */
@@ -559,6 +577,50 @@ textarea{border-radius:var(--r-md)}
 /* 結果では大きく */
 .shape-big{max-width:340px}
 .shape-big .cap .n{font-size:44px}
+
+/* ==========================================================================
+   結果の追加セクション（毎日の選び方 / 強みと落とし穴 / 相性 / おすすめ動画）
+   ========================================================================== */
+
+/* 2つ並ぶもの（強み・落とし穴／合う人・ぶつかる人） */
+.duo{display:grid;gap:var(--s4)}
+.duo .item{position:relative;padding-left:var(--s4)}
+.duo .item::before{
+  content:"";position:absolute;left:0;top:6px;bottom:6px;width:2px;
+  background:var(--tone);opacity:.45;border-radius:2px;
+}
+.duo .item.minus::before{background:var(--faint);opacity:.6}
+.duo .lbl{
+  display:block;font-family:var(--en);font-size:10px;letter-spacing:.28em;
+  color:var(--faint);margin-bottom:var(--s1);
+}
+.duo .who{font-size:19px;letter-spacing:.06em;margin-bottom:var(--s1)}
+.duo .who b{font-weight:400;color:var(--tone)}
+.duo p{font-size:15px;line-height:2.1;color:var(--ink-2);white-space:pre-line}
+
+/* 毎日の選び方 */
+#dailyBody p{margin-bottom:var(--s3)}
+#dailyBody p:last-child{margin-bottom:0}
+
+/* おすすめ動画 */
+.vids{display:grid;gap:var(--s2)}
+.vids a{
+  display:grid;grid-template-columns:132px 1fr;gap:var(--s3);align-items:center;
+  padding:var(--s2);border-radius:14px;background:var(--paper-2);
+  color:inherit;text-decoration:none;
+  transition:background .3s var(--e);
+}
+.vids a:hover{background:#E9E6E1}
+.vids img{width:100%;aspect-ratio:16/9;object-fit:cover;border-radius:8px;display:block;background:var(--fill-2)}
+.vids .ttl{font-size:14.5px;line-height:1.75;letter-spacing:.03em}
+.vids .go{
+  display:block;margin-top:var(--s1);
+  font-family:var(--en);font-size:10px;letter-spacing:.2em;color:var(--tone);
+}
+@media (max-width:560px){
+  .vids a{grid-template-columns:104px 1fr;gap:var(--s2)}
+  .vids .ttl{font-size:13.5px}
+}
 </style>
 </head>
 <body>
@@ -571,29 +633,29 @@ textarea{border-radius:var(--r-md)}
   <div class="col cover" id="cover">
     <p class="idx fade">4.5room — Values</p>
     <h1 class="h1">
-      <span class="ln"><span>あなたは何を大事にして、</span></span>
-      <span class="ln"><span>選んでいる人なのか。</span></span>
+      <span class="ln"><span>あなたは何を</span></span>
+      <span class="ln"><span>大事にして、</span></span>
+      <span class="ln"><span>選んでいますか。</span></span>
     </h1>
     <p class="lead p fade">同じものを選んでも、理由は人によって違います。
 確かなほうを取る人。自分で決めたい人。誰かの顔が浮かぶ人。
 
-20問の二択で、あなたが何を大事にしている人なのかを10の価値に分けます。
-そういう人が惹かれやすいものも、一緒に出ます。</p>
+20問の二択で、あなたが何を大事にしている人なのかを、
+10の価値に分けます。そういう人が惹かれやすいものも、一緒に。</p>
 
     <div class="spec fade">
       <div><span class="k">Questions</span><span class="v num">20</span></div>
       <div><span class="k">Time</span><span class="v">2分くらい</span></div>
-      <div><span class="k">Account</span><span class="v">いらない</span></div>
     </div>
 
     <div class="consent fade">
       <div class="row">
         <span class="k">集めないもの</span>
-        <span class="v">名前、メール、電話番号、アカウント。<small>ログインもありません。誰の回答かは、こちらにも分かりません。</small></span>
+        <span class="v">名前、メール、電話番号、アカウント。<small>誰の回答かは、こちらにも分かりません。</small></span>
       </div>
       <div class="row">
         <span class="k">集めるもの</span>
-        <span class="v">20問の集計結果、4.5roomを知っているかどうか、「やってほしい企画」に書いた文章。<small>次に何を撮るかを決めるために読みます。統計として扱い、個別には公開しません。</small></span>
+        <span class="v">20問の集計結果、4.5roomを知っているかどうか、「やってほしい企画」に書いた文章。<small>次に何を撮るかを決めるために読みます。</small></span>
       </div>
       <div class="row">
         <span class="k">ひとつだけ</span>
@@ -683,6 +745,7 @@ textarea{border-radius:var(--r-md)}
       <div class="bars" id="tBars"></div>
       <div class="labels" id="tLabels"></div>
       <p class="msg" id="tMsg">20の答えを、10の価値に</p>
+      <p class="msg-sub">画面をタップすると結果へ進みます</p>
     </div>
   </div>
 </section>
@@ -702,7 +765,7 @@ textarea{border-radius:var(--r-md)}
       <div class="btm">
         <div>
           <span class="k">Combination</span>
-          <span class="v">この組み合わせは <span class="num" id="shareRare">—</span></span>
+          <span class="v">この組み合わせは、<span class="num" id="shareRare">…</span></span>
         </div>
         <div class="mini" id="shareMini"></div>
       </div>
@@ -731,6 +794,30 @@ textarea{border-radius:var(--r-md)}
 
   <div class="sheet">
     <div class="col">
+      <p class="idx fade">Daily</p>
+      <h3 class="h2 fade">毎日の選び方のヒント</h3>
+      <div class="body fade" id="dailyBody"></div>
+    </div>
+  </div>
+
+  <div class="sheet alt">
+    <div class="col">
+      <p class="idx fade">Strength</p>
+      <h3 class="h2 fade">強みと、落とし穴</h3>
+      <div class="duo fade" id="strengthBody"></div>
+    </div>
+  </div>
+
+  <div class="sheet">
+    <div class="col">
+      <p class="idx fade">People</p>
+      <h3 class="h2 fade">合う人、ぶつかる人</h3>
+      <div class="duo fade" id="peopleBody"></div>
+    </div>
+  </div>
+
+  <div class="sheet">
+    <div class="col">
       <p class="idx fade">Things</p>
       <h3 class="h2 fade">こういうものに惹かれます</h3>
       <div class="words fade" id="words"></div>
@@ -748,9 +835,9 @@ textarea{border-radius:var(--r-md)}
   <div class="sheet">
     <div class="col">
       <p class="idx fade">Your Shape</p>
-      <h3 class="h2 fade">20の答えでできた、あなたの形</h3>
+      <h3 class="h2 fade">20の答えから生まれた、あなたの相棒</h3>
       <div class="shape shape-big fade" id="shapeR"></div>
-      <p class="wheel-note fade">中心から遠いほど、よく選んでいます</p>
+      <p class="wheel-note fade" id="shapeNote">この子は、あなたです。</p>
       <div class="wheel" id="wheel" style="display:none"></div>
     </div>
   </div>
@@ -779,14 +866,22 @@ textarea{border-radius:var(--r-md)}
     </div>
   </div>
 
+  <div class="sheet alt">
+    <div class="col">
+      <p class="idx fade">Watch</p>
+      <h3 class="h2 fade">こんなあなたには、この2本</h3>
+      <div class="vids fade" id="vidsBody"></div>
+    </div>
+  </div>
+
   <div class="sheet">
     <div class="col">
       <p class="idx fade">Ask</p>
-      <h3 class="h2 fade">迷っていることを、相談する</h3>
+      <h3 class="h2 fade">AIに、自分のことを聞いてみる</h3>
       <div class="body fade">
         <p class="p">下の文をコピーして、ChatGPTなどにお貼りください。
-最後の一行に、いま迷っていることを書き足すだけです。
-この結果をふまえて、あなたが納得しやすい形に整理してくれます。</p>
+この結果をもとに、あなたがどういう人かを答えてくれます。
+AIは聞きたい答えに寄っていきやすいので、鵜呑みにはせず、自分を知る材料として読んでください。</p>
       </div>
       <div class="prompt fade" id="prompt"></div>
       <div class="fade"><button class="act" id="copyPrompt">この文をコピーする<span class="ar">→</span></button></div>
@@ -798,7 +893,7 @@ textarea{border-radius:var(--r-md)}
 
       <div class="foot fade">
         <p>この結果は、心理検査でも性格診断でもありません。医学的・心理学的な判定や、能力や適性の評価には使えません。20問の選択をその場で集計しただけのもので、日によっても変わります。</p>
-        <p>下敷きにしているのは、心理学者シャローム・シュワルツの基本的価値理論（Schwartz, S. H., 1992, Universals in the Content and Structure of Values）にある10の価値と円環構造という考え方です。設問と日本語表現、配点は4.5roomが独自に作ったもので、原典の質問紙（PVQ／SVS）とは別のものです。学術的な妥当性の検証は受けていません。</p>
+        <p>「価値観を10個に分け、近いものは同時に満たしやすく、向かい合うものは同時に満たしにくい」という考え方は、心理学者シャローム・シュワルツの基本的価値理論（Schwartz, S. H., 1992）から借りています。ただし<b>10個それぞれの中身・名前・設問・配点は4.5roomが独自に作ったもの</b>で、原典とは別のものです。原典の学術的な裏づけを引き継ぐものではありません。</p>
         <p>結果に優劣はありません。どの価値が高くても低くても、良い悪いを意味しません。</p>
       </div>
     </div>
@@ -816,48 +911,133 @@ textarea{border-radius:var(--r-md)}
     {k:"self", name:"自律", type:"自分で決める人", g:"open", c:"#9B4A1E", c2:"#C08A34",
      desc:"自分で決めたい人。\n人が敷いた道をそのまま進むことに、どこか窮屈さを感じます。\n指示されるより、任されたほうが力が出るタイプです。",
      items:"組み替えられるもの。あとから足していけるもの。\n完成された一式より、余白のある道具に惹かれます。",
-     tags:["カスタムできる","拡張できる","説明書が要らない"]},
+     tags:["カスタムできる","拡張できる","説明書が要らない"], pet:"ひとりで、どんどん道を切りひらいていく子。"},
     {k:"stim", name:"探索", type:"外へ出る人", g:"open", c:"#9B4A1E", c2:"#CE7040",
      desc:"新しいものに触れていたい人。\n同じ景色が続くと、少しずつ息苦しくなります。\n飽きることを、悪いことだと思っていません。",
      items:"出たばかりのもの。まだ誰も使っていないもの。\n話題になる少し前のものに、いちばん惹かれます。",
-     tags:["新しい","話題より早い","試せる価格"]},
+     tags:["新しい","話題より早い","試せる価格"], pet:"じっとしていられない、外の匂いに敏感な子。"},
     {k:"hedo", name:"快楽", type:"心地よさで決める人", g:"open", c:"#9B4A1E", c2:"#C25573",
      desc:"心地よさを大事にする人。\n正しさより、自分が気持ちいいかどうかで決められる強さがあります。\nがまんを美徳だと思っていません。",
      items:"手触りのいいもの。音のいいもの。触れていたくなるもの。\n数値より、質感で決まります。",
-     tags:["触り心地","素材がいい","音・重み"]},
+     tags:["触り心地","素材がいい","音・重み"], pet:"心地よさに正直で、機嫌よく暮らす子。"},
     {k:"achi", name:"達成", type:"前へ進む人", g:"gain", c:"#6B2A5E", c2:"#93538B",
      desc:"前に進んでいたい人。\n何かができるようになる感覚に、はっきり喜びを感じます。\n止まっている時間が、いちばん落ち着かないタイプです。",
      items:"性能の高い道具。時間を縮めるもの。\n使うほど自分の出力が上がるものに惹かれます。",
-     tags:["高性能","時短","上達を助ける"]},
+     tags:["高性能","時短","上達を助ける"], pet:"昨日よりできることを増やしたい、負けず嫌いな子。"},
     {k:"powe", name:"影響", type:"見られ方まで考える人", g:"gain", c:"#6B2A5E", c2:"#6D5FA8",
      desc:"見られ方まで含めて考える人。\n自分がどう映るかを知っていて、それを設計できます。\n人の目を気にしているのではなく、使いこなしているほうです。",
      items:"名の通ったもの。佇まいのあるもの。\n人の目に触れる場所で効くものに惹かれます。",
-     tags:["ブランド","佇まい","人前で使う"]},
+     tags:["ブランド","佇まい","人前で使う"], pet:"見られることを楽しめる、堂々とした子。"},
     {k:"secu", name:"安心", type:"確かさを選ぶ人", g:"keep", c:"#1F3C6B", c2:"#4F6FA8",
      desc:"確かさを大事にする人。\n不確かなまま進むより、足場を固めてから動きたいタイプです。\n慎重なのではなく、失敗の代償をよく知っているだけです。",
      items:"保証の長いもの。定番として残っているもの。\n壊れにくく、実績のあるものに惹かれます。",
-     tags:["定番","長期保証","壊れにくい"]},
-    {k:"conf", name:"規律", type:"形を守る人", g:"keep", c:"#1F3C6B", c2:"#3C7F8C",
-     desc:"決めた形を守れる人。\n乱れていないこと自体が、心地よさになります。\n続けることを、我慢だと感じません。",
+     tags:["定番","長期保証","壊れにくい"], pet:"石橋を叩いてから渡る、用心ぶかい子。"},
+    {k:"conf", name:"習慣", type:"いつも通りにする人", g:"keep", c:"#1F3C6B", c2:"#3C7F8C",
+     desc:"いつものやり方が決まっている人。\n迷わずに済むぶん、力を使うところを選べます。\n続けることを、我慢だと感じません。",
      items:"揃うもの。シリーズで組めるもの。\nシステムとして完結しているものに惹かれます。",
-     tags:["揃う","シリーズ","完結している"]},
-    {k:"trad", name:"継承", type:"長く使う人", g:"keep", c:"#1F3C6B", c2:"#3F7F66",
+     tags:["揃う","シリーズ","完結している"], pet:"決めた手順をこつこつ守る、まじめな子。"},
+    {k:"trad", name:"持続", type:"長く使う人", g:"keep", c:"#1F3C6B", c2:"#3F7F66",
      desc:"続いてきたものを大事にする人。\n変わらないことに、はっきり価値を見ています。\n新しさで判断しないぶん、ものを見る目が長い距離で働きます。",
      items:"長く使えるもの。直せるもの。\n時間が経つほど良くなるものに惹かれます。",
-     tags:["10年もの","修理できる","経年変化"]},
+     tags:["10年もの","修理できる","経年変化"], pet:"ひとつのものを長く可愛がる、情のあつい子。"},
     {k:"bene", name:"関係", type:"人のために選ぶ人", g:"give", c:"#2C5A3E", c2:"#6E8138",
      desc:"身近な人を大事にする人。\n自分だけが良くても、あまり嬉しくありません。\n誰かの顔が浮かんでから、自分の選択が決まるタイプです。",
      items:"分け合えるもの。贈れるもの。\n家族や友人と一緒に使えるものに惹かれます。",
-     tags:["分け合える","贈れる","家族で使う"]},
-    {k:"univ", name:"公正", type:"筋を通す人", g:"give", c:"#2C5A3E", c2:"#8F7526",
-     desc:"世の中の筋を大事にする人。\n買うことや選ぶことが、誰かへの投票だと思っています。\n自分ひとりの損得では、動ききれないところがあります。",
+     tags:["分け合える","贈れる","家族で使う"], pet:"誰かの顔が浮かんでから動く、面倒見のいい子。"},
+    {k:"univ", name:"誠実", type:"作り手を見る人", g:"give", c:"#2C5A3E", c2:"#8F7526",
+     desc:"誰が作ったかを見る人。\n買うことや選ぶことが、その人への一票だと思っています。\n自分ひとりの損得では、動ききれないところがあります。",
      items:"作り手の見えるもの。素材の分かるもの。\n応援したい相手のものに惹かれます。",
-     tags:["作り手が見える","素材が分かる","応援できる"]}
+     tags:["作り手が見える","素材が分かる","応援できる"], pet:"筋の通らないことが気になる、まっすぐな子。"}
   ];
 
+  /* タイプごとの拡張コンテンツ。買い物だけに寄らないよう、
+     毎日の選び方・強み・落とし穴・相性・おすすめ動画を持たせる。
+     動画は 2026-08-24 に YouTube API で実測した再生数をもとに手で選んだもの。 */
+  var EXTRA = {
+    self: {
+      daily: ["予定は、埋める前に「自分で動かせる余白」を先に確保する。\n人の都合で埋まった一日は、内容がよくても消耗が大きいタイプです。", "やり方を指示された仕事は、目的だけ聞いて手順は自分で組み替える。\nそれが許される相手かどうかで、続くかどうかが決まります。"],
+      strong: "判断が速い。人の正解を待たないので、動き出しで差がつきます。",
+      weak: "全部を自分で決めようとして、どうでもいい選択で消耗する。\n決める価値のないことは、人に丸投げしたほうが結果的にうまくいきます。",
+      match: "安心", matchWhy: "決めたがるあなたと、確かめたがる相手。役割が分かれるので破綻しにくい。",
+      clash: "習慣", clashWhy: "決まったやり方を守りたい相手には、あなたの組み替えが「勝手」に見えます。",
+      videos: [{id:"nQ6PROQom-A", t:"【小さな発明】ロルバーンミニをMagSafe化。ノートがガジェットになる瞬間。｜Design your carry."}, {id:"xE6rsLbfJj4", t:"【ロルミニが好きだ】ロルバーンミニがもっと使いやすくなる活用法＆ペン紹介｜シンプルで至高"}]
+    },
+    stim: {
+      daily: ["同じ道で帰らない、いつもと違う店に入る。\n小さな寄り道を意図的に入れておくと、大きな逸脱をしなくて済みます。", "続けることが目的の習慣は向きません。\n「3か月で入れ替える前提」で始めたほうが、結果的に長く続きます。"],
+      strong: "情報の鮮度が高い。まだ知られていないものを先に見つけられます。",
+      weak: "飽きたものを「自分が悪い」と思ってしまう。\n飽きるのは前提なので、回転させる枠を最初から作っておくほうが健全です。",
+      match: "習慣", matchWhy: "散らかるあなたを、相手の型が受け止めてくれる組み合わせです。",
+      clash: "安心", clashWhy: "確かめてから動きたい相手には、あなたの見切り発車が不安に映ります。",
+      videos: [{id:"1slz-DYE6l4", t:"【700円】おしゃれ×便利な新作ショルダーバッグがほぼ完璧でした。｜読書かばんその２"}, {id:"kRqMsWzr8RU", t:"【検証】スマホ1台・荷物1.5Lの実用性｜tomtoc T33 ボディバッグ"}]
+    },
+    hedo: {
+      daily: ["疲れているときの判断は、正しさで決めない。\n「今どっちが気持ちいいか」で選んだほうが、結果的に立て直しが早いです。", "がまんでこなす予定を減らす。\n心地よくない場所に長くいると、あなたは他の人より消耗が早いタイプです。"],
+      strong: "自分の機嫌を自分で取れる。無理をしていないので、続けられます。",
+      weak: "数値や条件で選ぶ場面（契約・保険・引っ越し）を後回しにしがち。\nここだけは「面倒でも一度だけ」と決めて片付けると、後がラクです。",
+      match: "達成", matchWhy: "進めたい相手と、心地よさを守るあなた。互いに欠けたものを足せます。",
+      clash: "持続", clashWhy: "長く使うことを重んじる相手には、あなたの買い替えが軽く見えます。",
+      videos: [{id:"LujQ8Fi4Gis", t:"【無印良品】無印良品のゴミ箱が強すぎる｜実用＆おしゃれ"}, {id:"rkFA5XYaiKg", t:"【まるでアクセサリー】今注目のイヤカフ型イヤホンが。。。｜ストレスフリー？"}]
+    },
+    achi: {
+      daily: ["何も進まなかった日を、失敗として数えない。\n止まっている時間が苦しいタイプなので、そこで自分を責めると消耗が倍になります。", "人と会う予定を「成果」で測らない。\n何も生まなかった時間が、後から効いてくることがあります。"],
+      strong: "前に進む力が強い。目標があるとき、いちばん速く動けます。",
+      weak: "性能が上がらないもの（睡眠・椅子・人間関係）を後回しにする。\nそこが土台なので、崩れると全部の速度が落ちます。",
+      match: "関係", matchWhy: "進むあなたと、周りを見る相手。抜け落ちるところを補い合えます。",
+      clash: "快楽", clashWhy: "心地よさで決める相手が、あなたには「進んでいない」ように見えます。",
+      videos: [{id:"Qw5QYKtWxXo", t:"【神アプリ】 最高の左手デバイスは手元にあった。| Elgato STREAM DECKアプリ"}, {id:"m7Dm9_lP9iQ", t:"【デスクワーカー必見】デスクワークが快適になるガジェット＆アイテム10選｜生産性"}]
+    },
+    powe: {
+      daily: ["見られ方を意識するのは悪いことではない。\nただ「誰にも見せない日」を作ると、自分の本当の好みが分かります。", "発言する場を選ぶ。あなたは通る言い方ができるので、\n言う価値のある場面に力を集中させたほうが効きます。"],
+      strong: "伝え方がうまい。同じ内容でも、あなたが言うと届きます。",
+      weak: "評価されない場所での努力が続かない。\n見られない仕事にも意味があると分かっていても、体が動きにくいタイプです。",
+      match: "誠実", matchWhy: "届ける力と、中身を見る目。組むと強い組み合わせです。",
+      clash: "習慣", clashWhy: "淡々と続ける相手には、あなたの見せ方が余計に見えることがあります。",
+      videos: [{id:"lLwJPCPSBvs", t:"【EDC拡張】見せて運ぶiPad mini。無印の新モデルで作るEDC｜Stylish EDC setup for iPad mini with MUJI’s new bag"}, {id:"q506xwH1vW8", t:"【後悔しないバンド選び】おしゃれなApple Watchバンドの紹介｜11選"}]
+    },
+    secu: {
+      daily: ["決める前に一晩置く。あなたの場合、それで精度が上がります。\n急かされる場面では「明日答えます」と言えるようにしておく。", "新しいことは、失敗しても戻れる規模で試す。\n全部を確かめてからだと、動く前に機会が終わります。"],
+      strong: "大きな失敗が少ない。長い目で見ると、いちばん損をしていません。",
+      weak: "確かめすぎて動けない。\n「確認は3つまで」と上限を決めておくと、決断が進みます。",
+      match: "自律", matchWhy: "決めてくれる相手がいると、あなたの慎重さが強みに変わります。",
+      clash: "探索", clashWhy: "見切り発車する相手の動きが、あなたには危なっかしく見えます。",
+      videos: [{id:"NBMhBFwKm_o", t:"【これが欲しかった】無印良品にて、サコッシュの正解を見つけました。｜最高傑作"}, {id:"8QEohTkTeoA", t:"【iPad mini 6】約1年使用してみた結果、どんな人が買い？｜活用例も"}]
+    },
+    conf: {
+      daily: ["やり方が決まっていることは、迷わない。\nその余力を、決まっていない一点に集中させるのがあなたの戦い方です。", "予定が崩れた日のための「代替の型」を1つ持っておく。\n型が無い状態がいちばん消耗します。"],
+      strong: "続けられる。他の人が我慢と感じることを、自然にこなせます。",
+      weak: "型が合わなくなっても続けてしまう。\n年に一度、「これはまだ必要か」を点検する日を決めておくといいです。",
+      match: "探索", matchWhy: "外から新しいものを持ち込んでくれる相手。停滞を防げます。",
+      clash: "自律", clashWhy: "毎回やり方を変えたがる相手に、あなたは落ち着かなさを感じます。",
+      videos: [{id:"KcV9bkArnGE", t:"【EDC】365日肌身離さず持ち歩いてるアイテムを新調した話。"}, {id:"KWep0NPcoUc", t:"【真似するだけでOK】ロルバーンで管理する月間計画＋デイリーページ| ロルバーン活用術2026"}]
+    },
+    trad: {
+      daily: ["長く続けているものを、惰性だと思わない。\n変わらないことを選べるのは、いま少数派の強さです。", "手放すときは、次の人に渡せる形にする。\nあなたは「捨てる」より「継ぐ」ほうが納得できるタイプです。"],
+      strong: "ものを見る目が長い距離で働く。流行に振り回されません。",
+      weak: "合わなくなったものまで抱え続ける。\n「直せるか」ではなく「まだ使いたいか」で判断すると軽くなります。",
+      match: "探索", matchWhy: "新しさを持ち込む相手。あなたの守りに、風が入ります。",
+      clash: "快楽", clashWhy: "その時の気分で入れ替える相手が、あなたには落ち着かなく見えます。",
+      videos: [{id:"ihxXgWELNwU", t:"【Top25】\"今年の\"買ってよかったものランキング｜2025年総まとめ｜案件なし"}, {id:"MGl_AXZQWTs", t:"【実用1ヶ月レビュー】5,000円台で最高性能。「Xiaomi Smart Band 9」の活用方法。｜失敗しないスマートウォッチ"}]
+    },
+    bene: {
+      daily: ["自分の予定を先に埋める。\n人のために空けておくと、気づいたときには自分の時間が残っていません。", "頼まれごとを断る練習をする。\nあなたが倒れると、結局その人たちが困ります。"],
+      strong: "人の状態に気づける。あなたがいると場が保ちます。",
+      weak: "自分用の基準が育ちにくい。\n年に一度は「誰の役にも立たないけれど自分が嬉しいこと」に時間を使ってください。",
+      match: "達成", matchWhy: "前に進む相手。あなたが支え、相手が引っぱる形になります。",
+      clash: "影響", clashWhy: "自分の見え方を優先する相手に、あなたは冷たさを感じることがあります。",
+      videos: [{id:"3eOZ3Q8n1sc", t:"【カバンの中身】カバンの中身を大公開！厳選したアイテムと選定ポイント｜What's in my bag?"}, {id:"h7cS4MuhVOw", t:"【EDC紹介】毎日持ち歩いているアイテムの紹介と、それに合うカバンを考える回"}]
+    },
+    univ: {
+      daily: ["筋が通らないことに気づいたとき、全部に反応しない。\n言う場面を選ばないと、体力が持ちません。", "誰に対しても同じ態度でいられるのは強みです。\nただ、身内にだけは甘えてもらってもいい、と決めておく。"],
+      strong: "信用される。あなたが良いと言ったものは、人が信じます。",
+      weak: "良い作り手の、自分には合わない製品を抱えがち。\n「無名メーカーの品でも買うか」を一度挟むと、失敗が減ります。",
+      match: "影響", matchWhy: "届ける力を持つ相手。あなたの目利きが、広く伝わります。",
+      clash: "達成", clashWhy: "結果を優先する相手の進め方に、あなたは納得しきれないことがあります。",
+      videos: [{id:"rylwwKJMskw", t:"【読書かばん】読書好きの為のミニマルバッグ｜大体1,500円"}, {id:"l301qoGagvk", t:"【700円】StandardProductsの高機能2wayバッグ｜iPad mini編"}]
+    },
+  };
   var KEYS = V.map(function(v){ return v.k; });
-  var NAME = {}, COL = {}, TYPE = {}, GRP = {};
-  V.forEach(function(v){ NAME[v.k] = v.name; COL[v.k] = v.c; TYPE[v.k] = v.type; GRP[v.k] = v.g; });
+  var NAME = {}, COL = {}, TYPE = {}, GRP = {}, PET = {};
+  V.forEach(function(v){ NAME[v.k] = v.name; COL[v.k] = v.c; TYPE[v.k] = v.type; GRP[v.k] = v.g; PET[v.k] = v.pet; });
 
   var PAIRS = [
     {a:"self", b:"secu"}, {a:"stim", b:"conf"}, {a:"hedo", b:"trad"},
@@ -987,32 +1167,32 @@ textarea{border-radius:var(--r-md)}
     /* 自律 ⇔ 安心 */
     {c:"仕事",   t:"新しい仕事を任されたら。",           a:{k:"self", l:"やり方は自分で決めたい"},               b:{k:"secu", l:"やり方を先に決めておいてほしい"}},
     {c:"買い物", t:"高い買い物をするとき。",             a:{k:"self", l:"自分で調べて、自分で決める"},           b:{k:"secu", l:"詳しい人に聞いてから決める"}},
-    {c:"暮らし", t:"家電が動かなくなった。",             a:{k:"self", l:"まず自分でいじってみる"},               b:{k:"secu", l:"すぐサポートに連絡する"}},
+    {c:"暮らし", t:"やったことのない手続き。",           a:{k:"self", l:"自分で調べて進める"},                   b:{k:"secu", l:"経験のある人に聞いてから進める"}},
     {c:"生き方", t:"進む道が2つあったら。",              a:{k:"self", l:"自分で選んだほうがいい"},               b:{k:"secu", l:"確かなほうがいい"}},
 
-    /* 探索 ⇔ 規律 */
+    /* 探索 ⇔ 習慣 */
     {c:"休日",   t:"予定のない休日。",                   a:{k:"stim", l:"行き先を決めずに出る"},                 b:{k:"conf", l:"いつもの場所で、いつもの過ごし方"}},
     {c:"ごはん", t:"知らない街でお昼。",                 a:{k:"stim", l:"入ったことのない店に入る"},             b:{k:"conf", l:"知っている系列の店に入る"}},
     {c:"道具",   t:"いつも使っている道具。",             a:{k:"stim", l:"別の使い方を試したくなる"},             b:{k:"conf", l:"決まった使い方できちんと使う"}},
     {c:"暮らし", t:"毎日が同じ調子で続いているとき。",   a:{k:"stim", l:"そろそろ何か変えたくなる"},             b:{k:"conf", l:"この調子がいちばん落ち着く"}},
 
-    /* 快楽 ⇔ 継承 */
+    /* 快楽 ⇔ 持続 */
     {c:"夜",     t:"疲れた日の夜。",                     a:{k:"hedo", l:"好きなことをして自分を甘やかす"},       b:{k:"trad", l:"いつもの手順で整えて早く寝る"}},
     {c:"道具",   t:"毎日使うもの。",                     a:{k:"hedo", l:"触って気持ちいいものがいい"},           b:{k:"trad", l:"ずっと変わらないものがいい"}},
-    {c:"お金",   t:"払って惜しくないのは。",             a:{k:"hedo", l:"今日を楽しむためのお金"},               b:{k:"trad", l:"長く持たせるためのお金"}},
+    {c:"お金",   t:"払って惜しくないのは。",             a:{k:"hedo", l:"今日を楽しむためのお金"},               b:{k:"trad", l:"手入れや修理にかけるお金"}},
     {c:"買い物", t:"どっちを選ぶ？",                     a:{k:"hedo", l:"使い心地は最高。5年で買い替え"},        b:{k:"trad", l:"素っ気ないけど、20年もつ"}},
 
     /* 達成 ⇔ 関係 */
     {c:"1日",    t:"いい1日だったと思うのは。",          a:{k:"achi", l:"やることがちゃんと進んだ日"},           b:{k:"bene", l:"誰かと過ごして、その人が楽しそうだった日"}},
-    {c:"やりたいこと", t:"やりたいことができたら。",     a:{k:"achi", l:"まず1人で、最後までやる"},              b:{k:"bene", l:"誰かと一緒にやる"}},
-    {c:"お金",   t:"お金を使うなら。",                   a:{k:"achi", l:"自分にできることを増やす"},             b:{k:"bene", l:"身近な人が喜ぶこと"}},
+    {c:"やりたいこと", t:"やりたいことができたら。",     a:{k:"achi", l:"まず1人で動きはじめる"},              b:{k:"bene", l:"誰かと一緒にやる"}},
+    {c:"お金",   t:"お金を使うなら。",                   a:{k:"achi", l:"自分のできることを増やす"},             b:{k:"bene", l:"身近な人が喜ぶこと"}},
     {c:"生き方", t:"自分に満足できるのは。",             a:{k:"achi", l:"できることが増えたとき"},               b:{k:"bene", l:"まわりとうまくいっているとき"}},
 
-    /* 影響 ⇔ 公正 */
+    /* 影響 ⇔ 誠実 */
     {c:"買い物", t:"同じ値段なら。",                     a:{k:"powe", l:"名前を言えば伝わるもの"},               b:{k:"univ", l:"誰がどう作ったか分かるもの"}},
-    {c:"発見",   t:"いいものを見つけたとき。",           a:{k:"powe", l:"人より先に見つけた、と思える"},         b:{k:"univ", l:"知られていない良さを広めたくなる"}},
-    {c:"ごはん", t:"同じくらいおいしいコーヒー屋が2軒。", a:{k:"powe", l:"よく知られているほうに行く"},          b:{k:"univ", l:"小さくても、ちゃんと作っているほうに行く"}},
-    {c:"仕事",   t:"仕事でうれしいのは。",               a:{k:"powe", l:"自分の意見が通ったとき"},               b:{k:"univ", l:"正しいほうに決まったとき"}}
+    {c:"発見",   t:"いいものを見つけたとき。",           a:{k:"powe", l:"見る目があると思われたい"},             b:{k:"univ", l:"ちゃんとした作られ方をしているか気になる"}},
+    {c:"ごはん", t:"同じくらいおいしいコーヒー屋が2軒。", a:{k:"powe", l:"知る人ぞ知る、隠れた名店"},             b:{k:"univ", l:"豆を農家から、ちゃんとした値段で買っている店"}},
+    {c:"仕事",   t:"仕事でうれしいのは。",               a:{k:"powe", l:"自分の存在が、認識されたとき"},         b:{k:"univ", l:"立場に関係なく、フェアに扱われたとき"}}
   ];
 
   var TOTAL = Q.length;
@@ -1184,16 +1364,16 @@ textarea{border-radius:var(--r-md)}
 
   /* 数字を0から転がす。
      rAF は描画が止まると進まないので、タイマーで回す（結果画面で数字が「—」のまま残る事故を防ぐ）。 */
-  function countUp(node, to, suffix, ms){
+  /* 数字を0から転がす。
+     タブが裏に回ると setInterval は間引かれ、途中の数字で止まってしまう。
+     最後に必ず最終値を入れる保険を置く（数字が 0 のまま残るのがいちばん困る）。 */
+  /* 数字は転がさない。
+     タブが裏に回るとタイマーが間引かれ、途中の数字（多くは 0）で止まってしまうため。
+     数字が違って見えるのが最悪なので、確実に最終値を出す。
+     動きは帯の伸び（CSS の transition）に任せている。 */
+  function countUp(node, to, suffix){
     if (!node) return;
-    if (reduce){ node.textContent = to + (suffix || ""); return; }
-    var dur = ms || 900, t0 = Date.now();
-    var iv = setInterval(function(){
-      var pr = Math.min(1, (Date.now() - t0) / dur);
-      var e = 1 - Math.pow(1 - pr, 3);
-      node.textContent = Math.round(to * e) + (suffix || "");
-      if (pr >= 1) clearInterval(iv);
-    }, 32);
+    node.textContent = to + (suffix || "");
   }
 
   function fadeIn(root){
@@ -1427,6 +1607,19 @@ textarea{border-radius:var(--r-md)}
 
     if (reduce){ done(r); return; }
 
+    /* 集計はタイマーで動かしている。裏に回ったタブなどタイマーが間引かれる状況では
+       ここで止まってしまうので、いつでも結果へ進める逃げ道を用意する。 */
+    var finished = false;
+    function goResult(){
+      if (finished) return;
+      finished = true;
+      clearInterval(iv);
+      el("s-tally").removeEventListener("click", goResult);
+      done(r);
+    }
+    el("s-tally").addEventListener("click", goResult);
+    var guard = setTimeout(goResult, 6000);
+
     var bs = bars.children, ls = labels.children;
     var maxS = sorted[0].s || 1, t = 0, steps = 22;
     var iv = setInterval(function(){
@@ -1446,31 +1639,80 @@ textarea{border-radius:var(--r-md)}
         });
         el("tMsg").textContent = "出ました";
         tick(1046, 0.2, 0.1); buzz([30, 30, 60]);
-        setTimeout(function(){ done(r); }, 900);
+        clearTimeout(guard);
+        setTimeout(goResult, 900);
+        setTimeout(goResult, 2500);   /* 900ms の側が間引かれたときの押さえ */
       }
     }, 70);
+  }
+
+  /* この端末で前に受けたことがあるか。集計を汚さないための印。
+     体験は止めない（何度でもできる）。localStorage が使えない環境では常に初回扱い。 */
+  function seenBefore(){
+    try { return localStorage.getItem("v45_done") === "1"; } catch (e) { return false; }
+  }
+  function markSeen(){
+    try { localStorage.setItem("v45_done", "1"); } catch (e) {}
+  }
+
+  /* 回答の保存先（GAS の doPost）。4-5room.com/values/ で開いたときに使う */
+  var SAVE_URL = "https://script.google.com/macros/s/AKfycbyCrg4wHa5vBrXdIwY8H9Pip28zke8-37keqPPmolaCw7jUiU2EPaW_0rWpNV0KrljP/exec";
+
+  /* 連投を弾くための端末の印。中身はただの乱数で、誰かは分からない */
+  function deviceId(){
+    try {
+      var id = localStorage.getItem("v45_sid");
+      if (!id){ id = Math.random().toString(36).slice(2) + Date.now().toString(36); localStorage.setItem("v45_sid", id); }
+      return id;
+    } catch (e) { return ""; }
   }
 
   function finish(){
     if (!sent){
       sent = true;
       var r0 = compute();
+      var repeat = seenBefore();
+      markSeen();
       try {
+        var intScore = {};
+        KEYS.forEach(function(k){ intScore[k] = Math.round(score[k]); });
+        var payload = {
+          scores: intScore,
+          top: r0.sorted.slice(0, 3).map(function(t){ return t.name; }),
+          viewer: viewer,
+          deep: deep,
+          request: el("request").value.trim().slice(0, 500),
+          device: window.innerWidth < 768 ? "mobile" : "desktop",
+          repeat: repeat,
+          sid: deviceId()
+        };
+        /* サーバーが実測を返したときだけ、その%に差し替える。
+           返らない（件数不足・デモ・エラー）ときは言葉のまま。 */
+        var onSaved = function(res){ if (res && typeof res.rare === "number") showRare(res.rare); };
         if (window.google && google.script && google.script.run){
-          var intScore = {};
-          KEYS.forEach(function(k){ intScore[k] = Math.round(score[k]); });
-          google.script.run.withFailureHandler(function(){}).saveResult({
-            scores: intScore,
-            top: r0.sorted.slice(0, 3).map(function(t){ return t.name; }),
-            viewer: viewer,
-            deep: deep,
-            request: el("request").value.trim().slice(0, 500),
-            device: window.innerWidth < 768 ? "mobile" : "desktop"
-          });
+          /* GAS の URL で開いたとき */
+          google.script.run.withSuccessHandler(onSaved).withFailureHandler(function(){}).saveResult(payload);
+        } else if (window.fetch){
+          /* 4-5room.com/values/ で開いたとき。text/plain で送ると事前確認（CORS）が要らない */
+          fetch(SAVE_URL, { method: "POST", headers: { "Content-Type": "text/plain;charset=utf-8" }, body: JSON.stringify(payload) })
+            .then(function(r){ return r.json(); }).then(onSaved).catch(function(){});
         }
       } catch (e) {}
     }
     runTally(renderResult);
+  }
+
+  /* レア度の表示。数字が来たら「◯%」、来なければ距離ベースの言葉。 */
+  function showRare(pct){
+    var node = el("shareRare");
+    if (!node) return;
+    if (typeof pct === "number"){
+      node.classList.remove("is-word");
+      node.textContent = pct + "%";
+    } else {
+      node.classList.add("is-word");   // 言葉のときは数字用の大きさを外す
+      node.textContent = pct;
+    }
   }
 
   function renderResult(r){
@@ -1479,9 +1721,12 @@ textarea{border-radius:var(--r-md)}
     var v1 = top[0];
 
     /* 名乗りは1文字ずつ立ち上げる */
+    /* 組み合わせの珍しさ。データが溜まるまでは実測%を出せないので、
+       円環上の距離から「言葉」で見せる（遠い2つがトップに来るほど珍しい）。
+       サーバーが実測%を返したら showRare() が上書きする。 */
     var dd = Math.abs(KEYS.indexOf(v1.k) - KEYS.indexOf(top[1].k));
     dd = Math.min(dd, 10 - dd);
-    var rare = dd === 1 ? 18 : dd === 2 ? 11 : dd === 3 ? 6 : dd === 4 ? 3 : 2;
+    var rareWord = dd >= 4 ? "かなり珍しい" : dd === 3 ? "珍しい" : dd === 2 ? "ときどきいる" : "よくいる";
 
     var ring = function(k){
       var d = Math.abs(KEYS.indexOf(v1.k) - KEYS.indexOf(k));
@@ -1525,16 +1770,17 @@ textarea{border-radius:var(--r-md)}
       return '<div class="axis">'
         + '<div class="top">'
         +   '<span class="side' + (p.pl > p.pr ? " win" : "") + '">' + ax.left.label + '</span>'
-        +   '<span class="val"><span data-cu="' + p.pl + '">0</span> — <span data-cu="' + p.pr + '">0</span></span>'
+        +   '<span class="val"><span data-cu="' + p.pl + '">' + p.pl + '</span> — <span data-cu="' + p.pr + '">' + p.pr + '</span></span>'
         +   '<span class="side' + (rightWins ? " win" : "") + '">' + ax.right.label + '</span>'
         + '</div>'
-        + '<div class="bar"><i class="' + (rightWins ? "R" : "L") + '" data-w="' + lean + '"></i><u></u></div>'
+        + '<div class="bar"><i class="' + (rightWins ? "R" : "L") + '" data-w="' + lean + '" style="width:' + lean + '%"></i><u></u></div>'
         + '<p class="say p">' + say + '</p></div>';
     }).join("");
 
     drawWheel(r.list, maxS, top.map(function(t){ return t.k; }), v1.c);
     buildShape(el("shapeR"), { big: true });
     setTimeout(function(){ paintShape(el("shapeR"), shapeVals()); }, reduce ? 0 : 200);
+    if (el("shapeNote")) el("shapeNote").textContent = PET[v1.k] || "この子は、あなたです。";
 
     el("pairs").innerHTML = PAIRS.map(function(p){
       var la = cnt[p.a], lb = cnt[p.b], tot = la + lb || 1;
@@ -1545,10 +1791,10 @@ textarea{border-radius:var(--r-md)}
       return '<div class="pair">'
         + '<div class="top">'
         +   '<span class="' + (pa > pb ? "win" : "") + '">' + NAME[p.a] + '</span>'
-        +   '<b>' + (pa === pb ? "50 — 50" : '<span data-cu="' + winPct + '" data-sfx="%">0</span> ' + winName) + '</b>'
+        +   '<b>' + (pa === pb ? "50 — 50" : '<span data-cu="' + winPct + '" data-sfx="%">' + winPct + '%</span> ' + winName) + '</b>'
         +   '<span class="' + (rightWins ? "win" : "") + '">' + NAME[p.b] + '</span>'
         + '</div>'
-        + '<div class="bar"><i class="' + (rightWins ? "R" : "L") + '" data-w="' + lean + '"></i><u></u></div>'
+        + '<div class="bar"><i class="' + (rightWins ? "R" : "L") + '" data-w="' + lean + '" style="width:' + lean + '%"></i><u></u></div>'
         + '</div>';
     }).join("");
 
@@ -1567,6 +1813,31 @@ textarea{border-radius:var(--r-md)}
       return '<li><div><b>' + x.t + '</b><span>' + x.d + '</span></div></li>';
     }).join("");
 
+    /* ---- 追加セクション（買い物以外の役立て方） ---- */
+    var ex = EXTRA[v1.k];
+    if (ex){
+      el("dailyBody").innerHTML = ex.daily.map(function(t){
+        return '<p class="p">' + t + '</p>';
+      }).join("");
+
+      el("strengthBody").innerHTML =
+        '<div class="item"><span class="lbl">Strength</span><p>' + ex.strong + '</p></div>'
+      + '<div class="item minus"><span class="lbl">Pitfall</span><p>' + ex.weak + '</p></div>';
+
+      el("peopleBody").innerHTML =
+        '<div class="item"><span class="lbl">Goes well</span>'
+      + '<p class="who"><b>' + ex.match + '</b>の人</p><p>' + ex.matchWhy + '</p></div>'
+      + '<div class="item minus"><span class="lbl">Clashes</span>'
+      + '<p class="who">' + ex.clash + 'の人</p><p>' + ex.clashWhy + '</p></div>';
+
+      /* サムネイルは YouTube の公開画像。読み込めなければ枠だけ残る */
+      el("vidsBody").innerHTML = ex.videos.map(function(v){
+        return '<a href="https://www.youtube.com/watch?v=' + v.id + '" target="_blank" rel="noopener noreferrer">'
+             + '<img src="https://i.ytimg.com/vi/' + v.id + '/mqdefault.jpg" alt="" loading="lazy">'
+             + '<span class="ttl">' + v.t + '<span class="go">YouTube で見る →</span></span></a>';
+      }).join("");
+    }
+
     el("prompt").textContent = aiPrompt(sorted, cnt);
 
     /* まずシェアできる1枚を作る */
@@ -1583,34 +1854,43 @@ textarea{border-radius:var(--r-md)}
     sh.classList.remove("lit");
     setTimeout(function(){
       sh.classList.add("lit");
-      countUp(el("shareRare"), rare, "%", 1100);
+      showRare(rareWord);
     }, reduce ? 0 : 260);
 
     setTimeout(function(){
       chord(); buzz([20, 30, 20, 30, 80]);
     }, reduce ? 0 : 350);
 
-    /* 下の節は、画面に入ったときに動かす */
-    var seen = [];
-    if (window.IntersectionObserver){
+    /* 下の節は、画面に入ったときに動かす。
+       ただし発火しないと数字が 0 のまま残るので、時間切れで必ず確定させる保険を置く。 */
+    function fire(root){
+      if (!root) return;
+      Array.prototype.forEach.call(root.querySelectorAll(".bar i"), function(b){
+        /* 初期値は HTML 側で入れてある。ここでは 0 から伸ばし直す */
+        if (b.getAttribute("data-run")) return;
+        b.setAttribute("data-run", "1");
+        var to = b.getAttribute("data-w") + "%";
+        b.style.width = "0%";
+        setTimeout(function(){ b.style.width = to; }, 30);
+      });
+      Array.prototype.forEach.call(root.querySelectorAll("[data-cu]"), function(n){
+        if (n.getAttribute("data-done")) return;
+        n.setAttribute("data-done", "1");
+        countUp(n, +n.getAttribute("data-cu"), n.getAttribute("data-sfx") || "", 1000);
+      });
+      if (root.querySelector("#wheel")) el("wheel").classList.add("drawn");
+    }
+    if (window.IntersectionObserver && !reduce){
       var io = new IntersectionObserver(function(entries){
         entries.forEach(function(en){
-          if (!en.isIntersecting || seen.indexOf(en.target) >= 0) return;
-          seen.push(en.target);
-          var root = en.target;
-          Array.prototype.forEach.call(root.querySelectorAll(".bar i"), function(b){ b.style.width = b.getAttribute("data-w") + "%"; });
-          Array.prototype.forEach.call(root.querySelectorAll("[data-cu]"), function(n){ countUp(n, +n.getAttribute("data-cu"), n.getAttribute("data-sfx") || "", 1000); });
-          if (root.querySelector("#wheel")) el("wheel").classList.add("drawn");
+          if (!en.isIntersecting) return;
+          io.unobserve(en.target);
+          fire(en.target);
         });
-      }, { threshold: 0.2 });
+      }, { threshold: 0.15 });
       Array.prototype.forEach.call(document.querySelectorAll("#s-res .sheet"), function(sh){ io.observe(sh); });
-    } else {
-      setTimeout(function(){
-        Array.prototype.forEach.call(document.querySelectorAll("#s-res .bar i"), function(b){ b.style.width = b.getAttribute("data-w") + "%"; });
-        Array.prototype.forEach.call(document.querySelectorAll("#s-res [data-cu]"), function(n){ n.textContent = n.getAttribute("data-cu") + (n.getAttribute("data-sfx") || ""); });
-        el("wheel").classList.add("drawn");
-      }, 600);
     }
+    setTimeout(function(){ fire(el("s-res")); }, reduce ? 0 : 2600);
   }
 
   /* 円環。線は細く、面は塗らない。上位だけ点を大きくする。 */
@@ -1681,7 +1961,7 @@ textarea{border-radius:var(--r-md)}
       var pa = Math.round(la / t * 100);
       return "・" + NAME[p.a] + " " + pa + "％ ／ " + NAME[p.b] + " " + (100 - pa) + "％";
     }).join("\n");
-    return "あなたは、私が何かを決めるときの相談相手です。\n"
+    return "あなたは、私がどういう人間かを一緒に考える相手です。\n"
       + "私がどういう人間かを測った結果を渡します。これをふまえて答えてください。\n\n"
       + "【上位3つ】\n"
       + sorted.slice(0,3).map(function(t, i){ return (i+1) + ". " + t.name + "（" + t.desc.replace(/\n/g, "") + "）"; }).join("\n")
@@ -1695,11 +1975,7 @@ textarea{border-radius:var(--r-md)}
       + "3. 私が「これを選んでよかった」と感じやすいのは、どんな条件がそろったときか。\n"
       + "4. 私と正反対の価値観の人に相談すると、どんな助言が返ってきそうか。\n\n"
       + "答えは短く、断定して書いてください。一般論ではなく、上の数字を根拠にしてください。\n"
-      + "励ましたり褒めたりする必要はありません。\n\n"
-      + "そのうえで、いま迷っていることを書きます。\n"
-      + "この価値観の人にとっての答えとして、選択肢を2つに絞り、\n"
-      + "それぞれで「手に入るもの」と「あきらめるもの」を挙げてください。\n\n"
-      + "私がいま迷っていること：";
+      + "励ましたり褒めたりする必要はありません。";
   }
 
   function resultText(){
@@ -1809,9 +2085,10 @@ textarea{border-radius:var(--r-md)}
     }, {passive:true});
   })();
 
-  /* GAS 上でないときは保存先が無い。黙って捨てるのは不誠実なので、その旨を出す。 */
+  /* 保存先が無いとき（GAS 上でも fetch も無い）だけ、デモ版の注意を出す。黙って捨てるのは不誠実なので。 */
   (function(){
     if (window.google && window.google.script && window.google.script.run) return;
+    if (window.fetch && SAVE_URL) return;
     var n = document.getElementById("reqNote");
     if (n) n.innerHTML = 'いまは<b>見た目を確認するためのデモ版</b>です。この欄に書いた内容は<b>どこにも送られず、保存もされません</b>。正式版から受け付けを始めます。';
     var t = document.getElementById("request");
