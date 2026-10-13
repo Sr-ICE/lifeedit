@@ -1,0 +1,214 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="description" content="4.5roomの動画で紹介した43点のうち、プライム感謝祭の先行セールでいま安くなっている30点（10/13 9:09 時点）。">
+<meta property="og:title" content="いま安くなっているもの｜プライム感謝祭｜4.5room">
+<meta property="og:description" content="動画で紹介した43点のうち30点が値下がり中・最大42%オフ（10/13 9:09 時点）">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://4-5room.com/sale/">
+<meta name="theme-color" content="#fefefd">
+<link rel="icon" href="/assets/logo/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/assets/logo/apple-touch-icon.png">
+<title>いま安くなっているもの｜プライム感謝祭｜4.5room</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;500;600;700&family=Zen+Maru+Gothic:wght@400;500;700&display=swap">
+<style>
+  /* 白地（2026-10-13 本人「背景もっと白でいい」）に、丸い小文字の英語と丸ゴシック。写真のタイルだけごく薄い生成り。写真を大きく、割引と価格はテラコッタで目に入れる */
+  :root {
+    color-scheme: light;
+    --paper: #fefefd; --card: #ffffff; --tile: #f4f1ec; --ink: #2b2723; --sub: #8b8277; --faint: #bdb3a7;
+    --sale: #d4583a; --sale-ink: #ffffff; --mint: #3c977a; --chip: #f2efea;
+    --en: "Quicksand", "Zen Maru Gothic", sans-serif;
+    --jp: "Zen Maru Gothic", "Hiragino Maru Gothic ProN", "Hiragino Sans", sans-serif;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) { color-scheme: dark; --paper: #171513; --card: #201d1a; --tile: #2b2723; --ink: #f1ebe3;
+      --sub: #a59c91; --faint: #6e665d; --sale: #f0714f; --mint: #6cc9a6; --chip: #2a2622; }
+  }
+  :root[data-theme="dark"] { color-scheme: dark; --paper: #171513; --card: #201d1a; --tile: #2b2723; --ink: #f1ebe3;
+    --sub: #a59c91; --faint: #6e665d; --sale: #f0714f; --mint: #6cc9a6; --chip: #2a2622; }
+  * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+  html { -webkit-text-size-adjust: 100%; scroll-behavior: smooth; }
+  body { margin: 0; background: var(--paper); color: var(--ink); font-family: var(--jp); line-height: 1.6;
+         padding: env(safe-area-inset-top, 0) 0 env(safe-area-inset-bottom, 0); }
+  a { color: inherit; text-decoration: none; }
+  .wrap { max-width: 1080px; margin: 0 auto; padding: 0 16px; }
+
+  .top { display: flex; justify-content: space-between; align-items: center; padding: 18px 0 0; font-family: var(--en);
+         font-weight: 600; font-size: 15px; letter-spacing: .02em; }
+  .top a:last-child { color: var(--sub); font-weight: 500; }
+
+  .hero { text-align: center; padding: 28px 0 10px; }
+  .arc { display: block; width: min(520px, 100%); height: auto; margin: 0 auto -4px; }
+  .arc text { font-family: var(--en); font-weight: 600; font-size: 22px; letter-spacing: .12em; fill: var(--mint); }
+  h1 { font-size: clamp(26px, 7.3vw, 54px); font-weight: 700; letter-spacing: .03em; line-height: 1.25; margin: 0; white-space: nowrap; }
+  .sub { margin: 16px auto 0; max-width: 34em; color: var(--sub); font-size: 15px; }
+  .stats { display: flex; justify-content: center; gap: clamp(26px, 7vw, 64px); margin: 30px 0 6px; }
+  .stat b { display: block; font-family: var(--en); font-weight: 700; font-size: clamp(40px, 10vw, 60px); line-height: 1; color: var(--sale); }
+  .stat b small { font-size: .42em; margin-left: 2px; }
+  .stat span { display: block; margin-top: 8px; font-size: 12.5px; color: var(--sub); }
+  .stamp { display: inline-block; margin-top: 18px; font-family: var(--en); font-weight: 500; font-size: 13px; color: var(--sub);
+           letter-spacing: .04em; }
+
+  .bar { position: sticky; top: 0; z-index: 5; background: color-mix(in srgb, var(--paper) 88%, transparent);
+         -webkit-backdrop-filter: blur(14px); backdrop-filter: blur(14px); margin: 26px -16px 0; padding: 10px 16px; }
+  .chips { display: flex; gap: 8px; overflow-x: auto; scrollbar-width: none; }
+  .chips::-webkit-scrollbar { display: none; }
+  .chip { all: unset; flex: none; cursor: pointer; padding: 8px 15px; border-radius: 999px; background: var(--chip);
+          font-size: 13.5px; color: var(--ink); white-space: nowrap; }
+  .chip[aria-pressed="true"] { background: var(--ink); color: var(--paper); }
+  .chip:focus-visible { outline: 2px solid var(--sale); outline-offset: 2px; }
+  .sortline { display: flex; justify-content: space-between; align-items: center; margin: 22px 0 14px; color: var(--sub); font-size: 13px; }
+  .sortline button { all: unset; cursor: pointer; padding: 2px 0; }
+  .sortline button[aria-pressed="true"] { color: var(--ink); font-weight: 700; }
+  .sortline .sorts { display: flex; gap: 16px; }
+
+  .sec { display: flex; align-items: baseline; gap: 12px; margin: 34px 2px 14px; }
+  .sec .en { font-family: var(--en); font-weight: 600; color: var(--mint); font-size: 17px; letter-spacing: .04em; }
+  .sec h2 { margin: 0; font-size: 15px; font-weight: 500; color: var(--sub); }
+
+  .grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 18px; }
+  .card { display: flex; flex-direction: column; background: var(--card); border-radius: 22px; padding: 10px 10px 14px;
+          transition: transform .18s ease, box-shadow .18s ease; }
+  .card:hover { transform: translateY(-3px); box-shadow: 0 16px 34px -20px rgba(60, 40, 20, .28); }
+  .tile { position: relative; aspect-ratio: 1 / 1; border-radius: 16px; background: var(--tile); overflow: hidden; }
+  .tile img { position: absolute; inset: 9%; width: 82%; height: 82%; object-fit: contain; mix-blend-mode: multiply; }
+  @media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) .tile img { mix-blend-mode: normal; border-radius: 10px; } }
+  .ph { position: absolute; inset: 0; display: grid; place-items: center; font-family: var(--en); font-weight: 600; color: var(--faint);
+        font-size: 15px; letter-spacing: .06em; text-align: center; padding: 18px; }
+  .off { position: absolute; left: 10px; top: 10px; background: var(--sale); color: var(--sale-ink); font-family: var(--en); font-weight: 700;
+         font-size: 17px; line-height: 1; padding: 9px 11px 8px; border-radius: 999px; letter-spacing: .01em; }
+  .tag { position: absolute; right: 10px; top: 10px; background: var(--card); color: var(--ink); font-size: 11.5px; padding: 5px 10px;
+         border-radius: 999px; }
+  .tag.love { color: var(--mint); }
+  .quote { margin: 12px 4px 0; font-size: 13px; color: var(--mint); line-height: 1.5; }
+  .name { margin: 6px 4px 0; font-size: 14px; font-weight: 500; line-height: 1.5; display: -webkit-box; -webkit-line-clamp: 2;
+          -webkit-box-orient: vertical; overflow: hidden; }
+  .name .pr { font-size: 11px; color: var(--sub); font-weight: 400; margin-left: 4px; }
+  .price { margin: 10px 4px 0; display: flex; flex-wrap: wrap; align-items: baseline; gap: 2px 8px; }
+  .price b { font-family: var(--en); font-weight: 700; font-size: 22px; letter-spacing: .01em; }
+  .price s { font-family: var(--en); font-size: 13px; color: var(--faint); }
+  .deal { margin: 4px 4px 0; font-size: 11.5px; color: var(--sale); }
+  .deal .end { color: var(--sub); margin-left: 6px; white-space: nowrap; }
+  .deal .low { color: var(--ink); background: var(--chip); padding: 1px 7px; border-radius: 6px; margin-left: 4px; white-space: nowrap; }
+  .btn { margin: auto 4px 0; padding-top: 12px; }
+  .btn span { display: block; text-align: center; background: var(--ink); color: var(--paper); border-radius: 999px; padding: 10px 0;
+              font-size: 13.5px; font-weight: 500; letter-spacing: .04em; }
+  .card:hover .btn span { background: var(--sale); color: var(--sale-ink); }
+
+  .rest { margin-top: 70px; }
+  .rest .head { text-align: center; }
+  .rest .head .en { font-family: var(--en); font-weight: 600; color: var(--mint); letter-spacing: .06em; }
+  .rest .head h2 { margin: 2px 0 4px; font-size: 20px; font-weight: 700; }
+  .rest .head p { margin: 0 0 22px; color: var(--sub); font-size: 13px; }
+  .rest .grid { grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 14px; }
+  .rest .card { padding: 8px 8px 12px; }
+  .rest .price b { font-size: 17px; }
+
+  .video { margin: 70px auto 0; text-align: center; }
+  .video a { display: inline-block; padding: 14px 26px; border-radius: 999px; background: var(--ink); color: var(--paper); font-weight: 500; }
+  .notes { margin: 60px auto 0; max-width: 720px; padding-bottom: 60px; color: var(--sub); font-size: 12px; line-height: 1.8; }
+  .notes p { margin: 0 0 8px; }
+
+  @media (max-width: 760px) {
+    .grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
+    .rest .grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .card { border-radius: 18px; padding: 8px 8px 12px; }
+    .tile { border-radius: 13px; }
+    .off { font-size: 15px; padding: 8px 9px 7px; left: 8px; top: 8px; }
+    .tag { font-size: 10.5px; padding: 4px 8px; right: 8px; top: 8px; }
+    .price b { font-size: 19px; }
+    .quote { font-size: 12px; }
+    .name { font-size: 13px; }
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="top"><a href="https://www.youtube.com/channel/UCdxzGFZI8g1MT3vUCprx_vw" rel="noopener">4.5room</a><a href="https://www.youtube.com/channel/UCdxzGFZI8g1MT3vUCprx_vw" rel="noopener">youtube</a></div>
+
+  <section class="hero">
+    <svg class="arc" viewBox="0 0 520 110" aria-hidden="true"><path id="arcp" d="M 30 100 Q 260 0 490 100" fill="none"/>
+      <text><textPath href="#arcp" startOffset="50%" text-anchor="middle">prime big deal days</textPath></text></svg>
+    <h1>いま安くなっているもの</h1>
+    <p class="sub">動画「セール前にカートに入れておくもの」で紹介したものから、プライム感謝祭の先行セールで値下がりしているものを集めました</p>
+    <div class="stats">
+      <div class="stat"><b>30<small>点</small></b><span>が値下がり中（43点中）</span></div>
+      <div class="stat"><b>42<small>%off</small></b><span>いちばん下がったもの</span></div>
+    </div>
+    <span class="stamp">10.13 tue 09:09 時点の価格・セール表示はプライム会員向け</span>
+  </section>
+
+  <div class="bar"><div class="chips" id="chips"></div></div>
+  <div class="sortline"><span id="count"></span><span class="sorts">
+    <button type="button" data-sort="video" aria-pressed="true">動画の順</button>
+    <button type="button" data-sort="pct" aria-pressed="false">割引率の順</button></span></div>
+  <main id="list"></main>
+
+  <section class="rest">
+    <div class="head"><div class="en">also in the video</div><h2>そのほかの紹介品</h2><p>いまは値下がりしていない・在庫切れのもの</p></div>
+    <div class="grid" id="rest"></div>
+  </section>
+
+  <div class="video"><a href="https://www.youtube.com/channel/UCdxzGFZI8g1MT3vUCprx_vw" rel="noopener">動画を見る（4.5room）</a></div>
+
+  <section class="notes">
+    <p>価格および発送可能時期は表示された日付・時刻（10/13 9:09）の時点のものであり、変更される場合があります。本商品の購入においては、購入の時点でAmazon.co.jpに表示されている価格および発送可能時期の情報が適用されます。</p>
+    <p>割引率はAmazonの商品ページに表示された参考価格・過去価格との比較です。商品の一言は、動画の中で話した内容から抜き出したものです。「提供」と書いた商品は、過去に各社から製品提供を受けたものです。</p>
+    <p>Amazonのアソシエイトとして、4.5roomは適格販売により収入を得ています。</p>
+  </section>
+</div>
+<script>
+(() => {
+  const D = {"items": [{"asin": "B09F9NNJMJ", "name": "tomtoc Explorer T21 ボディバッグ（Lサイズ）", "pr": false, "sec": "出かける・身につける", "url": "https://link.amazon/B00r6uCyd", "img": "https://m.media-amazon.com/images/I/31tuUpXNaJL._SL500_.jpg", "tag": "愛用中", "quote": "MacBookが入るボディバッグ", "price": "￥7,112", "pct": 20, "basis": "￥8,890", "basisLabel": "過去価格", "badge": "プライム感謝祭先行セール", "end": "10/19 23:59まで", "out": false, "stock": 0, "src": "api"}, {"asin": "B0GXJR9B7V", "name": "tomtoc T30 縦型ボディバッグ", "pr": true, "sec": "出かける・身につける", "url": "https://link.amazon/B0e1F1Omq", "img": "https://m.media-amazon.com/images/I/31vfaJnuodL._SL500_.jpg", "tag": "愛用中", "quote": "体に密着して重く感じにくい", "price": "￥7,192", "pct": 20, "basis": "￥8,990", "basisLabel": "過去価格", "badge": "プライム感謝祭先行セール", "end": "10/19 23:59まで", "out": false, "stock": 0, "src": "api"}, {"asin": "B0DYF7HLQ2", "name": "Xiaomi Smart Band 10", "pr": false, "sec": "出かける・身につける", "url": "https://link.amazon/B0448hBNp", "img": "https://m.media-amazon.com/images/I/31dL7KkAnCL._SL500_.jpg", "tag": "愛用中", "quote": "つけててストレスがなく通知が取れる", "price": "￥5,180", "pct": 22, "basis": "￥6,680", "basisLabel": "参考価格", "badge": "タイムセール", "end": "10/19 23:59まで", "out": false, "stock": 0, "src": "api"}, {"asin": "B08HCVVMNG", "name": "Royce&Roland Apple Watch用 チャンキーチェーンバンド", "pr": false, "sec": "出かける・身につける", "url": "https://link.amazon/B02HhSrum", "img": "https://m.media-amazon.com/images/I/4117RR5jPbL._SL500_.jpg", "tag": "愛用中", "quote": "ごついのに丸みがあって可愛い", "price": "￥5,680", "pct": 0, "basis": null, "basisLabel": null, "badge": "", "end": "", "out": false, "stock": 0, "src": "api"}, {"asin": "B0FNWLLYKG", "name": "バロット ピマ綿Tシャツ", "pr": false, "sec": "出かける・身につける", "url": "https://link.amazon/B08BYSggw", "img": "https://m.media-amazon.com/images/I/31glY6UHklL._SL500_.jpg", "tag": "", "quote": "ピマコットンで高級感のあるTシャツ", "price": "￥2,480", "pct": 17, "basis": "￥2,980", "basisLabel": "過去価格", "badge": "プライム感謝祭先行セール", "end": "10/19 23:59まで", "out": false, "stock": 0, "src": "api"}, {"asin": "B0FDQ49MFS", "name": "メンソレータム リップフォンデュ", "pr": false, "sec": "出かける・身につける", "url": "https://link.amazon/B03yNrM6G", "img": "https://m.media-amazon.com/images/I/41o2JWvrerL._SL500_.jpg", "tag": "", "quote": "男女問わず使い勝手のいい定番リップ", "price": "￥574", "pct": 17, "basis": "￥693", "basisLabel": "参考価格", "badge": "", "end": "", "out": false, "stock": 0, "src": "api"}, {"asin": "B0GY4MWDV9", "name": "XTEINK X3 電子書籍リーダー", "pr": false, "sec": "出かける・身につける", "url": "https://link.amazon/B08XNg02M", "img": "https://m.media-amazon.com/images/I/318PIktan6L._SL500_.jpg", "tag": "気になってる", "quote": "MagSafeでスマホに付く電子書籍リーダー", "price": "￥12,900", "pct": 7, "basis": "￥13,900", "basisLabel": "参考価格", "badge": "", "end": "", "out": false, "stock": 0, "src": "api"}, {"asin": "B0H1V73551", "name": "ANBERNIC RG Rotate", "pr": false, "sec": "出かける・身につける", "url": "https://link.amazon/B0gM3CUZy", "img": "https://m.media-amazon.com/images/I/410J-oiTELL._SL500_.jpg", "tag": "気になってる", "quote": "ゲームボーイアドバンスSPみたいな見た目", "price": "￥17,999", "pct": 0, "basis": null, "basisLabel": null, "badge": "", "end": "", "out": false, "stock": 8, "src": "api"}, {"asin": "B0DRVB48LJ", "name": "Anker Soundcore Liberty 5", "pr": false, "sec": "イヤホン", "url": "https://link.amazon/B0ieFzCPg", "img": "https://m.media-amazon.com/images/I/31+3c6nuokL._SL500_.jpg", "tag": "", "quote": "買って後悔しない代表格", "price": "￥11,290", "pct": 25, "basis": "￥14,990", "basisLabel": "参考価格", "badge": "タイムセール", "end": "10/19 23:59まで", "out": false, "stock": 0, "src": "api"}, {"asin": "B0H8P9N9W7", "name": "SOUNDPEATS Air6 Pro", "pr": true, "sec": "イヤホン", "url": "https://link.amazon/B0iXSJXgp", "img": "https://m.media-amazon.com/images/I/4132+6nnZuL._SL500_.jpg", "tag": "", "quote": "ワイヤレス充電・ノイキャン・音質の優等生", "price": "￥9,481", "pct": 23, "basis": "￥12,380", "basisLabel": "参考価格", "badge": "プライム感謝祭先行セール", "end": "10/19 23:59まで", "out": false, "stock": 0, "src": "api"}, {"asin": "B0FWCQ7PPS", "name": "EarFun Air Pro 4+", "pr": true, "sec": "イヤホン", "url": "https://link.amazon/B0bm6SDLk", "img": "https://m.media-amazon.com/images/I/31fuviGa3WL._SL500_.jpg", "tag": "", "quote": "3つの中で音が一番好き", "price": "￥10,341", "pct": 26, "basis": "￥13,990", "basisLabel": "参考価格", "badge": "プライム感謝祭先行セール", "end": "10/19 23:59まで", "out": false, "stock": 0, "src": "api"}, {"asin": "B0DGJBNYVY", "name": "Apple AirPods 4（ノイキャン）", "pr": false, "sec": "イヤホン", "url": "https://link.amazon/B06DK5oXx", "img": "https://m.media-amazon.com/images/I/31rVluq7nAL._SL500_.jpg", "tag": "", "quote": "カナル型ではないのにノイキャン搭載", "price": "￥25,800", "pct": 21, "basis": "￥32,800", "basisLabel": "参考価格", "badge": "", "end": "", "out": false, "stock": 0, "src": "api"}, {"asin": "B0FHBCNSP3", "name": "Anker Soundcore Liberty Buds", "pr": false, "sec": "イヤホン", "url": "https://link.amazon/B0bRnbKvT", "img": "https://m.media-amazon.com/images/I/315Ifi+SHVL._SL500_.jpg", "tag": "", "quote": "インナーイヤー型なのにノイキャン搭載", "price": "￥8,990", "pct": 31, "basis": "￥12,990", "basisLabel": "参考価格", "badge": "タイムセール", "end": "10/19 23:59まで", "out": false, "stock": 0, "src": "api"}, {"asin": "B0F37J92SG", "name": "EarFun OpenJump", "pr": false, "sec": "イヤホン", "url": "https://link.amazon/B0evDk6VX", "img": "https://m.media-amazon.com/images/I/31qJ6w1B4nL._SL500_.jpg", "tag": "愛用中", "quote": "耳かけ型の割に音質がめちゃめちゃいい", "price": "￥6,636", "pct": 26, "basis": "￥8,990", "basisLabel": "参考価格", "badge": "プライム感謝祭先行セール", "end": "10/19 23:59まで", "out": false, "stock": 0, "src": "api"}, {"asin": "B0CWH33BSK", "name": "Anker USB-C 2-in-1 ケーブル 140W", "pr": false, "sec": "充電・スマホ", "url": "https://link.amazon/B0btXn6kc", "img": "https://m.media-amazon.com/images/I/31t1NazBZOL._SL500_.jpg", "tag": "", "quote": "1本で2台充電できる", "price": "￥1,390", "pct": 30, "basis": "￥1,990", "basisLabel": "参考価格", "badge": "タイムセール", "end": "10/19 23:59まで", "out": false, "stock": 0, "src": "api"}, {"asin": "B0H1DQ1FQ5", "name": "Piece Flow シリコンケーブル", "pr": false, "sec": "充電・スマホ", "url": "https://link.amazon/B08lLLwDG", "img": "https://m.media-amazon.com/images/I/31xDyeFZA8L._SL500_.jpg", "tag": "気になってる", "quote": "カラーリングが全部可愛いケーブル", "price": "￥1,680", "pct": 0, "basis": null, "basisLabel": null, "badge": "", "end": "", "out": false, "stock": 10, "src": "api"}, {"asin": "B0DFCMFYYH", "name": "RORRY 3in1 モバイルバッテリー", "pr": true, "sec": "充電・スマホ", "url": "https://link.amazon/B0bRAlaBI", "img": "https://m.media-amazon.com/images/I/415BjuuwJ1L._SL500_.jpg", "tag": "", "quote": "モバイルバッテリー兼3in1充電器", "price": "￥5,669", "pct": 19, "basis": "￥6,999", "basisLabel": "参考価格", "badge": "プライム感謝祭先行セール", "end": "10/19 23:59まで", "out": false, "stock": 0, "src": "api"}, {"asin": "B0FLQG5SV6", "name": "RORRY 3in1 ワイヤレス充電器 冷却ファン付き", "pr": true, "sec": "充電・スマホ", "url": "https://link.amazon/B06wPmA5J", "img": "https://m.media-amazon.com/images/I/41qy9GNEZHL._SL500_.jpg", "tag": "愛用中", "quote": "ファンで冷却しながら充電できる", "price": "￥4,999", "pct": 29, "basis": "￥6,999", "basisLabel": "参考価格", "badge": "プライム感謝祭先行セール", "end": "10/19 23:59まで", "out": false, "stock": 0, "src": "api"}, {"asin": "B0H4F8TQ4P", "name": "CASEKOO iPhone 17 ケース", "pr": false, "sec": "充電・スマホ", "url": "https://link.amazon/B0inB15sH", "img": "https://m.media-amazon.com/images/I/41df3P1oMaL._SL500_.jpg", "tag": "気になってる", "quote": "ストラップだけ取り出せるケース", "price": "￥5,099", "pct": 15, "basis": "￥5,999", "basisLabel": "参考価格", "badge": "プライム感謝祭先行セール", "end": "10/19 23:59まで", "out": false, "stock": 0, "src": "api"}, {"asin": "B0D9Y1SNQT", "name": "ロジクール MX ERGO S", "pr": false, "sec": "デスク", "url": "https://link.amazon/B04SdMMPD", "img": "https://m.media-amazon.com/images/I/319RcxooUNL._SL500_.jpg", "tag": "愛用中", "quote": "ノータイムで買っていいトラックボール", "price": "￥12,980", "pct": 27, "basis": "￥17,800", "basisLabel": "過去価格", "badge": "タイムセール", "end": "10/19 23:59まで", "out": false, "stock": 0, "src": "api"}, {"asin": "B0H4LKS3SY", "name": "TALONER MX ERGO用 グリップテープ", "pr": false, "sec": "デスク", "url": "https://link.amazon/B08jb9sUe", "img": "https://m.media-amazon.com/images/I/51VKZY6t98L._SL500_.jpg", "tag": "愛用中", "quote": "ラバーの加水分解を防ぐグリップテープ", "price": "￥1,480", "pct": 0, "basis": null, "basisLabel": null, "badge": "", "end": "", "out": false, "stock": 0, "src": "api"}, {"asin": "B0BWJVXGSY", "name": "XPPen 左手デバイス", "pr": false, "sec": "デスク", "url": "https://link.amazon/B0asBAOWK", "img": "https://m.media-amazon.com/images/I/313pjgh3j0L._SL500_.jpg", "tag": "愛用中", "quote": "ショートカットを割り当てて作業効率化", "price": "￥7,381", "pct": 0, "basis": null, "basisLabel": null, "badge": "", "end": "", "out": false, "stock": 0, "src": "api"}, {"asin": "B0D9M1DFQ9", "name": "WOBKEY Rainy 75", "pr": false, "sec": "デスク", "url": "https://link.amazon/B0gAeyEEs", "img": "https://m.media-amazon.com/images/I/41tqq80ztnL._SL500_.jpg", "tag": "愛用中", "quote": "打鍵音がとにかく可愛いキーボード", "price": "￥18,909", "pct": 20, "basis": "￥23,636", "basisLabel": "参考価格", "badge": "プライム感謝祭先行セール", "end": "", "out": false, "stock": 4, "src": "api"}, {"asin": "B091FV14V9", "name": "UnionSine 外付けHDD 1TB", "pr": false, "sec": "デスク", "url": "https://link.amazon/B0dvy6IvZ", "img": "https://m.media-amazon.com/images/I/41kU+kLjL6L._SL500_.jpg", "tag": "気になってる", "quote": "1TBのHDDは現代だと結構安い", "price": "￥11,479", "pct": 11, "basis": "￥12,880", "basisLabel": "参考価格", "badge": "プライム感謝祭先行セール", "end": "10/19 23:59まで", "out": false, "stock": 0, "src": "api"}, {"asin": "B0F8Q7T938", "name": "REIBII スチールラック 5段", "pr": false, "sec": "部屋", "url": "https://link.amazon/B04odLSM1", "img": "https://m.media-amazon.com/images/I/41+ebfhwD6L._SL500_.jpg", "tag": "愛用中", "quote": "幅が狭めで本棚にちょうどいい", "price": "￥6,290", "pct": 10, "basis": "￥6,990", "basisLabel": "過去価格", "badge": "プライム感謝祭先行セール", "end": "10/19 23:59まで", "out": false, "stock": 0, "src": "api"}, {"asin": "B0FKY8PW6H", "name": "Slope Book End", "pr": false, "sec": "部屋", "url": "https://link.amazon/B08ZGGLax", "img": "https://m.media-amazon.com/images/I/31+M+QuuDaL._SL500_.jpg", "tag": "気になってる", "quote": "ボウリングの玉みたいなので本を留める", "price": "￥11,000", "pct": 0, "basis": null, "basisLabel": null, "badge": "", "end": "", "out": false, "stock": 2, "src": "api"}, {"asin": "B0FM2XYLQ4", "name": "中世風の永久カレンダー", "pr": false, "sec": "部屋", "url": "https://link.amazon/B0ddOnfkC", "img": "https://m.media-amazon.com/images/I/41IsLTG0qSL._SL500_.jpg", "tag": "", "quote": "毎日入れ替える可愛すぎるカレンダー", "price": "￥3,536", "pct": 0, "basis": null, "basisLabel": null, "badge": "", "end": "", "out": false, "stock": 0, "src": "api"}, {"asin": "B00BD1NTTY", "name": "HARIO 手挽きコーヒーミル", "pr": false, "sec": "キッチン・家事", "url": "https://link.amazon/B08xuQesg", "img": "https://m.media-amazon.com/images/I/41p9afIq-dL._SL500_.jpg", "tag": "愛用中", "quote": "可愛くてかっこいいコーヒーミル", "price": "￥3,480", "pct": 42, "basis": "￥6,050", "basisLabel": "参考価格", "badge": "", "end": "", "out": false, "stock": 6, "src": "api"}, {"asin": "B0CS9JXX7Q", "name": "マーナ ザルボウル 21cm", "pr": false, "sec": "キッチン・家事", "url": "https://link.amazon/B08KaZc6U", "img": "https://m.media-amazon.com/images/I/41Bh5Ee-ZtL._SL500_.jpg", "tag": "", "quote": "レンジも使えていろんな用途に使える", "price": "￥2,490", "pct": 0, "basis": null, "basisLabel": null, "badge": "", "end": "", "out": false, "stock": 0, "src": "api"}, {"asin": "B08VWXNG8D", "name": "山崎実業 シリコーン菜箸トング", "pr": false, "sec": "キッチン・家事", "url": "https://link.amazon/B028gwm9J", "img": "https://m.media-amazon.com/images/I/31BPrB44KTL._SL500_.jpg", "tag": "", "quote": "菜箸をトングにした発想が天才", "price": "￥1,031", "pct": 15, "basis": "￥1,210", "basisLabel": "参考価格", "badge": "プライム感謝祭先行セール", "end": "10/19 23:59まで", "out": false, "stock": 0, "src": "api"}, {"asin": "B0DQ9XPZ7K", "name": "by Amazon 保湿ティッシュ", "pr": false, "sec": "キッチン・家事", "url": "https://link.amazon/B00MrJSwj", "img": "https://m.media-amazon.com/images/I/41Rp4grTNeL._SL500_.jpg", "tag": "愛用中", "quote": "しっとりしてサイズ感もちょうどいい", "price": "￥1,759", "pct": 15, "basis": "￥2,069", "basisLabel": "過去価格", "badge": "プライム感謝祭先行セール", "end": "10/19 23:59まで", "out": false, "stock": 0, "src": "api"}, {"asin": "B0G647NB2G", "name": "サンガリア ミラクルエナジーNEO", "pr": false, "sec": "食品ストック", "url": "https://link.amazon/B0e9LC1tC", "img": "https://m.media-amazon.com/images/I/41mhdRYTKqL._SL500_.jpg", "tag": "愛用中", "quote": "カフェインしっかり、タウリン抽出物入り", "price": "￥2,601", "pct": 0, "basis": null, "basisLabel": null, "badge": "", "end": "", "out": false, "stock": 0, "src": "api"}, {"asin": "B0DJ2GJHPV", "name": "サバイバー エナジードリンク", "pr": false, "sec": "食品ストック", "url": "https://link.amazon/B030Z2Iqk", "img": "https://m.media-amazon.com/images/I/41TtY1ukN4L._SL500_.jpg", "tag": "気になってる", "quote": "ぶどう糖入りのエナジードリンク", "price": "￥3,210", "pct": 0, "basis": null, "basisLabel": null, "badge": "", "end": "", "out": false, "stock": 0, "src": "api"}, {"asin": "B0BQVBS6RP", "name": "味の素 プロテインスープ コーンクリーム", "pr": false, "sec": "食品ストック", "url": "https://link.amazon/B0h3oIS5y", "img": "https://m.media-amazon.com/images/I/412OJOk6UqL._SL500_.jpg", "tag": "愛用中", "quote": "プロテインで一番美味しいコーンスープ味", "price": "￥2,783", "pct": 20, "basis": "￥3,479", "basisLabel": "過去価格", "badge": "プライム感謝祭先行セール", "end": "10/19 23:59まで", "out": false, "stock": 0, "src": "api"}, {"asin": "B08ZK65D42", "name": "訳あり 銀鮭切り身 1kg", "pr": false, "sec": "食品ストック", "url": "https://link.amazon/B044VugVp", "img": "https://m.media-amazon.com/images/I/41EEGOlYCnL._SL500_.jpg", "tag": "気になってる", "quote": "レンジでチンして食べたくてリスト入り", "price": "￥3,280", "pct": 0, "basis": null, "basisLabel": null, "badge": "", "end": "", "out": false, "stock": 0, "src": "api"}, {"asin": "B0FH4R3MHM", "name": "訳あり さばフィーレ 1kg", "pr": false, "sec": "食品ストック", "url": "https://link.amazon/B05nEqRfP", "img": "https://m.media-amazon.com/images/I/51dFcdg55RL._SL500_.jpg", "tag": "気になってる", "quote": "鮭もサバも大好きでリスト入り", "price": "￥3,480", "pct": 13, "basis": "￥3,980", "basisLabel": "参考価格", "badge": "プライム感謝祭先行セール", "end": "10/19 23:59まで", "out": false, "stock": 0, "src": "api"}, {"asin": "B081C9H128", "name": "Marine Moon ウェイトブランケット", "pr": false, "sec": "睡眠・回復", "url": "https://link.amazon/B06w5rxOv", "img": "https://m.media-amazon.com/images/I/41j06zfScOL._SL500_.jpg", "tag": "", "quote": "睡眠の質が上がり入眠も速くなる", "price": null, "pct": 0, "basis": null, "basisLabel": null, "badge": "", "end": "", "out": true, "stock": 0, "src": "api"}, {"asin": "B0DDCJ93F6", "name": "Lemon Bear 掛け布団カバー", "pr": false, "sec": "睡眠・回復", "url": "https://link.amazon/B0d6DHzzc", "img": "https://m.media-amazon.com/images/I/416ASx6PbeL._SL500_.jpg", "tag": "", "quote": "スナップボタン式で交換のストレスなし", "price": "￥1,679", "pct": 23, "basis": "￥2,180", "basisLabel": "参考価格", "badge": "プライム感謝祭先行セール", "end": "10/19 23:59まで", "out": false, "stock": 0, "src": "api"}, {"asin": "B0D4DM19KF", "name": "Loop Experience 2（耳栓）", "pr": false, "sec": "睡眠・回復", "url": "https://link.amazon/B0bmX7Nxp", "img": "https://m.media-amazon.com/images/I/31eGiEUSLoL._SL500_.jpg", "tag": "", "quote": "見た目がかっこいいファッショナブルな耳栓", "price": "￥4,230", "pct": 20, "basis": "￥5,290", "basisLabel": "参考価格", "badge": "プライム感謝祭先行セール", "end": "10/19 23:59まで", "out": false, "stock": 0, "src": "api"}, {"asin": "B09RF9B652", "name": "ASHIMARU ハーフインソール", "pr": false, "sec": "睡眠・回復", "url": "https://link.amazon/B0dGza3Hb", "img": "https://m.media-amazon.com/images/I/41WPOBMUqmL._SL500_.jpg", "tag": "愛用中", "quote": "歩くのがめちゃめちゃ楽になる", "price": null, "pct": 0, "basis": null, "basisLabel": null, "badge": "", "end": "", "out": true, "stock": 0, "src": "api"}, {"asin": "B0FKMHTJ61", "name": "TARKINS ハーフインソール", "pr": false, "sec": "睡眠・回復", "url": "https://link.amazon/B0aYgj4Kr", "img": "https://m.media-amazon.com/images/I/41+r2R1oVGL._SL500_.jpg", "tag": "気になってる", "quote": "似たようなハーフインソールで評価も高め", "price": "￥2,199", "pct": 39, "basis": "￥3,605", "basisLabel": "参考価格", "badge": "", "end": "", "out": false, "stock": 0, "src": "api"}, {"asin": "B09Z96Y1T6", "name": "ニューバランス サポーティブクッションインソール", "pr": false, "sec": "睡眠・回復", "url": "https://link.amazon/B06l7kbAf", "img": "https://m.media-amazon.com/images/I/41DzsjdyamL._SL500_.jpg", "tag": "愛用中", "quote": "差し込みっぱなしで使えるインソール", "price": "￥1,558", "pct": 17, "basis": "￥1,870", "basisLabel": "参考価格", "badge": "", "end": "", "out": false, "stock": 0, "src": "api"}, {"asin": "B0G7H989C3", "name": "ZEN STATE ととのいタイマー", "pr": false, "sec": "睡眠・回復", "url": "https://link.amazon/B02L6i1vb", "img": "https://m.media-amazon.com/images/I/31evdEhU0JL._SL500_.jpg", "tag": "気になってる", "quote": "サウナに持っていけるスマートウォッチ", "price": "￥7,980", "pct": 38, "basis": "￥12,800", "basisLabel": "参考価格", "badge": "プライム感謝祭先行セール", "end": "10/19 23:59まで", "out": false, "stock": 0, "src": "api"}], "sections": [["出かける・身につける", "out & about", "出かける"], ["イヤホン", "earphones", "イヤホン"], ["充電・スマホ", "charging & phone", "充電"], ["デスク", "desk", "デスク"], ["部屋", "room", "部屋"], ["キッチン・家事", "kitchen", "キッチン"], ["食品ストック", "food stock", "食品"], ["睡眠・回復", "sleep", "睡眠"]]};
+  const esc = s => String(s == null ? '' : s).replace(/[&<>"]/g, c => ({'&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;'}[c]));
+  const yen = s => s ? '¥' + String(s).replace(/[￥¥]/g, '') : '';
+  const en = Object.fromEntries(D.sections.map(s => [s[0], s[1]]));
+  function card(i, sale) {
+    const tile = (i.img ? '<img src="' + esc(i.img) + '" alt="' + esc(i.name) + '" loading="lazy">' : '<span class="ph">' + esc(en[i.sec] || '') + '</span>') +
+      (sale ? '<span class="off">-' + i.pct + '%</span>' : '') +
+      (i.tag ? '<span class="tag' + (i.tag === '愛用中' ? ' love' : '') + '">' + esc(i.tag) + '</span>' : '');
+    const price = i.out ? '<p class="price"><b style="font-size:15px">在庫切れ</b></p>' :
+      '<p class="price"><b>' + esc(yen(i.price)) + '</b>' + (sale && i.basis ? '<s>' + esc(yen(i.basis)) + '</s>' : '') + '</p>';
+    const deal = (sale && (i.badge || i.stock)) ? '<p class="deal">' + esc(i.badge || '') + (i.end ? '<span class="end">' + esc(i.end) + '</span>' : '') + (i.stock ? '<span class="low">残りわずか</span>' : '') + '</p>' :
+      (!sale && i.stock ? '<p class="deal"><span class="low" style="margin:0">残りわずか</span></p>' : '');
+    return '<a class="card" href="' + esc(i.url) + '" target="_blank" rel="sponsored noopener"><div class="tile">' + tile + '</div>' +
+      (i.quote ? '<p class="quote">「' + esc(i.quote) + '」</p>' : '') +
+      '<p class="name">' + esc(i.name) + (i.pr ? '<span class="pr">提供</span>' : '') + '</p>' + price + deal +
+      '<div class="btn"><span>Amazonで見る</span></div></a>';
+  }
+  const on = D.items.filter(i => i.pct);
+  let sec = 'all', sort = 'video';
+  try { sort = localStorage.getItem('sale-sort2') || 'video'; } catch (e) {}
+  function render() {
+    let list = on.filter(i => sec === 'all' || i.sec === sec);
+    let h = '';
+    if (sort === 'pct') {
+      h = '<div class="grid">' + list.slice().sort((a, b) => b.pct - a.pct).map(i => card(i, true)).join('') + '</div>';
+    } else {
+      for (const s of D.sections) {
+        const g = list.filter(i => i.sec === s[0]);
+        if (!g.length) continue;
+        h += '<div class="sec"><span class="en">' + esc(s[1]) + '</span><h2>' + esc(s[0]) + '</h2></div><div class="grid">' + g.map(i => card(i, true)).join('') + '</div>';
+      }
+    }
+    document.getElementById('list').innerHTML = h;
+    document.getElementById('count').textContent = list.length + '点';
+    document.querySelectorAll('.chip').forEach(c => c.setAttribute('aria-pressed', String(c.dataset.sec === sec)));
+    document.querySelectorAll('.sorts button').forEach(b => b.setAttribute('aria-pressed', String(b.dataset.sort === sort)));
+  }
+  const chips = [['all', 'すべて']].concat(D.sections.filter(s => on.some(i => i.sec === s[0])).map(s => [s[0], s[2]]));
+  document.getElementById('chips').innerHTML = chips.map(c => '<button type="button" class="chip" data-sec="' + esc(c[0]) + '">' + esc(c[1]) + '</button>').join('');
+  document.querySelectorAll('.chip').forEach(c => c.addEventListener('click', () => { sec = c.dataset.sec; render(); }));
+  document.querySelectorAll('.sorts button').forEach(b => b.addEventListener('click', () => {
+    sort = b.dataset.sort; try { localStorage.setItem('sale-sort2', sort); } catch (e) {} render(); }));
+  document.getElementById('rest').innerHTML = D.items.filter(i => !i.pct).map(i => card(i, false)).join('');
+  render();
+})();
+</script>
+<!-- Cloudflare Web Analytics --><script type='module' src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "7a4c5e81afac4973bddb491d566d9843"}'></script><!-- End Cloudflare Web Analytics -->
+</body>
+</html>
