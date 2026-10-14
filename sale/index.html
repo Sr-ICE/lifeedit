@@ -151,6 +151,13 @@
 
   .video { margin: 70px auto 0; text-align: center; }
   .video a { display: inline-block; padding: 14px 26px; border-radius: 999px; background: var(--ink); color: var(--paper); font-weight: 500; }
+  /* 貢ぎ物: 頭と同じ弧の英語を小さく。ボタンは動画より一歩引いた薄い面 */
+  .gift { margin: 84px auto 0; text-align: center; }
+  .gift .arc { width: min(300px, 78%); margin-bottom: -2px; }
+  .gift h2 { margin: 0; font-size: clamp(20px, 5.2vw, 26px); font-weight: 700; letter-spacing: .04em; }
+  .gift a { display: inline-block; margin-top: 20px; padding: 13px 24px; border-radius: 999px; background: var(--chip); color: var(--ink);
+            font-size: 14.5px; font-weight: 500; transition: background-color .18s, color .18s; }
+  .gift a:hover { background: var(--sale); color: var(--sale-ink); }
   .notes { margin: 60px auto 0; max-width: 720px; padding-bottom: 60px; color: var(--sub); font-size: 12px; line-height: 1.8; }
   .notes p { margin: 0 0 8px; }
 
@@ -240,6 +247,13 @@
   </section>
 
   <div class="video"><a href="https://www.youtube.com/channel/UCdxzGFZI8g1MT3vUCprx_vw" rel="noopener">動画を見る（4.5room）</a></div>
+
+  <section class="gift">
+    <svg class="arc" viewBox="0 0 300 78" aria-hidden="true"><path id="arcg" d="M 20 72 Q 150 2 280 72" fill="none"/>
+      <text><textPath href="#arcg" startOffset="50%" text-anchor="middle">wish list</textPath></text></svg>
+    <h2>貢ぎ物リストはこちらです←(?)</h2>
+    <a href="https://www.amazon.co.jp/hz/wishlist/ls/1S0PP0HAH2HBT" target="_blank" rel="noopener">Amazonのほしい物リストを見る</a>
+  </section>
 
   <section class="notes">
     <p>価格および発送可能時期は表示された日付・時刻（10/14 7:00）の時点のものであり、変更される場合があります。本商品の購入においては、購入の時点でAmazon.co.jpに表示されている価格および発送可能時期の情報が適用されます。</p>
