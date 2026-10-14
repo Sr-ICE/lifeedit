@@ -10,261 +10,237 @@
 <meta property="og:url" content="https://4-5room.com/earphones/">
 <style>:root{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}body{margin:0}img{max-width:100%}</style>
 <title>4.5roomのイヤホンの物差し</title>
-<meta name="theme-color" content="#fefefd" id="tc">
-<script>
-  // 昼夜: 選んだもの（localStorage・4-5room.com の /sale/ と同じキーで共有）→ なければ端末の設定。描く前に決めてちらつかせない
-  (function () {
-    var t = null;
-    try { t = localStorage.getItem('sale-theme'); } catch (e) {}
-    if (t !== 'light' && t !== 'dark') t = matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
-    document.documentElement.setAttribute('data-theme', t);
-    document.getElementById('tc').content = t === 'dark' ? '#1a2750' : '#fefefd';
-  })();
-</script>
+<meta name="theme-color" content="#0a0a0b">
 <link rel="icon" href="/assets/logo/favicon.svg" type="image/svg+xml">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Quicksand:wght@500;600;700&family=Zen+Maru+Gothic:wght@400;500;700&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Noto+Sans+JP:wght@400;500;700&display=swap">
 <style>
-  /* 公開版（2026-10-14 本人「イヤフォンに特化させたデザイン」→ 下絵3案から A「写真＋イコライザー」）
-     /sale/ と同じ in living. の組み（白地・丸い小文字の英語・丸ゴシック・枠線なし・写真の台だけ薄い生成り）。
-     イヤホンらしさは、採点の4つの段をイコライザーのつまみで、妥当な価格と実売を音量の横棒で見せるところに寄せる。
-     段の色（見た目・音・機能・手間）は本人用と同じ4色。夜は /sale/ と同じ夜空 */
+  /* 公開版 v3.1（2026-10-15 本人「MPCっぽいデザイン」→「見づらくね？」「もっと洗練された感じのMPC」）
+     ページを1台のサンプラーに見立てる：画面＝選んだ機種、4×4 のパッド＝機種、4つのつまみ＝採点の4つの段、バンク A/B＝16機種ずつ。
+     洗練の方針：立体の影・グラデーション・光る輪はやめて、黒いアルマイトの平らな面と 1px の細い線だけで組む。
+     色は意味のあるところだけ：割安＝ミント（チャンネルの見出しのミント）・妥当＝白・割高＝琥珀、赤は 4.5room のバッジと「いま」の線だけ */
   :root {
-    color-scheme: light;
-    --paper: #fefefd; --tile: #f4f1ec; --ink: #2b2723; --sub: #8b8277; --faint: #bdb3a7; --rail: #efebe5;
-    --sale: #d4583a; --sale-ink: #ffffff; --mint: #3c977a; --chip: #f2efea; --btn: var(--ink); --btn-ink: var(--paper); --mode-on: #ffffff;
-    --knob: #ffffff; --sheet: #fefefd;
-    --c-look: #d8a23a; --c-sound: #df6a3e; --c-func: #4b7bd1; --c-daily: #3a9c78;
-    --en: "Quicksand", "Zen Maru Gothic", sans-serif;
-    --jp: "Zen Maru Gothic", "Hiragino Maru Gothic ProN", "Hiragino Sans", sans-serif;
-  }
-  :root[data-theme="dark"] {
     color-scheme: dark;
-    --paper: #0e1533; --tile: #eceff6; --ink: #f3f1ea; --sub: #a2aac4; --faint: #5d6687; --rail: rgba(255, 255, 255, .1);
-    --sale: #ffd97a; --sale-ink: #161c3d; --mint: #8edbc2; --chip: rgba(255, 255, 255, .08);
-    --btn: rgba(255, 255, 255, .1); --btn-ink: #f3f1ea; --mode-on: rgba(255, 255, 255, .18); --knob: #f3f1ea; --sheet: #121a3c;
-    --c-look: #e9bd62; --c-sound: #f08a63; --c-func: #7fa6f0; --c-daily: #63c49f;
+    --room: #0a0a0b; --body: #141416; --plate: #1c1c1f; --plate2: #222226; --well: #0e0f11;
+    --hair: rgba(255, 255, 255, .08); --hair2: rgba(255, 255, 255, .14);
+    --ink: #f4f4f2; --sub: #b6b6bc; --dim: #808087;
+    --cheap: #5ec8a8; --fair: #e8e8e3; --pricey: #f2a54a; --none: #6a6a71; --red: #e3262b;
+    --c-look: #e3b44f; --c-sound: #ec7c56; --c-func: #7aa2ee; --c-daily: #5ec8a8;
+    --en: "Inter", "Helvetica Neue", Arial, sans-serif;
+    --jp: "Noto Sans JP", "Hiragino Sans", "Hiragino Kaku Gothic ProN", sans-serif;
   }
   * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
   html { -webkit-text-size-adjust: 100%; }
-  body { margin: 0; background: var(--paper); color: var(--ink); font-family: var(--jp); line-height: 1.6; }
+  body { margin: 0; background: var(--room); color: var(--ink); font-family: var(--jp); line-height: 1.6; min-height: 100vh; }
   a { color: inherit; text-decoration: none; }
-  button { font: inherit; color: inherit; }
+  button, input, select { font: inherit; color: inherit; }
   .num { font-family: var(--en); font-variant-numeric: tabular-nums; }
-  .wrap { max-width: 1080px; margin: 0 auto; padding: 0 16px; }
+  .silk { font: 500 10.5px/1 var(--en); letter-spacing: .14em; text-transform: uppercase; color: var(--dim); }
+  .wrap { max-width: 1120px; margin: 0 auto; padding: 0 16px; }
 
-  .top { display: flex; justify-content: space-between; align-items: center; padding: 18px 0 0; font-family: var(--en); font-weight: 600; font-size: 15px; letter-spacing: .02em; }
-  .top .right { display: flex; align-items: center; gap: 14px; }
-  .top .right > a { color: var(--sub); font-weight: 500; }
-  .mode { display: inline-flex; padding: 3px; border-radius: 999px; background: var(--chip); }
-  .mode button { all: unset; cursor: pointer; padding: 3px 11px; border-radius: 999px; font: 600 12.5px/1.4 var(--en); letter-spacing: .02em; color: var(--sub); }
-  .mode button[aria-pressed="true"] { background: var(--mode-on); color: var(--ink); }
-  .mode button:focus-visible { outline: 2px solid var(--sale); outline-offset: 1px; }
+  .top { display: flex; justify-content: space-between; align-items: center; padding: 20px 0 18px; }
+  .badge { display: inline-flex; align-items: center; gap: 12px; }
+  .badge b { background: var(--red); color: #fff; font: 700 14px/1 var(--en); letter-spacing: -.01em; padding: 6px 8px; border-radius: 3px; }
+  .badge span { font: 500 12px/1 var(--en); letter-spacing: .18em; text-transform: uppercase; color: var(--sub); }
+  .top > a { font: 500 12px var(--en); letter-spacing: .14em; text-transform: uppercase; color: var(--dim); }
+  .lead { margin: 0 0 20px; max-width: 46em; font-size: 14.5px; color: var(--sub); line-height: 1.75; }
+  .lead b { color: var(--ink); font-weight: 500; }
 
-  .hero { text-align: center; padding: 26px 0 6px; }
-  .arc { display: block; width: min(360px, 86%); height: auto; margin: 0 auto -6px; }
-  .arc text { font-family: var(--en); font-weight: 600; font-size: 22px; letter-spacing: .14em; fill: var(--mint); }
-  h1 { font-size: clamp(30px, 8vw, 52px); font-weight: 700; letter-spacing: .04em; line-height: 1.25; margin: 0; }
-  .sub { margin: 14px auto 0; max-width: 32em; color: var(--sub); font-size: 14.5px; }
-  .stats { display: flex; justify-content: center; gap: clamp(30px, 8vw, 70px); margin: 28px 0 4px; }
-  .stat b { display: block; font-family: var(--en); font-weight: 700; font-size: clamp(40px, 10vw, 58px); line-height: 1; color: var(--mint); }
-  .stat b small { font-size: .42em; margin-left: 2px; }
-  .stat span { display: block; margin-top: 8px; font-size: 12.5px; color: var(--sub); }
-  .stamp { display: inline-block; margin-top: 16px; font-family: var(--en); font-weight: 500; font-size: 13px; color: var(--sub); letter-spacing: .04em; }
+  /* 本体：平らな黒い面に 1px の線 */
+  .mpc { background: var(--body); border: 1px solid var(--hair); border-radius: 26px; padding: 16px; }
+  .mpc-in { display: grid; grid-template-columns: minmax(0, 1fr); gap: 16px; }
+  .left, .right, .ctrl { min-width: 0; }
 
-  /* 今日いちばん割安（いま Amazon で買えるものの中から） */
-  .best { all: unset; box-sizing: border-box; cursor: pointer; display: grid; grid-template-columns: 116px 1fr; gap: 16px; align-items: center;
-          width: min(560px, 100%); margin: 30px auto 0; padding: 12px 18px 12px 12px; border-radius: 26px; background: var(--chip); text-align: left; }
-  .best .tile { border-radius: 18px; }
-  .best .en { font-family: var(--en); font-weight: 600; color: var(--mint); font-size: 13.5px; letter-spacing: .06em; }
-  .best .nm { font-weight: 700; font-size: 17px; line-height: 1.35; margin: 2px 0 4px; }
-  .best .why { font-size: 13px; color: var(--sub); }
-  .best .why b { font-family: var(--en); color: var(--ink); font-size: 16px; margin-right: 6px; }
-  .best:focus-visible { outline: 2px solid var(--sale); outline-offset: 3px; }
+  /* 画面（選んだ機種） */
+  .bezel { border-radius: 16px; background: #050506; padding: 4px; }
+  .screen { background: var(--well); border: 1px solid var(--hair); border-radius: 13px; overflow: hidden; }
+  .sbar { display: flex; justify-content: space-between; align-items: center; gap: 8px; padding: 10px 14px; border-bottom: 1px solid var(--hair); font: 500 11px var(--en); letter-spacing: .1em; text-transform: uppercase; color: var(--dim); }
+  .sbar b { color: var(--ink); font-weight: 600; }
+  .sbody { display: grid; grid-template-columns: 112px minmax(0, 1fr); gap: 14px; padding: 14px; align-items: center; }
+  .shot { position: relative; aspect-ratio: 1 / 1; border-radius: 10px; background: #f3f3f1; overflow: hidden; }
+  .shot img { position: absolute; inset: 9%; width: 82%; height: 82%; object-fit: contain; mix-blend-mode: multiply; }
+  .shot .ph { position: absolute; inset: 0; display: grid; place-items: center; text-align: center; padding: 10px; font: 600 11px/1.3 var(--en); color: #9a9a9f; letter-spacing: .1em; text-transform: uppercase; }
+  .shot .tag { position: absolute; left: 6px; bottom: 6px; background: rgba(17, 17, 17, .86); color: #fff; font-size: 10.5px; padding: 2px 7px; border-radius: 4px; }
+  .s-maker { font: 500 11px var(--en); letter-spacing: .14em; text-transform: uppercase; color: var(--dim); }
+  .s-name { margin: 3px 0 0; font-size: 17px; font-weight: 500; line-height: 1.35; letter-spacing: .01em; }
+  .s-big { display: flex; align-items: baseline; gap: 10px; margin-top: 8px; }
+  .s-big b { font: 500 46px/1 var(--en); letter-spacing: -.035em; color: var(--glow); }
+  .s-big b small { font-size: .42em; font-weight: 500; letter-spacing: 0; margin-left: 2px; }
+  .s-big span { font-size: 12px; color: var(--dim); line-height: 1.45; }
+  .s-big span em { font-style: normal; display: block; color: var(--glow); font-weight: 500; font-size: 13.5px; }
+  /* 値段の線（波形の画面のつもり）: 帯＝0〜妥当な価格、赤い線＝いまの値段 */
+  .wave { position: relative; margin: 0 14px; height: 30px; }
+  .wave .reg { position: absolute; left: 0; top: 0; bottom: 0; background: color-mix(in srgb, var(--cheap) 10%, transparent); border-right: 1px solid var(--cheap); }
+  .wave svg { position: absolute; inset: 0; width: 100%; height: 100%; }
+  .wave .head { position: absolute; top: -3px; bottom: -3px; width: 1.5px; margin-left: -.75px; background: var(--red); }
+  .wlab { display: flex; justify-content: space-between; gap: 8px; padding: 8px 14px 0; font-size: 12.5px; color: var(--dim); }
+  .wlab b { font: 500 15px var(--en); color: var(--ink); margin-left: 6px; letter-spacing: -.01em; }
+  .wlab .now b { color: #ff6b6e; }
+  .sbtn { display: grid; grid-template-columns: 1fr auto; gap: 8px; padding: 14px; }
+  .s-amz { display: flex; justify-content: center; align-items: baseline; gap: 8px; height: 44px; align-items: center; border-radius: 10px; background: var(--ink); color: #0a0a0b; font-weight: 500; font-size: 14px; }
+  .s-amz b { font: 600 15.5px var(--en); letter-spacing: -.01em; }
+  .s-amz small { font: 500 12px var(--en); color: #6b6b70; }
+  .s-more { all: unset; cursor: pointer; display: grid; place-items: center; padding: 0 16px; border-radius: 10px; border: 1px solid var(--hair2); font-size: 13.5px; color: var(--ink); }
+  .s-more:hover { background: var(--plate); }
+  .s-amz:focus-visible, .s-more:focus-visible { outline: 2px solid var(--cheap); outline-offset: 2px; }
 
-  .disc { margin: 26px auto 0; max-width: 40em; text-align: center; color: var(--sub); font-size: 12px; }
+  /* つまみ（採点の4つの段） */
+  .qlink { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 6px; padding: 14px 0 2px; }
+  .knob { display: flex; flex-direction: column; align-items: center; gap: 6px; }
+  .knob svg { width: 52px; height: 52px; }
+  .knob .k-l { font-size: 12px; font-weight: 500; color: var(--sub); }
+  .knob .k-v { font: 500 12px var(--en); color: var(--ink); letter-spacing: -.01em; }
 
-  /* 絞り込みの帯 */
-  .bar { position: sticky; top: 0; z-index: 5; margin: 22px -16px 0; padding: 10px 16px;
-         background: color-mix(in srgb, var(--paper) 88%, transparent); -webkit-backdrop-filter: blur(14px); backdrop-filter: blur(14px); }
-  .bar-in { display: flex; justify-content: space-between; align-items: center; gap: 12px; }
-  .chips { display: flex; gap: 8px; overflow-x: auto; scrollbar-width: none; min-width: 0; }
-  .chips::-webkit-scrollbar { display: none; }
-  .chip { all: unset; flex: none; cursor: pointer; padding: 8px 15px; border-radius: 999px; background: var(--chip); font-size: 13.5px; white-space: nowrap; }
-  .chip[aria-pressed="true"] { background: var(--ink); color: var(--paper); }
-  .chip:focus-visible, .sorts button:focus-visible { outline: 2px solid var(--sale); outline-offset: 2px; }
-  .sortline { display: flex; justify-content: space-between; align-items: center; margin: 14px 2px 6px; color: var(--sub); font-size: 13px; }
-  .sorts { display: flex; gap: 16px; }
-  .sorts button { all: unset; cursor: pointer; padding: 2px 0; }
-  .sorts button[aria-pressed="true"] { color: var(--ink); font-weight: 700; }
-  [data-theme="dark"] .bar { background: transparent; -webkit-backdrop-filter: none; backdrop-filter: none; transition: background-color .2s; }
-  [data-theme="dark"] .bar.stuck { background: rgba(28, 42, 83, .97); }
+  /* 本体のボタン（検索・メーカー・形・並び順・パッドバンク） */
+  .ctrl { display: grid; grid-template-columns: minmax(0, 1fr); gap: 10px; }
+  .field { position: relative; }
+  .field input { all: unset; display: block; box-sizing: border-box; width: 100%; height: 44px; padding: 0 40px 0 40px; border-radius: 10px; background: var(--well); border: 1px solid var(--hair);
+                 font-size: 16px; color: var(--ink); }
+  .field input::placeholder { color: var(--dim); }
+  .field input::-webkit-search-cancel-button { -webkit-appearance: none; display: none; }
+  .field input:focus-visible { border-color: var(--cheap); }
+  .field svg { position: absolute; left: 14px; top: 50%; transform: translateY(-50%); width: 15px; height: 15px; fill: none; stroke: var(--dim); stroke-width: 2; stroke-linecap: round; pointer-events: none; }
+  .field .clr { all: unset; cursor: pointer; position: absolute; right: 6px; top: 50%; transform: translateY(-50%); width: 32px; height: 32px; display: grid; place-items: center; color: var(--sub); font-size: 18px; }
+  .field .clr[hidden] { display: none; }
+  .row2 { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 8px; }
+  .sel { position: relative; min-width: 0; }
+  .sel select { all: unset; display: block; box-sizing: border-box; width: 100%; height: 48px; padding: 18px 30px 0 12px; border-radius: 10px; cursor: pointer;
+                background: var(--plate); border: 1px solid var(--hair); font-size: 14px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .sel .silk { position: absolute; left: 13px; top: 9px; pointer-events: none; font-size: 9.5px; }
+  .sel::after { content: ""; position: absolute; right: 14px; top: 50%; width: 6px; height: 6px; border-right: 1.5px solid var(--sub); border-bottom: 1.5px solid var(--sub); transform: translateY(-30%) rotate(45deg); pointer-events: none; }
+  .sel select:focus-visible { outline: 2px solid var(--cheap); outline-offset: 2px; }
+  .sel option { background: #1c1c1f; color: var(--ink); }
+  .btns { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: flex-end; gap: 10px; }
+  .grp { display: flex; flex-direction: column; gap: 7px; }
+  .grp .keys { display: flex; gap: 6px; }
+  .hk { all: unset; cursor: pointer; position: relative; height: 36px; padding: 0 12px 0 22px; display: inline-flex; align-items: center; border-radius: 9px;
+        background: var(--plate); border: 1px solid var(--hair); font-size: 13px; white-space: nowrap; color: var(--sub); }
+  .hk::before { content: ""; position: absolute; left: 10px; top: 50%; width: 5px; height: 5px; margin-top: -2.5px; border-radius: 50%; background: #3b3b41; }
+  .hk[aria-pressed="true"] { color: var(--ink); border-color: var(--hair2); background: var(--plate2); }
+  .hk[aria-pressed="true"]::before { background: var(--red); }
+  .hk:focus-visible { outline: 2px solid var(--cheap); outline-offset: 2px; }
+  .hk[disabled] { opacity: .3; cursor: default; }
 
-  /* 機種のカード: 写真＋名前＋イコライザー／音量の横棒／値段と Amazon */
-  .grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 30px 26px; margin-top: 12px; }
-  .card { display: grid; grid-template-columns: 124px minmax(0, 1fr); gap: 12px 14px; align-content: start; cursor: pointer; border-radius: 22px; padding: 8px; margin: -8px;
-          transition: background-color .18s; }
-  .card:hover { background: color-mix(in srgb, var(--chip) 60%, transparent); }
-  .card:focus-visible { outline: 2px solid var(--sale); outline-offset: 2px; }
-  .tile { position: relative; aspect-ratio: 1 / 1; border-radius: 20px; background: var(--tile); overflow: hidden; }
-  .tile img { position: absolute; inset: 9%; width: 82%; height: 82%; object-fit: contain; mix-blend-mode: multiply; }
-  .tile .ph { position: absolute; inset: 0; display: grid; place-items: center; padding: 12px; text-align: center; font: 600 12px/1.4 var(--en); color: #b8afa3; letter-spacing: .04em; }
-  .tile .off { position: absolute; left: 8px; top: 8px; background: var(--sale); color: var(--sale-ink); font: 700 13px/1 var(--en); padding: 6px 8px 5px; border-radius: 999px; }
-  .tile .tag { position: absolute; left: 8px; bottom: 8px; background: #ffffff; color: #2b2723; font-size: 10.5px; padding: 3px 8px; border-radius: 999px; }
-  .nm { font-weight: 700; font-size: 15.5px; line-height: 1.35; margin: 2px 0 0; }
-  button.nm { all: unset; cursor: pointer; display: block; font-weight: 700; font-size: 15.5px; line-height: 1.35; margin-top: 2px; }
-  button.nm:focus-visible { outline: 2px solid var(--sale); outline-offset: 2px; }
-  .meta { margin: 2px 0 0; font-size: 11.5px; color: var(--sub); }
-  .vd { display: inline-block; margin-top: 4px; font-size: 12.5px; font-weight: 500; white-space: nowrap; }
-  .vd.cheap { color: var(--mint); } .vd.fair { color: var(--sub); } .vd.pricey { color: var(--sale); }
-  /* イコライザー: 段ごとの「満たした割合」をつまみの高さで */
-  .eq { display: flex; gap: 10px; align-items: flex-end; margin-top: 8px; }
-  .eq .b { width: 30px; display: flex; flex-direction: column; align-items: center; gap: 5px; }
-  .eq .rail { position: relative; width: 6px; height: 44px; border-radius: 9px; background: var(--rail); }
-  .eq .fill { position: absolute; left: 0; right: 0; bottom: 0; border-radius: 9px; }
-  .eq .knob { position: absolute; left: 50%; width: 14px; height: 14px; margin: 0 0 -7px -7px; border-radius: 50%; background: var(--knob); box-shadow: 0 1px 4px rgba(0, 0, 0, .25); }
-  .eq small { font-size: 9.5px; color: var(--sub); white-space: nowrap; }
-  /* 音量の横棒: 緑＝私の基準での妥当な価格、赤い線＝実売（全機種で同じ目盛り） */
-  .vol { grid-column: 1 / -1; }
-  .vol .track { position: relative; height: 10px; border-radius: 99px; background: var(--chip); }
-  .vol .fair { position: absolute; left: 0; top: 0; bottom: 0; border-radius: 99px; background: linear-gradient(90deg, color-mix(in srgb, var(--mint) 22%, transparent), var(--mint)); }
-  .vol .act { position: absolute; top: -5px; width: 3px; height: 20px; margin-left: -1.5px; border-radius: 3px; background: var(--sale); }
-  .vol .lab { display: flex; justify-content: space-between; gap: 10px; font-size: 11.5px; color: var(--sub); margin-top: 6px; }
-  .buy { grid-column: 1 / -1; display: flex; justify-content: space-between; align-items: center; gap: 10px; }
-  .buy .pr { display: flex; flex-wrap: wrap; align-items: baseline; gap: 0 7px; min-width: 0; }
-  .buy b { font: 700 21px/1.2 var(--en); }
-  .buy s { font: 500 12px var(--en); color: var(--faint); }
-  .buy small { flex-basis: 100%; font-size: 11px; color: var(--sub); }
-  .amz { flex: none; background: var(--btn); color: var(--btn-ink); border-radius: 999px; padding: 9px 16px; font-size: 13px; font-weight: 500; white-space: nowrap; }
-  .amz:hover { background: var(--sale); color: var(--sale-ink); }
-  .empty { text-align: center; color: var(--sub); padding: 36px 0; }
+  /* パッド：平らな四角。色は数字と小さな点だけ */
+  .pads { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 8px; }
+  .pad { all: unset; box-sizing: border-box; cursor: pointer; position: relative; aspect-ratio: 1 / 1; border-radius: 12px; padding: 9px 9px 9px; display: flex; flex-direction: column; justify-content: space-between;
+         background: var(--plate); border: 1px solid var(--hair); overflow: hidden; transition: background-color .15s, border-color .15s; }
+  .pad:hover { background: var(--plate2); }
+  .pad .pn { display: flex; justify-content: space-between; align-items: center; font: 500 10.5px var(--en); color: var(--dim); letter-spacing: .04em; }
+  .pad .pn i { width: 6px; height: 6px; border-radius: 50%; background: var(--glow); }
+  .pad .pt { font-size: 12.5px; font-weight: 500; line-height: 1.25; color: var(--sub); display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; overflow-wrap: anywhere; }
+  .pad .pp { font: 500 22px/1 var(--en); letter-spacing: -.03em; color: var(--glow); }
+  .pad .pp small { font-size: 11px; letter-spacing: 0; margin-left: 1px; }
+  .pad.on { background: var(--plate2); border-color: var(--ink); }
+  .pad.on .pt { color: var(--ink); }
+  .pad.on::after { content: ""; position: absolute; inset: auto 0 0 0; height: 40%; pointer-events: none; background: linear-gradient(0deg, color-mix(in srgb, var(--glow) 16%, transparent), transparent); }
+  .pad.off { cursor: default; background: transparent; border-style: dashed; border-color: rgba(255, 255, 255, .05); }
+  .pad:focus-visible { outline: 2px solid var(--cheap); outline-offset: 2px; }
+  .padhead { display: flex; justify-content: space-between; align-items: center; margin: 16px 2px 10px; }
+  .legend { display: flex; gap: 14px; font-size: 12px; color: var(--sub); }
+  .legend i { display: inline-block; width: 6px; height: 6px; border-radius: 50%; margin-right: 6px; vertical-align: 1px; }
+  .empty { text-align: center; color: var(--sub); padding: 30px 0; font-size: 14px; }
 
-  /* 物差しのしくみ */
-  .how { margin: 84px auto 0; max-width: 720px; }
-  .how .head { text-align: center; }
-  .how .head .en { font-family: var(--en); font-weight: 600; color: var(--mint); letter-spacing: .08em; }
-  .how .head h2 { margin: 2px 0 6px; font-size: 22px; }
-  .how .head p { margin: 0 auto; color: var(--sub); font-size: 13.5px; max-width: 34em; }
-  .how .formula { margin: 22px auto 0; text-align: center; font-size: 15px; }
-  .how .formula b { font-family: var(--en); }
-  .tier { margin-top: 28px; }
-  .tier-h { display: flex; align-items: baseline; gap: 10px; }
-  .tier-h i { width: 10px; height: 10px; border-radius: 50%; flex: none; transform: translateY(-1px); }
-  .tier-h b { font-size: 15.5px; }
-  .tier-h span { color: var(--sub); font-size: 12.5px; }
-  .tier-h .v { margin-left: auto; font-family: var(--en); font-weight: 600; color: var(--ink); font-size: 14px; }
-  .w-row { display: grid; grid-template-columns: 9.5em minmax(0, 1fr) 4.5em; gap: 12px; align-items: center; margin-top: 8px; font-size: 13px; }
-  .w-row .wb { height: 6px; border-radius: 9px; background: var(--rail); position: relative; overflow: hidden; }
-  .w-row .wb i { position: absolute; left: 0; top: 0; bottom: 0; border-radius: 9px; }
-  .w-row .y { text-align: right; font-family: var(--en); font-weight: 600; color: var(--sub); }
-  .how .note { color: var(--sub); font-size: 12.5px; margin: 22px 0 0; }
-
-  .notes { margin: 70px auto 0; max-width: 720px; padding-bottom: 70px; color: var(--sub); font-size: 12px; line-height: 1.8; }
-  .notes p { margin: 0 0 8px; }
-
-  /* 機種の詳しい画面（下から出る1枚） */
-  .sheet { position: fixed; inset: 0; z-index: 20; background: var(--sheet); overflow-y: auto; -webkit-overflow-scrolling: touch; overscroll-behavior: contain; }
-  .sheet[hidden] { display: none; }
-  .sheet:focus { outline: none; }
-  .sheet .in { max-width: 720px; margin: 0 auto; padding: 0 16px 70px; }
-  .sheet .bk { position: sticky; top: 0; z-index: 2; display: flex; justify-content: space-between; align-items: center; margin: 0 -16px; padding: 14px 16px;
-               background: color-mix(in srgb, var(--sheet) 90%, transparent); -webkit-backdrop-filter: blur(12px); backdrop-filter: blur(12px); }
-  .sheet .bk button { all: unset; cursor: pointer; font: 600 14px var(--en); padding: 6px 14px; border-radius: 999px; background: var(--chip); }
-  .sheet .bk button:focus-visible { outline: 2px solid var(--sale); }
-  .sheet .bk span { font: 600 13px var(--en); color: var(--sub); }
-  .d-top { display: grid; grid-template-columns: minmax(0, 260px) minmax(0, 1fr); gap: 24px; align-items: center; margin-top: 6px; }
-  .d-top .tile { border-radius: 26px; }
-  .d-top .tile .off { font-size: 16px; padding: 8px 10px 7px; left: 12px; top: 12px; }
-  .d-top h2 { margin: 0; font-size: 24px; line-height: 1.35; }
-  .specs { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 12px; }
-  .specs span { background: var(--chip); border-radius: 999px; padding: 3px 10px; font-size: 12px; color: var(--sub); }
-  .price-box { margin-top: 30px; }
-  .price-box .lab { font-size: 13px; color: var(--sub); }
-  .price-box .big { display: block; font: 700 clamp(46px, 13vw, 64px)/1.05 var(--en); letter-spacing: -.01em; margin-top: 2px; }
-  .price-box .big small { font-size: .45em; margin-right: 2px; }
-  .price-box .vd { font-size: 15px; margin-top: 6px; }
-  .price-box .vol { margin-top: 18px; }
-  .price-box .vol .track { height: 14px; }
-  .price-box .vol .act { top: -6px; height: 26px; width: 4px; margin-left: -2px; }
-  .ticks { position: relative; height: 20px; margin-top: 6px; }
-  .ticks span { position: absolute; transform: translateX(-50%); font: 500 11px var(--en); color: var(--faint); }
-  .ticks span:first-child { transform: none; }
-  .ticks span:last-child { transform: translateX(-100%); }
-  .d-buy { display: flex; justify-content: center; align-items: baseline; gap: 10px; margin-top: 22px; padding: 15px 20px; border-radius: 999px;
-           background: var(--btn); color: var(--btn-ink); font-weight: 500; font-size: 15px; }
-  .d-buy b { font: 700 18px var(--en); }
-  .d-buy:hover { background: var(--sale); color: var(--sale-ink); }
-  .d-disc { color: var(--sub); font-size: 11.5px; margin: 10px 4px 0; line-height: 1.7; }
-  .d-eq { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 8px; margin-top: 34px; text-align: center; }
-  .d-eq .rail { position: relative; width: 8px; height: 110px; margin: 0 auto; border-radius: 9px; background: var(--rail); }
-  .d-eq .fill { position: absolute; left: 0; right: 0; bottom: 0; border-radius: 9px; }
-  .d-eq .knob { position: absolute; left: 50%; width: 22px; height: 22px; margin: 0 0 -11px -11px; border-radius: 50%; background: var(--knob); box-shadow: 0 2px 6px rgba(0, 0, 0, .25); }
-  .d-eq b { display: block; margin-top: 14px; font-size: 12.5px; line-height: 1.35; }
-  .d-eq span { display: block; font: 700 13px var(--en); margin-top: 4px; }
-  .d-eq em { display: block; font: 500 11px var(--en); font-style: normal; color: var(--faint); }
-  .abs { color: var(--sub); font-size: 12.5px; margin: 28px 0 0; }
-  .d-tier { margin-top: 30px; }
-  .it { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 4px 12px; align-items: center; padding: 10px 0; }
-  .it .lb { font-size: 14px; }
-  .it .peer { grid-column: 1 / -1; font-size: 11.5px; color: var(--sub); }
-  .it .peer { color: var(--faint); }
-  .it .peer a { color: var(--sub); }
-  .it .peer a:hover { text-decoration: underline; text-underline-offset: 3px; }
-  .dots { display: flex; align-items: center; gap: 6px; }
-  .dots i { width: 9px; height: 9px; border-radius: 50%; background: var(--rail); }
-  .dots i.on { background: var(--tc); }
-  .dots em { font-style: normal; font-size: 13px; font-weight: 700; min-width: 3.6em; text-align: right; color: var(--tc); }
-  .dots em.no { color: var(--sub); font-weight: 500; }
-  .pill { font-size: 13px; padding: 3px 12px; border-radius: 999px; background: var(--chip); }
-  .pill.yes { background: color-mix(in srgb, var(--tc) 18%, transparent); color: var(--tc); font-weight: 700; }
-  .mini { display: flex; align-items: center; gap: 10px; }
-  .mini .wb { width: 90px; height: 6px; border-radius: 9px; background: var(--rail); position: relative; overflow: hidden; }
-  .mini .wb i { position: absolute; left: 0; top: 0; bottom: 0; background: var(--tc); border-radius: 9px; }
-  .mini b { font: 700 14px var(--en); min-width: 3.6em; text-align: right; }
-  .srcs { margin-top: 30px; font-size: 12px; color: var(--sub); display: flex; flex-direction: column; gap: 4px; }
-  .srcs a { text-decoration: underline; text-underline-offset: 3px; word-break: break-all; }
-
-  @media (max-width: 1000px) { .grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
-  @media (max-width: 680px) {
-    .grid { grid-template-columns: minmax(0, 1fr); gap: 30px; }
-    .d-top { grid-template-columns: minmax(0, 1fr); gap: 18px; }
-    .d-top .tile { width: min(300px, 100%); margin: 0 auto; }
-    .d-top h2 { text-align: center; font-size: 22px; }
-    .specs { justify-content: center; }
-    .best { grid-template-columns: 96px 1fr; }
+  @media (min-width: 900px) {
+    .mpc { padding: 22px; }
+    .mpc-in { grid-template-columns: minmax(0, 1.05fr) minmax(0, 1fr); gap: 26px; align-items: start; }
+    .left { position: sticky; top: 16px; }
+    .sbody { grid-template-columns: 184px minmax(0, 1fr); gap: 20px; padding: 18px; }
+    .s-name { font-size: 20px; }
+    .s-big b { font-size: 60px; }
+    .pad { padding: 11px; }
+    .pad .pt { font-size: 13.5px; }
+    .pad .pp { font-size: 27px; }
+  }
+  /* スマホ：画面とつまみを上に貼り付けて、パッドを押しながら見られるように */
+  @media (max-width: 899px) {
+    .left { position: sticky; top: 0; z-index: 4; margin: -16px -16px 0; padding: 12px 16px 12px; border-radius: 26px 26px 0 0; background: var(--body); border-bottom: 1px solid var(--hair); }
+    .sbody { grid-template-columns: 92px minmax(0, 1fr); gap: 12px; padding: 12px; }
+    .s-name { font-size: 15px; }
+    .s-big b { font-size: 38px; }
+    .wave { margin: 0 12px; height: 26px; }
+    .wlab { padding: 6px 12px 0; }
+    .sbtn { padding: 12px; }
+    .qlink { padding-top: 10px; }
+    .qlink .knob svg { width: 42px; height: 42px; }
+    .pads { gap: 6px; }
+    .pad { padding: 7px; border-radius: 10px; }
+    .pad .pt { font-size: 11px; line-height: 1.2; }
+    .pad .pp { font-size: 19px; }
+    .pad .pn { font-size: 9.5px; }
+    .hk { padding: 0 9px 0 18px; font-size: 12.5px; }
+    .hk::before { left: 8px; }
+    .grp .keys { gap: 5px; }
+    .btns { gap: 8px; }
   }
 
-  /* 夜空（/sale/ と同じ）: 宵の紺→夜の紺と月明かりのにじみ。星はページの頭だけ、文字のない所へ手で置く */
-  [data-theme="dark"] body::before { content: ""; position: fixed; inset: 0; z-index: -1; pointer-events: none;
-    background: radial-gradient(circle at 84% 4%, rgba(255, 233, 180, .13), transparent 28%), linear-gradient(180deg, #1d2b55 0%, #121b3f 42%, #0b1129 100%); }
-  [data-theme="dark"] body::after { content: ""; position: absolute; top: 0; left: 0; right: 0; height: 640px; z-index: -1; pointer-events: none;
-    background:
-      radial-gradient(1px 1px at 28% 9px, rgba(255, 255, 255, .6) 40%, transparent) no-repeat,
-      radial-gradient(1.2px 1.2px at 71% 7px, rgba(255, 255, 255, .7) 40%, transparent) no-repeat,
-      radial-gradient(1.4px 1.4px at 9% 62px, rgba(255, 255, 255, .9) 40%, transparent) no-repeat,
-      radial-gradient(1px 1px at 33% 58px, rgba(255, 255, 255, .6) 40%, transparent) no-repeat,
-      radial-gradient(1.8px 1.8px at 52% 72px, #fff3cf 40%, transparent) no-repeat,
-      radial-gradient(1px 1px at 68% 56px, rgba(255, 255, 255, .7) 40%, transparent) no-repeat,
-      radial-gradient(1.2px 1.2px at 90% 78px, rgba(255, 255, 255, .8) 40%, transparent) no-repeat,
-      radial-gradient(1px 1px at 5% 118px, rgba(255, 255, 255, .6) 40%, transparent) no-repeat,
-      radial-gradient(2.2px 2.2px at 17% 104px, #fff3cf 40%, transparent) no-repeat,
-      radial-gradient(1.4px 1.4px at 83% 112px, rgba(255, 255, 255, .85) 40%, transparent) no-repeat,
-      radial-gradient(1px 1px at 95% 98px, rgba(255, 255, 255, .6) 40%, transparent) no-repeat,
-      radial-gradient(1.2px 1.2px at 2.2% 190px, rgba(255, 255, 255, .75) 40%, transparent) no-repeat,
-      radial-gradient(1.6px 1.6px at 97.6% 240px, #fff3cf 40%, transparent) no-repeat,
-      radial-gradient(1px 1px at 1.8% 330px, rgba(255, 255, 255, .6) 40%, transparent) no-repeat; }
-  [data-theme="dark"] .stat b { text-shadow: 0 0 22px rgba(142, 219, 194, .25); }
-  [data-theme="dark"] .card:hover { background: rgba(255, 255, 255, .04); }
-  [data-theme="dark"] .tile .ph { color: #8f97b3; }
-  ::view-transition-old(root), ::view-transition-new(root) { animation-duration: .35s; }
+  /* 物差しのしくみ（取扱説明書） */
+  .manual { margin: 56px 0 0; max-width: 760px; }
+  .manual h2 { margin: 8px 0 4px; font-size: 20px; font-weight: 500; }
+  .manual p { color: var(--sub); font-size: 14px; margin: 8px 0 0; line-height: 1.8; }
+  .manual .formula { color: var(--ink); font-size: 15px; margin-top: 16px; }
+  .tier { margin-top: 26px; }
+  .tier-h { display: flex; align-items: baseline; gap: 10px; padding-bottom: 8px; border-bottom: 1px solid var(--hair); }
+  .tier-h i { width: 7px; height: 7px; border-radius: 50%; flex: none; transform: translateY(-1px); }
+  .tier-h b { font-size: 15px; font-weight: 500; }
+  .tier-h span { color: var(--dim); font-size: 12px; }
+  .tier-h .v { margin-left: auto; font: 500 14px var(--en); color: var(--ink); }
+  .w-row { display: grid; grid-template-columns: 9.5em minmax(0, 1fr) 4.2em; gap: 12px; align-items: center; margin-top: 10px; font-size: 14px; color: var(--sub); }
+  .seg { display: flex; gap: 2px; }
+  .seg i { flex: 1; height: 6px; border-radius: 1px; background: #26262a; }
+  .seg i.on { background: var(--tc); }
+  .w-row .y { text-align: right; font: 500 13.5px var(--en); color: var(--ink); }
+  .notes { margin: 48px 0 0; max-width: 760px; padding: 20px 0 64px; border-top: 1px solid var(--hair); color: var(--dim); font-size: 12px; line-height: 1.85; }
+  .notes p { margin: 0 0 8px; }
+
+  /* 機種の詳しい画面（TRACK VIEW） */
+  .sheet { position: fixed; inset: 0; z-index: 20; background: var(--room); overflow-y: auto; -webkit-overflow-scrolling: touch; overscroll-behavior: contain; }
+  .sheet[hidden] { display: none; }
+  .sheet:focus { outline: none; }
+  .sheet .in { max-width: 760px; margin: 0 auto; padding: 0 16px 72px; }
+  .sheet .bk { position: sticky; top: 0; z-index: 2; display: flex; justify-content: space-between; align-items: center; margin: 0 -16px; padding: 12px 16px; background: rgba(10, 10, 11, .9);
+               -webkit-backdrop-filter: blur(14px); backdrop-filter: blur(14px); border-bottom: 1px solid var(--hair); }
+  .sheet .bk .hk { padding-left: 12px; }
+  .sheet .bk .hk::before { display: none; }
+  .d-top { display: grid; grid-template-columns: 150px minmax(0, 1fr); gap: 18px; align-items: center; margin-top: 18px; }
+  .d-top h2 { margin: 4px 0 0; font-size: 21px; font-weight: 500; line-height: 1.35; }
+  .specs { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 12px; }
+  .specs span { border: 1px solid var(--hair); border-radius: 6px; padding: 2px 9px; font-size: 12px; color: var(--sub); }
+  .d-box { margin-top: 22px; }
+  .d-box .screen { padding-bottom: 14px; }
+  .d-fair { padding: 16px 14px 8px; display: flex; justify-content: space-between; align-items: flex-end; gap: 12px; flex-wrap: wrap; }
+  .d-fair > b { font: 500 40px/1 var(--en); letter-spacing: -.035em; }
+  .ticks { position: relative; height: 16px; margin: 6px 14px 0; }
+  .ticks span { position: absolute; transform: translateX(-50%); font: 500 10.5px var(--en); color: var(--dim); }
+  .ticks span:first-child { transform: none; }
+  .ticks span:last-child { transform: translateX(-100%); }
+  .d-amz { display: flex; justify-content: center; align-items: center; gap: 10px; height: 52px; margin-top: 14px; border-radius: 12px; background: var(--ink); color: #0a0a0b; font-weight: 500; }
+  .d-amz b { font: 600 17px var(--en); }
+  .d-amz span { font: 500 13px var(--en); color: #6b6b70; }
+  .d-disc { color: var(--dim); font-size: 11.5px; margin: 10px 2px 0; line-height: 1.75; }
+  .d-q { margin-top: 24px; border: 1px solid var(--hair); border-radius: 16px; padding: 4px 8px 14px; }
+  .d-tier { margin-top: 28px; }
+  .it { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 3px 12px; align-items: center; padding: 11px 0; border-bottom: 1px solid var(--hair); }
+  .it .lb { font-size: 14.5px; }
+  .it .peer { grid-column: 1 / -1; font-size: 12px; color: var(--dim); }
+  .it .peer a { color: var(--sub); }
+  .lvl { display: flex; align-items: center; gap: 10px; }
+  .lvl .seg { width: 104px; }
+  .lvl em { font-style: normal; font-size: 13.5px; font-weight: 500; min-width: 3.8em; text-align: right; color: var(--tc); }
+  .lvl em.no { color: var(--dim); }
+  .led { display: inline-flex; align-items: center; gap: 8px; font-size: 13.5px; font-weight: 500; color: var(--dim); }
+  .led i { width: 7px; height: 7px; border-radius: 50%; background: #2f2f34; }
+  .led.on i { background: var(--tc); }
+  .led.on { color: var(--tc); }
+  .srcs { margin-top: 28px; font-size: 12px; color: var(--dim); display: flex; flex-direction: column; gap: 4px; }
+  .srcs a { color: var(--sub); text-decoration: underline; text-decoration-color: var(--hair2); text-underline-offset: 3px; word-break: break-all; }
+  @media (max-width: 560px) { .d-top { grid-template-columns: 108px minmax(0, 1fr); gap: 14px; } .d-top h2 { font-size: 18px; } .d-fair > b { font-size: 34px; } }
 </style>
 </head>
 <body>
 <div class="wrap">
-  <div class="top"><a href="https://www.youtube.com/channel/UCdxzGFZI8g1MT3vUCprx_vw" rel="noopener">4.5room</a><div class="right">
-    <div class="mode" role="group" aria-label="昼と夜の表示"><button type="button" data-mode="light" aria-pressed="false">day</button><button type="button" data-mode="dark" aria-pressed="false">night</button></div>
-    <a href="https://www.youtube.com/channel/UCdxzGFZI8g1MT3vUCprx_vw" rel="noopener">youtube</a></div></div>
+  <div class="top"><span class="badge"><b>4.5room</b><span>earphone ruler</span></span><a href="https://www.youtube.com/channel/UCdxzGFZI8g1MT3vUCprx_vw" rel="noopener">youtube</a></div>
   <main id="view"></main>
 </div>
 <div class="sheet" id="sheet" role="dialog" aria-modal="true" aria-label="機種の採点" tabindex="-1" hidden></div>
@@ -276,8 +252,8 @@
 // ===== データ（過去動画とWebの公開情報から。生成日はDATA.generated） =====
 const DATA = {"generated": "2026-10-02", "models": [{"id": "airpods-pro-1", "name": "Apple AirPods Pro（第1世代）", "maker": "Apple", "form": "カナル型(独自チップ)", "release": "2019-10-30", "price_jpy": 30580, "price_note": "発売時 税別27,800円→税込換算(2026-10-02調査)", "weight_g": 5.4, "anc": true, "wireless_charging": true, "multipoint": false, "battery_h": {"anc_on": 4.5, "anc_off": null}, "codecs": ["AAC", "SBC"], "sources": ["https://monopedia.jp/airpodspro/", "https://gadget-choice.net/archives/4976", "https://gadget-choice.net/archives/4349"], "used_default": true}, {"id": "jabra-elite-75t", "name": "Jabra Elite 75t（ワイヤレス充電対応モデル）", "maker": "Jabra", "form": "カナル型", "release": "2019-11-29(ワイヤレス充電モデルは2020-07-10)", "price_jpy": 23980, "price_note": "WC対応モデルの税別21,800円→税込換算。初代は発売時 税別23,800円(2026-10-02調査)。入手性悪化・型落ち", "weight_g": 5.5, "anc": true, "wireless_charging": true, "multipoint": true, "battery_h": {"anc_on": null, "anc_off": 7.5}, "codecs": ["SBC", "AAC"], "sources": ["https://news.mynavi.jp/article/20200605-1049259/", "https://k-tai.watch.impress.co.jp/docs/news/1217935.html"], "used_default": true}, {"id": "jabra-elite-active-65t", "name": "Jabra Elite Active 65t", "maker": "Jabra", "form": "カナル型(スポーツ)", "release": null, "price_jpy": 26870, "price_note": "発売時 税別24,880円(2018-06-29 Amazon先行)を8%で税込換算／日本での価格は取得失敗", "weight_g": 5.8, "anc": false, "wireless_charging": false, "multipoint": true, "battery_h": {"anc_on": null, "anc_off": 5}, "codecs": null, "sources": ["https://www.jabra.com/_/media/Jabra_VXi_Product-Documentation/Jabra-Elite-Active-65t/Technical-specifications/RevB/JP_Jabra-Elite-Active-65t-Techsheet-A4.pdf", "https://av.watch.impress.co.jp/docs/news/1130414.html"], "used_default": true}, {"id": "soundpeats-air3-deluxe-hs", "name": "SOUNDPEATS Air3 Deluxe HS", "maker": "SOUNDPEATS", "form": "インナーイヤー型(ANCなし)", "release": "2022-10", "price_jpy": 7180, "price_note": "公式税込(2026-10-02調査)", "weight_g": 4, "anc": false, "wireless_charging": false, "multipoint": false, "battery_h": {"anc_on": null, "anc_off": 5}, "codecs": ["LDAC", "aptX Lossless"], "sources": ["https://jp.soundpeats.com/products/air3-deluxe-hs", "https://gadgetfrontblog.com/5551/", "https://gadget.echoes-inc.co.jp/soundpeats-air3-deluxe-hs/"], "used_default": true}, {"id": "soundpeats-air5-pro", "name": "SOUNDPEATS Air5 Pro", "maker": "SOUNDPEATS", "form": "カナル型", "release": "2025-03-21", "price_jpy": 9980, "price_note": "発売時税込(2026-10-02調査)", "weight_g": 4.8, "anc": true, "wireless_charging": false, "multipoint": true, "battery_h": {"anc_on": null, "anc_off": 7.5}, "codecs": ["LDAC", "aptX Adaptive", "aptX Lossless", "LC3", "AAC", "SBC"], "sources": ["https://www.phileweb.com/news/d-av/202503/21/62306.html", "https://www.tikgadget.jp/soundpeats-air5-pro-review/"], "used_default": true}, {"id": "soundpeats-air6-pro", "name": "SOUNDPEATS Air6 Pro", "maker": "SOUNDPEATS", "form": "カナル型", "release": "2026-08-28", "price_jpy": 12380, "price_note": "発売時税込(2026-10-02調査)", "weight_g": 4.5, "anc": true, "wireless_charging": true, "multipoint": true, "battery_h": {"anc_on": null, "anc_off": 12}, "codecs": ["Hi-Res Audio Wireless", "Snapdragon Sound"], "sources": ["https://www.goodgoodlife.jp/entry/soundpeats-air6-pro", "https://shikamori-p.com/soundpeats-air6-pro-review/"], "used_default": true}, {"id": "soundpeats-cc-pearlclip-pro", "name": "SOUNDPEATS CC（PearlClip Pro）", "maker": "SOUNDPEATS", "form": "イヤーカフ型", "release": "2024-10-18", "price_jpy": 7280, "price_note": "Amazon通常価格(2026-10-02調査)", "weight_g": 5, "anc": false, "wireless_charging": false, "multipoint": true, "battery_h": {"anc_on": null, "anc_off": 6}, "codecs": ["AAC", "SBC"], "sources": ["https://watchmono.com/e/soundpeats-cc-review-check", "https://orefolder.jp/2025/01/soundpeats-cc-earcuff/", "https://www.goodgoodlife.jp/entry/SOUNDPEATS-CC"], "used_default": true}, {"id": "earfun-air-pro-4-plus", "name": "EarFun Air Pro 4+（Air Pro 4 Plus）", "maker": "EarFun", "form": "カナル型", "release": "2025-11頃(レビュー掲載時期。公式日は未確認)", "price_jpy": 13990, "price_note": "通常価格(2026-10-02調査)", "weight_g": 5.1, "anc": true, "wireless_charging": true, "multipoint": true, "battery_h": {"anc_on": 8, "anc_off": 12}, "codecs": ["LDAC", "aptX Lossless", "Snapdragon Sound"], "sources": ["https://www.goodgoodlife.jp/entry/EarFun-Air-Pro-4-Plus", "https://shikamori-p.com/earfun-air4pro-plus/", "https://kakaku.com/item/J0000049795/"], "used_default": true}, {"id": "earfun-openjump", "name": "EarFun OpenJump", "maker": "EarFun", "form": "耳掛け(オープンイヤー)", "release": "2025-02-25", "price_jpy": 8990, "price_note": "発売時(2026-10-02調査)", "weight_g": 7.8, "anc": false, "wireless_charging": true, "multipoint": true, "battery_h": {"anc_on": null, "anc_off": 11}, "codecs": ["LDAC", "AAC", "SBC"], "sources": ["https://watchmono.com/e/earfun-openjump", "https://orefolder.jp/2025/05/earfun-openjump-review/", "https://chibimegane.jp/earfun-openjump/"], "used_default": true}, {"id": "earfun-clip", "name": "EarFun Clip（初代）", "maker": "EarFun", "form": "イヤーカフ型", "release": "2025-07-04", "price_jpy": 7990, "price_note": "発売時(2026-10-02調査)", "weight_g": 5.7, "anc": false, "wireless_charging": false, "multipoint": true, "battery_h": {"anc_on": null, "anc_off": 10}, "codecs": ["LDAC", "AAC", "SBC"], "sources": ["https://news.yahoo.co.jp/expert/articles/7d126ddade49e938d96cf22f6fe34f7520c8d7db", "https://kakaku.com/item/J0000048432/"], "used_default": true}, {"id": "earfun-clip-2", "name": "EarFun Clip 2", "maker": "EarFun", "form": "イヤーカフ型", "release": "2026-04-23", "price_jpy": 9990, "price_note": "発売時(2026-10-02調査)", "weight_g": 5.5, "anc": false, "wireless_charging": true, "multipoint": true, "battery_h": {"anc_on": null, "anc_off": 11}, "codecs": ["LDAC", "AAC", "SBC"], "sources": ["https://kajetblog.com/earfun-clip-2/", "https://item.rakuten.co.jp/earfun/ra-cw200/"], "used_default": true}, {"id": "acefast-acefit-air", "name": "ACEFAST ACEFIT Air", "maker": "ACEFAST", "form": "耳掛け(オープンイヤー)", "release": "2024-12頃(レビュー掲載時期)", "price_jpy": 15000, "price_note": "参考価格(税込)", "weight_g": 7.5, "anc": false, "wireless_charging": false, "multipoint": true, "battery_h": {"anc_on": null, "anc_off": 8}, "codecs": null, "sources": ["https://sensai-gadget.com/acefast-acefit-air/", "https://oshanavi.com/acefast-acefitair/26514/"], "used_default": true}, {"id": "acefast-aceclip-pro", "name": "ACEFAST ACECLIP Pro", "maker": "ACEFAST", "form": "イヤーカフ型", "release": "2025-11頃(レビュー掲載時期)", "price_jpy": null, "price_note": "価格の取得失敗(提供品)", "weight_g": 6.5, "anc": false, "wireless_charging": false, "multipoint": null, "battery_h": {"anc_on": null, "anc_off": 8}, "codecs": ["AAC", "SBC"], "sources": ["https://androplus.jp/entry/acefast-aceclip-pro-review/", "https://bisonicr.ldblog.jp/archives/56065190.html"], "used_default": true}, {"id": "truefree-o1", "name": "TRUEFREE O1", "maker": "TRUEFREE(SOUNDPEATS系)", "form": "耳掛け(オープンイヤー)", "release": "2023-06-23", "price_jpy": 5380, "price_note": "発売時(2026-10-02調査)・動画発言と一致", "weight_g": 10, "anc": false, "wireless_charging": false, "multipoint": true, "battery_h": {"anc_on": null, "anc_off": 10}, "codecs": ["SBC", "AAC", "LDAC"], "sources": ["https://chibimegane.jp/truefree-o1/", "https://www.hidetoshitwitt.com/truefree01-review/", "https://spknote.com/truefreeo1/"], "used_default": true}, {"id": "truefree-o2", "name": "TRUEFREE O2", "maker": "TRUEFREE(SOUNDPEATS系)", "form": "耳掛け(オープンイヤー)", "release": "2024-06", "price_jpy": 6680, "price_note": "", "weight_g": 8, "anc": false, "wireless_charging": false, "multipoint": true, "battery_h": {"anc_on": null, "anc_off": 6.5}, "codecs": null, "sources": ["https://chibimegane.jp/truefree-o2/", "https://orefolder.jp/2024/07/truefree-o2-review/", "https://watchmono.com/e/truefree-o2-review-check"], "used_default": true}, {"id": "truefree-clip-c10", "name": "TRUEFREE Clip C10", "maker": "TRUEFREE(SOUNDPEATS系)", "form": "イヤーカフ型", "release": null, "price_jpy": 4680, "price_note": "税込(2026-10-02調査)", "weight_g": 5.1, "anc": false, "wireless_charging": false, "multipoint": true, "battery_h": {"anc_on": null, "anc_off": 8}, "codecs": null, "sources": ["https://chibimegane.jp/truefree-clip-c10/", "https://uetani-blog.com/truefree-clip-c10/", "https://spknote.com/truefree_clipc10/"], "used_default": true}, {"id": "kinglucky-earcuff", "name": "KING LUCKY i239", "maker": "KING LUCKY", "form": "イヤーカフ型", "release": null, "price_jpy": 3580, "price_note": "", "weight_g": 5.4, "anc": false, "wireless_charging": false, "multipoint": false, "battery_h": {"anc_on": null, "anc_off": 7.5}, "codecs": null, "sources": ["https://www.amazon.co.jp/King-Lucky-bluetooth5-4-%E6%8C%87%E5%90%91%E6%80%A7%E9%9F%B3%E4%BC%9D%E9%80%81%E6%8A%80%E8%A1%93-ENC%E9%80%9A%E8%A9%B1%E3%83%8E%E3%82%A4%E3%82%BA%E3%82%AD%E3%83%A3%E3%83%B3%E3%82%BB%E3%83%AA%E3%83%B3%E3%82%B0/dp/B0DGPQ9QY7", "https://item.rakuten.co.jp/e-earphone/4571642940147/", "https://discover.chuya-online.com/20241011/69358/"], "used_default": true}, {"id": "yobybo-air20", "name": "YOBYBO AIR20", "maker": "YOBYBO", "form": "カナル型(フルメタル・ANCなし)", "release": null, "price_jpy": 3270, "price_note": "ヨドバシ価格(2026-10-02調査)", "weight_g": 3.6, "anc": false, "wireless_charging": false, "multipoint": false, "battery_h": {"anc_on": null, "anc_off": 4.2}, "codecs": ["AAC"], "sources": ["https://www.yodobashi.com/product/100000001007385498/", "https://www.amazon.co.jp/stores/YOBYBOJapan/%E5%95%86%E5%93%81%E3%83%A9%E3%82%A4%E3%83%B3%E3%83%8A%E3%83%83%E3%83%97/page/5A887DBB-9F25-46EB-A5A2-114288C10F84"], "used_default": true}, {"id": "qcy-h3-pro", "name": "QCY H3 Pro", "maker": "QCY", "form": "ヘッドホン(オーバーイヤー)", "release": "2024-12-20", "price_jpy": 7990, "price_note": "発売時(2026-10-02調査)・動画発言と一致", "weight_g": 231, "anc": true, "wireless_charging": false, "multipoint": true, "battery_h": {"anc_on": 40, "anc_off": 55}, "codecs": ["LDAC", "AAC", "SBC"], "sources": ["https://kajetblog.com/qcy-h3-pro/", "https://qcyjapan.com/products/qcy-h3-pro", "https://monopedia.jp/qcy-h3-pro/"], "used_default": true}, {"id": "qcy-melobuds-neo", "name": "QCY MeloBuds Neo(推定)", "maker": "QCY", "form": "完全ワイヤレス(クリアデザイン・ANCなし)", "release": null, "price_jpy": 3980, "price_note": "", "weight_g": 4.0, "anc": false, "wireless_charging": false, "multipoint": true, "battery_h": {"anc_on": null, "anc_off": 7}, "codecs": ["SBC", "AAC"], "sources": ["https://mochugaje.com/qcy-melobuds-neo/"], "used_default": true}, {"id": "qcy-melobuds-n65", "name": "QCY MeloBuds N65", "maker": "QCY", "form": "スティック型カナル", "release": "2026-06", "price_jpy": 7980, "price_note": "日本発売時(2026-10-02調査)", "weight_g": 4.8, "anc": true, "wireless_charging": false, "multipoint": true, "battery_h": {"anc_on": 6.5, "anc_off": 11}, "codecs": ["LDAC", "AAC", "SBC"], "sources": ["https://watchmono.com/e/qcy-melobuds-n65", "https://kajetblog.com/qcy-melobuds-n65/"], "used_default": true}, {"id": "soundcore-liberty-5", "name": "Anker Soundcore Liberty 5", "maker": "Anker", "form": "カナル型", "release": "2025-05-22", "price_jpy": 14990, "price_note": "発売時税込(2026-10-02調査)・動画発言と一致。2026-07は25%オフ11,290円", "weight_g": 5.2, "anc": true, "wireless_charging": true, "multipoint": true, "battery_h": {"anc_on": 8, "anc_off": 12}, "codecs": ["LDAC", "AAC", "SBC"], "sources": ["https://www.ankerjapan.com/products/a3957", "https://kakaku.com/item/J0000047971/", "https://applech2.com/archives/20250522-soundcore-liberty-5-by-anker-japan.html"], "used_default": true}, {"id": "soundcore-life-q30", "name": "Anker Soundcore Life Q30", "maker": "Anker", "form": "ヘッドホン(オーバーイヤー)", "release": "2021-01-13", "price_jpy": 8990, "price_note": "発売時税込(2026-10-02調査)", "weight_g": 260, "anc": true, "wireless_charging": false, "multipoint": true, "battery_h": {"anc_on": 40, "anc_off": 60}, "codecs": ["AAC", "SBC"], "sources": ["https://www.rentio.jp/matome/2024/02/q30-a3028011-review/", "https://kakaku.com/item/J0000036189/spec/"], "used_default": true}, {"id": "trn-conch", "name": "TRN Conch", "maker": "TRN", "form": "有線(モニターイヤホン)", "release": "2023-11頃", "price_jpy": 3850, "price_note": "", "weight_g": 7.8, "anc": false, "wireless_charging": false, "multipoint": false, "battery_h": {"anc_on": null, "anc_off": null}, "codecs": null, "sources": ["https://takoyaki-8-27.hateblo.jp/entry/TRN_Conch", "https://mochugaje.com/trn-conch/"], "used_default": true}, {"id": "zhuaudio-qingluan-z4", "name": "ZhuAudio(竹林鳥) 青鸞 Z4(動画では『ChenLuan Z4』)", "maker": "ZhuAudio", "form": "有線(モニターイヤホン)", "release": "2025-03頃(初代レビュー時期)", "price_jpy": 8527, "price_note": "2026版の通常価格(2026-10-02調査)・セール7,674円", "weight_g": null, "anc": false, "wireless_charging": false, "multipoint": false, "battery_h": {"anc_on": null, "anc_off": null}, "codecs": null, "sources": ["https://www.earjoy.jp/products/zhuaudio-z4", "https://reagajeje.com/entry/2025/03/28/144021"], "used_default": true}, {"id": "moondrop-quarks", "name": "MOONDROP Quarks(推定)", "maker": "MOONDROP", "form": "有線(カナル)", "release": null, "price_jpy": 2250, "price_note": "公開情報の通常版価格(2026-10-02調査)", "weight_g": null, "anc": false, "wireless_charging": false, "multipoint": false, "battery_h": {"anc_on": null, "anc_off": null}, "codecs": null, "sources": ["https://www.e-earphone.jp/products/200294", "https://kajetblog.com/moondrop-quarks/"], "used_default": true}, {"id": "zenchord-1", "name": "Zenchord 1(動画では『全度1』)", "maker": "Notta(Zenchord)", "form": "オープンイヤー型(AI議事録)", "release": "2025-10-30(一般販売)", "price_jpy": 26980, "price_note": "一般販売価格(2026-10-02調査)。サブスクは別料金", "weight_g": 10, "anc": false, "wireless_charging": false, "multipoint": true, "battery_h": {"anc_on": null, "anc_off": 10}, "codecs": null, "sources": ["https://prtimes.jp/main/html/rd/p/000000102.000140298.html", "https://www.zenchord-acalie.jp/"], "used_default": true}]};
 const PUBLIC = true;
-const SNAPSHOT = {"at": "2026-10-03", "ratings": {"airpods-pro-1": {"v": {"ambient": 3, "anc": 2, "bass": 0, "case": 3, "ctrl": 3, "design": 1, "fit": 3, "high": 1, "light": 1, "mic": 0, "mid": 1, "multi": 1}, "actual": null, "used": true, "at": "2026-10-03T04:09:37.550Z"}, "jabra-elite-75t": {"v": {"ambient": 0, "anc": 1, "bass": 2, "case": 1, "ctrl": 2, "design": 1, "fit": 1, "high": 1, "light": 2, "mic": "unknown", "mid": 1, "multi": 1}, "actual": null, "used": true, "at": "2026-10-03T04:12:53.619Z"}, "jabra-elite-active-65t": {"v": {"ambient": 0, "anc": 0, "bass": 0, "case": 0, "ctrl": 2, "design": 0, "fit": 0, "high": 0, "light": 1, "mic": 0, "mid": 0, "multi": 1}, "actual": 24880, "used": true, "at": "2026-10-03T04:13:37.903Z"}, "soundpeats-air3-deluxe-hs": {"v": {"ambient": "none", "anc": null, "bass": 1, "case": 0, "ctrl": 0, "design": 0, "fit": 1, "high": 1, "light": 1, "mic": 0, "mid": 1, "multi": 1, "wl": 0}, "actual": null, "used": true, "at": "2026-10-03T04:49:57.149Z"}, "soundpeats-air5-pro": {"v": {"ambient": 0, "anc": 1, "bass": 1, "case": 0, "ctrl": -1, "design": 0, "fit": 0, "high": 0, "light": 0, "mic": 0, "mid": 0}, "actual": null, "used": true, "at": "2026-10-03T04:13:55.753Z"}, "soundpeats-air6-pro": {"v": {"ambient": 0, "anc": 1, "bass": 0, "case": 0, "ctrl": 0, "design": 0, "fit": 0, "high": 1, "light": 0, "mic": -1, "mid": 2}, "actual": null, "used": true, "at": "2026-10-03T04:14:04.103Z"}, "soundpeats-cc-pearlclip-pro": {"v": {"ambient": "none", "anc": "none", "bass": 1, "case": 0, "ctrl": 0, "design": 0, "fit": 1, "high": 0, "light": 1, "mic": -1, "mid": 0}, "actual": null, "used": true, "at": "2026-10-03T04:52:02.034Z"}, "earfun-air-pro-4-plus": {"v": {"ambient": 0, "anc": 2, "bass": 2, "case": 0, "ctrl": 0, "design": 1, "fit": -1, "high": 0, "light": -1, "mic": 2, "mid": 1}, "actual": null, "used": true, "at": "2026-10-03T04:14:19.436Z"}, "earfun-openjump": {"v": {"ambient": "none", "bass": 2, "case": 1, "ctrl": 0, "design": 0, "fit": 2, "high": 1, "light": 1, "mic": 3, "mid": 1}, "actual": null, "used": true, "at": "2026-10-03T04:14:25.836Z"}, "earfun-clip": {"v": {"ambient": "none", "bass": 1, "case": 0, "ctrl": 1, "design": 0, "fit": 1, "high": 0, "light": 1, "mic": 1, "mid": 0}, "actual": null, "used": true, "at": "2026-10-03T04:10:25.783Z"}, "earfun-clip-2": {"v": {"ambient": "none", "bass": 1, "case": 0, "ctrl": 1, "design": 0, "fit": 2, "high": 0, "light": 1, "mic": 1, "mid": 1}, "actual": null, "used": true, "at": "2026-10-03T04:10:32.817Z"}, "acefast-acefit-air": {"v": {"ambient": "none", "bass": 1, "case": 1, "ctrl": 1, "design": 2, "fit": 2, "high": 0, "light": 2, "mic": 1, "mid": 1, "multi": 1}, "actual": null, "used": true, "at": "2026-10-03T04:21:52.226Z"}, "acefast-aceclip-pro": {"v": {"ambient": "none", "bass": 0, "case": -1, "ctrl": 0, "design": 2, "fit": 1, "high": 0, "light": 1, "mic": 1, "mid": 0, "multi": 1, "wl": 0}, "actual": 7980, "used": true, "at": "2026-10-03T04:23:54.928Z"}, "truefree-o1": {"v": {"ambient": "none", "bass": 1, "case": 0, "ctrl": 1, "design": -2, "fit": 2, "high": 1, "light": 2, "mic": 1, "mid": 0}, "actual": null, "used": true, "at": "2026-10-03T04:14:44.086Z"}, "truefree-o2": {"v": {"ambient": "none", "bass": -1, "case": 0, "ctrl": 1, "design": -2, "fit": 1, "high": 0, "light": 0, "mic": 0, "mid": 0}, "actual": null, "used": true, "at": "2026-10-03T05:01:20.807Z"}, "truefree-clip-c10": {"v": {"ambient": "none", "bass": -1, "case": 0, "ctrl": 2, "design": -2, "fit": 2, "high": 0, "light": 2, "mic": 0, "mid": -1}, "actual": null, "used": true, "at": "2026-10-03T05:03:24.759Z"}, "kinglucky-earcuff": {"v": {"ambient": "none", "bass": -2, "case": 0, "ctrl": 0, "design": -1, "fit": 0, "high": -2, "light": 0, "mic": -2, "mid": -2}, "actual": null, "used": true, "at": "2026-10-03T05:04:13.842Z"}, "yobybo-air20": {"v": {"ambient": "none", "bass": 0, "case": 0, "ctrl": -1, "design": 2, "fit": 1, "high": -1, "light": 1, "mic": -2, "mid": -1}, "actual": 5000, "used": true, "at": "2026-10-03T05:06:20.927Z"}, "qcy-h3-pro": {"v": {"ambient": 1, "anc": 1, "bass": 0, "case": 0, "ctrl": 1, "design": -2, "fit": -2, "high": -2, "light": -1, "mic": -1, "mid": 1}, "actual": null, "used": true, "at": "2026-10-03T05:07:47.478Z"}, "qcy-melobuds-neo": {"v": {"ambient": "none", "bass": -1, "case": 0, "ctrl": 0, "design": 2, "fit": 0, "high": -1, "light": 0, "mic": -1, "mid": -1}, "actual": null, "used": true, "at": "2026-10-03T04:48:57.232Z"}, "qcy-melobuds-n65": {"v": {"ambient": 1, "anc": 1, "bass": 0, "case": 0, "ctrl": 0, "design": 0, "fit": 1, "high": 0, "light": 0, "mic": -1, "mid": 0}, "actual": null, "used": true, "at": "2026-10-03T05:29:10.755Z"}, "soundcore-liberty-5": {"v": {"ambient": 1, "anc": 1, "bass": 2, "case": 0, "ctrl": 2, "design": 1, "fit": 1, "high": 1, "light": 0, "mic": 0, "mid": 1}, "actual": null, "used": true, "at": "2026-10-03T05:09:11.928Z"}, "soundcore-life-q30": {"v": {"ambient": 0, "anc": 0, "bass": 1, "case": 0, "ctrl": 0, "design": 0, "fit": 0, "high": 0, "light": 0, "mic": -1, "mid": 0}, "actual": null, "used": true, "at": "2026-10-03T05:28:54.822Z"}, "trn-conch": {"v": {"ambient": "none", "bass": 0, "case": -1, "ctrl": 0, "design": -1, "fit": -1, "high": -2, "light": 0, "mic": "none", "mid": 0}, "actual": null, "used": true, "at": "2026-10-03T05:05:18.559Z"}, "zhuaudio-qingluan-z4": {"v": {"ambient": "none", "anc": "none", "bass": -1, "battery": 0, "case": -2, "ctrl": "unknown", "design": -1, "fit": -2, "high": -1, "light": -2, "mic": "none", "mid": 0, "multi": 0, "wl": 0}, "actual": null, "used": true, "at": "2026-10-02T09:56:40.189Z"}, "moondrop-quarks": {"v": {"ambient": "none", "anc": "none", "bass": 0, "battery": 0, "case": -1, "ctrl": "unknown", "design": 1, "fit": 0, "high": -1, "light": 0, "mic": "none", "mid": 0, "multi": 0, "wl": 0}, "actual": null, "used": true, "at": "2026-10-02T09:55:12.373Z"}, "zenchord-1": {"v": {"ambient": "none", "anc": null, "bass": -1, "battery": 10, "case": -1, "ctrl": 0, "design": 0, "fit": -1, "high": -1, "light": -2, "mic": 0, "mid": -2, "wl": 0}, "actual": null, "used": true, "at": "2026-10-02T09:52:08.053Z"}}, "w": {"ambient": 5500, "anc": 3300, "bass": 0, "battery": 0, "case": 3100, "ctrl": 4500, "design": 1100, "fit": 0, "high": 1200, "light": 1200, "mic": 600, "mid": 0, "multi": 0, "wl": 4500}, "inc": {"daily": 7000, "func": 7000, "look": 3000, "sound": 3000}, "base": 0};
-const PRICES = {"at": "2026-10-15T00:22:18", "items": {"airpods-pro-1": {"asin": "B07ZPS4FSW", "out": true, "img": "https://m.media-amazon.com/images/I/31gtbqaQ1nL._SL500_.jpg"}, "soundpeats-air3-deluxe-hs": {"asin": "B0B7R3ZS98", "out": true, "img": "https://m.media-amazon.com/images/I/31rxFKnlllL._SL500_.jpg"}, "soundpeats-air5-pro": {"asin": "B0DWDWL25T", "out": false, "img": "https://m.media-amazon.com/images/I/41rHlxwH9XL._SL500_.jpg", "amount": 6351, "basis": 9980, "pct": 36, "badge": "プライム感謝祭先行セール"}, "soundpeats-air6-pro": {"asin": "B0H8P9N9W7", "out": false, "img": "https://m.media-amazon.com/images/I/4132+6nnZuL._SL500_.jpg", "amount": 9481, "basis": 12380, "pct": 23, "badge": "プライム感謝祭先行セール"}, "soundpeats-cc-pearlclip-pro": {"asin": "B0DJXMQM9J", "out": false, "img": "https://m.media-amazon.com/images/I/31luQfv1kUL._SL500_.jpg", "amount": 4850, "basis": 7580, "pct": 36, "badge": "プライム感謝祭先行セール"}, "earfun-air-pro-4-plus": {"asin": "B0FWCQ7PPS", "out": false, "img": "https://m.media-amazon.com/images/I/31fuviGa3WL._SL500_.jpg", "amount": 10341, "basis": 13990, "pct": 26, "badge": "プライム感謝祭先行セール"}, "earfun-openjump": {"asin": "B0F37J92SG", "out": false, "img": "https://m.media-amazon.com/images/I/31qJ6w1B4nL._SL500_.jpg", "amount": 6636, "basis": 8990, "pct": 26, "badge": "プライム感謝祭先行セール"}, "earfun-clip": {"asin": "B0F89WH1KY", "out": true, "img": "https://m.media-amazon.com/images/I/314Wl+wVycL._SL500_.jpg"}, "earfun-clip-2": {"asin": "B0GKP46WT1", "out": false, "img": "https://m.media-amazon.com/images/I/31N1-Ep53tL._SL500_.jpg", "amount": 7587, "basis": 9990, "pct": 24, "badge": "プライム感謝祭先行セール"}, "acefast-acefit-air": {"asin": "B0DKNVFZF2", "out": true, "img": "https://m.media-amazon.com/images/I/41KCjXBwRLL._SL500_.jpg"}, "acefast-aceclip-pro": {"asin": "B0FVSCLHST", "out": false, "img": "https://m.media-amazon.com/images/I/31-gfmBpQwL._SL500_.jpg", "amount": 3302, "basis": 6474, "pct": 49, "badge": "プライム感謝祭先行セール"}, "truefree-o1": {"asin": "B0C493FSZ7", "out": true, "img": "https://m.media-amazon.com/images/I/416j+C0NQCL._SL500_.jpg"}, "truefree-o2": {"asin": "B0D6QRXT8G", "out": true, "img": "https://m.media-amazon.com/images/I/31TeSPIzgML._SL500_.jpg"}, "truefree-clip-c10": {"asin": "B0DSBPLBKY", "out": true, "img": "https://m.media-amazon.com/images/I/31DLKuG-fbL._SL500_.jpg"}, "qcy-h3-pro": {"asin": "B0DDSZXT6P", "out": false, "img": "https://m.media-amazon.com/images/I/31hsoDHydfL._SL500_.jpg", "amount": 5877, "basis": 7990, "pct": 26, "badge": "プライム感謝祭先行セール"}, "qcy-melobuds-n65": {"asin": "B0GWLMGF6H", "out": false, "img": "https://m.media-amazon.com/images/I/310Fh6+OEeL._SL500_.jpg", "amount": 6384, "basis": 7980, "pct": 20, "badge": "プライム感謝祭先行セール"}, "soundcore-liberty-5": {"asin": "B0DRVB48LJ", "out": false, "img": "https://m.media-amazon.com/images/I/31+3c6nuokL._SL500_.jpg", "amount": 11290, "basis": 14990, "pct": 25, "badge": "タイムセール"}, "soundcore-life-q30": {"asin": "B08HYX5NS9", "out": false, "img": "https://m.media-amazon.com/images/I/41RTWHe+3NL._SL500_.jpg", "amount": 5280, "basis": null, "pct": 0, "badge": ""}, "trn-conch": {"asin": "B0CMCWC4YY", "out": false, "img": "https://m.media-amazon.com/images/I/41ru-QSCYSL._SL500_.jpg", "amount": 3950, "basis": null, "pct": 0, "badge": ""}, "moondrop-quarks": {"asin": "B09FK8X89D", "out": true, "img": "https://m.media-amazon.com/images/I/315a9GyyTNL._SL500_.jpg"}, "zenchord-1": {"asin": "B0G4ML4P5K", "out": false, "img": "https://m.media-amazon.com/images/I/41CmbwJV17L._SL500_.jpg", "amount": 18810, "basis": 26980, "pct": 30, "badge": "プライム感謝祭先行セール"}, "jabra-elite-75t": {"asin": "B07YDZL1V9", "out": true, "gone": true}, "jabra-elite-active-65t": {"asin": "B07DFM1KPB", "out": true, "gone": true}, "yobybo-air20": {"asin": "B09YLD8SXS", "out": true, "gone": true}, "qcy-melobuds-neo": {"asin": "B0D5HGX9X7", "out": true, "gone": true}, "zhuaudio-qingluan-z4": {"asin": "B0DRJKTHYR", "out": true, "gone": true}}};
+const SNAPSHOT = {"at": "2026-10-03", "ratings": {"airpods-pro-1": {"v": {"ambient": 3, "anc": 2, "bass": 0, "case": 3, "ctrl": 3, "design": 1, "fit": 3, "high": 1, "light": 1, "mic": 0, "mid": 1, "multi": 1}, "actual": null, "used": true, "at": "2026-10-03T04:09:37.550Z"}, "jabra-elite-75t": {"v": {"ambient": 0, "anc": 1, "bass": 2, "case": 1, "ctrl": 2, "design": 1, "fit": 1, "high": 1, "light": 2, "mic": "unknown", "mid": 1, "multi": 1}, "actual": null, "used": true, "at": "2026-10-03T04:12:53.619Z"}, "jabra-elite-active-65t": {"v": {"ambient": 0, "anc": 0, "bass": 0, "case": 0, "ctrl": 2, "design": 0, "fit": 0, "high": 0, "light": 1, "mic": 0, "mid": 0, "multi": 1}, "actual": 24880, "used": true, "at": "2026-10-03T04:13:37.903Z"}, "soundpeats-air3-deluxe-hs": {"v": {"ambient": "none", "anc": null, "bass": 1, "case": 0, "ctrl": 0, "design": 0, "fit": 1, "high": 1, "light": 1, "mic": 0, "mid": 1, "multi": 1, "wl": 0}, "actual": null, "used": true, "at": "2026-10-03T04:49:57.149Z"}, "soundpeats-air5-pro": {"v": {"ambient": 0, "anc": 1, "bass": 1, "case": 0, "ctrl": -1, "design": 0, "fit": 0, "high": 0, "light": 0, "mic": 0, "mid": 0}, "actual": null, "used": true, "at": "2026-10-03T04:13:55.753Z"}, "soundpeats-air6-pro": {"v": {"ambient": 0, "anc": 1, "bass": 0, "case": 0, "ctrl": 0, "design": 0, "fit": 0, "high": 1, "light": 0, "mic": -1, "mid": 2}, "actual": null, "used": true, "at": "2026-10-03T04:14:04.103Z"}, "soundpeats-cc-pearlclip-pro": {"v": {"ambient": "none", "anc": "none", "bass": 1, "case": 0, "ctrl": 0, "design": 0, "fit": 1, "high": 0, "light": 1, "mic": -1, "mid": 0}, "actual": null, "used": true, "at": "2026-10-03T04:52:02.034Z"}, "earfun-air-pro-4-plus": {"v": {"ambient": 0, "anc": 2, "bass": 2, "case": 0, "ctrl": 0, "design": 1, "fit": -1, "high": 0, "light": -1, "mic": 2, "mid": 1}, "actual": null, "used": true, "at": "2026-10-03T04:14:19.436Z"}, "earfun-openjump": {"v": {"ambient": "none", "bass": 2, "case": 1, "ctrl": 0, "design": 0, "fit": 2, "high": 1, "light": 1, "mic": 3, "mid": 1}, "actual": null, "used": true, "at": "2026-10-03T04:14:25.836Z"}, "earfun-clip": {"v": {"ambient": "none", "bass": 1, "case": 0, "ctrl": 1, "design": 0, "fit": 1, "high": 0, "light": 1, "mic": 1, "mid": 0}, "actual": null, "used": true, "at": "2026-10-03T04:10:25.783Z"}, "earfun-clip-2": {"v": {"ambient": "none", "bass": 1, "case": 0, "ctrl": 1, "design": 0, "fit": 2, "high": 0, "light": 1, "mic": 1, "mid": 1}, "actual": null, "used": true, "at": "2026-10-03T04:10:32.817Z"}, "acefast-acefit-air": {"v": {"ambient": "none", "bass": 1, "case": 1, "ctrl": 1, "design": 2, "fit": 2, "high": 0, "light": 2, "mic": 1, "mid": 1, "multi": 1}, "actual": null, "used": true, "at": "2026-10-03T04:21:52.226Z"}, "acefast-aceclip-pro": {"v": {"ambient": "none", "bass": 0, "case": -1, "ctrl": 0, "design": 2, "fit": 1, "high": 0, "light": 1, "mic": 1, "mid": 0, "multi": 1, "wl": 0}, "actual": 7980, "used": true, "at": "2026-10-03T04:23:54.928Z"}, "truefree-o1": {"v": {"ambient": "none", "bass": 1, "case": 0, "ctrl": 1, "design": -2, "fit": 2, "high": 1, "light": 2, "mic": 1, "mid": 0}, "actual": null, "used": true, "at": "2026-10-03T04:14:44.086Z"}, "truefree-o2": {"v": {"ambient": "none", "bass": -1, "case": 0, "ctrl": 1, "design": -2, "fit": 1, "high": 0, "light": 0, "mic": 0, "mid": 0}, "actual": null, "used": true, "at": "2026-10-03T05:01:20.807Z"}, "truefree-clip-c10": {"v": {"ambient": "none", "bass": -1, "case": 0, "ctrl": 2, "design": -2, "fit": 2, "high": 0, "light": 2, "mic": 0, "mid": -1}, "actual": null, "used": true, "at": "2026-10-03T05:03:24.759Z"}, "kinglucky-earcuff": {"v": {"ambient": "none", "bass": -2, "case": 0, "ctrl": 0, "design": -1, "fit": 0, "high": -2, "light": 0, "mic": -2, "mid": -2}, "actual": null, "used": true, "at": "2026-10-03T05:04:13.842Z"}, "yobybo-air20": {"v": {"ambient": "none", "bass": 0, "case": 0, "ctrl": -1, "design": 2, "fit": 1, "high": -1, "light": 1, "mic": -2, "mid": -1}, "actual": 5000, "used": true, "at": "2026-10-03T05:06:20.927Z"}, "qcy-h3-pro": {"v": {"ambient": 1, "anc": 1, "bass": 0, "case": 0, "ctrl": 1, "design": -2, "fit": -2, "high": -2, "light": -1, "mic": -1, "mid": 1}, "actual": null, "used": true, "at": "2026-10-03T05:07:47.478Z"}, "qcy-melobuds-neo": {"v": {"ambient": "none", "bass": -1, "case": 0, "ctrl": 0, "design": 2, "fit": 0, "high": -1, "light": 0, "mic": -1, "mid": -1}, "actual": null, "used": true, "at": "2026-10-03T04:48:57.232Z"}, "qcy-melobuds-n65": {"v": {"ambient": 1, "anc": 1, "bass": 0, "case": 0, "ctrl": 0, "design": 0, "fit": 1, "high": 0, "light": 0, "mic": -1, "mid": 0}, "actual": null, "used": true, "at": "2026-10-03T05:29:10.755Z"}, "soundcore-liberty-5": {"v": {"ambient": 1, "anc": 1, "bass": 2, "case": 0, "ctrl": 2, "design": 1, "fit": 1, "high": 1, "light": 0, "mic": 0, "mid": 1}, "actual": null, "used": true, "at": "2026-10-03T05:09:11.928Z"}, "soundcore-life-q30": {"v": {"ambient": 0, "anc": 0, "bass": 1, "case": 0, "ctrl": 0, "design": 0, "fit": 0, "high": 0, "light": 0, "mic": -1, "mid": 0}, "actual": null, "used": true, "at": "2026-10-03T05:28:54.822Z"}, "trn-conch": {"v": {"ambient": "none", "bass": 0, "case": -1, "ctrl": 0, "design": -1, "fit": -1, "high": -2, "light": 0, "mic": "none", "mid": 0}, "actual": null, "used": true, "at": "2026-10-03T05:05:18.559Z"}, "zhuaudio-qingluan-z4": {"v": {"ambient": "none", "anc": "none", "bass": -1, "battery": 0, "case": -2, "ctrl": "unknown", "design": -1, "fit": -2, "high": -1, "light": -2, "mic": "none", "mid": 0, "multi": 0, "wl": 0}, "actual": null, "used": true, "at": "2026-10-02T09:56:40.189Z"}, "moondrop-quarks": {"v": {"ambient": "none", "anc": "none", "bass": 0, "battery": 0, "case": -1, "ctrl": "unknown", "design": 1, "fit": 0, "high": -1, "light": 0, "mic": "none", "mid": 0, "multi": 0, "wl": 0}, "actual": null, "used": true, "at": "2026-10-02T09:55:12.373Z"}, "zenchord-1": {"v": {"ambient": "none", "anc": null, "bass": -1, "battery": 10, "case": -1, "ctrl": 0, "design": 0, "fit": -1, "high": -1, "light": -2, "mic": 0, "mid": -2, "wl": 0}, "actual": null, "used": true, "at": "2026-10-02T09:52:08.053Z"}}, "w": {"fit": 700, "design": 800, "light": 700, "bass": 900, "mid": 900, "high": 900, "anc": 1500, "mic": 1100, "ambient": 1500, "ctrl": 900, "multi": 900, "wl": 2700, "battery": 900, "case": 1200}, "inc": {"daily": 7000, "func": 7000, "look": 3000, "sound": 3000}, "base": 1500};
+const PRICES = {"at": "2026-10-15T07:10:05", "items": {"airpods-pro-1": {"asin": "B07ZPS4FSW", "out": true, "img": "https://m.media-amazon.com/images/I/31gtbqaQ1nL._SL500_.jpg"}, "soundpeats-air3-deluxe-hs": {"asin": "B0B7R3ZS98", "out": true, "img": "https://m.media-amazon.com/images/I/31rxFKnlllL._SL500_.jpg"}, "soundpeats-air5-pro": {"asin": "B0DWDWL25T", "out": false, "img": "https://m.media-amazon.com/images/I/41rHlxwH9XL._SL500_.jpg", "amount": 6351, "basis": 9980, "pct": 36, "badge": "プライム感謝祭先行セール"}, "soundpeats-air6-pro": {"asin": "B0H8P9N9W7", "out": false, "img": "https://m.media-amazon.com/images/I/4132+6nnZuL._SL500_.jpg", "amount": 9481, "basis": 12380, "pct": 23, "badge": "プライム感謝祭先行セール"}, "soundpeats-cc-pearlclip-pro": {"asin": "B0DJXMQM9J", "out": false, "img": "https://m.media-amazon.com/images/I/31luQfv1kUL._SL500_.jpg", "amount": 4850, "basis": 7580, "pct": 36, "badge": "プライム感謝祭先行セール"}, "earfun-air-pro-4-plus": {"asin": "B0FWCQ7PPS", "out": false, "img": "https://m.media-amazon.com/images/I/31fuviGa3WL._SL500_.jpg", "amount": 10341, "basis": 13990, "pct": 26, "badge": "プライム感謝祭先行セール"}, "earfun-openjump": {"asin": "B0F37J92SG", "out": false, "img": "https://m.media-amazon.com/images/I/31qJ6w1B4nL._SL500_.jpg", "amount": 6636, "basis": 8990, "pct": 26, "badge": "プライム感謝祭先行セール"}, "earfun-clip": {"asin": "B0F89WH1KY", "out": true, "img": "https://m.media-amazon.com/images/I/314Wl+wVycL._SL500_.jpg"}, "earfun-clip-2": {"asin": "B0GKP46WT1", "out": false, "img": "https://m.media-amazon.com/images/I/31N1-Ep53tL._SL500_.jpg", "amount": 7587, "basis": 9990, "pct": 24, "badge": "プライム感謝祭先行セール"}, "acefast-acefit-air": {"asin": "B0DKNVFZF2", "out": true, "img": "https://m.media-amazon.com/images/I/41KCjXBwRLL._SL500_.jpg"}, "acefast-aceclip-pro": {"asin": "B0FVSCLHST", "out": false, "img": "https://m.media-amazon.com/images/I/31-gfmBpQwL._SL500_.jpg", "amount": 3302, "basis": 6474, "pct": 49, "badge": "プライム感謝祭先行セール"}, "truefree-o1": {"asin": "B0C493FSZ7", "out": true, "img": "https://m.media-amazon.com/images/I/416j+C0NQCL._SL500_.jpg"}, "truefree-o2": {"asin": "B0D6QRXT8G", "out": true, "img": "https://m.media-amazon.com/images/I/31TeSPIzgML._SL500_.jpg"}, "truefree-clip-c10": {"asin": "B0DSBPLBKY", "out": true, "img": "https://m.media-amazon.com/images/I/31DLKuG-fbL._SL500_.jpg"}, "qcy-h3-pro": {"asin": "B0DDSZXT6P", "out": false, "img": "https://m.media-amazon.com/images/I/31hsoDHydfL._SL500_.jpg", "amount": 5877, "basis": 7990, "pct": 26, "badge": "プライム感謝祭先行セール"}, "qcy-melobuds-n65": {"asin": "B0GWLMGF6H", "out": false, "img": "https://m.media-amazon.com/images/I/310Fh6+OEeL._SL500_.jpg", "amount": 6384, "basis": 7980, "pct": 20, "badge": "プライム感謝祭先行セール"}, "soundcore-liberty-5": {"asin": "B0DRVB48LJ", "out": false, "img": "https://m.media-amazon.com/images/I/31+3c6nuokL._SL500_.jpg", "amount": 11290, "basis": 14990, "pct": 25, "badge": "タイムセール"}, "soundcore-life-q30": {"asin": "B08HYX5NS9", "out": false, "img": "https://m.media-amazon.com/images/I/41RTWHe+3NL._SL500_.jpg", "amount": 5280, "basis": null, "pct": 0, "badge": ""}, "trn-conch": {"asin": "B0CMCWC4YY", "out": false, "img": "https://m.media-amazon.com/images/I/41ru-QSCYSL._SL500_.jpg", "amount": 3950, "basis": null, "pct": 0, "badge": ""}, "moondrop-quarks": {"asin": "B09FK8X89D", "out": true, "img": "https://m.media-amazon.com/images/I/315a9GyyTNL._SL500_.jpg"}, "zenchord-1": {"asin": "B0G4ML4P5K", "out": false, "img": "https://m.media-amazon.com/images/I/41CmbwJV17L._SL500_.jpg", "amount": 18810, "basis": 26980, "pct": 30, "badge": "プライム感謝祭先行セール"}, "jabra-elite-75t": {"asin": "B07YDZL1V9", "out": true, "gone": true}, "jabra-elite-active-65t": {"asin": "B07DFM1KPB", "out": true, "gone": true}, "yobybo-air20": {"asin": "B09YLD8SXS", "out": true, "gone": true}, "qcy-melobuds-neo": {"asin": "B0D5HGX9X7", "out": true, "gone": true}, "zhuaudio-qingluan-z4": {"asin": "B0DRJKTHYR", "out": true, "gone": true}}};
 // ノイキャンの公称 dB（メーカー公表。2026-10-03 調査。null は非公表）
 const ANC_DB = {"airpods-pro-1": {"db": null, "quote": "", "src": "https://www.apple.com/newsroom/2019/10/apple-reveals-new-airpods-pro-available-october-30/", "note": "dB非公表"}, "jabra-elite-75t": {"db": null, "quote": "", "src": "https://9to5google.com/2020/09/22/jabra-elite-75t-anc-update/", "note": "dB非公表"}, "soundpeats-air5-pro": {"db": 55, "quote": "up to 55dB noise reduction", "src": "https://soundpeats.com/products/soundpeats-air5-pro", "note": "公式グローバル。日本では最大-55dB表記"}, "soundpeats-air6-pro": {"db": 58, "quote": "最大-58dB のノイズキャンセリング", "src": "https://jp.soundpeats.com/blogs/in-ear-earbuds-buying-guide/about-the-air6-pro-part1", "note": "SOUNDPEATS公式日本サイトの記事。AV Watchも最大58dB"}, "earfun-air-pro-4-plus": {"db": 50, "quote": "Adaptive Hybrid Active Noise Cancellation up to 50dB", "src": "https://www.myearfun.com/headphones/earfun-air-pro-4-plus-hi-res-adaptive-anc-true-wireless-earbuds-black", "note": "価格.comニュースも最大50dB"}, "qcy-h3-pro": {"db": 50, "quote": "最大-50dBのノイズ低減効果", "src": "https://qcyjapan.com/products/qcy-h3-pro", "note": "QCY Japan公式"}, "qcy-melobuds-n65": {"db": 60, "quote": "最大-60dBの強力なANC", "src": "https://qcyjapan.com/products/qcy-melobuds-n65", "note": "QCY Japan公式"}, "soundcore-liberty-5": {"db": null, "quote": "ウルトラノイズキャンセリング 3.5", "src": "https://www.ankerjapan.com/products/a3957", "note": "dB非公表（Liberty 4 NC比で声の帯域6.5dB向上という相対値のみ）"}, "soundcore-life-q30": {"db": null, "quote": "filter out up to 95% of low-frequency ambient sound", "src": "https://www.soundcore.com/products/a3028011", "note": "dB非公表（グローバル版に低周波の最大95%という%表記のみ）"}};
 // Amazon の商品ページ（ASIN。2026-10-03 調査。null は見つからず）
@@ -481,12 +457,14 @@ function setVal(id, k, x) {
   render();
 }
 
-// ===== 公開版の描画（4-5room.com/earphones/・2026-10-14 下絵 A「写真＋イコライザー」）=====
+// ===== 公開版の描画 v3（4-5room.com/earphones/・2026-10-15 本人「MPCっぽいデザイン」「検索窓とメーカーごとも」）=====
 // 本人用（new_render.js）とは別。計算（fair・verdict・tierGain など）は本人用と共通のものを使う。
-// 1ページの一覧（写真・イコライザー・音量の横棒・Amazon の値段）＋機種を押すと下から詳しい画面＋物差しのしくみ
+// ページを1台のサンプラーに見立てる：画面＝選んだ機種／4×4 のパッド＝機種（光る色で割安・妥当・割高）／つまみ＝採点の4つの段。
+// 機種の詳しい画面（TRACK VIEW）は「詳しく」かパッドの長押しではなく、画面の「詳しく」ボタンから開く（URL の # に機種）
 const $view = document.getElementById("view"), $sheet = document.getElementById("sheet");
 const TIER_C = { look: "var(--c-look)", sound: "var(--c-sound)", func: "var(--c-func)", daily: "var(--c-daily)" };
 const TIER_SHORT = { look: "見た目", sound: "音", func: "機能", daily: "手間" };
+const GLOW = { cheap: "var(--cheap)", fair: "var(--fair)", pricey: "var(--pricey)", none: "var(--none)" };
 const tierOf = Object.fromEntries(TIERS.flatMap((t) => t.keys.map((k) => [k, t])));
 const calm = () => !!(window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches);
 
@@ -500,10 +478,10 @@ const P = (id) => (PRICES && PRICES.items[id]) || {};          // 画像は値�
 const imgOf = (id) => P(id).img || null;
 const snapAt = () => SNAPSHOT.at.slice(5).split("-").map(Number).join("/");
 const liveAt = () => { const d = new Date(PRICES.at); return `${d.getMonth() + 1}/${d.getDate()} ${d.getHours()}:${String(d.getMinutes()).padStart(2, "0")}`; };
-const stamp = () => { const d = new Date(PRICES.at); return `${String(d.getMonth() + 1).padStart(2, "0")}.${String(d.getDate()).padStart(2, "0")} ${["sun", "mon", "tue", "wed", "thu", "fri", "sat"][d.getDay()]} ${String(d.getHours()).padStart(2, "0")}:${String(d.getMinutes()).padStart(2, "0")}`; };
+const stamp = () => { const d = new Date(PRICES.at); return `${String(d.getMonth() + 1).padStart(2, "0")}.${String(d.getDate()).padStart(2, "0")} ${String(d.getHours()).padStart(2, "0")}:${String(d.getMinutes()).padStart(2, "0")}`; };
 
-// 形の絞り込み（DATA の form を5つにまとめる）
-const GROUPS = [["all", "すべて"], ["canal", "カナル型"], ["inner", "インナーイヤー"], ["open", "オープン・イヤーカフ"], ["wired", "有線"], ["head", "ヘッドホン"]];
+// 形（DATA の form を5つにまとめる）
+const GROUPS = [["canal", "カナル型"], ["inner", "インナーイヤー"], ["open", "オープン・イヤーカフ"], ["wired", "有線"], ["head", "ヘッドホン"]];
 function groupOf(m) {
   const f = m.form || "";
   if (/ヘッドホン/.test(f)) return "head";
@@ -512,143 +490,199 @@ function groupOf(m) {
   if (/インナーイヤー/.test(f)) return "inner";
   return "canal";
 }
+const wtTxt = (m) => m.weight_g ? `${groupOf(m) === "head" ? "重さ" : "片耳"} ${m.weight_g}g` : null;
+// パッドに載せる短い名前（メーカー名とかっこ書きを外す）
+function shortName(m) {
+  // かっこは内側から外す（「(動画では『全度1』)」のような入れ子があるため）
+  let s = m.name, prev;
+  do { prev = s; s = s.replace(/[（(『][^（(『）)』]*[）)』]/g, ""); } while (s !== prev);
+  s = s.replace(/\s+/g, " ").trim();
+  const mk = (m.maker || "").trim();
+  if (mk && s.toLowerCase().startsWith(mk.toLowerCase() + " ")) s = s.slice(mk.length + 1);
+  return s.replace(/^Soundcore /, "") || m.name;
+}
+// 検索：全角半角・カタカナひらがな・空白と記号をそろえる。英字のメーカー名はカタカナでも引けるように（読みが確かなものだけ）
+const norm = (s) => String(s || "").normalize("NFKC").toLowerCase().replace(/[ァ-ヶ]/g, (c) => String.fromCharCode(c.charCodeAt(0) - 0x60)).replace(/[\s・\-()（）\[\]「」『』、。,\/]/g, "");
+const ALIAS = { anker: "アンカー", soundcore: "サウンドコア", soundpeats: "サウンドピーツ", earfun: "イヤーファン", apple: "アップル", airpods: "エアーポッズ エアポッズ",
+  jabra: "ジャブラ", qcy: "キューシーワイ", acefast: "エースファスト", truefree: "トゥルーフリー", moondrop: "ムーンドロップ", liberty: "リバティ" };
 const ids = models.map((m) => m.id).filter((id) => used(id));
-// 全機種で同じ目盛り（音量の横棒）
+const KW = Object.fromEntries(ids.map((id) => {
+  const m = byId[id], k = norm([m.name, m.maker, m.form].join(" "));
+  return [id, k + Object.entries(ALIAS).filter(([e]) => k.includes(e)).map(([, v]) => norm(v)).join("")];
+}));
+const MAKERS = [...new Set(ids.map((id) => byId[id].maker).filter(Boolean))]
+  .map((mk) => [mk, ids.filter((id) => byId[id].maker === mk).length]).sort((a, b) => b[1] - a[1] || a[0].localeCompare(b[0]));
+
 function scaleFor(v) {
   const top = Math.max(10000, v * 1.1), step = top <= 20000 ? 5000 : 10000;
   return { R: Math.ceil(top / step) * step, step };
 }
-const SC = scaleFor(ids.reduce((mx, id) => Math.max(mx, fair(id), actualPrice(id) || 0), 0));
 const pct = (v, R) => Math.min(100, Math.max(0, v / R * 100)).toFixed(2);
+const vcls = (id) => verdict(id).r ? verdict(id).cls : "none";
 
-function vdHTML(id, long) {
-  const v = verdict(id);
-  if (!v.r) return `<span class="vd fair">実売不明</span>`;
-  const mark = v.cls === "cheap" ? "▼ " : v.cls === "pricey" ? "▲ " : "";
-  return `<span class="vd ${v.cls}">${mark}${v.word} ・ ${long ? "実売は" : ""}妥当価格の ${Math.round(v.r * 100)}%</span>`;
+// 状態
+const st = { q: "", maker: "", form: "", sort: "value", bank: 0, sel: null };
+try { st.sort = localStorage.getItem("ear-sort") || "value"; } catch (e) {}
+function list() {
+  const terms = st.q.split(/[\s　]+/).map(norm).filter(Boolean);
+  const l = ids.filter((id) => (!st.maker || byId[id].maker === st.maker) && (!st.form || groupOf(byId[id]) === st.form) && terms.every((t) => KW[id].includes(t)));
+  const r = (id) => verdict(id).r ?? 9;
+  if (st.sort === "fair") return l.sort((x, y) => fair(y) - fair(x));
+  if (st.sort === "low") return l.sort((x, y) => (actualPrice(x) || 1e9) - (actualPrice(y) || 1e9));
+  // 割安な順は、いま Amazon で買えるもの（今の値段が取れたもの）を先に
+  return l.sort((x, y) => (!livePrice(x) - !livePrice(y)) || r(x) - r(y));
 }
-function eqHTML(id, big) {
-  return TIERS.map((t) => {
-    const c = Math.min(1, tierCredit(id, t)) * 100;
-    return big
-      ? `<div><div class="rail"><div class="fill" style="height:${c.toFixed(1)}%;background:${TIER_C[t.id]}"></div><div class="knob" style="bottom:${c.toFixed(1)}%"></div></div>
-          <b>${t.name}</b><span>+¥${yen(Math.round(tierGain(id, t) / 100) * 100)}</span><em>/ ¥${yen(tierMax(t))}</em></div>`
-      : `<div class="b"><div class="rail"><div class="fill" style="height:${c.toFixed(1)}%;background:${TIER_C[t.id]}"></div><div class="knob" style="bottom:${c.toFixed(1)}%"></div></div><small>${TIER_SHORT[t.id]}</small></div>`;
-  }).join("");
+
+// ---- 画面 ----
+// 飾りの波形（機種ごとに決まった形）。緑の帯＝0〜妥当な価格、赤い線＝いまの値段
+function waveSVG(id) {
+  let h = 0; for (const c of id) h = (h * 31 + c.charCodeAt(0)) >>> 0;
+  const rnd = () => ((h = (h * 1664525 + 1013904223) >>> 0) / 4294967296);
+  let d = "";
+  for (let i = 0; i < 96; i++) { const a = 0.18 + 0.82 * Math.abs(Math.sin(i / 7 + rnd() * 1.4)) * (0.45 + rnd() * 0.55); d += `M${i + 0.5} ${17 - a * 14}V${17 + a * 14}`; }
+  return `<svg viewBox="0 0 96 34" preserveAspectRatio="none" aria-hidden="true"><path d="${d}" stroke="#34353b" stroke-width=".5"/></svg>`;
 }
-function tileHTML(id, withOff) {
-  const m = byId[id], img = imgOf(id), p = livePrice(id), q = LIVE_OK ? P(id) : {};
-  return `<div class="tile">${img ? `<img src="${esc(img)}" alt="${esc(m.name)}" loading="lazy">` : `<span class="ph">${esc(m.maker || "")}<br>${esc(m.form || "")}</span>`}` +
-    (withOff && p && p.pct ? `<span class="off">-${p.pct}%</span>` : "") +
+function waveHTML(id, withTicks) {
+  const f = fair(id), a = actualPrice(id), sc = scaleFor(Math.max(f, a || 0));
+  const ticks = []; if (withTicks) for (let x = 0; x <= sc.R; x += sc.step) ticks.push(`<span style="left:${pct(x, sc.R)}%">${x ? yen(x) : "¥0"}</span>`);
+  return `<div class="wave">${waveSVG(id)}<div class="reg" style="width:${pct(f, sc.R)}%"></div>${a ? `<div class="head" style="left:${pct(a, sc.R)}%"></div>` : ""}</div>` +
+    (withTicks ? `<div class="ticks">${ticks.join("")}</div>` : "");
+}
+function priceNow(id) {
+  const p = livePrice(id), a = actualPrice(id);
+  return p ? { v: p.amount, at: `Amazon ${liveAt()}` } : a ? { v: a, at: `${snapAt()} 時点` } : null;
+}
+function shotHTML(id) {
+  const m = byId[id], img = imgOf(id), q = LIVE_OK ? P(id) : {};
+  return `<div class="shot">${img ? `<img src="${esc(img)}" alt="${esc(m.name)}">` : `<span class="ph">${esc(m.maker || "")}</span>`}` +
     (q.gone || !AMAZON[m.id] ? `<span class="tag">商品ページなし</span>` : q.out ? `<span class="tag">在庫切れ</span>` : "") + `</div>`;
 }
-// 値段の欄：Amazon の今の値段（割引前の値段・時刻）→ 取れなければ採点したときの実売
-function priceHTML(id) {
-  const p = livePrice(id), a = actualPrice(id);
-  if (p) return `<b>¥${yen(p.amount)}</b>${p.pct && p.basis ? `<s>¥${yen(p.basis)}</s>` : ""}<small>Amazon ${liveAt()} 時点</small>`;
-  return a ? `<b>¥${yen(a)}</b><small>実売 ・ ${snapAt()} 時点</small>` : `<small>実売は不明</small>`;
+function bigHTML(id) {
+  const v = verdict(id);
+  if (!v.r) return `<div class="s-big"><b>--</b><span><em>実売不明</em></span></div>`;
+  const mark = v.cls === "cheap" ? "▼ " : v.cls === "pricey" ? "▲ " : "";
+  return `<div class="s-big"><b>${Math.round(v.r * 100)}<small style="font-size:.45em">%</small></b><span><em>${mark}${v.word}</em>私の妥当な価格に<br>対する、いまの値段</span></div>`;
 }
-// 重さ：イヤホンは片耳、ヘッドホンは本体
-const wtTxt = (m) => m.weight_g ? `${groupOf(m) === "head" ? "重さ" : "片耳"} ${m.weight_g}g` : null;
-function card(id) {
-  const m = byId[id], f = fair(id), a = actualPrice(id);
-  const spec = [m.form, wtTxt(m)].filter(Boolean).join(" ・ ");
-  return `<div class="card" data-open="${id}">
-    ${tileHTML(id, true)}
-    <div><button type="button" class="nm" data-open="${id}">${esc(m.name)}</button>
-      <p class="meta">${esc(spec)}</p>${vdHTML(id)}
-      <div class="eq" aria-label="採点の4つの段">${eqHTML(id)}</div></div>
-    <div class="vol"><div class="track"><div class="fair" style="width:${pct(f, SC.R)}%"></div>${a ? `<div class="act" style="left:${pct(a, SC.R)}%"></div>` : ""}</div>
-      <div class="lab"><span>実売 ${a ? "¥" + yen(a) : "不明"}</span><span>私の妥当 ¥${yen(f)}</span></div></div>
-    <div class="buy"><span class="pr">${priceHTML(id)}</span><a class="amz" href="${esc(amazonUrl(m))}" target="_blank" rel="sponsored noopener">${AMAZON[m.id] ? "Amazonで見る" : "Amazonで探す"}</a></div>
-  </div>`;
+function padLabel(id) {
+  const i = list().indexOf(id);
+  return i < 0 ? "" : `pad ${"AB"[Math.floor(i / 16)] || "C"}${String(i % 16 + 1).padStart(2, "0")}`;
+}
+function renderScreen() {
+  const id = st.sel, el = document.getElementById("screen");
+  if (!id) { el.innerHTML = `<div class="sbar"><span>no program</span></div><p class="empty">該当する機種はありません</p>`; document.getElementById("qlink").innerHTML = ""; return; }
+  const m = byId[id], f = fair(id), now = priceNow(id), p = livePrice(id);
+  el.style.setProperty("--glow", GLOW[vcls(id)]);
+  el.innerHTML = `<div class="sbar"><span><b>${esc(padLabel(id))}</b> ・ ${esc(m.form || "")}</span><span>${now ? esc(now.at) : ""}</span></div>
+    <div class="sbody">${shotHTML(id)}<div><div class="s-maker">${esc(m.maker || "")}</div><p class="s-name">${esc(m.name)}</p>${bigHTML(id)}</div></div>
+    ${waveHTML(id)}
+    <div class="wlab"><span class="now">いま${now ? `<b>¥${yen(now.v)}</b>` : " 不明"}</span><span>私の妥当<b>¥${yen(f)}</b></span></div>
+    <div class="sbtn"><a class="s-amz" href="${esc(amazonUrl(m))}" target="_blank" rel="sponsored noopener">${AMAZON[m.id] ? "Amazonで見る" : "Amazonで探す"}${p ? `<b>¥${yen(p.amount)}</b>${p.pct ? `<small>−${p.pct}%</small>` : ""}` : ""}</a>
+      <button type="button" class="s-more" id="more">詳しく</button></div>`;
+  document.getElementById("more").onclick = () => openSheet(id);
+  document.getElementById("qlink").innerHTML = knobsHTML(id);
+}
+// Q-Link つまみ：段ごとの「満たした割合」をつまみの向きと光の輪で
+function knobsHTML(id, big) {
+  return TIERS.map((t) => {
+    const c = Math.min(1, tierCredit(id, t)), a0 = -135, a1 = a0 + 270 * c, r = 24;
+    const pt = (a) => [29 + r * Math.sin(a * Math.PI / 180), 29 - r * Math.cos(a * Math.PI / 180)];
+    const arc = (from, to) => { const [x0, y0] = pt(from), [x1, y1] = pt(to); return `M${x0.toFixed(2)} ${y0.toFixed(2)}A${r} ${r} 0 ${to - from > 180 ? 1 : 0} 1 ${x1.toFixed(2)} ${y1.toFixed(2)}`; };
+    const [px, py] = [29 + 12 * Math.sin(a1 * Math.PI / 180), 29 - 12 * Math.cos(a1 * Math.PI / 180)];
+    return `<div class="knob"><svg viewBox="0 0 58 58" aria-hidden="true">
+        <path d="${arc(a0, 135)}" fill="none" stroke="#2a2a2f" stroke-width="2.4" stroke-linecap="round"/>
+        ${c > 0.005 ? `<path d="${arc(a0, a1)}" fill="none" stroke="${TIER_C[t.id]}" stroke-width="2.4" stroke-linecap="round"/>` : ""}
+        <circle cx="29" cy="29" r="16.5" fill="#202024" stroke="rgba(255,255,255,.12)"/>
+        <line x1="${(29 + 5 * Math.sin(a1 * Math.PI / 180)).toFixed(2)}" y1="${(29 - 5 * Math.cos(a1 * Math.PI / 180)).toFixed(2)}" x2="${px.toFixed(2)}" y2="${py.toFixed(2)}" stroke="#f4f4f2" stroke-width="2" stroke-linecap="round"/></svg>
+      <span class="k-l">${big ? t.name : TIER_SHORT[t.id]}</span><span class="k-v">+¥${yen(Math.round(tierGain(id, t) / 100) * 100)}${big ? ` / ¥${yen(tierMax(t))}` : ""}</span></div>`;
+  }).join("");
 }
 
-let group = "all", sort = "value";
-try { sort = localStorage.getItem("ear-sort") || "value"; } catch (e) {}
-function sorted(list) {
-  const r = (id) => verdict(id).r ?? 9;
-  if (sort === "fair") return list.slice().sort((x, y) => fair(y) - fair(x));
-  if (sort === "low") return list.slice().sort((x, y) => (actualPrice(x) || 1e9) - (actualPrice(y) || 1e9));
-  // 割安な順は、いま Amazon で買えるもの（今の値段が取れたもの）を先に。在庫切れ・商品ページなしはその後ろ
-  return list.slice().sort((x, y) => (!livePrice(x) - !livePrice(y)) || r(x) - r(y));
+// ---- パッド ----
+function renderPads() {
+  const l = list(), banks = Math.max(1, Math.ceil(l.length / 16));
+  if (st.bank >= banks) st.bank = 0;
+  if (!l.includes(st.sel)) st.sel = l[0] || null;
+  const page = l.slice(st.bank * 16, st.bank * 16 + 16);
+  let h = page.map((id, i) => {
+    const m = byId[id], v = verdict(id);
+    return `<button type="button" class="pad${id === st.sel ? " on" : ""}" data-id="${id}" style="--glow:${GLOW[vcls(id)]}" aria-pressed="${id === st.sel}" aria-label="${esc(m.name)}：${v.r ? `${v.word}・妥当価格の${Math.round(v.r * 100)}%` : "実売不明"}">
+      <span class="pn">${"AB"[st.bank] || "C"}${String(i + 1).padStart(2, "0")}<i></i></span><span class="pt">${esc(shortName(m))}</span>
+      <span class="pp">${v.r ? `${Math.round(v.r * 100)}<small>%</small>` : "--"}</span></button>`;
+  }).join("");
+  for (let i = page.length; i < 16 && l.length; i++) h += `<span class="pad off" aria-hidden="true"></span>`;
+  document.getElementById("pads").innerHTML = l.length ? h : `<p class="empty" style="grid-column:1/-1">見つかりませんでした</p>`;
+  document.getElementById("count").textContent = `${l.length} programs`;
+  document.querySelectorAll("[data-bank]").forEach((b) => { const n = +b.dataset.bank; b.disabled = n >= banks; b.setAttribute("aria-pressed", String(n === st.bank)); });
+  document.querySelectorAll("[data-sort]").forEach((b) => b.setAttribute("aria-pressed", String(b.dataset.sort === st.sort)));
+  document.querySelectorAll(".pad[data-id]").forEach((b) => b.onclick = () => select(b.dataset.id));
+  renderScreen();
+}
+function select(id) {
+  st.sel = id;
+  document.querySelectorAll(".pad[data-id]").forEach((b) => { const on = b.dataset.id === id; b.classList.toggle("on", on); b.setAttribute("aria-pressed", String(on)); });
+  renderScreen();
 }
 
 function renderList() {
-  const cheap = ids.filter((id) => verdict(id).cls === "cheap").length;
-  // 今日いちばん割安：いま Amazon で買えるもの（今の値段が取れたもの）の中から
-  const best = ids.filter((id) => livePrice(id) && verdict(id).r).sort((x, y) => verdict(x).r - verdict(y).r)[0];
-  const counts = Object.fromEntries(GROUPS.map(([g]) => [g, g === "all" ? ids.length : ids.filter((id) => groupOf(byId[id]) === g).length]));
-  $view.innerHTML = `<section class="hero">
-      <svg class="arc" viewBox="0 0 360 86" aria-hidden="true"><path id="arce" d="M 20 80 Q 180 2 340 80" fill="none"/>
-        <text><textPath href="#arce" startOffset="50%" text-anchor="middle">earphones</textPath></text></svg>
-      <h1>イヤホンの物差し</h1>
-      <p class="sub">使ってきたイヤホンを項目ごとに採点して、私の基準での妥当な価格と、いまの実売を比べています</p>
-      <div class="stats">
-        <div class="stat"><b>${ids.length}<small>機種</small></b><span>使ってきた</span></div>
-        <div class="stat"><b>${cheap}<small>機種</small></b><span>がいま割安</span></div>
+  const cheap = ids.filter((id) => vcls(id) === "cheap").length;
+  $view.innerHTML = `<p class="lead">使ってきた<b>${ids.length}機種</b>を採点して、私の基準での妥当な価格と、いまの値段を比べています。光っている色は 割安（<b style="color:var(--cheap)">${cheap}機種</b>）・妥当・割高。パッドを押すと画面が切り替わります。</p>
+    <div class="mpc"><div class="mpc-in">
+      <div class="left" id="left"><div class="bezel"><div class="screen" id="screen"></div></div><div class="qlink" id="qlink"></div></div>
+      <div class="right">
+        <div class="ctrl">
+          <div class="field"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg>
+            <input type="search" id="q" placeholder="機種名・メーカーで探す" aria-label="機種を探す" autocomplete="off" enterkeyhint="search"><button type="button" class="clr" id="qc" aria-label="検索を消す" hidden>×</button></div>
+          <div class="row2">
+            <label class="sel"><span class="silk">maker</span><select id="maker" aria-label="メーカー"><option value="">すべてのメーカー（${ids.length}）</option>${MAKERS.map(([mk, n]) => `<option value="${esc(mk)}">${esc(mk)}（${n}）</option>`).join("")}</select></label>
+            <label class="sel"><span class="silk">type</span><select id="form" aria-label="形"><option value="">すべての形</option>${GROUPS.filter(([g]) => ids.some((id) => groupOf(byId[id]) === g)).map(([g, w]) => `<option value="${g}">${w}（${ids.filter((id) => groupOf(byId[id]) === g).length}）</option>`).join("")}</select></label>
+          </div>
+          <div class="btns">
+            <div class="grp"><span class="silk">sort</span><div class="keys">${[["value", "割安"], ["fair", "妥当価格"], ["low", "安い"]].map(([k, w]) => `<button type="button" class="hk" data-sort="${k}" aria-pressed="false">${w}</button>`).join("")}</div></div>
+            <div class="grp" style="align-items:flex-end"><span class="silk">pad bank</span><div class="keys"><button type="button" class="hk" data-bank="0" aria-pressed="true">A</button><button type="button" class="hk" data-bank="1" aria-pressed="false">B</button></div></div>
+          </div>
+        </div>
+        <div class="padhead" style="margin-top:14px"><span class="silk" id="count"></span><span class="legend"><span><i style="background:var(--cheap)"></i>割安</span><span><i style="background:var(--fair)"></i>妥当</span><span><i style="background:var(--pricey)"></i>割高</span></span></div>
+        <div class="pads" id="pads"></div>
       </div>
-      <span class="stamp">${LIVE_OK ? `${stamp()} 時点の Amazon の値段` : `採点 ${SNAPSHOT.at} 時点`}</span>
-      ${best ? `<button type="button" class="best" data-open="${best}">${tileHTML(best, true)}
-        <span><span class="en">today's best value</span><span class="nm" style="display:block">${esc(byId[best].name)}</span>
-        <span class="why"><b>¥${yen(livePrice(best).amount)}</b>実売は私の妥当価格の ${Math.round(verdict(best).r * 100)}%</span></span></button>` : ""}
-      <p class="disc">本ページはプロモーション（Amazonアソシエイト）を含みます。機種を押すと、項目ごとの採点が出ます。</p>
-    </section>
-    <div id="tolist"></div>
-    <div class="bar"><div class="bar-in"><div class="chips">${GROUPS.filter(([g]) => counts[g]).map(([g, w]) =>
-      `<button type="button" class="chip" data-g="${g}" aria-pressed="${group === g}">${w}</button>`).join("")}</div></div></div>
-    <div class="sortline"><span id="count"></span><span class="sorts">${[["value", "割安な順"], ["fair", "妥当価格の順"], ["low", "安い順"]].map(([k, w]) =>
-      `<button type="button" data-sort="${k}" aria-pressed="${sort === k}">${w}</button>`).join("")}</span></div>
-    <div class="grid" id="grid"></div>
-    ${howHTML()}
+    </div></div>
+    ${manualHTML()}
     <section class="notes">
+      <p>本ページはプロモーション（Amazonアソシエイト）を含みます。</p>
       ${LIVE_OK ? `<p>価格および発送可能時期は表示された日付・時刻（${liveAt()}）の時点のものであり、変更される場合があります。本商品の購入においては、購入の時点でAmazon.co.jpに表示されている価格および発送可能時期の情報が適用されます。</p>` : ""}
-      <p>実売は Amazon の今の値段（毎朝更新）です。在庫切れ・商品ページがないものは、採点したとき（${SNAPSHOT.at}）の実売です。割引率は Amazon の商品ページに表示された参考価格・過去価格との比較で、セールの値段はプライム会員向けの場合があります。</p>
+      <p>いまの値段は Amazon の値段（毎朝更新）です。在庫切れ・商品ページがないものは、採点したとき（${SNAPSHOT.at}）の実売です。割引率は Amazon の商品ページに表示された参考価格・過去価格との比較で、セールの値段はプライム会員向けの場合があります。</p>
       <p>機種データは ${esc(DATA.generated)} 時点の公開情報（ノイキャンの dB は 2026-10-03 調査）、採点は ${SNAPSHOT.at} 時点です。</p>
       <p>Amazonのアソシエイトとして、4.5roomは適格販売により収入を得ています。</p>
     </section>`;
-  drawGrid();
-  $view.querySelectorAll("[data-g]").forEach((b) => b.onclick = () => { group = b.dataset.g; drawGrid(); });
-  $view.querySelectorAll("[data-sort]").forEach((b) => b.onclick = () => {
-    sort = b.dataset.sort; try { localStorage.setItem("ear-sort", sort); } catch (e) {} drawGrid(); });
-  $view.querySelector(".best") && ($view.querySelector(".best").onclick = () => openSheet(best));
-  // 絞り込みの帯が上に貼り付いたかどうか（夜だけ、貼り付いたときに帯へ色を敷く）
-  const bar = $view.querySelector(".bar");
-  new IntersectionObserver(([e]) => bar.classList.toggle("stuck", !e.isIntersecting && e.boundingClientRect.top < 0),
-    { rootMargin: "22px 0px 0px 0px" }).observe(document.getElementById("tolist"));
-}
-function drawGrid() {
-  const list = sorted(ids.filter((id) => group === "all" || groupOf(byId[id]) === group));
-  document.getElementById("grid").innerHTML = list.map(card).join("") || `<p class="empty">該当する機種はありません</p>`;
-  document.getElementById("count").textContent = list.length + "機種";
-  $view.querySelectorAll("[data-g]").forEach((b) => b.setAttribute("aria-pressed", String(b.dataset.g === group)));
-  $view.querySelectorAll("[data-sort]").forEach((b) => b.setAttribute("aria-pressed", String(b.dataset.sort === sort)));
-  document.querySelectorAll("#grid .card").forEach((c) => c.onclick = (e) => {
-    if (e.target.closest("a")) return;   // Amazon のボタンはそのまま開く
-    openSheet(c.dataset.open);
-  });
+  const q = document.getElementById("q"), qc = document.getElementById("qc");
+  q.oninput = () => { st.q = q.value; st.bank = 0; qc.hidden = !q.value; renderPads(); };
+  qc.onclick = () => { q.value = ""; q.oninput(); q.focus(); };
+  q.closest(".field").onsubmit = (e) => e.preventDefault();
+  q.onkeydown = (e) => { if (e.key === "Enter") q.blur(); };
+  document.getElementById("maker").onchange = (e) => { st.maker = e.target.value; st.bank = 0; renderPads(); };
+  document.getElementById("form").onchange = (e) => { st.form = e.target.value; st.bank = 0; renderPads(); };
+  document.querySelectorAll("[data-sort]").forEach((b) => b.onclick = () => { st.sort = b.dataset.sort; st.bank = 0; st.sel = null; try { localStorage.setItem("ear-sort", st.sort); } catch (e) {} renderPads(); });
+  document.querySelectorAll("[data-bank]").forEach((b) => b.onclick = () => { st.bank = +b.dataset.bank; st.sel = list()[st.bank * 16] || st.sel; renderPads(); });
+  renderPads();
 }
 
-// 物差しのしくみ（本人用の「物差し」の画面の公開分）
-function howHTML() {
+// 物差しのしくみ（取扱説明書）
+function segHTML(v, n, tc) { let s = ""; for (let i = 0; i < n; i++) s += `<i class="${i < Math.round(v * n) ? "on" : ""}"></i>`; return `<span class="seg" style="--tc:${tc}">${s}</span>`; }
+function manualHTML() {
   const w = weights(), wmax = Math.max(1, ...Object.values(w));
-  return `<section class="how">
-    <div class="head"><div class="en">how it works</div><h2>物差しのしくみ</h2>
-      <p>採点は値段を考えずに、モノとしての出来で付けています（絶対評価）。値段との釣り合いは、妥当な価格と実売で見ます。</p></div>
-    <p class="formula">妥当な価格 ＝ ${S.base ? `基準額 <b>¥${yen(S.base)}</b> ＋ ` : ""}項目の金額 × 満たした割合 の合計</p>
+  return `<section class="manual"><span class="silk">manual</span><h2>物差しのしくみ</h2>
+    <p>採点は値段を考えずに、モノとしての出来で付けています（絶対評価）。値段との釣り合いは、妥当な価格といまの値段で見ます。</p>
+    <p class="formula">妥当な価格 ＝ ${S.base ? `基準額 ¥${yen(S.base)} ＋ ` : ""}項目の金額 × 満たした割合 の合計</p>
     ${TIERS.map((t) => `<div class="tier"><div class="tier-h"><i style="background:${TIER_C[t.id]}"></i><b>${t.name}</b><span>〜¥${yen(t.line)} の線</span><span class="v">計 ¥${yen(tierMax(t))}</span></div>
-      ${t.keys.map((k) => `<div class="w-row"><span>${ITEMS[k].label}</span><span class="wb"><i style="width:${((w[k] || 0) / wmax * 100).toFixed(1)}%;background:${TIER_C[t.id]}"></i></span><span class="y">¥${yen(Math.round(w[k] || 0))}</span></div>`).join("")}
-    </div>`).join("")}
-    <p class="note">割合は「普通」で半分、「最高」で満額、「感動」は満額の1.25倍。機能が「なし」は0、「不明」と未評価は「普通」と同じ。電池は6時間で0・8時間で満額、ノイキャンは公称 ${DB_ZERO}dB で0・${DB_FULL}dB で満額（dB 非公表の機種は体感の採点）。</p>
-    <p class="note" style="margin-top:8px">線の位置（5,000／7,000／10,000／15,000円）は、これまでの動画で話してきた値段の感覚から。項目ごとの金額は、機種ごとに付けた「この値段は安い／妥当／高い」に合うように逆算しています。</p>
+      ${t.keys.map((k) => `<div class="w-row"><span>${ITEMS[k].label}</span>${segHTML((w[k] || 0) / wmax, 12, TIER_C[t.id])}<span class="y">¥${yen(Math.round(w[k] || 0))}</span></div>`).join("")}</div>`).join("")}
+    <p style="margin-top:20px">割合は「普通」で半分、「最高」で満額、「感動」は満額の1.25倍。機能が「なし」は0、「不明」と未評価は「普通」と同じ。電池は6時間で0・8時間で満額、ノイキャンは公称 ${DB_ZERO}dB で0・${DB_FULL}dB で満額（dB 非公表の機種は体感の採点）。</p>
+    <p>線の位置（5,000／7,000／10,000／15,000円）は、これまでの動画で話してきた値段の感覚から。項目ごとの金額は、機種ごとに付けた「この値段は安い／妥当／高い」に合うように、偏りすぎない範囲で決めています。</p>
   </section>`;
 }
 
-// ===== 詳しい画面 =====
+// ===== 機種の詳しい画面（TRACK VIEW）=====
 function specChips(m) {
   const b = m.battery_h || {};
-  return [m.maker, m.form, wtTxt(m),
-    m.anc === true ? (ancDb(m.id) ? `ANC ${ancDb(m.id)}dB` : "ANC") : m.anc === false ? "ANCなし" : null,
+  return [m.form, wtTxt(m), m.anc === true ? (ancDb(m.id) ? `ANC ${ancDb(m.id)}dB` : "ANC") : m.anc === false ? "ANCなし" : null,
     b.anc_off || b.anc_on ? `電池 ${[b.anc_on && `ANCオン${b.anc_on}h`, b.anc_off && `${b.anc_on ? "オフ" : ""}${b.anc_off}h`].filter(Boolean).join("／")}` : null,
     (m.codecs || []).length ? m.codecs.join("・") : null, m.release ? `発売 ${String(m.release).slice(0, 7)}` : null,
   ].filter(Boolean).map((x) => `<span>${esc(x)}</span>`).join("");
@@ -662,40 +696,37 @@ function itemHTML(id, k) {
   let right = "", peer = "";
   if (k === "anc" && x !== "none" && ancDb(id) != null) {
     const src = m.anc_src || {};
-    right = `<span class="mini"><span class="wb"><i style="width:${(Math.min(1, credit(id, k)) * 100).toFixed(1)}%"></i></span><b>${ancDb(id)}dB</b></span>`;
+    right = `<span class="lvl">${segHTML(Math.min(1, credit(id, k)), 10, tc)}<em>${ancDb(id)}dB</em></span>`;
     peer = `公称「${esc(src.quote || ancDb(id) + "dB")}」${src.src ? ` ・ <a href="${esc(src.src)}" target="_blank" rel="noopener">出典</a>` : ""}`;
   } else if (it.type === "hours") {
     const h = parseFloat(x);
-    right = isNaN(h) ? `<span class="pill">不明</span>` : `<span class="mini"><span class="wb"><i style="width:${(credit(id, k) * 100).toFixed(1)}%"></i></span><b>${h}h</b></span>`;
+    right = isNaN(h) ? `<span class="led">不明</span>` : `<span class="lvl">${segHTML(credit(id, k), 10, tc)}<em>${h}h</em></span>`;
   } else if (it.type === "bool") {
-    right = `<span class="pill${x === 1 ? " yes" : ""}">${x === 1 ? "あり" : x === 0 ? "なし" : "不明"}</span>`;
+    right = `<span class="led${x === 1 ? " on" : ""}"><i></i>${x === 1 ? "あり" : x === 0 ? "なし" : "不明"}</span>`;
   } else {
-    const sel = typeof x === "number" ? x : null;
-    right = `<span class="dots" role="img" aria-label="${esc(it.label)}：${esc(RATE_WORD[x] || "未評価")}">${RATE.map(([o]) => `<i class="${sel != null && o <= sel ? "on" : ""}"></i>`).join("")}<em class="${sel == null ? "no" : ""}">${esc(RATE_WORD[x] || "未評価")}</em></span>`;
+    const sel = typeof x === "number" ? x : null, idx = sel == null ? -1 : RATE.findIndex(([o]) => o === sel);
+    right = `<span class="lvl" role="img" aria-label="${esc(it.label)}：${esc(RATE_WORD[x] || "未評価")}">${segHTML((idx + 1) / RATE.length, RATE.length, tc)}<em class="${sel == null ? "no" : ""}">${esc(RATE_WORD[x] || "未評価")}</em></span>`;
     const pe = peers(id, k, x);
     if (sel != null && pe.length) peer = `同じ「${RATE_WORD[x]}」：${pe.map((o) => `<a href="#${o}" data-open="${o}">${esc(byId[o].name)}</a>`).join("・")}`;
   }
   return `<div class="it" style="--tc:${tc}"><span class="lb">${esc(it.label)}</span>${right}${peer ? `<span class="peer">${peer}</span>` : ""}</div>`;
 }
 function detailHTML(id) {
-  const m = byId[id], f = fair(id), a = actualPrice(id), p = livePrice(id), sc = scaleFor(Math.max(f, a || 0));
-  const ticks = []; for (let x = 0; x <= sc.R; x += sc.step) ticks.push(`<span style="left:${pct(x, sc.R)}%">${x ? yen(x) : "¥0"}</span>`);
+  const m = byId[id], f = fair(id), now = priceNow(id), p = livePrice(id), v = verdict(id);
   return `<div class="in">
-    <div class="bk"><button type="button" id="close">← 一覧</button><span>earphones</span></div>
-    <div class="d-top">${tileHTML(id, true)}<div><h2>${esc(m.name)}</h2><div class="specs">${specChips(m)}</div></div></div>
-    <div class="price-box">
-      <span class="lab">私の基準での妥当な価格</span>
-      <span class="big"><small>¥</small>${yen(f)}</span>
-      ${vdHTML(id, true)}
-      <div class="vol"><div class="track"><div class="fair" style="width:${pct(f, sc.R)}%"></div>${a ? `<div class="act" style="left:${pct(a, sc.R)}%"></div>` : ""}</div>
-        <div class="ticks">${ticks.join("")}</div>
-        <div class="lab"><span>${a ? `赤い線＝実売 ¥${yen(a)}（${p ? `Amazon ${liveAt()}` : `${snapAt()} 時点`}）` : "実売は不明"}</span><span>緑＝妥当 ¥${yen(f)}</span></div></div>
-    </div>
-    <a class="d-buy" href="${esc(amazonUrl(m))}" target="_blank" rel="sponsored noopener">${AMAZON[m.id] ? "Amazonで見る" : "Amazonで探す"}${p ? `<b>¥${yen(p.amount)}</b>${p.pct ? `<span>−${p.pct}%</span>` : ""}` : ""}</a>
+    <div class="bk"><button type="button" class="hk" id="close">← 戻る</button><span class="silk">track view</span></div>
+    <div class="d-top">${shotHTML(id)}<div><span class="s-maker">${esc(m.maker || "")}</span><h2>${esc(m.name)}</h2><div class="specs">${specChips(m)}</div></div></div>
+    <div class="d-box"><div class="bezel"><div class="screen" style="--glow:${GLOW[vcls(id)]}">
+      <div class="sbar"><span>私の基準での妥当な価格</span><span>${now ? esc(now.at) : ""}</span></div>
+      <div class="d-fair"><b>¥${yen(f)}</b>${bigHTML(id).replace('class="s-big"', 'class="s-big" style="margin:0"')}</div>
+      ${waveHTML(id, true)}
+      <div class="wlab"><span class="now">いま${now ? `<b>¥${yen(now.v)}</b>` : " 不明"}</span><span>私の妥当<b>¥${yen(f)}</b></span></div>
+    </div></div></div>
+    <a class="d-amz" href="${esc(amazonUrl(m))}" target="_blank" rel="sponsored noopener">${AMAZON[m.id] ? "Amazonで見る" : "Amazonで探す"}${p ? `<b>¥${yen(p.amount)}</b>${p.pct ? `<span>−${p.pct}%</span>` : ""}` : ""}</a>
     ${p ? `<p class="d-disc">価格および発送可能時期は表示された日付・時刻（${liveAt()}）の時点のものであり、変更される場合があります。本商品の購入においては、購入の時点でAmazon.co.jpに表示されている価格および発送可能時期の情報が適用されます。${p.badge ? `「${esc(p.badge)}」の値段はプライム会員向けの場合があります。` : ""}</p>` : ""}
     <p class="d-disc" style="margin-top:4px">Amazonのアソシエイトとして、4.5roomは適格販売により収入を得ています。</p>
-    <div class="d-eq">${eqHTML(id, true)}</div>
-    <p class="abs">採点は値段を考えずに、モノとしての出来で付けています（絶対評価）。</p>
+    <div class="d-q"><div class="qlink">${knobsHTML(id, true)}</div></div>
+    <p class="d-disc" style="margin-top:14px">採点は値段を考えずに、モノとしての出来で付けています（絶対評価）。</p>
     ${TIERS.map((t) => `<div class="d-tier"><div class="tier-h"><i style="background:${TIER_C[t.id]}"></i><b>${t.name}</b><span>〜¥${yen(t.line)} の線</span>
       <span class="v">+¥${yen(Math.round(tierGain(id, t) / 100) * 100)} / ¥${yen(tierMax(t))}</span></div>${t.keys.map((k) => itemHTML(id, k)).join("")}</div>`).join("")}
     ${(m.sources || []).length ? `<div class="srcs"><span>公開情報の出典</span>${m.sources.map((u) => `<a href="${esc(u)}" target="_blank" rel="noopener">${esc(u.replace(/^https?:\/\//, "").slice(0, 60))}</a>`).join("")}</div>` : ""}
@@ -704,7 +735,7 @@ function detailHTML(id) {
 }
 let sheetId = null;
 function showSheet(id) {
-  sheetId = id && byId[id] ? id : null;
+  sheetId = id && byId[id] && ids.includes(id) ? id : null;
   if (!sheetId) { $sheet.hidden = true; document.documentElement.style.overflow = ""; return; }
   $sheet.innerHTML = detailHTML(sheetId);
   $sheet.hidden = false; $sheet.scrollTop = 0;
@@ -713,7 +744,7 @@ function showSheet(id) {
   $sheet.querySelectorAll("[data-open]").forEach((x) => x.onclick = (e) => { e.preventDefault(); openSheet(x.dataset.open, true); });
   $sheet.focus({ preventScroll: true });
 }
-// 機種ごとに URL の # を変える（戻るボタンで一覧に戻れる・共有できる）
+// 機種ごとに URL の # を変える（戻るボタンで本体に戻れる・共有できる）
 function openSheet(id, replace) {
   if (replace) history.replaceState({ m: id }, "", "#" + id); else history.pushState({ m: id }, "", "#" + id);
   showSheet(id);
@@ -721,6 +752,7 @@ function openSheet(id, replace) {
 function closeSheet() {
   if (history.state && history.state.m) history.back();
   else { history.replaceState(null, "", location.pathname + location.search); showSheet(null); }
+  if (sheetId == null && st.sel) select(st.sel);
 }
 window.addEventListener("popstate", () => showSheet(decodeURIComponent(location.hash.slice(1))));
 document.addEventListener("keydown", (e) => { if (e.key === "Escape" && sheetId) closeSheet(); });
@@ -728,29 +760,10 @@ document.addEventListener("keydown", (e) => { if (e.key === "Escape" && sheetId)
 let drawn = false;
 function render() {
   if (!drawn) { renderList(); drawn = true; }
-  showSheet(decodeURIComponent(location.hash.slice(1)));
+  const h = decodeURIComponent(location.hash.slice(1));
+  if (h && ids.includes(h)) { st.sel = h; renderPads(); }
+  showSheet(h);
 }
-
-// 昼夜の切り替え（右上）。選んだら覚える。選ぶまでは端末の設定が変わったら付いていく
-(() => {
-  const root = document.documentElement, tc = document.getElementById("tc"), mq = matchMedia("(prefers-color-scheme: dark)");
-  let chosen = null;
-  try { chosen = localStorage.getItem("sale-theme"); } catch (e) {}
-  function theme(t) {
-    root.setAttribute("data-theme", t);
-    if (tc) tc.content = t === "dark" ? "#1a2750" : "#fefefd";
-    document.querySelectorAll(".mode button").forEach((b) => b.setAttribute("aria-pressed", String(b.dataset.mode === t)));
-  }
-  theme(root.getAttribute("data-theme") === "dark" ? "dark" : "light");
-  document.querySelectorAll(".mode button").forEach((b) => b.addEventListener("click", () => {
-    chosen = b.dataset.mode;
-    try { localStorage.setItem("sale-theme", chosen); } catch (e) {}
-    if (root.getAttribute("data-theme") === chosen) return;
-    const go = () => theme(chosen);
-    if (document.startViewTransition && !calm()) document.startViewTransition(go); else go();
-  }));
-  mq.addEventListener("change", (e) => { if (chosen !== "light" && chosen !== "dark") theme(e.matches ? "dark" : "light"); });
-})();
 let toastT;
 function toast(msg) {
   const t = document.getElementById("toast");
