@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  ファビコン専用。icon.svg とは別ファイルにしてある。
+  ファビコンは別ドキュメント扱いでページの color を継承しないので、
+  currentColor が効かない。色をファイル内に持たせ、暗い配色には
+  @media (prefers-color-scheme) で応じる。
+-->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 96 96">
+  <style>
+    .r { fill: none; stroke: #1A1A1A; stroke-width: 12; stroke-linecap: butt; }
+    @media (prefers-color-scheme: dark) { .r { stroke: #F3F3F1; } }
+  </style>
+  <path class="r" d="M60 6 H90 V90 H6 V6 H36"/>
+</svg>

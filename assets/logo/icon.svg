@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  4.5room アイコン ── 開口のある四角（部屋の平面）
+  96グリッドで、全座標を6の倍数に揃えてある。
+  線幅12・開口24なので、16px表示で 線2.0px／開口4.0px。
+  16pxで線2px以上・隙間1px以上・独立要素3つ以内、という条件を満たす。
+  色は指定しない。埋め込んだ側の color を継承する（fillを書かないこと）。
+-->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 96 96">
+  <path d="M60 6 H90 V90 H6 V6 H36"
+        fill="none" stroke="currentColor" stroke-width="12" stroke-linecap="butt"/>
+</svg>
