@@ -1,0 +1,12 @@
+PT Mono / PT Sans Narrow
+(c) ParaType Ltd. ParaType Free Font License.
+
+埋め込みライセンス文（原文）:
+  ParaType Ltd grants you the right to use, copy, modify this font and
+  distribute modified and unmodified copies of the font by any means,
+  including placing on Web servers for free downloading, embedding in
+  documents and Web pages, bundling with commercial and non commercial
+  products.
+
+http://www.paratype.com/public/pt_openlicense_eng.asp
+このディレクトリの .woff は上記書体をラテン＋記号にサブセットしたもの。

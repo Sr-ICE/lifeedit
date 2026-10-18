@@ -1,0 +1,176 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>PAGES｜4.5room</title>
+<meta name="description" content="4.5roomのページの一覧です。">
+<meta property="og:title" content="PAGES｜4.5room">
+<meta property="og:description" content="4.5roomのページの一覧です。">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://4-5room.com/pages/">
+<meta property="og:site_name" content="4.5room">
+<meta name="theme-color" content="#f3f3f2">
+<link rel="icon" href="/assets/logo/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/assets/logo/apple-touch-icon.png">
+<style>
+  /* シネマ: 黒地・Didot の数字・ヒラギノ明朝の字幕・PT Mono の注記・焼き込みの橙。粒子を全体に重ねる。
+     1ページ＝1枚のタイトルカード（2.39:1）。名前は下の黒帯に字幕として。最後にエンドロールで全ページをもう一度 */
+  @font-face { font-family: "PT Mono"; src: url("fonts/PTMono-Regular.woff") format("woff"); font-display: swap; }
+  :root {
+    --bg: #f3f3f2; --card: #e6e6e4; --card-on: #dcdcd9; --ink: #161616; --dim: rgba(22,22,22,.66); --faint: rgba(22,22,22,.42); --burn: #e8611a;
+    --didot: "Didot", "Bodoni 72", "Times New Roman", serif;
+    --min: "Hiragino Mincho ProN", "YuMincho", "Yu Mincho", serif;
+    --mono: "PT Mono", ui-monospace, Menlo, monospace;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { background: var(--bg); }
+  body { background: var(--bg); color: var(--ink); font-family: var(--min); letter-spacing: .04em; -webkit-font-smoothing: antialiased;
+         font-feature-settings: "palt" 1; overflow-x: clip; }
+  a { color: inherit; text-decoration: none; }
+  a:focus { outline: none; }
+  a:focus-visible { outline: 1px solid var(--ink); outline-offset: 6px; }
+  .grain { position: fixed; inset: -60px; z-index: 9; pointer-events: none; opacity: .22; mix-blend-mode: multiply; background-size: 180px;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23g)'/%3E%3C/svg%3E");
+    animation: grain .9s steps(1) infinite; }
+  @keyframes grain { 0% { transform: translate(0,0) } 25% { transform: translate(-22px,14px) } 50% { transform: translate(18px,-26px) } 75% { transform: translate(-9px,31px) } }
+  @media (prefers-reduced-motion: reduce) { .grain { animation: none; } }
+
+  .head { display: flex; justify-content: space-between; align-items: center; padding: 22px 40px; font: 12px var(--mono); color: var(--dim); letter-spacing: .14em; }
+  .logo { display: block; color: var(--ink); }
+  .logo svg { display: block; width: 110px; height: auto; }
+
+  /* タイトルシークエンス */
+  .open { display: grid; justify-items: center; text-align: center; gap: 18px; padding: 56px 16px 0; }
+  .open .pre { font: 12px var(--mono); color: var(--dim); letter-spacing: .3em; }
+  .open h1 { font: 400 clamp(52px, 10vw, 120px)/.9 var(--didot); letter-spacing: .18em; padding-left: .18em; }
+  .open p { font-size: 15px; color: var(--dim); letter-spacing: .3em; }
+
+  /* 目次: 最初の画面で全ページが見えて、行ごと押せる。押せる印は右の矢印と、触れたときの明るさ */
+  .toc { list-style: none; width: min(100% - 80px, 860px); margin: 48px auto 120px; }
+  .toc a { display: grid; grid-template-columns: 56px 1fr auto; grid-template-areas: "n t a" "n d a"; column-gap: 18px; align-items: center;
+           padding: 18px 22px; margin-bottom: 10px; border-radius: 4px; background: var(--card); transition: background-color .25s; }
+  .toc a:hover { background: var(--card-on); }
+  .toc .n { grid-area: n; font: 400 30px var(--didot); }
+  .toc .t { grid-area: t; font-size: 18px; letter-spacing: .1em; }
+  .toc .d { grid-area: d; font-size: 13px; color: var(--dim); letter-spacing: .06em; margin-top: 2px; }
+  .toc .a { grid-area: a; font: 18px var(--mono); color: var(--burn); transition: transform .25s; }
+  .toc a:hover .a { transform: translateX(4px); }
+
+  /* 場面＝タイトルカード */
+  .scenes { display: grid; grid-template-columns: 1fr 1fr; gap: 72px 32px; width: min(100% - 80px, 1200px); margin: 0 auto 120px; }
+  .scene { display: block; scroll-margin-top: 24px; }
+  .slate { display: flex; justify-content: space-between; align-items: baseline; padding-bottom: 10px; font: 11px var(--mono); color: var(--dim); letter-spacing: .16em; }
+  .slate b { font: 400 22px var(--didot); color: var(--ink); }
+  .card { position: relative; aspect-ratio: 2.39 / 1; background: var(--card); display: grid; place-content: center; text-align: center; overflow: hidden;
+          padding: 30px 16px; transition: background-color .6s; }
+  .scene:hover .card { background: var(--card-on); }
+  .card .tl, .card .br, .card .over { position: absolute; font: 10px var(--mono); letter-spacing: .18em; }
+  .card .tl { left: 18px; top: 14px; right: 18px; text-align: left; color: var(--faint); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .card .br { right: 18px; bottom: 12px; color: var(--burn); opacity: .9; }
+  .card .over { left: 18px; bottom: 12px; color: var(--ink); }
+  .num { font: 400 clamp(36px, 4.6vw, 60px)/1 var(--didot); letter-spacing: .02em; white-space: nowrap; }
+  .num small { font-size: .32em; letter-spacing: .1em; margin-left: .2em; color: var(--dim); }
+  .num.dim { color: var(--faint); text-decoration: line-through; text-decoration-thickness: 1px; }
+  .cap { margin-top: 8px; font-size: 12px; color: var(--dim); letter-spacing: .12em; }
+  .pair { display: flex; gap: clamp(22px, 4vw, 56px); justify-content: center; align-items: flex-end; }
+  .cells { display: flex; gap: 7px; justify-content: center; }
+  .cells i { width: clamp(18px, 2vw, 26px); height: clamp(36px, 4vw, 50px); border: 1px solid var(--dim); }
+  .cells i.on { background: var(--ink); border-color: var(--ink); }
+  .ab { font: 400 clamp(44px, 5vw, 66px)/1 var(--didot); letter-spacing: .1em; }
+  .ab em { font-style: italic; font-size: .4em; color: var(--dim); margin: 0 .5em; }
+
+  /* 字幕（黒帯） */
+  .sub { text-align: center; padding: 18px 8px 0; }
+  .sub h2 { font-weight: 400; font-size: 20px; letter-spacing: .12em; }
+  .sub p { margin-top: 6px; font-size: 13px; color: var(--dim); letter-spacing: .12em; }
+  .sub .go { display: inline-flex; align-items: center; gap: 10px; margin-top: 16px; padding: 9px 20px; border-radius: 999px;
+              background: var(--ink); color: var(--bg); font-size: 13px; letter-spacing: .14em; transition: background-color .25s; }
+  .sub .go i { font-style: normal; font-family: var(--mono); transition: transform .25s; }
+  .scene:hover .go { background: var(--burn); }
+  .scene:hover .go i { transform: translateX(4px); }
+
+  /* エンドロール */
+  .credits { text-align: center; padding: 40px 20px 140px; }
+  .credits .t { font: 12px var(--mono); color: var(--dim); letter-spacing: .3em; margin-bottom: 44px; }
+  .credits dl { display: grid; grid-template-columns: 1fr 1fr; gap: 18px 28px; max-width: 560px; margin: 0 auto; }
+  .credits dt { text-align: right; font: 400 15px var(--didot); color: var(--dim); letter-spacing: .14em; text-transform: uppercase; }
+  .credits dd { text-align: left; font-size: 15px; letter-spacing: .1em; }
+  .credits dd a:hover { color: var(--burn); }
+  .credits .logo { display: inline-block; margin-top: 80px; }
+  .credits .logo svg { width: 170px; }
+  .credits .yt { display: block; margin-top: 24px; font: 11px var(--mono); color: var(--faint); letter-spacing: .3em; }
+  .credits .yt:hover { color: var(--ink); }
+
+  @media (max-width: 760px) {
+    .head { padding: 18px 16px; }
+    .open { padding-top: 36px; }
+    .toc { width: calc(100% - 32px); margin: 36px auto 90px; }
+    .toc a { grid-template-columns: 40px 1fr auto; column-gap: 12px; padding: 14px 16px; }
+    .toc .n { font-size: 24px; } .toc .t { font-size: 16px; } .toc .d { font-size: 12px; }
+    .scenes { grid-template-columns: 1fr; width: calc(100% - 32px); gap: 64px; margin-bottom: 90px; }
+    .card { aspect-ratio: 16 / 9; }
+    .num { font-size: clamp(34px, 10vw, 48px); }
+    .credits dl { gap: 14px 16px; }
+  }
+</style>
+</head>
+<body>
+<div class="grain" aria-hidden="true"></div>
+<div class="head"><a class="logo" href="https://www.youtube.com/channel/UCdxzGFZI8g1MT3vUCprx_vw" rel="noopener" aria-label="4.5room（YouTube）"><svg viewBox="17 -705 2898 719" xmlns="http://www.w3.org/2000/svg"><path fill="currentColor" d="M465.0 -195.0H377.0V0.0H264.0V-195.0H17.0V-269.0L273.0 -705.0H377.0V-297.0H465.0ZM264.0 -452.0 275.0 -542.0H271.0L241.0 -461.0L162.0 -327.0L122.0 -289.0L173.0 -297.0H264.0Z M523.0 -65.0Q523.0 -102.0 542.5 -121.0Q562.0 -140.0 594.0 -140.0Q629.0 -140.0 648.0 -121.0Q667.0 -102.0 667.0 -65.0Q667.0 -29.0 647.5 -9.0Q628.0 11.0 594.0 11.0Q561.0 11.0 542.0 -9.0Q523.0 -29.0 523.0 -65.0Z M851.0 -95.0Q905.0 -95.0 933.0 -130.0Q961.0 -165.0 961.0 -220.0Q961.0 -283.0 928.0 -311.0Q895.0 -339.0 833.0 -339.0L768.0 -335.0V-700.0H1059.0V-584.0H870.0V-441.0L903.0 -445.0Q984.0 -442.0 1032.0 -385.0Q1080.0 -328.0 1080.0 -225.0Q1080.0 -166.0 1063.0 -121.0Q1046.0 -76.0 1016.5 -46.0Q987.0 -16.0 946.0 -1.0Q905.0 14.0 857.0 14.0Q821.0 14.0 784.5 6.5Q748.0 -1.0 725.0 -13.0L756.0 -114.0Q793.0 -95.0 851.0 -95.0Z M1387.0 -382.0Q1363.0 -391.0 1343.0 -391.0Q1316.0 -391.0 1296.5 -376.0Q1277.0 -361.0 1270.0 -334.0V0.0H1151.0V-500.0H1242.0L1256.0 -440.0H1260.0Q1273.0 -473.0 1297.5 -491.5Q1322.0 -510.0 1354.0 -510.0Q1378.0 -510.0 1401.0 -500.0Z M1426.0 -250.0Q1426.0 -383.0 1478.0 -448.0Q1530.0 -513.0 1623.0 -513.0Q1723.0 -513.0 1772.0 -447.0Q1821.0 -381.0 1821.0 -250.0Q1821.0 -116.0 1769.0 -51.5Q1717.0 13.0 1623.0 13.0Q1426.0 13.0 1426.0 -250.0ZM1549.0 -250.0Q1549.0 -175.0 1566.0 -134.0Q1583.0 -93.0 1623.0 -93.0Q1661.0 -93.0 1679.5 -128.5Q1698.0 -164.0 1698.0 -250.0Q1698.0 -327.0 1681.0 -367.0Q1664.0 -407.0 1623.0 -407.0Q1588.0 -407.0 1568.5 -371.5Q1549.0 -336.0 1549.0 -250.0Z M1871.0 -250.0Q1871.0 -383.0 1923.0 -448.0Q1975.0 -513.0 2068.0 -513.0Q2168.0 -513.0 2217.0 -447.0Q2266.0 -381.0 2266.0 -250.0Q2266.0 -116.0 2214.0 -51.5Q2162.0 13.0 2068.0 13.0Q1871.0 13.0 1871.0 -250.0ZM1994.0 -250.0Q1994.0 -175.0 2011.0 -134.0Q2028.0 -93.0 2068.0 -93.0Q2106.0 -93.0 2124.5 -128.5Q2143.0 -164.0 2143.0 -250.0Q2143.0 -327.0 2126.0 -367.0Q2109.0 -407.0 2068.0 -407.0Q2033.0 -407.0 2013.5 -371.5Q1994.0 -336.0 1994.0 -250.0Z M2565.0 0.0V-291.0Q2565.0 -354.0 2555.0 -378.5Q2545.0 -403.0 2516.0 -403.0Q2492.0 -403.0 2476.5 -387.5Q2461.0 -372.0 2453.0 -350.0V0.0H2334.0V-500.0H2426.0L2441.0 -440.0H2444.0Q2463.0 -471.0 2491.5 -491.5Q2520.0 -512.0 2567.0 -512.0Q2606.0 -512.0 2630.5 -495.0Q2655.0 -478.0 2669.0 -435.0Q2688.0 -471.0 2719.0 -491.5Q2750.0 -512.0 2792.0 -512.0Q2825.0 -512.0 2848.5 -503.5Q2872.0 -495.0 2886.5 -474.0Q2901.0 -453.0 2908.0 -416.5Q2915.0 -380.0 2915.0 -324.0V0.0H2796.0V-304.0Q2796.0 -355.0 2787.0 -379.0Q2778.0 -403.0 2747.0 -403.0Q2722.0 -403.0 2706.5 -388.5Q2691.0 -374.0 2684.0 -349.0V0.0Z"/></svg></a><span>PAGES · 2026</span></div>
+
+<section class="open">
+  <span class="pre">4.5ROOM PRESENTS</span>
+  <h1>PAGES</h1>
+  <p>4.5room のページ</p>
+</section>
+<ol class="toc">
+    <li><a href="/charge/"><span class="n">01</span><span class="t">充電まわり</span><span class="d">充電器・バッテリーを、容量と重さで比べる</span><span class="a">→</span></a></li>
+    <li><a href="/sale/"><span class="n">02</span><span class="t">いま安くなっているもの</span><span class="d">動画で紹介した物のうち、セールで下がっているもの</span><span class="a">→</span></a></li>
+    <li><a href="/earphones/"><span class="n">03</span><span class="t">イヤホンの物差し</span><span class="d">いま買うならどれか、私の基準の値段と比べる</span><span class="a">→</span></a></li>
+    <li><a href="/values/"><span class="n">04</span><span class="t">価値観診断</span><span class="d">20問の二択で、何を大事に選んでいるかがわかる</span><span class="a">→</span></a></li>
+</ol>
+
+<main class="scenes">
+<a class="scene" id="s01" href="/charge/">
+  <div class="slate"><b>01</b><span>CHARGING</span></div>
+  <div class="card"><span class="tl">146 ITEMS</span><div class="cells"><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i></i></div><p class="cap">充電器・モバイルバッテリー・ワイヤレス・ケーブル・据え置き</p><span class="over" hidden>THE END</span><span class="br">'26 10 18</span></div>
+  <div class="sub"><h2>充電まわり</h2><p>充電器・バッテリーを、容量と重さで比べる</p><span class="go">ページを開く<i>→</i></span></div>
+</a>
+<a class="scene" id="s02" href="/sale/" data-end="2026-10-19T23:59:59+09:00">
+  <div class="slate"><b>02</b><span>ON SALE</span></div>
+  <div class="card"><span class="tl">PRIME BIG DEAL DAYS</span><div class="pair"><div><div class="num">87<small>点</small></div><p class="cap">値下がり中（104点中）</p></div><div><div class="num">54<small>%off</small></div><p class="cap">いちばん下がったもの</p></div></div><span class="over" hidden>THE END</span><span class="br">'26 10 18</span></div>
+  <div class="sub"><h2>いま安くなっているもの</h2><p>動画で紹介した物のうち、セールで下がっているもの</p><span class="go">ページを開く<i>→</i></span></div>
+</a>
+<a class="scene" id="s03" href="/earphones/">
+  <div class="slate"><b>03</b><span>EARPHONES</span></div>
+  <div class="card"><span class="tl">いま買うならこれ — EARFUN OPENJUMP</span><div class="pair"><div><div class="num">¥6,636</div><p class="cap">いまの値段</p></div><div><div class="num dim">¥12,200</div><p class="cap">私の基準なら</p></div></div><span class="over" hidden>THE END</span><span class="br">'26 10 18</span></div>
+  <div class="sub"><h2>イヤホンの物差し</h2><p>いま買うならどれか、私の基準の値段と比べる</p><span class="go">ページを開く<i>→</i></span></div>
+</a>
+<a class="scene" id="s04" href="/values/">
+  <div class="slate"><b>04</b><span>VALUES</span></div>
+  <div class="card"><span class="tl">20 QUESTIONS</span><div class="ab">A<em>or</em>B</div><p class="cap">あなたは何を大事にして、選んでいますか</p><span class="over" hidden>THE END</span><span class="br">'26 10 03</span></div>
+  <div class="sub"><h2>価値観診断</h2><p>20問の二択で、何を大事に選んでいるかがわかる</p><span class="go">ページを開く<i>→</i></span></div>
+</a>
+</main>
+
+<section class="credits">
+  <div class="t">— CREDITS —</div>
+  <dl>
+    <dt>Charging</dt><dd><a href="/charge/">充電まわり</a></dd>
+    <dt>On Sale</dt><dd><a href="/sale/">いま安くなっているもの</a></dd>
+    <dt>Earphones</dt><dd><a href="/earphones/">イヤホンの物差し</a></dd>
+    <dt>Values</dt><dd><a href="/values/">価値観診断</a></dd>
+  </dl>
+  <a class="logo" href="https://www.youtube.com/channel/UCdxzGFZI8g1MT3vUCprx_vw" rel="noopener" aria-label="4.5room（YouTube）"><svg viewBox="17 -705 2898 719" xmlns="http://www.w3.org/2000/svg"><path fill="currentColor" d="M465.0 -195.0H377.0V0.0H264.0V-195.0H17.0V-269.0L273.0 -705.0H377.0V-297.0H465.0ZM264.0 -452.0 275.0 -542.0H271.0L241.0 -461.0L162.0 -327.0L122.0 -289.0L173.0 -297.0H264.0Z M523.0 -65.0Q523.0 -102.0 542.5 -121.0Q562.0 -140.0 594.0 -140.0Q629.0 -140.0 648.0 -121.0Q667.0 -102.0 667.0 -65.0Q667.0 -29.0 647.5 -9.0Q628.0 11.0 594.0 11.0Q561.0 11.0 542.0 -9.0Q523.0 -29.0 523.0 -65.0Z M851.0 -95.0Q905.0 -95.0 933.0 -130.0Q961.0 -165.0 961.0 -220.0Q961.0 -283.0 928.0 -311.0Q895.0 -339.0 833.0 -339.0L768.0 -335.0V-700.0H1059.0V-584.0H870.0V-441.0L903.0 -445.0Q984.0 -442.0 1032.0 -385.0Q1080.0 -328.0 1080.0 -225.0Q1080.0 -166.0 1063.0 -121.0Q1046.0 -76.0 1016.5 -46.0Q987.0 -16.0 946.0 -1.0Q905.0 14.0 857.0 14.0Q821.0 14.0 784.5 6.5Q748.0 -1.0 725.0 -13.0L756.0 -114.0Q793.0 -95.0 851.0 -95.0Z M1387.0 -382.0Q1363.0 -391.0 1343.0 -391.0Q1316.0 -391.0 1296.5 -376.0Q1277.0 -361.0 1270.0 -334.0V0.0H1151.0V-500.0H1242.0L1256.0 -440.0H1260.0Q1273.0 -473.0 1297.5 -491.5Q1322.0 -510.0 1354.0 -510.0Q1378.0 -510.0 1401.0 -500.0Z M1426.0 -250.0Q1426.0 -383.0 1478.0 -448.0Q1530.0 -513.0 1623.0 -513.0Q1723.0 -513.0 1772.0 -447.0Q1821.0 -381.0 1821.0 -250.0Q1821.0 -116.0 1769.0 -51.5Q1717.0 13.0 1623.0 13.0Q1426.0 13.0 1426.0 -250.0ZM1549.0 -250.0Q1549.0 -175.0 1566.0 -134.0Q1583.0 -93.0 1623.0 -93.0Q1661.0 -93.0 1679.5 -128.5Q1698.0 -164.0 1698.0 -250.0Q1698.0 -327.0 1681.0 -367.0Q1664.0 -407.0 1623.0 -407.0Q1588.0 -407.0 1568.5 -371.5Q1549.0 -336.0 1549.0 -250.0Z M1871.0 -250.0Q1871.0 -383.0 1923.0 -448.0Q1975.0 -513.0 2068.0 -513.0Q2168.0 -513.0 2217.0 -447.0Q2266.0 -381.0 2266.0 -250.0Q2266.0 -116.0 2214.0 -51.5Q2162.0 13.0 2068.0 13.0Q1871.0 13.0 1871.0 -250.0ZM1994.0 -250.0Q1994.0 -175.0 2011.0 -134.0Q2028.0 -93.0 2068.0 -93.0Q2106.0 -93.0 2124.5 -128.5Q2143.0 -164.0 2143.0 -250.0Q2143.0 -327.0 2126.0 -367.0Q2109.0 -407.0 2068.0 -407.0Q2033.0 -407.0 2013.5 -371.5Q1994.0 -336.0 1994.0 -250.0Z M2565.0 0.0V-291.0Q2565.0 -354.0 2555.0 -378.5Q2545.0 -403.0 2516.0 -403.0Q2492.0 -403.0 2476.5 -387.5Q2461.0 -372.0 2453.0 -350.0V0.0H2334.0V-500.0H2426.0L2441.0 -440.0H2444.0Q2463.0 -471.0 2491.5 -491.5Q2520.0 -512.0 2567.0 -512.0Q2606.0 -512.0 2630.5 -495.0Q2655.0 -478.0 2669.0 -435.0Q2688.0 -471.0 2719.0 -491.5Q2750.0 -512.0 2792.0 -512.0Q2825.0 -512.0 2848.5 -503.5Q2872.0 -495.0 2886.5 -474.0Q2901.0 -453.0 2908.0 -416.5Q2915.0 -380.0 2915.0 -324.0V0.0H2796.0V-304.0Q2796.0 -355.0 2787.0 -379.0Q2778.0 -403.0 2747.0 -403.0Q2722.0 -403.0 2706.5 -388.5Q2691.0 -374.0 2684.0 -349.0V0.0Z"/></svg></a>
+  <a class="yt" href="https://www.youtube.com/channel/UCdxzGFZI8g1MT3vUCprx_vw" rel="noopener">WATCH ON YOUTUBE →</a>
+</section>
+<script>
+  // 期間もの: end を過ぎたら左下に THE END
+  document.querySelectorAll('.scene[data-end]').forEach(a => {
+    if (Date.now() > Date.parse(a.dataset.end)) a.querySelector('.over').hidden = false;
+  });
+</script>
+<!-- Cloudflare Web Analytics --><script type='module' src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "7a4c5e81afac4973bddb491d566d9843"}'></script><!-- End Cloudflare Web Analytics -->
+</body>
+</html>
